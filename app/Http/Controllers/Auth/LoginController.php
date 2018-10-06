@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Auth;
-use Socialite;
+use Laravel\Socialite\Facades\Socialite;
 use App\User;
+use Illuminate\Support\Facades\Auth;
 class LoginController extends Controller
 {
     /*
@@ -22,10 +22,18 @@ class LoginController extends Controller
 
     use AuthenticatesUsers;
 
-
+    /**
+     * Where to redirect users after login.
+     *
+     * @var string
+     */
     protected $redirectTo = '/home';
 
-
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
@@ -36,7 +44,6 @@ class LoginController extends Controller
         return Socialite::driver($provider)->redirect();
     }
 
-
     public function handleProviderCallback($provider)
     {
         $user = Socialite::driver($provider)->user();
@@ -46,7 +53,13 @@ class LoginController extends Controller
         return redirect($this->redirectTo);
     }
 
-
+    /**
+     * If a user has registered before using social auth, return the user
+     * else, create a new user object.
+     * @param  $user Socialite user object
+     * @param $provider Social auth provider
+     * @return  User
+     */
     public function findOrCreateUser($user, $provider)
     {
         $authUser = User::where('provider_id', $user->id)->first();

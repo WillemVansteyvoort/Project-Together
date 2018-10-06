@@ -1,0 +1,24 @@
+@import 'variables';
+@import 'basic';
+@import 'components/header';
+@import 'components/navDropdowns';
+@import 'components/sidebar';
+@import 'animations';
+@import 'tags';
+@import 'buttons';
+@import 'components/dashboard';
+
+
+
+/**** LINES ***/
+.line {
+  &-small {
+    border-top: 1px solid #f0f0f0;
+    margin: 0 -14px;
+  }
+}
+/**** MOBILE THINGS ****/
+.show-mobile {
+  display: none;
+}
+
