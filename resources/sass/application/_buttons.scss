@@ -1,0 +1,51 @@
+/**** BUTTONS ***/
+input[type="submit"] {
+  background-color: $color-primary;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+  padding: 9px;
+  color: white;
+  border: 1px solid $color-primary;
+}
+.button {
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+  padding: 9px;
+  color: white;
+
+  &-primary {
+    background-color: $color-primary;
+  }
+
+  &-second {
+    background-color: $color-second;
+    margin-right: 10px;
+  }
+
+  &-third {
+    background-color: $color-third;
+    margin-right: 10px;
+  }
+  &-large {
+    width: 20%;
+  }
+
+  &-small {
+  }
+
+  &-medium {
+    width: 150px;
+  }
+
+  &:hover {
+    opacity: 0.8;
+
+  }
+  a {
+    color: white;
+    text-decoration: none;
+  }
+
+}

@@ -1,0 +1,198 @@
+@media screen and (max-width: 760px) {
+  /**** HEADER ***/
+
+  .header-text {
+    top: 20%;
+    left: 2%;
+    right: 2%;
+    -webkit-transform: translate(-50% -50%);
+            transform: translate(-50% -50%);
+  }
+
+  .header-title {
+    font-size: 40px;
+  }
+
+  .header-beginText {
+    padding: 0 5px;
+  }
+
+  /**** SECTION PRODUCTS ****/
+
+  .products {
+    padding: 100px 20px;
+  }
+
+  /**** SECTION PRICE ***/
+
+  .price {
+    padding: 100px 0;
+  }
+
+  .price-table {
+    width: 80%;
+  }
+
+  /**** SECTION ADD-ONS ****/
+
+  .add-ons {
+    padding: 200px 20px;
+    margin-top: -120px;
+  }
+
+  .add-ons--active {
+    width: 100%;
+    margin: 60px 0;
+  }
+
+  /**** SECTION QUOTES ****/
+
+  /**** SECTION QUOTES ****/
+
+  .quotes {
+    padding: 100px 0px;
+  }
+
+  .quote {
+    display: none;
+    background-color: white;
+    font-family: 'Open Sans', sans-serif;
+    font-style: italic;
+    font-size: 16px;
+    width: 100%;
+  }
+
+  .quote-character {
+    font-size: 10px;
+    float: left;
+    margin-left: 0;
+  }
+
+  .quote-author {
+    font-weight: 800;
+    clear: both;
+    display: block;
+    margin-top: 15px;
+  }
+
+  /**** SECTION LOGIN AND REGISTER ****/
+
+  .register-left,
+  .login-left {
+    display: none;
+  }
+
+  .register-right,
+  .login-right {
+    width: 100%;
+    clear: both;
+  }
+
+  .register-right form,
+  .login-right form {
+    margin: 0;
+    margin-top: 60px !important;
+  }
+
+  .registert--alreadyAccount,
+  .logint--alreadyAccount {
+    margin-bottom: 50px;
+  }
+
+  .register-step,
+  .login-step {
+    display: block;
+    width: 40px;
+    padding: 5px;
+  }
+
+  .register-socialmedia,
+  .login-socialmedia {
+    padding: 20px 0;
+    font-size: 20px;
+    font-family: 'Muli', sans-serif;
+    position: static;
+    top: 0;
+    left: 0;
+    margin-right: 0;
+    -webkit-transform: translate(0, 0);
+            transform: translate(0, 0);
+    margin: 0 5%;
+  }
+
+  .register-socialmedia button,
+  .login-socialmedia button {
+    width: 100%;
+  }
+
+  .register-socialmedia--google,
+  .login-socialmedia--google {
+    background-color: #4285F4;
+    border: 1px solid #4285F4;
+    color: white;
+  }
+
+  .center-vertical {
+    position: static;
+    width: 100%;
+    -webkit-transform: translate(0, 0);
+            transform: translate(0, 0);
+  }
+
+  /**** SECTION FOOTER ****/
+
+  .footer {
+    padding: 100px 20px 50px 20px;
+    text-align: center;
+    font-family: 'Open Sans', sans-serif;
+  }
+
+  /**** PAGE ABOUT ****/
+
+  .about,
+  .values,
+  .founder {
+    padding: 100px 20px;
+  }
+
+  /**** MOBILE THINGS ****/
+
+  .hidden-mobile {
+    display: none;
+  }
+
+  .show-mobile {
+    display: block;
+    color: white;
+  }
+
+  /**** SUPPORT PAGE ****/
+
+  .support-items,
+  .form {
+    padding: 100px 20px;
+  }
+
+  .form-title {
+    font-size: 40px;
+  }
+
+  /**** BLOG PAGE ***/
+
+  .blog-header {
+    height: 280px;
+  }
+
+  .blog-header--title {
+    font-size: 45px;
+    top: 38%;
+    bottom: 25%;
+    left: 15%;
+    right: 25%;
+  }
+
+  .blog {
+    padding: 200px 20px;
+  }
+}
+

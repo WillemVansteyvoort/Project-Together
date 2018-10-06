@@ -1,0 +1,61 @@
+@import 'variables';
+/**** GENERAL ****/
+body {
+  font-family: $font_standard;
+  margin: 0;
+}
+.clear {
+  clear: both;
+}
+main {
+  clear: both;
+}
+h3 {
+  font-family: 'Open Sans', sans-serif;
+  text-align: center;
+  font-size: 26px;
+  text-transform: uppercase;
+  font-weight: 400;
+}
+h2 {
+  margin: 0 !important;
+}
+h5 {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 20px;
+  text-transform: uppercase;
+  font-weight: 400;
+}
+.dark{
+  background-color: #F1F2F4;
+}
+a {
+  color: $color-primary;
+  text-decoration: none;
+  font-family: $font_standard;
+}
+a:hover {
+  color: gray;
+}
+#line-through {
+  text-decoration: line-through;
+}
+#bold {
+  font-weight: 800;
+}
+#white {
+  color: white;
+  text-decoration: none;
+}
+.float-left {
+  float: left;
+}
+.float-right {
+  float: right;
+}
+.no-margin {
+  margin: 0;
+}
+#italic {
+  font-style: italic;
+}
