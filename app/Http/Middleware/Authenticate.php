@@ -14,6 +14,7 @@ class Authenticate extends Middleware
      */
     protected function redirectTo($request)
     {
-        return route('login');
+        $company = $request->route('company');
+        return route('front_login');
     }
 }

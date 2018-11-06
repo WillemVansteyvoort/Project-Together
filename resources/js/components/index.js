@@ -1,12 +1,8 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
-import TabsDashboard from  './tabsDashboard';
-import  TotalProjects from './totalProjects'
+import SignUpStep1 from './signup/step1'
 
 
 if (document.getElementById('root')) {
-    ReactDOM.render(<App />, document.getElementById('root'));
+    ReactDOM.render(<SignUpStep1 />, document.getElementById('root'));
 }
-
-

@@ -1,0 +1,13 @@
+.mail {
+  background-color: #F2F2F2;
+  &-content {
+    background-color: white;
+    padding: 40px 30px;
+    margin: 10% 20%;
+  }
+
+  &-title {
+    font-size: 30px;
+    text-align: center;
+  }
+}

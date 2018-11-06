@@ -1,0 +1,44 @@
+.welcome {
+  background-color: #F1F2F4;
+  padding: 50px 60px;
+
+  h2, h4 {
+    font-family: "Raleway", sans-serif;
+  }
+
+  p {
+    margin-top: 10px;
+    font-family: $font_standard;
+  }
+
+  input {
+    width: 40%;
+  }
+
+  iframe {
+    margin: 0 4%;
+  }
+
+main{
+  margin-top: -5px;
+}
+
+  &-support {
+    margin: 4%;
+    i {
+      font-size: 100px;
+      text-align: center !important;
+    }
+    h6 {
+      text-align: center;
+    }
+    &-items {
+      margin: 0 auto;
+      text-align: center;
+    }
+  }
+}
+.support-items {
+  text-align: center;
+  font-family: 'Open Sans', sans-serif;
+}

@@ -6,6 +6,17 @@
     padding-left: 18px;
   }
   &-primary {
+    .icon {
+      font-size: 26px;
+    }
+    ul {
+      display: inline-block;
+    }
+    .down {
+      font-size: 18px;
+      margin-left: -10px;
+      padding-top: 10px;
+    }
     a:hover {
       color: #D3D3D3;
       transition: all .2s;
@@ -44,7 +55,7 @@
           opacity: 0.8;
         }
         i {
-          font-size: 20px;
+          font-size: 20px !important;
         }
         a {
           color: white;

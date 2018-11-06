@@ -20,6 +20,14 @@ function showNotifications(event) {
     if(event == "profile") {
         document.getElementById("profile").classList.toggle("show");
     }
+
+    if(event == "people") {
+        document.getElementById("people").classList.toggle("show");
+    }
+
+    if(event == "mode") {
+        document.getElementById("mode").classList.toggle("show");
+    }
 }
 
 

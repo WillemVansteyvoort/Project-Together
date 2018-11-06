@@ -32,15 +32,18 @@
             <p>Not yet an account? <a class="button button-primary" href="{{route('front_signup')}}">Sign Up</a></p>
         </div>
         <div class="center-vertical">
-            <form id="regForm" action="" class="login-right--formlogin">
-                <h4 class="login-right--title">Login to Work-Together</h4>
-                <label>Email or username</label>
-                <input class="u-full-width" type="email" placeholder="yourname@provider.com">
-                <label>Password</label>
-                <input class="u-full-width" type="password" placeholder="********">
-                <p><a href="">Forgot your password or email?</a></p>
-                <input type="submit" value="Login" class="float-right">
-            </form>
+            {!! Form::open(['action' => 'Auth\LoginController@store', 'class' => 'login-right--formlogin']) !!}
+             <h4 class="login-right--title">Login to Work-Together</h4>
+            <div id="red">{{session('fault')}}</div>
+            {!! Form::label('email', 'E-Mail Address'); !!}
+            {!! Form::text('email', null,['placeholder' => 'example@Project-Together.com']); !!}
+            {!! Form::label('password', 'Password'); !!}
+            {!! Form::password('password', ['placeholder' => '***********']); !!}
+
+            <label>{!!Form::checkbox('remember', '1'); !!} Remember me</label>
+            <p><a href="">Forgot your password or email?</a></p>
+            {!!  Form::submit('Login', ['class' => 'float-right']); !!}
+            {!! Form::close() !!}
         </div>
         <div class="show-mobile">
             <div class="login-socialmedia">

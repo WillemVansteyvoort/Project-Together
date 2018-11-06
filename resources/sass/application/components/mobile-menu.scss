@@ -1,0 +1,44 @@
+input[type=checkbox]{
+  display: none;
+}
+input[type=checkbox]:checked + #nav-mobile--menu{
+  display: block;
+}
+.show-menu {
+  display: none;
+  color: white;
+  padding-right: 0.2rem;
+
+
+  i {
+    font-size: 30px;
+    padding-left: 10px;
+  }
+
+  .button {
+    font-size: 20px !important;
+    margin-top: 20px !important;
+  }
+
+}
+#nav-mobile--menu {
+  padding-top: 4rem;
+  display: none;
+  color: white;
+  width: 20rem;
+  z-index: 10;
+  background-color: #2D3E50;
+
+  h5 {
+    text-transform: capitalize;
+  }
+}
+.navigation-mobile li {
+  list-style-type: none;
+  padding-top: -5px;
+  display: block;
+  padding-left: 10px;
+    a {
+      color: white;
+    }
+}

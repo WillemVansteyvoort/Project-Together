@@ -3,7 +3,7 @@ import { render } from 'react-dom';
 import PieChart from 'react-minimal-pie-chart';
 import { Progress } from 'react-sweet-progress';
 import "react-sweet-progress/lib/style.css";
-class TotalProjects extends Component {
+export default class TotalProjects extends Component {
     render() {
         return (
             <div className="row">
@@ -31,4 +31,3 @@ class TotalProjects extends Component {
         );
     }
 }
-render(<TotalProjects/>, document.getElementById('total-projects'));

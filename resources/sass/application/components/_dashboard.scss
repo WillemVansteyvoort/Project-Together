@@ -116,13 +116,16 @@
     }
   }
 
-  &-sessions {
+  &-message {
     margin: 70px  40px 20px 40px;
 
     h5 {
       text-transform: uppercase;
     }
-
+    p {
+      padding-top: 12px;
+      font-family: $font_raleway;
+    }
     td {
       border-bottom: 1px solid #f0f0f0;
     }
@@ -138,8 +141,120 @@
     }
   }
 
-}
+  &-notifications {
+    padding: 20px 40px;
+    &--day {
+      background-color: $color-primary;
+      color: white;
+      padding: 8px 15px;
+      border-radius: 20px;
+      text-transform: uppercase;
+    }
 
+    &--line {
+      border-top: 1px solid #f0f0f0;
+      margin-top: -30px;
+    }
+    &-items {
+      margin-top: 30px;
+      background-color: white;
+      border: 1px solid white;
+      box-shadow: 1px 1px 2px white inset;
+      padding-bottom: 10px;
+      margin-bottom: 30px;
+    }
+
+    &-item {
+
+
+      &--time {
+        width: 100px;
+        padding-left: 60px;
+      }
+
+      &--item {
+        width: 50px;
+      }
+
+      &--image {
+      }
+      &--content {
+        padding-bottom: 20px;
+      }
+
+      ul {
+        margin-top: 15px;
+        padding-bottom: 10px;
+
+      }
+      li {
+        display: inline;
+        padding-right: 30px;
+        float: left;
+      }
+       i {
+         padding-top: -5px;
+         font-size: 38px;
+         color: #2D3E50;
+         width: 50px;
+       }
+
+      img {
+        border-radius: 50%;
+        width: 43px;
+        float: left;
+      }
+      p {
+       padding-top: 5px;
+        float: right;
+      }
+    }
+  }
+
+  &-activities {
+    padding: 20px 70px;
+    height: 100px;
+
+    h4 {
+      font-family: $font_raleway;
+      text-transform: uppercase;
+      margin-left: -40px;
+    }
+
+    &-line {
+      padding-top: 20px;
+      height: 500px;
+      border-left: 4px solid #2D3E50;
+
+    }
+    &-item {
+      position: relative;
+      margin-bottom: 20px;
+      &--time {
+        background-color: $color-primary;
+        position: absolute;
+        left: -37px;
+        top: 9px;
+        color: white;
+        padding: 8px;
+        font-size: 15px;
+        text-align: center;
+        width: 55px;
+        font-family: $font_raleway;
+      }
+      &--content {
+        background-color: white;
+        border: 1px solid white;
+        box-shadow: 1px 1px 2px white inset;
+        margin-left: 60px;
+        height: 25px;
+        display: inline-block;
+        padding: 14px;
+
+      }
+    }
+  }
+}
 .rwt__tab[aria-selected="false"]:hover,
 .rwt__tab:focus {
   outline: 0;

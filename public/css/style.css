@@ -1,4 +1,23 @@
+.mail {
+  background-color: #F2F2F2;
+}
+
+.mail-content {
+  background-color: white;
+  padding: 40px 30px;
+  margin: 10% 20%;
+}
+
+.mail-title {
+  font-size: 30px;
+  text-align: center;
+}
+
 /**** GENERAL ****/
+
+.border-red {
+  border: 1px solid red !important;
+}
 
 h3 {
   font-family: 'Open Sans', sans-serif;
@@ -42,6 +61,23 @@ a:hover {
 
 #white {
   color: white;
+  text-decoration: none;
+}
+
+.hidden {
+  display: none;
+}
+
+.passwordChecker {
+  display: none;
+}
+
+.view {
+  display: block !important;
+}
+
+#red {
+  color: red;
   text-decoration: none;
 }
 
@@ -616,7 +652,29 @@ a:hover {
   color: black;
 }
 
+.fixed-progress-bar {
+  width: 100%;
+}
+
 /**** SECTION login ****/
+
+.register button {
+  background: none !important;
+  color: inherit;
+  padding: 0 !important;
+  font: inherit;
+  /*border is optional*/
+  cursor: pointer;
+}
+
+.register-button {
+  background: #5680e9 !important;
+  border: none;
+  margin-left: 10px;
+  font-size: 16px !important;
+  /*optional*/
+  color: white;
+}
 
 .register-step,
 .login-step {

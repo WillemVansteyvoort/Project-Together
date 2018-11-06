@@ -4,7 +4,7 @@
  * includes React and other helpers. It's a great starting point while
  * building robust, powerful web applications using React + Laravel.
  */
-
+require('./bootstrap');
 
 /**
  * Next, we will create a fresh React component instance and attach it to
@@ -12,4 +12,11 @@
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-require('./components/index');
+require('./components/tabsDashboard');
+require('./components/tabsAccount');
+require('./components/signup');
+require('./components/updateActivity');
+require('./components/menu/online');
+require('./components/menu/notification');
+require('./components/company/company');
+require('./components/company/stats');

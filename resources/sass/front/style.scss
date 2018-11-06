@@ -1,8 +1,11 @@
 // Variables
 @import 'variables';
-
+@import 'mail';
 
 /**** GENERAL ****/
+.border-red {
+  border: 1px solid red !important;
+}
 h3 {
   font-family: 'Open Sans', sans-serif;
   text-align: center;
@@ -37,6 +40,19 @@ a:hover {
 }
 #white {
   color: white;
+  text-decoration: none;
+}
+.hidden {
+  display: none;
+}
+.passwordChecker {
+  display: none;
+}
+.view {
+  display: block !important;
+}
+#red {
+  color: red;
   text-decoration: none;
 }
 .float-left {
@@ -108,7 +124,6 @@ a:hover {
     }
 
   }
-
   &-text {
 
     font-family: 'Open Sans', sans-serif;
@@ -562,10 +577,30 @@ a:hover {
     }
   }
 }
-
+.fixed-progress-bar {
+  width: 100%;
+}
 /**** SECTION login ****/
 .tag {
 
+}
+.register {
+  button {
+    background:none!important;
+    color:inherit;
+    padding:0!important;
+    font: inherit;
+    /*border is optional*/
+    cursor: pointer;
+  }
+}
+.register-button {
+  background:#5680e9!important;
+  border:none;
+  margin-left: 10px;
+  font-size: 16px !important;
+  /*optional*/
+  color: white;
 }
 .register,.login {
   &-step {

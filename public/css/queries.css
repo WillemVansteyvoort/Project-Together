@@ -162,7 +162,7 @@
   }
 
   .show-mobile {
-    display: block;
+    display: block !important;
     color: white;
   }
 
@@ -193,6 +193,62 @@
 
   .blog {
     padding: 200px 20px;
+  }
+
+  /**** MOBILE MENU ****/
+
+  .mobile-menu {
+    display: block;
+  }
+
+  #nav-mobile--menu {
+    text-align: left;
+    padding-left: 1.4rem;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    z-index: 999;
+  }
+
+  .show-menu {
+    display: block;
+  }
+
+  /**** SIDEBAR ****/
+
+  .sidebar {
+    min-height: auto;
+  }
+
+  /**** HEADER ****/
+
+  .header-primary {
+    height: 22px;
+  }
+
+  .header-primary-menuLeft {
+    display: none;
+  }
+
+  .header-primary-menuRight {
+    margin-top: 50px;
+  }
+
+  .header-banner--text {
+    display: none;
+  }
+
+  /**** DASHBOARD PAGE ****/
+
+  .dashboard {
+    margin-left: 0%;
+  }
+
+  .dashboard-notifications-item--content {
+    display: block;
+    padding-top: 15%;
+    width: 100%;
   }
 }
 
