@@ -27,6 +27,14 @@ h3 {
   font-weight: 400;
 }
 
+.uppercase {
+  text-transform: uppercase !important;
+}
+
+#green {
+  color: #32CD32;
+}
+
 h5 {
   font-family: 'Open Sans', sans-serif;
   font-size: 20px;
@@ -712,6 +720,11 @@ a:hover {
           transform: translate(-50%, -50%);
 }
 
+.register-socialmedia-facebook-big i,
+.login-socialmedia-facebook-big i {
+  font-size: 60px !important;
+}
+
 .register-socialmedia button,
 .login-socialmedia button {
   display: block;
@@ -842,6 +855,16 @@ a:hover {
   margin-left: 10px;
 }
 
+/**** VERIFY USER ***/
+
+.verify {
+  margin-top: -20%;
+}
+
+.verify h4 {
+  font-family: 'Muli', sans-serif;
+}
+
 /**** BUTTONS ***/
 
 input[type="submit"] {
@@ -888,6 +911,145 @@ input[type="submit"] {
   text-decoration: none;
 }
 
+.welcome h2,
+.welcome h4 {
+  font-family: "Raleway", sans-serif;
+}
+
+.welcome p {
+  margin-top: 10px;
+  font-family: "Open Sans", sans-serif;
+}
+
+.welcome input {
+  width: 40%;
+}
+
+.welcome iframe {
+  margin: 0 4%;
+}
+
+.welcome main {
+  margin-top: -5px;
+}
+
+.welcome-support {
+  margin: 4%;
+}
+
+.welcome-support i {
+  font-size: 100px;
+  text-align: center !important;
+}
+
+.welcome-support h6 {
+  text-align: center;
+}
+
+.welcome-support-items {
+  margin: 0 auto;
+  text-align: center;
+}
+
+.support-items {
+  text-align: center;
+  font-family: 'Open Sans', sans-serif;
+}
+
+/**** Login company****/
+
+.login-company-bg {
+  background: -webkit-gradient(linear, left top, right top, from(#5680e9), color-stop(35%, #5ab9ea), to(#8488eb));
+  background: linear-gradient(90deg, #5680e9 0%, #5ab9ea 35%, #8488eb 100%);
+}
+
+.login-company-content {
+  margin: 0 auto;
+}
+
+.login-company-content section {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  margin-right: -50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  width: 400px;
+}
+
+.login-company-content section form {
+  display: block;
+  background-color: white;
+  padding: 18px 18px 18px 18px;
+}
+
+.login-company-content section form a {
+  padding-top: 5px;
+  color: #5680e9;
+}
+
+.login-company-content section form a:hover {
+  color: black;
+}
+
+.login-company-content section input[type="text"],
+.login-company-content section input[type="password"],
+.login-company-content section input[type="email"],
+.login-company-content section select {
+  width: 100%;
+}
+
+.login-company-content section input[type="submit"] {
+  float: right;
+}
+
+.login-company-content a {
+  color: white;
+}
+
+.login-company-content a:hover {
+  color: #5680e9;
+}
+
+.login-company-content--copyright {
+  text-align: center;
+  color: white;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.login-company-content img {
+  max-width: 300px;
+  max-height: 70px;
+}
+
+.login-company--title {
+  font-family: 'Muli', sans-serif;
+  text-align: center;
+  color: white;
+}
+
+.login-company--back {
+  float: left !important;
+  background-color: #5680e9;
+  text-decoration: none;
+  text-align: center;
+  padding: 6px 9px 5.6px 9px;
+  color: white;
+  border: 1px solid #5680e9;
+  color: white;
+}
+
+.login-company--back i {
+  margin-top: -20px !important;
+  padding: 0 !important;
+  color: white;
+  padding-bottom: -40px;
+}
+
+.login-company--back :hover {
+  color: #5680e9;
+}
+
 /**** Extends****/
 
 .center-vertical {
@@ -898,6 +1060,18 @@ input[type="submit"] {
   margin-right: -50%;
   -webkit-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
+}
+
+.opacity-0 {
+  opacity: 0;
+}
+
+.center-text {
+  text-align: center;
+}
+
+.clear {
+  clear: both;
 }
 
 /**** MOBILE THINGS ****/
@@ -927,5 +1101,50 @@ input[type="submit"] {
           animation-name: up;
   -webkit-animation-duration: 2s;
           animation-duration: 2s;
+}
+
+.alert {
+  color: white;
+  margin: 20px 5px;
+  padding: 14px;
+}
+
+.alert-green {
+  background-color: #448602;
+}
+
+.alert-red {
+  background-color: #E54243;
+}
+
+.alert-red a {
+  color: white;
+  font-weight: bold;
+}
+
+.alert-red a:hover {
+  color: #5680e9;
+}
+
+.alert-blue {
+  background-color: #E54243;
+}
+
+.alert-black {
+  background-color: #2D3E50;
+  color: white;
+}
+
+.tag {
+  color: white;
+  padding: 8px;
+}
+
+.tag-primary {
+  background-color: #5680e9;
+}
+
+.icon-big {
+  font-size: 70px !important;
 }
 

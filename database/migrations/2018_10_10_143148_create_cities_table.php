@@ -14,10 +14,10 @@ class CreateCitiesTable extends Migration
     public function up()
     {
         Schema::create('cities', function (Blueprint $table) {
-            $table->increments('city_id');
+            $table->increments('id');
             $table->integer('country_id');
-            $table->string('city');
-            $table->integer('zipcode');
+            $table->string('name')->nullable();
+            $table->integer('zipcode')->nullable();
         });
     }
 

@@ -9,10 +9,12 @@ class Company extends Model
     protected $fillable = [
 
         'user_id',
+        'plan_id',
         'name',
         'url',
         'industry_id',
         'content',
+        'message',
         'logo',
         'plan'
     ];
@@ -21,7 +23,10 @@ class Company extends Model
     public function users() {
         return $this->hasMany('App\User');
     }
-
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
     public function industry() {
         return $this->belongsTo('App\Industry');
     }
@@ -33,5 +38,14 @@ class Company extends Model
     public function groups() {
         return $this->hasMany('App\Group');
     }
+
+    public function projects() {
+        return $this->hasMany('App\Project');
+    }
+
+    public function plan() {
+        return $this->belongsTo('App\Plan');
+    }
+
 
 }

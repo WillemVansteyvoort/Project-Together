@@ -7,13 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 class Country extends Model
 {
     protected $fillable = [
-      'country'
+      'name'
     ];
 
-    protected $primaryKey = 'country_id';
 
     public function cities() {
-        return $this->hasMany('App\City', 'city_id', 'country_id');
+        return $this->hasMany('App\City');
     }
 
 }

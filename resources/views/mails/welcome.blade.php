@@ -7,15 +7,15 @@
             color: black;
         }
         .mail-content {
-             background-color: white;
-             padding: 40px 30px;
-             margin: 10% 20%;
-         }
+            background-color: white;
+            padding: 40px 30px;
+            margin: 10% 20%;
+        }
 
         .mail-title {
-             font-size: 30px;
-             text-align: center;
-         }
+            font-size: 30px;
+            text-align: center;
+        }
         .button {
             text-decoration: none;
             display: inline-block;
@@ -24,8 +24,13 @@
             color: white;
         }
         .button-primary {
-             background-color: #5680e9;
-         }
+            background-color: #5680e9;
+            color: white;
+        }
+        .button-primary:hover {
+            opacity: 0.8;
+        }
+
         h1 {
             color: black;
         }
@@ -41,10 +46,9 @@
 <div class="mail-content">
     <h1 class="mail-title">Welcome to Project-Together</h1>
     <p>
-        Hi <b>{{$name}}</b></p> <p> We are very happy that you have chosen for us to register your company <b>{{$company}}</b> on Project-Together.com. Because we want to avoid abuse, we ask you to activate your account. You can do it by clicking on the button below.
-
+        Hi <b>{{$name}}</b></p> <p> Your account is succesfully verified. Now you can start invite your colleagues and make projects. If you have any questions about the features, our plans or a problem, please check out our <a>support page</a>.
     </p>
-    <a class="button button-primary">Verify account</a>
+    <a class="button button-primary" href="{{$url}}">Go to {{$company}}</a>
     <p>
         Thanks and enjoy
     </p>

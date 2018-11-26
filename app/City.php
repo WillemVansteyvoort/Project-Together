@@ -7,16 +7,17 @@ use Illuminate\Database\Eloquent\Model;
 class City extends Model
 {
     protected $fillable = [
-      'city', 'zipcode'
+      'name', 'zipcode', 'country_id'
     ];
-    protected $primaryKey = 'city_id';
+
+    public $timestamps = false;
 
     public function users() {
-        return $this->hasMany('App\User', 'user_id', 'city_id');
+        return $this->hasMany('App\User');
     }
 
     public function country() {
-        return $this->belongsTo('App\Country', 'city_id', 'country_id');
+        return $this->belongsTo('App\Country');
     }
 
 }

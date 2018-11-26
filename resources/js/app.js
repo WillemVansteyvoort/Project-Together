@@ -20,3 +20,8 @@ require('./components/menu/online');
 require('./components/menu/notification');
 require('./components/company/company');
 require('./components/company/stats');
+require('./components/popups/newUser');
+require('./components/notifcations/today');
+require('./components/notifcations/yesterday');
+require('./components/notifcations/older');
+require('./components/socialmedia/facebook');

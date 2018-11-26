@@ -13,6 +13,12 @@ h3 {
   text-transform: uppercase;
   font-weight: 400;
 }
+.uppercase {
+  text-transform: uppercase !important;
+}
+#green {
+  color: #32CD32;
+}
 h5 {
   font-family: 'Open Sans', sans-serif;
   font-size: 20px;
@@ -603,6 +609,7 @@ a:hover {
   color: white;
 }
 .register,.login {
+
   &-step {
     display: inline;
     background-color: $color-primary;
@@ -631,6 +638,12 @@ a:hover {
     left: 50%;
     margin-right: -50%;
     transform: translate(-50%, -50%);
+
+    &-facebook-big {
+     i {
+       font-size: 60px !important;
+     }
+    }
 
     button {
       display: block;
@@ -726,6 +739,13 @@ a:hover {
     }
   }
 }
+/**** VERIFY USER ***/
+.verify {
+margin-top: -20%;
+  h4 {
+    font-family: 'Muli', sans-serif;
+  }
+}
 /**** BUTTONS ***/
 input[type="submit"] {
   background-color: $color-primary;
@@ -773,6 +793,134 @@ input[type="submit"] {
 
 }
 
+.welcome {
+  h2, h4 {
+    font-family: "Raleway", sans-serif;
+  }
+
+  p {
+    margin-top: 10px;
+    font-family: "Open Sans", sans-serif;
+  }
+
+  input {
+    width: 40%;
+  }
+
+  iframe {
+    margin: 0 4%;
+  }
+
+  main{
+    margin-top: -5px;
+  }
+
+  &-support {
+    margin: 4%;
+    i {
+      font-size: 100px;
+      text-align: center !important;
+    }
+    h6 {
+      text-align: center;
+    }
+    &-items {
+      margin: 0 auto;
+      text-align: center;
+    }
+  }
+}
+.support-items {
+  text-align: center;
+  font-family: 'Open Sans', sans-serif;
+}
+/**** Login company****/
+.login-company {
+  &-bg {
+      background: linear-gradient(90deg, #5680e9 0%, #5ab9ea 35%, #8488eb 100%);
+  }
+  &-content {
+    margin: 0 auto;
+    section {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      margin-right: -50%;
+      transform: translate(-50%, -50%);
+      width: 400px;
+
+      form {
+        display: block;
+        background-color: white;
+        padding: 18px 18px 18px 18px;
+
+        a {
+          padding-top: 5px;
+          color: $color-primary;
+
+          &:hover {
+            color: black;
+          }
+        }
+      }
+
+      input[type="text"], input[type="password"], input[type="email"], select {
+        width: 100%;
+      }
+      input[type="submit"] {
+        float: right;
+      }
+    }
+
+    a {
+      color: white;
+
+      &:hover {
+        color: $color-primary;
+      }
+    }
+
+    &--copyright {
+      text-align: center;
+      color: white;
+      font-family: 'Open Sans', sans-serif;
+    }
+
+    img {
+      max-width: 300px;
+      max-height: 70px;
+    }
+
+  }
+
+  &--title {
+    font-family: 'Muli', sans-serif;
+    text-align: center;
+    color: white;
+  }
+
+  &--back {
+    float: left !important;
+    background-color: $color-primary;
+    text-decoration: none;
+    text-align: center;
+    padding: 6px 9px 5.6px 9px;
+    color: white;
+    border: 1px solid #5680e9;
+    i {
+      margin-top: -20px !important;
+      padding: 0 !important;
+      color: white;
+      padding-bottom: -40px;
+    }
+    color: white;
+    p {
+    }
+    :hover {
+      color: $color-primary;
+    }
+  }
+}
 
 /**** Extends****/
 .center-vertical {
@@ -782,6 +930,15 @@ input[type="submit"] {
   left: 50%;
   margin-right: -50%;
   transform: translate(-50%, -50%);
+}
+.opacity-0 {
+  opacity: 0;
+}
+.center-text {
+  text-align: center;
+}
+.clear {
+  clear: both;
 }
 /**** MOBILE THINGS ****/
 .show-mobile {
@@ -800,4 +957,40 @@ input[type="submit"] {
   animation-duration: 2s;
 }
 
+.alert {
+  color: white;
+  margin: 20px 5px;
+  padding: 14px;
+  &-green {
+    background-color: #448602;
+  }
+  &-red {
+    background-color: #E54243;
 
+    a {
+      color: white;
+      font-weight: bold;
+
+      &:hover {
+        color: $color-primary;
+      }
+    }
+  }
+  &-blue {
+    background-color: #E54243;
+  }
+  &-black {
+    background-color: #2D3E50;
+    color: white;
+  }
+}
+.tag {
+  color: white;
+  padding: 8px;
+  &-primary {
+    background-color: #5680e9;
+  }
+}
+.icon-big {
+  font-size: 70px !important;
+}

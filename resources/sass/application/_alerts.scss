@@ -2,6 +2,14 @@
   color: white;
   margin: 20px 5px;
   padding: 14px;
+
+  a {
+    color: black;
+    font-weight: bold;
+    &:hover {
+      color: $color-primary;
+    }
+  }
   &-green {
     background-color: #448602;
   }

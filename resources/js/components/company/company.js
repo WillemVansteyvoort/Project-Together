@@ -8,6 +8,10 @@ import { ProgressBar } from 'reprogressbars';
 const Timestamp = require('react-timestamp');
 import ClipLoader from 'react-spinners/ClipLoader';
 import PulseLoader from 'react-spinners/PulseLoader';
+import PopupNewUser from '../popups/newUser';
+import PopupNewGroup from '../popups/newGroup';
+import PopupNewInvite from '../popups/newInvite';
+import {Accordion, AccordionItem, AccordionItemTitle, AccordionItemBody,} from 'react-accessible-accordion';
 import {PopupboxManager, PopupboxContainer} from 'react-popupbox';
 export default class CompanyUsers extends Component {
 
@@ -18,115 +22,34 @@ export default class CompanyUsers extends Component {
             users : [],
             invites: [],
             groups: [],
+            selectedGroups: [],
+            test: 'ghgh',
             isLoading: true,
+            show: false
         };
         //bind
 
         this.getUsers = this.getUsers.bind(this);
         this.getInvites = this.getInvites.bind(this);
         this.getGroups = this.getGroups.bind(this);
+        this.openPopupbox = this.openPopupbox.bind(this);
     }
 
-    openPopupbox() {
-        let content =(
-            <div>
-            <Tabs
-                defaultTab="one"
-                onChange={(tabId) => { console.log(tabId) }}
-            >
-                <TabList>
-                    <Tab tabFor="one" className="popup-tab">General</Tab>
-                    <Tab tabFor="two" className="popup-tab">Groups</Tab>
-                    <Tab tabFor="three" className="popup-tab">Settings</Tab>
-                </TabList>
-                <TabPanel tabId="one">
-                    <div className="row">
-                        <div className="six columns">
-                            <label>Name</label>
-                            <input type="text" />
 
-                        </div>
-                        <div className="six columns">
-                            <label>Email</label>
-                            <input type="text" />
-                        </div>
-                    </div>
-                    <div className="row">
-                        <div className="six columns">
-                            <label>Username</label>
-                            <input type="text" />
 
-                        </div>
-                        <div className="six columns">
-                            <label>Phone</label>
-                            <input type="text" />
-                        </div>
-                    </div>
-                    <div className="row">
-                        <div className="six columns">
-                            <label>City</label>
-                            <input type="text" />
-
-                        </div>
-                        <div className="six columns">
-                            <label>Function</label>
-                            <input type="text" />
-                        </div>
-                    </div>
-                    <div className="row">
-                        <div className="six columns">
-                            <label>Street</label>
-                            <input type="text" />
-
-                        </div>
-                        <div className="six columns">
-                            <label>Country</label>
-                            <select>
-                                <option>Belgium</option>
-                                <option>France</option>
-                            </select>
-                        </div>
-                    </div>
-                </TabPanel>
-                <TabPanel tabId="two">
-
-                </TabPanel>
-                <TabPanel tabId="three">
-                    <p>Tab 3 content</p>
-                </TabPanel>
-            </Tabs>
-                <div className="float-left">
-                    <a className="button-primary button float-left">Make user</a>
-                </div>
-            </div>
-        )
-        PopupboxManager.open({
-            content,
-            config: {
-                titleBar: {
-                    enable: true,
-                    text: 'Send a invite'
-                },
-                fadeIn: true,
-                fadeInSpeed: 500
-            }
+    addGroup(e) {
+        e.preventDefault();
+        this.setState({
+            selectedGroups: [...e.target.value]
         })
+        // e.target.value
+    }
+
+    openPopupbox(e) {
+
     }
     openPopupbox2() {
-        const content =(
-            <div>test</div>
-        )
-        PopupboxManager.open({
-            content,
-            config: {
-                titleBar: {
-                    enable: true,
-                    text: 'Meow!'
-                },
-                fadeIn: true,
-                fadeInSpeed: 500
-            }
-        })
+
     }
     componentWillMount() {
         this.getUsers();
@@ -186,32 +109,37 @@ export default class CompanyUsers extends Component {
                     groups: response.data,
                 })
         );
+        this.setState({
+            selectedGroups: this.state.groups,
+        });
     }
 
 
+    toggleShow(show) {
+        this.setState({show});
+    }
 
     render() {
+        const {show} = this.state;
         return (
             <Tabs
                 defaultTab="one"
                 onChange={(tabId) => { console.log(tabId) }}
             >
                 <TabList>
-                    <Tab tabFor="one" className="company-tab">Active users <span className="tag tag-primary">{this.state.users.length}</span> </Tab>
-                    <Tab tabFor="two" className="company-tab">Invited users <span className="tag tag-primary">{this.state.invites.length}</span></Tab>
+                    <Tab tabFor="one" className="company-tab">Active members <span className="tag tag-primary">{this.state.users.length}</span> </Tab>
+                    <Tab tabFor="two" className="company-tab">Invited members <span className="tag tag-primary">{this.state.invites.length}</span></Tab>
                     <Tab tabFor="three" className="company-tab">Groups</Tab>
 
                 </TabList>
                 <TabPanel tabId="one">
-                    <PopupboxContainer />
-                    <div onClick={this.openPopupbox} className="button-primary button"><i className="fas fa-plus"> </i> New user</div>
-
+                    {window.Laravel.rights.create_members ? <PopupNewUser/> : ""}
                     <table className="u-full-width">
                         <thead>
                         <tr>
                             <th>Name</th>
-                            <th>Email</th>
-                            <th>Group</th>
+                            <th>Last name</th>
+                            <th>E-mail</th>
                             <th>Last activity</th>
                         </tr>
                         </thead>
@@ -222,25 +150,24 @@ export default class CompanyUsers extends Component {
                         />
                         {this.state.users.map(user => (
                             <tr>
-                                <td>{user.name}</td>
+                                <td>{user.name} {user.id === window.Laravel.user.id ? <span className="tag tag-red">You</span> : ""}</td>
+                                <td>{user.lastname}</td>
                                 <td>{user.email}</td>
-                                <td>Admin</td>
-                                <td><Timestamp time={user.last_activity} precision={3} /></td>
+                                <td><Timestamp time={user.last_activity} precision={1} /></td>
                             </tr>
 
                         ))}
                     </table>
                 </TabPanel>
                 <TabPanel tabId="two">
-                    <div onClick={this.openPopupbox} className="button-primary button"><i className="fas fa-plus"> </i> Send a new invite</div>
+                    <PopupNewInvite/>
                     <table className="u-full-width">
                         <ProgressBar isLoading={this.state.isLoading}  className="fixed-progress-bar"  color="black" />
                         <thead>
                         <tr>
                             <th>Name</th>
                             <th>Email</th>
-                            <th>Group</th>
-                            <th>Last activity</th>
+                            <th>Invite sended</th>
                         </tr>
                         </thead>
                         <PulseLoader ClassName="pulse-loader"
@@ -254,13 +181,50 @@ export default class CompanyUsers extends Component {
                                 <td>{invite.name}</td>
                                 <td>{invite.email}</td>
                                 <td>Admin</td>
-                                <td></td>
+                                <td><Timestamp time={invite.last_activity} precision={1} /></td>
                             </tr>
-
                         ))}
                     </table>
                 </TabPanel>
                 <TabPanel tabId="three">
+                    <PopupNewGroup/>
+                    <Accordion>
+                    {this.state.groups.map(group => (
+                            <AccordionItem>
+                                <AccordionItemTitle>
+                                    <h5>{group.name}</h5>
+                                </AccordionItemTitle>
+                                <AccordionItemBody>
+                                    {group.users.length > 0 ?
+                                        <table className="u-full-width">
+                                            <ProgressBar isLoading={this.state.isLoading}  className="fixed-progress-bar"  color="black" />
+                                            <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Last name</th>
+                                                <th>Email</th>
+                                            </tr>
+                                            </thead>
+                                            {group.users.map(user => (
+                                                <tr>
+                                                    <td>{user.name}  {group.user_id === user.id ? <span className="tag tag-red">Leader</span> : ""}</td>
+                                                    <td>{user.lastname}</td>
+                                                    <td>{user.email}</td>
+                                                </tr>
+                                            ))}
+                                        </table>
+
+                                        :
+                                        <div className="center-text">
+                                            There are no members in this group
+                                        </div>
+                                    }
+                                </AccordionItemBody>
+
+                            </AccordionItem>
+
+                    ))}
+                    </Accordion>
                 </TabPanel>
             </Tabs>
         );

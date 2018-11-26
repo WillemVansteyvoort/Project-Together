@@ -22,7 +22,7 @@ class CreateCompaniesTable extends Migration
             $table->text('content')->nullable();
             $table->text('message')->nullable();
             $table->string('logo')->nullable();
-            $table->string('plan');
+            $table->integer('plan_id');
             $table->timestamps();
         });
     }

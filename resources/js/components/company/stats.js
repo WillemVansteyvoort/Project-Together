@@ -22,37 +22,37 @@ export default class CompanyStats extends Component {
 
     render() {
         return (
-            <div>
+            <div className="company-sidebar">
                 <h5>Total users</h5>
                 <Progress
-                    percent={10}
+                    percent={window.Laravel.company.users/window.Laravel.plan.users * 100}
                     theme={
                         {
                             active: {
-                                symbol: '2/25',
+                                symbol: window.Laravel.company.users + '/' + window.Laravel.plan.users,
                                 trailColor: 'white',
                                 color: '#5680e9'
                             },
                             success: {
-                                symbol: this.state.percent + '%',
+                                symbol: 'MAX',
                                 trailColor: 'lime',
-                                color: 'green'
+                                color: '#E54243'
                             }
                         }
                     }
                 />
                 <h5>Total Projects</h5>
                 <Progress
-                    percent={20}
+                    percent={window.Laravel.company.projects/window.Laravel.plan.projects * 100}
                     theme={
                         {
                             active: {
-                                symbol: '2/10',
+                                symbol: window.Laravel.company.projects + '/' + window.Laravel.plan.projects,
                                 trailColor: 'white',
                                 color: '#5680e9'
                             },
                             success: {
-                                symbol: '100%',
+                                symbol: 'MAX',
                                 trailColor: 'red',
                                 color: 'red'
                             }
@@ -66,8 +66,8 @@ export default class CompanyStats extends Component {
                             <PieChart
                                 data={[
                                     { title: 'One', value: 10, color: '#5680e9' },
-                                    { title: 'Two', value: 15, color: '#5ab9ea' },
-                                    { title: 'Three', value: 20, color: '#8488eb' },
+                                    { title: 'Two', value: 5, color: '#5ab9ea' },
+                                    { title: 'Three', value: 14, color: '#8488eb' },
                                 ]}
                             />
                         </div>
@@ -76,31 +76,12 @@ export default class CompanyStats extends Component {
                                 <span className="company-square company-square--primary">Done tasks</span>
                                 <span className="company-square company-square--second">Open tasks</span>
                                 <span className="company-square company-square--third">Closed tasks</span>
-
                             </div>
                         </div>
                     </div>
                 </div>
-                <div className="row">
-                    <div className="six columns">
-                        <span><h5>Make public</h5></span>
-                        <Switch
-                            onChange={this.handleChange}
-                            checked={this.state.checked}
-                            className="react-switch"s
-                            id="normal-switch"
-                        />
-                    </div>
-                    <div className="six columns">
-                        <span><h5>Make company public</h5></span>
-                        <Switch
-                            onChange={this.handleChange}
-                            checked={this.state.checked}
-                            className="react-switch"s
-                            id="normal-switch"
-                        />
-                    </div>
-                </div>
+                <button className="button button-primary company-sidebar-settings"><i className="fas fa-cog"></i>Company settings</button>
+
             </div>
         );
     }

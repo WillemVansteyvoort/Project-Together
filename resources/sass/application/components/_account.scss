@@ -39,13 +39,65 @@
     padding: 20px 0 20px 25px;
 
 
-    input[type="text"],  input[type="date"] {
+    input[type="text"],  input[type="date"], select {
       width: 100%;
-      height: 38px;
+      height: 38px important;
     }
     textarea {
       width: 100%;
       height: 80px;
+    }
+  }
+
+  &-socialmedia {
+    i {
+      color: #2D3E50;
+      font-size: 40px;
+      width: 30px;
+    }
+
+    &--input {
+      margin-left: 15px;
+      width: 40% !important;
+
+    }
+  }
+
+  &-twofactor {
+    i {
+      font-size: 25px;
+      color: #2D3E50;
+      margin-right: 10px;
+    }
+    &--items {
+      padding: 0 10%;
+    }
+  }
+
+  &-password {
+    &--change {
+
+    }
+    &--info {
+      background-color: white;
+      padding: 20px 15px 15px 15px;
+      i {
+        font-size: 80px;
+        color: #2D3E50;
+        margin-bottom: 20px;
+      }
+      ul {
+        margin: 0 auto;
+      }
+      li {
+        list-style-type: none;
+        font-family: $font-standard;
+
+        &:hover {
+          color: $color-primary;
+        }
+
+      }
     }
   }
 

@@ -27,8 +27,13 @@
                     <li><a href="support.html">Support</a></li>
                 </ul>
                 <ul class="header-menu-right hidden-mobile">
+                    @if(Auth::check())
+                        <li class="button button-small button-second uppercase"><a href="{{route('front_company')}}">MANAGE {{{Auth::user()->company->name}}}</a></li>
+                        <li class="button button-small button-primary"><a href="{{route('app_logout')}}">Logout</a></li>
+                    @else
                     <li class="button button-small button-second"><a href="{{route('front_login')}}">Log in</a></li>
                     <li class="button button-small button-primary"><a href="{{route('front_signup')}}">Sign Up</a></li>
+                        @endif
                 </ul>
             </div>
             <div class="header-text">

@@ -13,16 +13,18 @@ export default class SignupForm extends Component {
         this.state = {
 
             name: '',
+            lastname: '',
             email: '',
             password: '',
 
             name_message: '',
+            lastname_message: '',
             email_message: '',
             password_message: '',
             company_message: '',
             user_function_message: '',
 
-            company_type: 'ttt',
+            company_type: 1,
             company_name: '',
             company_industry: 1,
             user_function: '',
@@ -30,6 +32,7 @@ export default class SignupForm extends Component {
 
             //checken
             name_errors: false,
+            lastname_errors: false,
             email_errors: false,
             password_errors: false,
             company_errors: false,
@@ -65,6 +68,7 @@ export default class SignupForm extends Component {
         this.makeUser = this.makeUser.bind(this);
         this.buttonStep1 = this.buttonStep1.bind(this);
         this.checkName = this.checkName.bind(this);
+        this.checkLastName = this.checkLastName.bind(this);
         this.checkEmail = this.checkEmail.bind(this);
         this.checkPassword = this.checkPassword.bind(this);
         this.allIndustries = this.allIndustries.bind(this);
@@ -101,7 +105,7 @@ export default class SignupForm extends Component {
 
     //step 1
     buttonStep1() {
-        if(this.state.name_errors || this.state.email_errors || this.state.name.length <= 6 || this.state.email.length <= 6 || this.state.password.length <= 8) {
+        if(this.state.name_errors || this.state.lastname_errors || this.state.email_errors || this.state.name.length <= 2 || this.state.lastname.length <= 2 || this.state.email.length <= 6 || this.state.password.length <= 8) {
             this.setState({button: true});
         } else  {
             this.setState({button: false});
@@ -110,12 +114,23 @@ export default class SignupForm extends Component {
 
     checkName(e) {
         e.preventDefault();
-        if(this.state.name.length <= 6) {
+        if(this.state.name.length <= 2) {
             this.setState({name_errors: true});
-            this.setState({name_message: "Name must have at least 6 characters"});
+            this.setState({name_message: "Name must have at least 2 characters"});
         } else {
             this.setState({name_errors: false});
             this.setState({name_message: ""});
+        }
+    }
+
+    checkLastName(e) {
+        e.preventDefault();
+        if(this.state.lastname.length <= 4) {
+            this.setState({lastname_errors: true});
+            this.setState({lastname_message: "Name must have at least 4 characters"});
+        } else {
+            this.setState({lastname_errors: false});
+            this.setState({lastname_message: ""});
         }
     }
 
@@ -246,9 +261,9 @@ export default class SignupForm extends Component {
     }
 
     componentDidMount() {
-       this.interval =  setInterval(() => this.buttonStep1(), 1000);
-       this.interval2 =  setInterval(() => this.buttonStep3(), 1000);
-       this.interval3 = setInterval(() => this.buttonStep4(), 1000);
+        this.interval =  setInterval(() => this.buttonStep1(), 1000);
+        this.interval2 =  setInterval(() => this.buttonStep3(), 1000);
+        this.interval3 = setInterval(() => this.buttonStep4(), 1000);
 
     }
 
@@ -281,6 +296,7 @@ export default class SignupForm extends Component {
             });
             axios.post('/api/user/create', {
                 name: this.state.name,
+                lastname: this.state.lastname,
                 email: this.state.email,
                 password: this.state.password,
                 company_type: this.state.company_type,
@@ -304,13 +320,13 @@ export default class SignupForm extends Component {
     }
 
     allIndustries() {
-       axios.get('/api/industries').then((
-           response
-       ) =>
-           this.setState({
-               industries: response.data
-           })
-       );
+        axios.get('/api/industries').then((
+            response
+            ) =>
+                this.setState({
+                    industries: response.data
+                })
+        );
     }
 
     render() {
@@ -328,9 +344,12 @@ export default class SignupForm extends Component {
                                         Media or make a
                                         manual acount. We will see you inside!
                                     </p>
-                                    <label>Full name</label>
+                                    <label>First name</label>
                                     <div id="red">{this.state.name_message}</div>
                                     <input className={this.state.name_errors ? "border-red" : ""} type="text" value={this.state.name} name="name" onBlur={this.checkName} onChange={e => this.setState({ name: e.target.value })} placeholder="Project-Together" required/>
+                                    <label>Last name</label>
+                                    <div id="red">{this.state.lastname_message}</div>
+                                    <input className={this.state.lastname_errors ? "border-red" : ""} type="text" value={this.state.lastname} name="name" onBlur={this.checkLastName} onChange={e => this.setState({ lastname: e.target.value })} placeholder="Project-Together" required/>
                                     <label>E-mail</label>
                                     <div onBlur={this.handleSubmit}>
                                         <div id="red">{this.validateEmail()}</div>
@@ -342,8 +361,8 @@ export default class SignupForm extends Component {
                                     <input className={this.state.password_errors  ? "border-red" : ""} value={this.state.password} type="password"  placeholder="********" required onBlur={this.checkPassword} onChange={e => this.setState({ password: e.target.value, passwordManager: true })} />
                                     <div className={this.state.passwordManager ? "view" : "passwordChecker"}>
                                         <ReactPasswordStrength
-                                        passwordValue={this.state.password}
-                                         />
+                                            passwordValue={this.state.password}
+                                        />
                                     </div>
                                     <div className="register-right--buttons">
                                         <div className={this.state.errors ? "hidden" : ""} >
@@ -370,8 +389,8 @@ export default class SignupForm extends Component {
                                     </select>
                                     <label>Company plan</label>
                                     <select onChange={e => this.setState({ company_type: e.target.value })}>
-                                        <option value="Standard">Standard (free)</option>
-                                        <option value="Enterprise">Enterprise (free)</option>
+                                        <option value="1">Standard (free)</option>
+                                        <option  value="2">Pro (free)</option>
                                     </select>
                                     <div className="register-right--buttons">
                                         <button  className="button button-primary register-button" onClick={previous}>Previous</button>
@@ -463,7 +482,7 @@ export default class SignupForm extends Component {
                                     {!this.state.isLoading  ? <div><meta http-equiv="Refresh" content="0;URL=welcome/" /></div> : ""}
                                 </div>
                             )}
-                            />
+                        />
                     </Steps>
                 </Wizard>
             </div>

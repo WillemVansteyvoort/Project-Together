@@ -3,9 +3,107 @@ import ReactDOM from 'react-dom';
 import { Tabs, Tab, TabPanel, TabList } from 'react-web-tabs';
 import { Progress } from 'react-sweet-progress';
 import "react-sweet-progress/lib/style.css";
+const Timestamp = require('react-timestamp');
+import NotificationsToday from './notifcations/today';
+import NotificationsYesterday from './notifcations/yesterday';
+import NotificationsOlder from './notifcations/older';
 export default class TabsDashboard extends Component {
+
+    constructor(props) {
+        super(props)
+        this.state = {
+            notificationsToday: [],
+            notificationsYesterday: [],
+            notificationsOlder: [],
+            todos: [{"id":1,"user_id":1,"title":"dfgdfg","type":"d","content":"dfgdfgdfgdf","read":0,"created_at":"2018-11-06 00:00:00","updated_at":null},{"id":2,"user_id":1,"title":"dfgdfg","type":"d","content":"dfgdfgdfgdf","read":0,"created_at":"2018-11-08 00:00:00","updated_at":null},{"id":3,"user_id":1,"title":"dfgdfg","type":"d","content":"dfgdfgdfgdf","read":0,"created_at":"2018-11-09 00:00:00","updated_at":null}],
+            currentPage: 1,
+            todosPerPage: 4
+        };
+        //bind
+        this.notificationsToday = this.notificationsToday.bind(this);
+        this.notificationsYesterday = this.notificationsYesterday.bind(this);
+        this.handleClick = this.handleClick.bind(this);
+    }
+
+
+    handleClick(event) {
+        this.setState({
+            currentPage: Number(event.target.id)
+        });
+    }
+
+    componentWillMount() {
+        this.notificationsOlder();
+        this.notificationsToday();
+        this.notificationsYesterday();
+    }
+
+    notificationsToday() {
+        axios.get('/api/notifcations/today').then((
+            response
+            ) =>
+                this.setState({
+                    notificationsToday: response.data,
+                })
+        );
+    }
+
+    notificationsYesterday() {
+        axios.get('/api/notifcations/yesterday/').then((
+            response
+            ) =>
+                this.setState({
+                    notificationsYesterday: response.data,
+                })
+        );
+    }
+    notificationsOlder() {
+        axios.get('/api/notifcations/noticationsOlder/').then((
+            response
+            ) =>
+                this.setState({
+                    notificationsOlder: response.data,
+                })
+        );
+    }
     render() {
-        return (
+        const { notificationsToday, currentPage, todosPerPage } = this.state;
+
+        // Logic for displaying current todos
+        const indexOfLastTodo = currentPage * todosPerPage;
+        const indexOfFirstTodo = indexOfLastTodo - todosPerPage;
+        const currentTodos = notificationsToday.slice(indexOfFirstTodo, indexOfLastTodo);
+
+        const renderTodos = currentTodos.map((notification, index) => {
+            return (
+                    <article key={index} className={notification.read > 0 ? "" : ""}>
+                            <ul className="dashboard-notifications-item">
+                                <li className="dashboard-notifications-item--time"><Timestamp time={notification.created_at} precision={1} utc={false}/></li>
+                                <li className="dashboard-notifications-item--icon"><i className={notification.type}> </i></li>
+                            </ul>
+                            <div className="dashboard-notifications-item--content">
+                                <b>{notification.title}</b>
+                                <p>{notification.content}</p>
+                            </div>
+                            <div className="dashboard-notifications--line clear"> </div>
+                        </article>
+                )
+        });
+
+        // Logic for displaying page numbers
+        const pageNumbers = [];
+        for (let i = 1; i <= Math.ceil(notificationsToday.length / todosPerPage); i++) {
+            pageNumbers.push(i);
+        }
+
+        const renderPageNumbers = pageNumbers.map(number => {
+            return (
+                <div className="pagination"  key={number} id={number} onClick={this.handleClick}>
+                    {number}
+                </div>
+            );
+        });
+            return (
             <div>
                 <Tabs
                     defaultTab="one"
@@ -111,81 +209,19 @@ export default class TabsDashboard extends Component {
                     <TabPanel tabId="two">
                         <div className="dashboard-tab--content">
                             <div className="dashboard-notifications">
-                            <span className="dashboard-notifications--day">
-                                Today
-                            </span>
-                                <div className="dashboard-notifications-items">
-                                    <article>
-                                        <ul className="dashboard-notifications-item">
-                                            <li className="dashboard-notifications-item--time">2 hours ago</li>
-                                            <li className="dashboard-notifications-item--icon"><i className="fas fa-key"> </i></li>
-                                            <li className="dashboard-notifications-item--image"><img src="images/founder.jpg"/></li>
-                                        </ul>
-                                        <div className="dashboard-notifications-item--content">
-                                            <b>New login session to your account</b>
-                                            <p>Someone has login to your account from Safari webbrowser.</p>
-                                        </div>
-                                        <div className="dashboard-notifications--line clear"> </div>
-                                    </article>
-                                    <article>
-                                        <ul className="dashboard-notifications-item">
-                                            <li className="dashboard-notifications-item--time">2 hours ago</li>
-                                            <li className="dashboard-notifications-item--icon"><i className="fas fa-hands-helping"> </i></li>
-                                            <li className="dashboard-notifications-item--image"><img src="images/founder.jpg"/></li>
-                                        </ul>
-                                        <div className="dashboard-notifications-item--content">
-                                            <b>Welcome to worktogether!</b>
-                                            <p>Thanks for joining us! If you have questions about the working, read our <a href="">documentation</a>.</p>
-                                        </div>
-                                        <div className="dashboard-notifications--line clear"> </div>
-                                    </article>
+                                <div className={this.state.notificationsYesterday.length >= 0 && this.state.notificationsToday.length  >= 0 && this.state.notificationsOlder.length  >= 0 ? "hidden" : "dashboard-empty"}>
+                                    <h2>No notifcations found </h2>
+                                    <i className="fas fa-bell dropbtn"></i>
                                 </div>
-                                <span className="dashboard-notifications--day">
-                                YESTERDAY
-                            </span>
-                                <div className="dashboard-notifications-items">
-                                    <article>
-                                        <ul className="dashboard-notifications-item">
-                                            <li className="dashboard-notifications-item--time">2 hours ago</li>
-                                            <li className="dashboard-notifications-item--icon"><i className="fas fa-project-diagram"> </i></li>
-                                            <li className="dashboard-notifications-item--image"><img src="images/founder.jpg"/></li>
-                                        </ul>
-                                        <div className="dashboard-notifications-item--content">
-                                            <b>New project created</b>
-                                            <p><a>Andy Klinkers</a> has created a new project named <a>PekesFuif</a> and you're invited to it. Check now the project.</p>
-                                        </div>
-                                        <div className="dashboard-notifications--line clear"> </div>
-                                    </article>
-                                    <article>
-                                        <ul className="dashboard-notifications-item">
-                                            <li className="dashboard-notifications-item--time">2 hours ago</li>
-                                            <li className="dashboard-notifications-item--icon"><i className="fas fa-hands-helping"> </i></li>
-                                            <li className="dashboard-notifications-item--image"><img src="images/founder.jpg"/></li>
-                                        </ul>
-                                        <div className="dashboard-notifications-item--content">
-                                            <b>Welcome to worktogether!</b>
-                                            <p>Thanks for joining us! If you have questions about the working, read our <a href="">documentation</a>.</p>
-                                        </div>
-                                        <div className="dashboard-notifications--line clear"> </div>
-                                    </article>
+                                <div>
+                                    <NotificationsToday/>
                                 </div>
-                                <span className="dashboard-notifications--day">
-                                MONDAY
-                            </span>
-                                <div className="dashboard-notifications-items">
-                                    <article>
-                                        <ul className="dashboard-notifications-item">
-                                            <li className="dashboard-notifications-item--time">2 hours ago</li>
-                                            <li className="dashboard-notifications-item--icon"><i className="fas fa-project-diagram"> </i></li>
-                                            <li className="dashboard-notifications-item--image"><img src="images/founder.jpg"/></li>
-                                        </ul>
-                                        <div className="dashboard-notifications-item--content">
-                                            <b>New project created</b>
-                                            <p><a>Andy Klinkers</a> has created a new project named <a>PekesFuif</a> and you're invited to it. Check now the project.</p>
-                                        </div>
-                                        <div className="dashboard-notifications--line clear"> </div>
-                                    </article>
+                                <div>
+                                   <NotificationsYesterday/>
                                 </div>
+                               <div>
+                                   <NotificationsOlder/>
+                               </div>
                             </div>
                         </div>
                     </TabPanel>

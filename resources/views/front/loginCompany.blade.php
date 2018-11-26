@@ -18,42 +18,37 @@
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('css/queries.css') }}">
 </head>
-<body>
+<body class="login-company-bg">
 <div class="container">
-    <div class="login-left">
-        <div class="login-socialmedia">
-
+    <div class="login-company">
+        <div class="login-company-content">
+            <p> </p>
+            <section>
+                @if(!empty($companyLogo))
+                    <div class="center-text">
+                        <img src="/logos/{{$companyLogo}}"/>
+                    </div>
+                @else
+                    <h4 class="login-company--title">{{$companyName}}</h4>
+                @endif
+                {!! Form::open(['action' => 'Auth\CompanyLoginController@store', 'class' => '']) !!}
+                <div id="red" class="center-text">{{session('fault')}}</div>
+                {!! Form::label('email', 'E-Mail Address'); !!}
+                {!! Form::email('email', null,['placeholder' => 'example@Project-Together.com', 'required' => 'required']); !!}
+                {!! Form::label('password', 'Password'); !!}
+                {!! Form::password('password', ['placeholder' => '***********', 'required' => 'required']); !!}
+                <label class="float-left">{!!Form::checkbox('remember', '1'); !!} Remember me</label>
+                <p class="float-right"><a href="{{ route('front_reset', $companyUrl) }}">Forgot your password?</a></p>
+                {!! Form::text('id', $companyId,['hidden' => 'hidden']); !!}
+                {!! Form::text('url', $companyUrl,['hidden' => 'hidden']); !!}
+                    <div class="clear"></div>
+                {!!  Form::submit('Login', ['class' => '']); !!}
+                    <div class="clear"></div>
+                    {!! Form::close() !!}
+                <p class="login-company-content--copyright">© 2018 <a href="">WorkTogether</a>, all rights reserved.</p>
+            </section>
         </div>
     </div>
-    <div class="login-right">
-        <div class="center-vertical">
-            {!! Form::open(['action' => 'Auth\CompanyLoginController@store', 'class' => 'login-right--formlogin']) !!}
-            <h4 class="login-right--title">Login to {{$companyName}}</h4>
-            <div id="red">{{session('fault')}}</div>
-            {!! Form::label('email', 'E-Mail Address'); !!}
-            {!! Form::text('email', null,['placeholder' => 'example@Project-Together.com', 'required' => 'required']); !!}
-            {!! Form::label('password', 'Password'); !!}
-            {!! Form::password('password', ['placeholder' => '***********', 'required' => 'required']); !!}
-            <label>{!!Form::checkbox('remember', '1'); !!} Remember me</label>
-            <p><a href="">Forgot your password or email?</a></p>
-
-            {!! Form::text('id', $companyId,['hidden' => 'hidden']); !!}
-            {!! Form::text('url', $companyUrl,['hidden' => 'hidden']); !!}
-
-            {!!  Form::submit('Login', ['class' => 'float-right']); !!}
-            {!! Form::close() !!}
-        </div>
-        <div class="show-mobile">
-            <div class="login-socialmedia">
-                <button class="login-socialmedia--facebook"> <i class="fa fa-facebook"> </i>Sign Up with Facebook</button>
-                <button class="login-socialmedia--twitter"> <i class="fa fa-twitter"> </i>Sign Up with Twitter</button>
-                <button class="login-socialmedia--google"> <i class="fa fa-google"> </i>Sign Up with Google</button>
-            </div>
-        </div>
-
-
-    </div>
-
 </div>
 </body>
 <script async="async" type="text/javascript" src="{{ asset('js/app.js') }}"></script>

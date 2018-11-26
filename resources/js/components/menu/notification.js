@@ -10,6 +10,7 @@ export default class MenuNotification extends Component {
         this.state = {
             notifications : [],
             empty: true,
+            test: '',
         };
         //bind
 
@@ -24,13 +25,13 @@ export default class MenuNotification extends Component {
     }
 
     componentDidMount() {
-        this.interval =  setInterval(() => this.updateNot(), 10000);
-    }
+        Echo.private('user-notifications' + window.Laravel.user.id).listen('Notifications', e => {
+            // this.setState({ posts: [e.post, ...this.state.posts] });
+                this.setState({ notifications: [e.notification, ...this.state.notifications], empty: false });
+        })
 
-    componentWillUnmount() {
-        clearInterval(this.interval);
+        // this.interval = setInterval(() => this.getPosts(), 100000);
     }
-
     updateNot() {
         axios.get('/api/menu/notifications').then((
             response
@@ -55,23 +56,30 @@ export default class MenuNotification extends Component {
 
     render() {
         return (
-            <div>
+            <span>
+                 <audio>
+			<source src="https://s3.amazonaws.com/freecodecamp/simonSound1.mp3" type="audio/mpeg" >
+			</source>
+		</audio>
+            <span className={this.state.notifications.length <= 0 ? "" : "notifications-active"}> </span>
+                <div id="notifications" className="notifications-content tab-content">
                 <h6 className="notifications-title">Notifications</h6>
                 <span className={this.state.empty ? "tag tag-red" : "tag tag-green"} onClick={this.delNot}>  {this.state.empty ? "There are no notifications found" : "Mark as read"}</span>
                 {this.state.notifications.map(notification => (
-                    <article className="notifications-alert">
+                    <article  >
                         <div className="notifications-alert--icon">
                             <i className={notification.type}> </i>
                             <span className="notifications-alert--time"><Timestamp time={notification.created_at} precision={2} /></span>
                         </div>
                         <div className="notifications-alert--text">
-                            <b><a className="notifications-alert--title float-left">{notification.title}</a></b>
+                            <p><a className="notifications-alert--title float-left">{notification.title}</a></p>
                             <p>{notification.content}</p>
                         </div>
                         <div className="clear"> </div>
                     </article>
                 ))}
-            </div>
+                </div>
+            </span>
         );
     }
 }

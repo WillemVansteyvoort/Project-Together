@@ -254,6 +254,17 @@
       }
     }
   }
+  &-empty {
+    text-align: center;
+    margin-top: 25px;
+    i {
+      font-size: 80px;
+    }
+    h2 {
+      font-family: $font_standard;
+    }
+  }
+
 }
 .rwt__tab[aria-selected="false"]:hover,
 .rwt__tab:focus {

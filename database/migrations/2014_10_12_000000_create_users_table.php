@@ -13,9 +13,13 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create(/**
+         * @param Blueprint $table
+         */
+            'users', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
+            $table->string('lastname');
             $table->string('username')->nullable();
             $table->string('email');
             $table->string('password', 60)->nullable();
@@ -29,18 +33,20 @@ class CreateUsersTable extends Migration
             $table->integer('privacyPolicy')->nullable();
             $table->integer('verified')->default(0);
             $table->string('street')->nullable();
-            $table->integer('city_id')->nullable();
+            $table->string('phone')->nullable();
+            $table->string('website')->nullable();
+            $table->integer('city_id')->default(1);
             $table->string('twitter')->nullable();
             $table->string('facebook')->nullable();
             $table->string('google')->nullable();
             $table->text('biografy')->nullable();
+            $table->date('birthdate')->nullable();
             $table->integer('status')->default(0);
             $table->string('function')->nullable();
             $table->timestamp('last_activity')->default(date(now()));
             $table->integer('online')->default(1);
-            $table->integer('newsletter')->nullable();
-            $table->integer('hide_data')->nullable();
-            $table->integer('safety')->nullable();
+            $table->integer('newsletter')->default(0);
+            $table->integer('hide_data')->default(0);
             $table->rememberToken();
             $table->timestamps();
         });

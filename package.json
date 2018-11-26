@@ -18,16 +18,24 @@
         "laravel-mix": "^2.0",
         "lodash": "^4.17.5",
         "popper.js": "^1.12",
-        "react": "^16.2.0",
-        "react-dom": "^16.2.0"
+        "react": "^16.6.3",
+        "react-dom": "^16.6.3"
     },
     "dependencies": {
         "@rodrigowpl/react-password-strength": "^1.0.0",
         "buildo-react-components": "^0.38.3",
+        "codemirror": "^5.41.0",
+        "laravel-echo": "^1.4.1",
+        "popup": "0.0.3",
+        "pusher-js": "^4.3.1",
         "rc-table": "^6.4.0",
+        "react-accessible-accordion": "^2.4.5",
         "react-albus": "^2.0.0",
         "react-loading": "^2.0.3",
+        "react-markdown": "^4.0.3",
+        "react-mde": "^5.8.0",
         "react-minimal-pie-chart": "^3.3.0",
+        "react-poppop": "^1.5.0",
         "react-popupbox": "^2.0.8",
         "react-sound": "^1.2.0",
         "react-spinners": "^0.4.7",
@@ -39,6 +47,8 @@
         "react-toggle-switch": "^3.0.4",
         "react-web-tabs": "^1.0.1",
         "reactjs-popup": "^1.3.1",
-        "reprogressbars": "^1.0.1"
+        "reprogressbars": "^1.0.1",
+        "simple-react": "^1.0.20",
+        "simple-react-popup": "^0.3.1"
     }
 }

@@ -123,10 +123,12 @@
     }
     &--text {
       float: right;
+      padding-top: 8px;
       width: 80%;
     }
     &--title {
       font-weight: 800;
+
     }
     &--see a {
       color: $color-primary !important;

@@ -17,20 +17,25 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'lastname',
+        'username',
         'email',
         'password',
+        'admin',
         'avatar',
         'provider',
         'provider_id',
         'owner',
         'termsOfService',
         'privacyPolicy',
+        'online',
         'newsletter',
         'safety',
         'hide_data',
         'last_activity',
         'function',
-        'company_id'
+        'company_id',
+        'two_step',
     ];
 
 
@@ -45,7 +50,7 @@ class User extends Authenticatable
 
     public function city() {
 
-        return $this->belongsTo('App\City', 'user_id', 'city_id');
+        return $this->belongsTo('App\City');
 
     }
 
@@ -60,6 +65,21 @@ class User extends Authenticatable
 
     public function notifcationsAll() {
         return $this->hasMany('App\Notification');
+    }
+
+    public function verify() {
+        return $this->hasOne('App\User_verify');
+    }
+
+    public function two_step() {
+        return $this->hasOne('App\Two_step');
+    }
+
+    public function rights() {
+        return $this->hasOne('App\User_right');
+    }
+    public function groups() {
+        return $this->belongsToMany('App\Group');
     }
 
 }

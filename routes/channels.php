@@ -14,3 +14,11 @@
 Broadcast::channel('App.User.{id}', function ($user, $id) {
     return (int) $user->id === (int) $id;
 });
+
+Broadcast::channel('user-notifications{id}', function ($user, $id) {
+    return Auth::check();
+});
+
+Broadcast::channel('user-notifications-dot{id}', function ($user, $id) {
+    return Auth::check();
+});

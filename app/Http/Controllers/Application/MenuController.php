@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Application;
 
+use App\Events\Notifications;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
@@ -30,6 +31,8 @@ class MenuController extends Controller
             ['user_id', '=', Auth::user()->id],
             ['read', '=',0],
         ])->get();
+
+
 
         if($notifications->count() > 0) {
             return response()->json([

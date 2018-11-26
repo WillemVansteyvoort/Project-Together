@@ -7,6 +7,9 @@ body {
 .clear {
   clear: both;
 }
+.hidden {
+  display: none !important;
+}
 main {
   clear: both;
 }
@@ -53,6 +56,9 @@ a:hover {
 .float-left {
   float: left;
 }
+.no-width {
+  width: auto !important;
+}
 .float-right {
   float: right;
 }
@@ -61,4 +67,44 @@ a:hover {
 }
 #italic {
   font-style: italic;
+}
+.bg-red {
+  background-color: $color-red !important;
+  color: white;
+  margin-top: -24px;
+  margin-bottom: -12px;
+
+}
+#red {
+  color: red;
+}
+#green {
+  color: #32CD32;
+}
+.pagination {
+  display: inline;
+  background-color: #2D3E50;
+  padding: 8px;
+  margin-right: 10px;
+  color: black;
+  height: 15px;
+  width: 15px;
+  color: white;
+  display: inline;
+}
+.border-red {
+  border: 1px solid red !important;
+}
+.no-button {
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+  color: white;
+  border: 0px solid $color-primary !important;
+}
+.display-none {
+  display: none;
+}
+.display-block {
+  display: block;
 }

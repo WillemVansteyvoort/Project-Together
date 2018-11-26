@@ -6,7 +6,8 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
-
+use App\User;
+use App\User_verify;
 class Registered extends Mailable
 {
     use Queueable, SerializesModels;
@@ -16,9 +17,10 @@ class Registered extends Mailable
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(User $user, User_verify $user_verify)
     {
-        //
+        $this->user = $user;
+        $this->user_verify = $user_verify;
     }
 
     /**
@@ -28,6 +30,12 @@ class Registered extends Mailable
      */
     public function build()
     {
-        return $this->view('front.index');
+        return $this->view('mails.register')
+            ->subject('Verify your account ')
+            ->with([
+                'name' => $this->user->name,
+                'company' => $this->user->company->name,
+                'url' => 'http://www.project-together.com/user/verify/' . $this->user_verify->token . '/' .  $this->user_verify->user_id,
+            ]);;
     }
 }

@@ -8,6 +8,7 @@ use App\Company;
 use App\User;
 use Auth;
 use App\User_invite;
+use App\Group;
 class CompanyController extends Controller {
 
     public function index($company) {
@@ -34,8 +35,8 @@ class CompanyController extends Controller {
     }
 
     public function groups() {
-
-        return Auth::user()->company->groups->toJson(JSON_PRETTY_PRINT);
+        $groups = Group::where('company_id', Auth::user()->company_id)->with(['users'], ['owner'])->get();
+        return $groups->toJson(JSON_PRETTY_PRINT);
     }
 
 
