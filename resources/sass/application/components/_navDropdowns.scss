@@ -1,0 +1,272 @@
+//tabs-nav
+.tab-content {
+  display: none;
+}
+
+.mode {
+  display: inline;
+}
+
+
+
+.mode {
+  position: relative;
+  display: inline-block;
+
+  &-content {
+    left: 1200%;
+    position: absolute;
+    background: #5680E9;
+    border: 1px solid #5680E9;
+    border-radius: 3px/6px;
+    overflow: auto;
+    z-index: 1;
+    padding: 14px;
+    color: white;
+    margin-top: 8px;
+    margin-left: 8px;
+
+    a {
+      color: white;
+    }
+    i {
+      font-size: 25px;
+    }
+
+  }
+  &-title {
+    font-size: 18px;
+    font-family: $font_standard;
+    margin-bottom: 20px;
+  }
+
+}
+
+.people {
+  position: relative;
+  display: inline-block;
+
+  &-content {
+    right: 0;
+    top: 140%;
+    position: absolute;
+    background: white;
+    border: 1px solid #ccc;
+    box-shadow: 1px 1px 2px #fff inset,
+    -1px -1px 2px #fff inset;
+    border-radius: 3px/6px;
+    min-width: 260px;
+    overflow: auto;
+    z-index: 1;
+    padding: 14px;
+    color: black;
+
+    i {
+      color: #32CD32;
+      margin-right: 10px;
+    }
+  }
+  &-title {
+    font-size: 18px;
+    font-family: $font_standard;
+    margin-bottom: 20px;
+  }
+
+}
+.notifications {
+  position: relative;
+  display: inline-block;
+  &-active {
+    height: 8px;
+    width: 8px;
+    top: 80%;
+    right: -5%;
+    position: absolute;
+    background-color: #E54243;
+    border-radius: 50%;
+    display: inline-block;
+  }
+  article {
+    margin-top: 10px;
+  }
+  &-content {
+    right: 0;
+    top: 140%;
+    position: absolute;
+    background: white;
+    border: 1px solid #ccc;
+    box-shadow: 1px 1px 2px #fff inset,
+    -1px -1px 2px #fff inset;
+    border-radius: 3px/6px;
+    min-width: 460px;
+    overflow: auto;
+    z-index: 1;
+    padding: 14px;
+    color: black;
+  }
+  &-title {
+    font-size: 18px;
+    font-family: $font_standard;
+    margin-bottom: 20px;
+  }
+  &-alert {
+    &--icon {
+      float: left;
+      color: #2D3E50;
+      width: 20%;
+      text-align: center;
+      font-size: 34px;
+      margin-top: 8px;
+    }
+    &--time {
+      font-size: 10px;
+      display: block;
+    }
+    &--text {
+      float: right;
+      padding-top: 8px;
+      width: 80%;
+    }
+    &--title {
+      font-weight: 800;
+
+    }
+    &--see a {
+      color: $color-primary !important;
+    }
+    p {
+      clear: both;
+    }
+    a {
+      color: black;
+    }
+    a:hover {
+      color: $color-primary;
+    }
+    p {
+      //border-bottom: 1px solid white;
+    }
+  }
+}
+.help {
+  position: relative;
+  display: inline-block;
+  &-content {
+    display: none;
+    right: 0;
+    top: 140%;
+    position: absolute;
+    background: white;
+    border: 1px solid #ccc;
+    box-shadow: 1px 1px 2px #fff inset,
+    -1px -1px 2px #fff inset;
+    border-radius: 3px/6px;
+    min-width: 260px;
+    overflow: auto;
+    z-index: 1;
+    padding: 14px;
+    color: black;
+  }
+  &-title {
+    font-size: 18px;
+    font-family: $font_standard;
+    margin-bottom: 20px;
+  }
+  &-alert {
+    &--time {
+      font-size: 10px;
+      display: block;
+    }
+    &--text {
+      width: 100%;
+    }
+    &--title {
+      font-weight: 800;
+    }
+    &--see a {
+      color: $color-primary !important;
+    }
+    p {
+      clear: both;
+    }
+    a {
+      color: black;
+    }
+    a:hover {
+      color: $color-primary;
+    }
+    p {
+      //border-bottom: 1px solid white;
+    }
+  }
+}
+.profile {
+  position: relative;
+  display: inline-block;
+  &-content {
+    display: none;
+    right: -3px;
+    top: 120%;
+    position: absolute;
+    background-color: white;
+    border: 1px solid #ccc;
+    box-shadow: 1px 1px 2px #fff inset,
+    -1px -1px 2px #fff inset;
+    border-radius: 3px/6px;
+    min-width: 250px;
+    overflow: auto;
+    z-index: 1;
+    padding: 14px;
+    color: black;
+  }
+  .line-small {
+    margin-bottom: 12px;
+  }
+  &-user {
+    margin: 0 5%;
+    height: 50px;
+    &--avatar {
+      border-radius: 50%;
+      width: 55px;
+      height: 55px;
+      float: left;
+    }
+
+    &--name {
+      padding: 17px 0 0 8px;
+      font-size: 16px;
+      font-family: $font_multi;
+      font-weight: bold;
+      float: left;
+    }
+
+    &:hover {
+      background-color:  #f0f0f0;
+      margin: -14px;
+      padding: 14px 14px 14px 26px;
+    }
+  }
+  &-links {
+    i {
+      margin: 3px 2px 0 0;
+    }
+    li {
+      display: block;
+      margin-top: -6px;
+      a {
+        color: black;
+        font-family: $font_standard;
+        font-size: 14px;
+      }
+      a:hover {
+        color: $color-primary;
+      }
+    }
+  }
+}
+
+.alert-icon {
+  color: $color-primary;
+}
+
+.show {display: block;}

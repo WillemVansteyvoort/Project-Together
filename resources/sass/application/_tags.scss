@@ -1,0 +1,20 @@
+.tag {
+  font-family: $font_multi;
+  color: white;
+  padding: 8px;
+  &-primary {
+    background-color: #5680e9;
+  }
+  &-second {
+    background-color: $color-second;
+  }
+  &-third {
+    background-color: $color-third;
+  }
+  &-green {
+    background-color: green;
+  }
+  &-red {
+    background-color: #ef3d47;
+  }
+}

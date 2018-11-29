@@ -1,0 +1,29 @@
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+    Scanner invoer = new Scanner(System.in);
+    int passagiers;
+    int stoel1;
+    int stoel2;
+    int duur;
+
+    int testgevallen  = invoer.nextInt();
+    for (int i = 1; i <= testgevallen; i++) {
+        passagiers = invoer.nextInt();
+        if (passagiers > 1 && passagiers < 1000) {
+            stoel2 = 0;
+            duur = 0;
+            stoel2 = 0;
+            for (int e = 0; e < passagiers; e++) {
+                stoel1 = invoer.nextInt();
+                if (stoel1 > stoel2) {
+                    duur += 1;
+                }
+                stoel2 = stoel1;
+            }
+            System.out.println(i + " " + duur);
+        }
+    }
+    }
+}

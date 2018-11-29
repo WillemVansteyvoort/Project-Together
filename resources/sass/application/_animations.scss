@@ -1,0 +1,11 @@
+/**** ANIMATIONS IN CSS ****/
+@keyframes up {
+
+  50% {
+    transform: translateY(-12px);
+  }
+}
+.animation-up:hover {
+  animation-name: up;
+  animation-duration: 2s;
+}
