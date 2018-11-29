@@ -458,7 +458,7 @@ export default class SignupFacebook extends Component {
                                     <ProgressBar isLoading={this.state.isLoading}  className="fixed-progress-bar" height="10px" color="#5680e9" />
                                     {this.state.isLoading  ? this.makeUser() : ""}
                                     {!this.state.isLoading  ? <h6>Succesfully, we will now redirect you.</h6> : ""}
-                                    {!this.state.isLoading  ? <div><meta http-equiv="Refresh" content="0;URL=welcome/" /></div> : ""}
+                                    {!this.state.isLoading  ? <div><meta http-equiv="Refresh" content="0;URL=https://project-together.com/welcome/" /></div> : ""}
                                 </div>
                             )}
                         />

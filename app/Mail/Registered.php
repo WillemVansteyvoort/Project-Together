@@ -35,7 +35,7 @@ class Registered extends Mailable
             ->with([
                 'name' => $this->user->name,
                 'company' => $this->user->company->name,
-                'url' => 'http://www.project-together.com/user/verify/' . $this->user_verify->token . '/' .  $this->user_verify->user_id,
+                'url' => 'https://project-together.com/user/verify/' . $this->user_verify->token . '/' .  $this->user_verify->user_id,
             ]);
     }
 }

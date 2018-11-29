@@ -38,7 +38,7 @@ class Invite extends Mailable
             ->with([
                 'name' => $this->user_invite->name . " " . $this->user_invite->lastname,
                 'company' =>  $this->user_invite->company->name,
-                'url' => 'http://www.project-together.com/' . $company->url . "/invite/".$this->user_invite->token,
+                'url' => 'https://project-together.com/' . $company->url . "/invite/".$this->user_invite->token,
                 'maker' => $creator->name,
                 'mess' =>  $this->user_invite->message,
             ]);

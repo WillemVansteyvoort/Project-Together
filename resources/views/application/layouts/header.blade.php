@@ -39,7 +39,7 @@
                 <li><i onclick="showNotifications('people')" class="fas fa-bars dropbtn"> </i>
             </ul>
             <div id="people" class="people-content tab-content">
-                <h6 class="people-title">Online collegues</h6>
+                <h6 class="people-title">Online members</h6>
                 <div id="menu-online"></div>
             </div>
         </div>

@@ -36,7 +36,7 @@ class Reset_Password extends Mailable
             ->with([
                 'name' => $this->user->name,
                 'company' => $this->user->company->name,
-                'url' => 'http://www.project-together.com/password/' .$this->user->company->url . '/' .  $this->password_reset->token,
+                'url' => 'https://project-together.com/password/' .$this->user->company->url . '/' .  $this->password_reset->token,
             ]);;
     }
 }

@@ -33,7 +33,7 @@ class Welcome extends Mailable
             ->with([
                 'name' => $this->user->name,
                 'company' => $this->user->company->name,
-                'url' => 'http://www.project-together.com/' . $this->user->company->url . '/login',
+                'url' => 'https://project-together.com/' . $this->user->company->url . '/login',
             ]);;
     }
 }

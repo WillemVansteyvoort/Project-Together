@@ -82,7 +82,8 @@ class LoginController extends Controller
             $lastname = strstr($user->name, ' ');
             $email = $user->email;
             $avatar = $user->avatar;
-            return view('front.facebook', compact('name', 'lastname', 'email', 'avatar'));
+            $providerId = $provider;
+            return view('front.facebook', compact('name', 'lastname', 'email', 'avatar', 'providerId'));
         } else if($provider === "twitter") {
             $name = $user->name;
             $lastname = "";
@@ -103,14 +104,12 @@ class LoginController extends Controller
 
     public function login(Request $request) {
 
-        return $request->code;
-//        if($request->code === Auth::user()->two_step->code) {
-//            Auth::loginUsingId($request->user_id);
-//            return redirect( "/company");
-//        } else {
-//            $user_id = Auth::user()->id;
-//            return view('front.twostep', compact('user_id'));
-//
-//        }
+        if($request->code === Auth::user()->two_step->code) {
+           Auth::loginUsingId($request->user_id);
+         return redirect( "/company");
+       } else {
+            $user_id = Auth::user()->id;
+           return view('front.twostep', compact('user_id'));
+        }
     }
 }
