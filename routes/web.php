@@ -109,9 +109,9 @@ Route::get('/api/menu/notifications', 'Application\Menucontroller@notifications'
 Route::post('/api/menu/notifications', 'Application\Menucontroller@notificationsRead');
     Route::get('/api/menu/test', 'Application\Menucontroller@newNotification');
 
-Route::get('/api/company/users', 'Application\companyController@users');
-Route::get('/api/company/invites', 'Application\companyController@invites');
-Route::get('/api/company/groups', 'Application\companyController@groups');
+Route::get('/api/company/users', 'Application\CompanyController@users');
+Route::get('/api/company/invites', 'Application\CompanyController@invites');
+Route::get('/api/company/groups', 'Application\CompanyController@groups');
 
 Route::get('/api/notifcations/today', 'Application\DashboardController@notifcationsToday');
 Route::get('/api/notifcations/yesterday', 'Application\DashboardController@notificationsYesterday');
