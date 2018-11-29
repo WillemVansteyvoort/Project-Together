@@ -16,7 +16,8 @@ export default class SignupFacebook extends Component {
             lastname: window.Laravel.facebook.lastname,
             email: window.Laravel.facebook.email,
 
-            provider: window.Laravel.facebook.provider
+            provider: window.Laravel.facebook.provider,
+            provider_id: window.Laravel.facebook.provider_id,
             name_message: '',
             lastname_message: '',
             email_message: '',
@@ -286,7 +287,7 @@ export default class SignupFacebook extends Component {
                 name: this.state.name,
                 lastname: this.state.lastname,
                 email: this.state.email,
-                password: this.state.password,
+                password: '',
                 company_type: this.state.company_type,
                 company_name: this.state.company_name,
                 company_industry: this.state.company_industry,
@@ -296,7 +297,9 @@ export default class SignupFacebook extends Component {
                 newsletter: this.state.newsletter,
                 hide_data: this.state.hide_data,
                 safety: this.state.safety,
-                documentation: this.state.documentation
+                documentation: this.state.documentation,
+                provider: this.state.provider,
+                provider_id: this.state.provider_id,
             }).then(response => {
                 this.setState({
                     isLoading: false,

@@ -66,6 +66,14 @@ class RegisterCompanyController extends Controller
             'hide_data' => $request->hide_data,
         ]);
 
+        if(!empty($request->provider)) {
+            $user->provider = $request->provider;
+            $user->save();
+        }
+
+        if(!empty($request->provider_id)) {
+            $user->provider_id = $request->provider_id,
+        }
         //rights
         $rights = User_right::create([
             'user_id' => $user->id,
