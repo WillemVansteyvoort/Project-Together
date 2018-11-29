@@ -104,14 +104,14 @@ Route::get('/api/countries', 'Application\AccountController@getCountries');
 
 Route::group(['middleware' => ['auth']], function () {
 Route::post('/api/user/activity', 'UpdateActivity@update');
-Route::get('/api/menu/online', 'Application\Menucontroller@online');
-Route::get('/api/menu/notifications', 'Application\Menucontroller@notifications');
-Route::post('/api/menu/notifications', 'Application\Menucontroller@notificationsRead');
-    Route::get('/api/menu/test', 'Application\Menucontroller@newNotification');
+Route::get('/api/menu/online', 'Application\MenuController@online');
+Route::get('/api/menu/notifications', 'Application\MenuController@notifications');
+Route::post('/api/menu/notifications', 'Application\MenuController@notificationsRead');
+    Route::get('/api/menu/test', 'Application\MenuController@newNotification');
 
-Route::get('/api/company/users', 'Application\companyController@users');
-Route::get('/api/company/invites', 'Application\companyController@invites');
-Route::get('/api/company/groups', 'Application\companyController@groups');
+Route::get('/api/company/users', 'Application\CompanyController@users');
+Route::get('/api/company/invites', 'Application\CompanyController@invites');
+Route::get('/api/company/groups', 'Application\CompanyController@groups');
 
 Route::get('/api/notifcations/today', 'Application\DashboardController@notifcationsToday');
 Route::get('/api/notifcations/yesterday', 'Application\DashboardController@notificationsYesterday');
