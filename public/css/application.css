@@ -134,6 +134,10 @@ a:hover {
   display: block;
 }
 
+.overflow-auto {
+  overflow: auto !important;
+}
+
 /**** HEADER ****/
 
 .header-name {
@@ -547,6 +551,17 @@ a:hover {
 
 .show {
   display: block;
+}
+
+@media screen and (max-width: 760px) {
+  .notifications-content,
+  .people-content,
+  .help-content {
+    right: 0;
+    left: 0;
+    top: 30%;
+    position: fixed;
+  }
 }
 
 .sidebar {
@@ -1366,6 +1381,16 @@ input[type=checkbox]:checked + #nav-mobile--menu {
 .react-switch {
   vertical-align: middle;
   margin-left: 4px;
+}
+
+@media screen and (max-width: 760px) {
+  .company {
+    padding: 20px 25px 10px 25px;
+  }
+
+  .company table {
+    overflow: scroll !important;
+  }
 }
 
 .popup input[type="text"],

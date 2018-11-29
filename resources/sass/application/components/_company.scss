@@ -120,3 +120,11 @@
   margin-left: 4px;
 
 }
+@media screen and (max-width : 760px) {
+  .company {
+    padding: 20px 25px 10px 25px;
+    table {
+      overflow: scroll !important;
+    }
+  }
+}

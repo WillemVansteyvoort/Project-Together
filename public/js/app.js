@@ -84910,73 +84910,77 @@ var CompanyUsers = function (_Component) {
                     { tabId: 'one' },
                     window.Laravel.rights.create_members ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_9__popups_newUser__["default"], null) : "",
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        'table',
-                        { className: 'u-full-width' },
+                        'div',
+                        { className: 'overflow-auto' },
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'thead',
-                            null,
+                            'table',
+                            { className: 'u-full-width' },
                             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                'tr',
+                                'thead',
                                 null,
                                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                    'th',
+                                    'tr',
                                     null,
-                                    'Name'
-                                ),
-                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                    'th',
-                                    null,
-                                    'Last name'
-                                ),
-                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                    'th',
-                                    null,
-                                    'E-mail'
-                                ),
-                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                    'th',
-                                    null,
-                                    'Last activity'
+                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                        'th',
+                                        null,
+                                        'Name'
+                                    ),
+                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                        'th',
+                                        null,
+                                        'Last name'
+                                    ),
+                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                        'th',
+                                        null,
+                                        'E-mail'
+                                    ),
+                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                        'th',
+                                        null,
+                                        'Last activity'
+                                    )
                                 )
-                            )
-                        ),
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_8_react_spinners_PulseLoader___default.a, { ClassName: 'pulse-loader',
-                            sizeUnit: "px",
-                            color: '#5680e9',
-                            loading: this.state.isLoading
-                        }),
-                        this.state.users.map(function (user) {
-                            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                'tr',
-                                null,
-                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                    'td',
+                            ),
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_8_react_spinners_PulseLoader___default.a, { ClassName: 'pulse-loader',
+                                sizeUnit: "px",
+                                color: '#5680e9',
+                                loading: this.state.isLoading
+                            }),
+                            this.state.users.map(function (user) {
+                                return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                    'tr',
                                     null,
-                                    user.name,
-                                    ' ',
-                                    user.id === window.Laravel.user.id ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                        'span',
-                                        { className: 'tag tag-red' },
-                                        'You'
-                                    ) : ""
-                                ),
-                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                    'td',
-                                    null,
-                                    user.lastname
-                                ),
-                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                    'td',
-                                    null,
-                                    user.email
-                                ),
-                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                    'td',
-                                    null,
-                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(Timestamp, { time: user.last_activity, utc: false, precision: 1 })
-                                )
-                            );
-                        })
+                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                        'td',
+                                        null,
+                                        user.name,
+                                        ' ',
+                                        user.id === window.Laravel.user.id ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                            'span',
+                                            { className: 'tag tag-red' },
+                                            'You'
+                                        ) : ""
+                                    ),
+                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                        'td',
+                                        null,
+                                        user.lastname
+                                    ),
+                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                        'td',
+                                        null,
+                                        user.email
+                                    ),
+                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                        'td',
+                                        null,
+                                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(Timestamp, { time: user.last_activity, utc: false, precision: 1 })
+                                    )
+                                );
+                            })
+                        )
                     )
                 ),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -84984,73 +84988,77 @@ var CompanyUsers = function (_Component) {
                     { tabId: 'two' },
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_11__popups_newInvite__["a" /* default */], null),
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        'table',
-                        { className: 'u-full-width' },
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_6_reprogressbars__["a" /* ProgressBar */], { isLoading: this.state.isLoading, className: 'fixed-progress-bar', color: 'black' }),
+                        'div',
+                        { className: 'overflow-auto' },
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'thead',
-                            null,
+                            'table',
+                            { className: 'u-full-width' },
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_6_reprogressbars__["a" /* ProgressBar */], { isLoading: this.state.isLoading, className: 'fixed-progress-bar', color: 'black' }),
                             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                'tr',
+                                'thead',
                                 null,
                                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                    'th',
+                                    'tr',
                                     null,
-                                    'Name'
-                                ),
-                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                    'th',
-                                    null,
-                                    'Last name'
-                                ),
-                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                    'th',
-                                    null,
-                                    'Email'
-                                ),
-                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                    'th',
-                                    null,
-                                    'Invite sends on'
+                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                        'th',
+                                        null,
+                                        'Name'
+                                    ),
+                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                        'th',
+                                        null,
+                                        'Last name'
+                                    ),
+                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                        'th',
+                                        null,
+                                        'Email'
+                                    ),
+                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                        'th',
+                                        null,
+                                        'Invite sends on'
+                                    )
                                 )
-                            )
-                        ),
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_8_react_spinners_PulseLoader___default.a, { ClassName: 'pulse-loader',
-                            sizeUnit: "px",
-                            color: '#5680e9',
-                            loading: this.state.isLoading
-                        }),
-                        this.state.invites.length === 0 ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'p',
-                            null,
-                            'There are no invites found.'
-                        ) : '',
-                        this.state.invites.map(function (invite) {
-                            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                'tr',
+                            ),
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_8_react_spinners_PulseLoader___default.a, { ClassName: 'pulse-loader',
+                                sizeUnit: "px",
+                                color: '#5680e9',
+                                loading: this.state.isLoading
+                            }),
+                            this.state.invites.length === 0 ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                'p',
                                 null,
-                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                    'td',
+                                'There are no invites found.'
+                            ) : '',
+                            this.state.invites.map(function (invite) {
+                                return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                    'tr',
                                     null,
-                                    invite.name
-                                ),
-                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                    'td',
-                                    null,
-                                    invite.lastname
-                                ),
-                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                    'td',
-                                    null,
-                                    invite.email
-                                ),
-                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                    'td',
-                                    null,
-                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(Timestamp, { time: invite.created_at, precision: 1 })
-                                )
-                            );
-                        })
+                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                        'td',
+                                        null,
+                                        invite.name
+                                    ),
+                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                        'td',
+                                        null,
+                                        invite.lastname
+                                    ),
+                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                        'td',
+                                        null,
+                                        invite.email
+                                    ),
+                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                        'td',
+                                        null,
+                                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(Timestamp, { time: invite.created_at, precision: 1 })
+                                    )
+                                );
+                            })
+                        )
                     )
                 ),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -85077,59 +85085,63 @@ var CompanyUsers = function (_Component) {
                                     __WEBPACK_IMPORTED_MODULE_12_react_accessible_accordion__["AccordionItemBody"],
                                     null,
                                     group.users.length > 0 ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                        'table',
-                                        { className: 'u-full-width' },
-                                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_6_reprogressbars__["a" /* ProgressBar */], { isLoading: _this6.state.isLoading, className: 'fixed-progress-bar', color: 'black' }),
+                                        'div',
+                                        { className: 'overflow-auto' },
                                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                            'thead',
-                                            null,
+                                            'table',
+                                            { className: 'u-full-width' },
+                                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_6_reprogressbars__["a" /* ProgressBar */], { isLoading: _this6.state.isLoading, className: 'fixed-progress-bar', color: 'black' }),
                                             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                                'tr',
+                                                'thead',
                                                 null,
                                                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                                    'th',
+                                                    'tr',
                                                     null,
-                                                    'Name'
-                                                ),
-                                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                                    'th',
-                                                    null,
-                                                    'Last name'
-                                                ),
-                                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                                    'th',
-                                                    null,
-                                                    'Email'
+                                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                                        'th',
+                                                        null,
+                                                        'Name'
+                                                    ),
+                                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                                        'th',
+                                                        null,
+                                                        'Last name'
+                                                    ),
+                                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                                        'th',
+                                                        null,
+                                                        'Email'
+                                                    )
                                                 )
-                                            )
-                                        ),
-                                        group.users.map(function (user) {
-                                            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                                'tr',
-                                                null,
-                                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                                    'td',
+                                            ),
+                                            group.users.map(function (user) {
+                                                return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                                    'tr',
                                                     null,
-                                                    user.name,
-                                                    '  ',
-                                                    group.user_id === user.id ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                                        'span',
-                                                        { className: 'tag tag-red' },
-                                                        'Leader'
-                                                    ) : ""
-                                                ),
-                                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                                    'td',
-                                                    null,
-                                                    user.lastname
-                                                ),
-                                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                                    'td',
-                                                    null,
-                                                    user.email
-                                                )
-                                            );
-                                        })
+                                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                                        'td',
+                                                        null,
+                                                        user.name,
+                                                        '  ',
+                                                        group.user_id === user.id ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                                            'span',
+                                                            { className: 'tag tag-red' },
+                                                            'Leader'
+                                                        ) : ""
+                                                    ),
+                                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                                        'td',
+                                                        null,
+                                                        user.lastname
+                                                    ),
+                                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                                        'td',
+                                                        null,
+                                                        user.email
+                                                    )
+                                                );
+                                            })
+                                        )
                                     ) : __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                         'div',
                                         { className: 'center-text' },

@@ -268,5 +268,14 @@
 .alert-icon {
   color: $color-primary;
 }
-
 .show {display: block;}
+@media screen and (max-width : 760px) {
+  .notifications, .people, .help {
+    &-content {
+      right: 0;
+      left: 0;
+      top: 30%;
+      position: fixed;
+    }
+  }
+}

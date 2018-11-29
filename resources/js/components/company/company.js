@@ -134,58 +134,62 @@ export default class CompanyUsers extends Component {
                 </TabList>
                 <TabPanel tabId="one">
                     {window.Laravel.rights.create_members ? <PopupNewUser/> : ""}
-                    <table className="u-full-width">
-                        <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Last name</th>
-                            <th>E-mail</th>
-                            <th>Last activity</th>
-                        </tr>
-                        </thead>
-                        <PulseLoader ClassName="pulse-loader"
-                            sizeUnit={"px"}
-                            color={'#5680e9'}
-                            loading={this.state.isLoading}
-                        />
-                        {this.state.users.map(user => (
+                    <div className="overflow-auto">
+                        <table className="u-full-width">
+                            <thead>
                             <tr>
-                                <td>{user.name} {user.id === window.Laravel.user.id ? <span className="tag tag-red">You</span> : ""}</td>
-                                <td>{user.lastname}</td>
-                                <td>{user.email}</td>
-                                <td><Timestamp time={user.last_activity} utc={false} precision={1} /></td>
+                                <th>Name</th>
+                                <th>Last name</th>
+                                <th>E-mail</th>
+                                <th>Last activity</th>
                             </tr>
+                            </thead>
+                            <PulseLoader ClassName="pulse-loader"
+                                         sizeUnit={"px"}
+                                         color={'#5680e9'}
+                                         loading={this.state.isLoading}
+                            />
+                            {this.state.users.map(user => (
+                                <tr>
+                                    <td>{user.name} {user.id === window.Laravel.user.id ? <span className="tag tag-red">You</span> : ""}</td>
+                                    <td>{user.lastname}</td>
+                                    <td>{user.email}</td>
+                                    <td><Timestamp time={user.last_activity} utc={false} precision={1} /></td>
+                                </tr>
 
-                        ))}
-                    </table>
+                            ))}
+                        </table>
+                    </div>
                 </TabPanel>
                 <TabPanel tabId="two">
                     <PopupNewInvite/>
-                    <table className="u-full-width">
-                        <ProgressBar isLoading={this.state.isLoading}  className="fixed-progress-bar"  color="black" />
-                        <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Last name</th>
-                            <th>Email</th>
-                            <th>Invite sends on</th>
-                        </tr>
-                        </thead>
-                        <PulseLoader ClassName="pulse-loader"
-                                     sizeUnit={"px"}
-                                     color={'#5680e9'}
-                                     loading={this.state.isLoading}
-                        />
-                        {this.state.invites.length === 0 ? <p>There are no invites found.</p> : ''}
-                        {this.state.invites.map(invite => (
+                    <div className="overflow-auto">
+                        <table className="u-full-width">
+                            <ProgressBar isLoading={this.state.isLoading}  className="fixed-progress-bar"  color="black" />
+                            <thead>
                             <tr>
-                                <td>{invite.name}</td>
-                                <td>{invite.lastname}</td>
-                                <td>{invite.email}</td>
-                                <td><Timestamp time={invite.created_at} precision={1} /></td>
+                                <th>Name</th>
+                                <th>Last name</th>
+                                <th>Email</th>
+                                <th>Invite sends on</th>
                             </tr>
-                        ))}
-                    </table>
+                            </thead>
+                            <PulseLoader ClassName="pulse-loader"
+                                         sizeUnit={"px"}
+                                         color={'#5680e9'}
+                                         loading={this.state.isLoading}
+                            />
+                            {this.state.invites.length === 0 ? <p>There are no invites found.</p> : ''}
+                            {this.state.invites.map(invite => (
+                                <tr>
+                                    <td>{invite.name}</td>
+                                    <td>{invite.lastname}</td>
+                                    <td>{invite.email}</td>
+                                    <td><Timestamp time={invite.created_at} precision={1} /></td>
+                                </tr>
+                            ))}
+                        </table>
+                    </div>
                 </TabPanel>
                 <TabPanel tabId="three">
                     <PopupNewGroup/>
@@ -197,24 +201,25 @@ export default class CompanyUsers extends Component {
                                 </AccordionItemTitle>
                                 <AccordionItemBody>
                                     {group.users.length > 0 ?
-                                        <table className="u-full-width">
-                                            <ProgressBar isLoading={this.state.isLoading}  className="fixed-progress-bar"  color="black" />
-                                            <thead>
-                                            <tr>
-                                                <th>Name</th>
-                                                <th>Last name</th>
-                                                <th>Email</th>
-                                            </tr>
-                                            </thead>
-                                            {group.users.map(user => (
+                                        <div className="overflow-auto">
+                                            <table className="u-full-width">
+                                                <ProgressBar isLoading={this.state.isLoading}  className="fixed-progress-bar"  color="black" />
+                                                <thead>
                                                 <tr>
-                                                    <td>{user.name}  {group.user_id === user.id ? <span className="tag tag-red">Leader</span> : ""}</td>
-                                                    <td>{user.lastname}</td>
-                                                    <td>{user.email}</td>
+                                                    <th>Name</th>
+                                                    <th>Last name</th>
+                                                    <th>Email</th>
                                                 </tr>
-                                            ))}
-                                        </table>
-
+                                                </thead>
+                                                {group.users.map(user => (
+                                                    <tr>
+                                                        <td>{user.name}  {group.user_id === user.id ? <span className="tag tag-red">Leader</span> : ""}</td>
+                                                        <td>{user.lastname}</td>
+                                                        <td>{user.email}</td>
+                                                    </tr>
+                                                ))}
+                                            </table>
+                                        </div>
                                         :
                                         <div className="center-text">
                                             There are no members in this group

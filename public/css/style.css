@@ -1367,3 +1367,16 @@ input[type="submit"] {
   color: #5680e9 !important;
 }
 
+@media screen and (max-width: 760px) {
+  .login-company-content section {
+    position: fixed;
+    top: 20%;
+    left: 2%;
+    margin-right: 0%;
+    -webkit-transform: none;
+    transform: none;
+    width: auto;
+    right: 2%;
+  }
+}
+
