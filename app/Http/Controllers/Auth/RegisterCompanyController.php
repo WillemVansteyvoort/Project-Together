@@ -72,7 +72,7 @@ class RegisterCompanyController extends Controller
         }
 
         if(!empty($request->provider_id)) {
-            $user->provider_id = $request->provider_id,
+            $user->provider_id = $request->provider_id;
         }
         //rights
         $rights = User_right::create([
