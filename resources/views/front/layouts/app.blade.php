@@ -30,5 +30,6 @@
     @extends('front.layouts.footer')
 </div>
 </body>
+<script async="async" type="text/javascript" src="{{ asset('js/script.js') }}"></script>
 <script async="async" type="text/javascript" src="{{ asset('js/app.js') }}"></script>
 </html>
