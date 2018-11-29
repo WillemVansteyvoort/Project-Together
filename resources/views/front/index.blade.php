@@ -93,7 +93,7 @@
                             <h4>Free</h4>
                             <ul>
                                 <li>2GB file space</li>
-                                <li>Up to 10 users</li>
+                                <li>Up to 25 users</li>
                                 <li>4 projects</li>
                                 <li>Unlimited (sub)tasks</li>
                                 <li>24/7 support</li>
@@ -292,6 +292,7 @@
     </div>
 @extends('front.layouts.footer')
 </body>
+<script async="async" type="text/javascript" src="{{ asset('js/toggles.js') }}"></script>
 <script async="async" type="text/javascript" src="{{ asset('js/script.js') }}"></script>
 <script async="async" type="text/javascript" src="{{ asset('js/app.js') }}"></script>
 </html>
