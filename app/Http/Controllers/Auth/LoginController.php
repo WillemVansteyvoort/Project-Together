@@ -82,7 +82,7 @@ class LoginController extends Controller
             $lastname = strstr($user->name, ' ');
             $email = $user->email;
             $avatar = $user->avatar;
-            $provider_id = $provider;
+            $provider_id = $user->id;
             return view('front.facebook', compact('name', 'lastname', 'email', 'avatar', 'provider_id', 'provider'));
         } else if($provider === "twitter") {
             $name = $user->name;
@@ -102,6 +102,9 @@ class LoginController extends Controller
         //return redirect($this->redirectTo);
     }
 
+    public function facebook($user, $provider) {
+        $authUser = User::where('provider_id', $user->id)->first();
+    }
     public function login(Request $request) {
 
         if($request->code === Auth::user()->two_step->code) {
