@@ -83,7 +83,7 @@ class LoginController extends Controller
             $email = $user->email;
             $avatar = $user->avatar;
             $providerId = $provider;
-            return view('front.facebook', compact('name', 'lastname', 'email', 'avatar', 'providerId'));
+            return view('front.facebook', compact('name', 'lastname', 'email', 'avatar', 'providerId', 'provider'));
         } else if($provider === "twitter") {
             $name = $user->name;
             $lastname = "";
