@@ -25,6 +25,8 @@
                'lastname' => $lastname,
                'email' => $email,
                'facebook' => $avatar,
+               'provider' => $provider,
+               'provider_id' => $provider_id,
            ],
     ]);
         ?>
