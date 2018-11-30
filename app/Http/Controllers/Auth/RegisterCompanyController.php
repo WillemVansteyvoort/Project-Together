@@ -67,7 +67,7 @@ class RegisterCompanyController extends Controller
             'provider' => $request->provider,
             'provider_id' => $request->provider_id,
         ]);
-        
+
         //rights
         $rights = User_right::create([
             'user_id' => $user->id,

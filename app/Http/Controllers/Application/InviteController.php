@@ -52,7 +52,7 @@ class InviteController extends Controller
             'email' => $invite->email,
             'admin' => $invite->admin,
             'password' => Hash::make($request->password),
-            'avatar' => 'user.jpg',
+            'avatar' => 'https://project-together.com/images/user.jpg',
             'company_id' => $invite->company_id,
             'termsOfService' => 1,
             'privacyPolicy' => 1,

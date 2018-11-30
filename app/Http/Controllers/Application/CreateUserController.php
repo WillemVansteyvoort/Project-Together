@@ -40,7 +40,7 @@ class CreateUserController extends Controller
             'email' => $request->user_email,
             'admin' => $request->right_admin,
             'password' => Hash::make($request->password_new),
-            'avatar' => 'user.jpg',
+            'avatar' => 'https://project-together.com/images/user.jpg',
             'company_id' => Auth::user()->company->id,
             'termsOfService' => 0,
             'privacyPolicy' => 0,
