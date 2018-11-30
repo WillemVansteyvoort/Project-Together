@@ -79514,7 +79514,7 @@ var SignupForm = function (_Component) {
             documentation: 0,
             termsOfService: 0,
             privacyPolicy: 0,
-            user_avatar: 'images/user.jpg'
+            user_avatar: 'https://project-together.com/images/user.jpg'
 
         };
         //bind
@@ -79803,7 +79803,7 @@ var SignupForm = function (_Component) {
                     documentation: this.state.documentation,
                     provider: '',
                     provider_id: '',
-                    user_avatar: '/images/user.jpg'
+                    user_avatar: 'https://project-together.com/images/user.jpg'
                 }).then(function (response) {
                     _this4.setState({
                         isLoading: false,
