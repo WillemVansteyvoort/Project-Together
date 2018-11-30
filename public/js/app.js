@@ -79513,7 +79513,8 @@ var SignupForm = function (_Component) {
             safety: 0,
             documentation: 0,
             termsOfService: 0,
-            privacyPolicy: 0
+            privacyPolicy: 0,
+            user_avatar: 'user.jpg'
 
         };
         //bind

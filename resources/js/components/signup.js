@@ -58,6 +58,7 @@ export default class SignupForm extends Component {
             documentation: 0,
             termsOfService: 0,
             privacyPolicy: 0,
+            user_avatar: 'user.jpg',
 
         };
         //bind
