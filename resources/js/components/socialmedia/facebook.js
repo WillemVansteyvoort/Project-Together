@@ -18,7 +18,7 @@ export default class SignupFacebook extends Component {
 
             provider: window.Laravel.facebook.provider,
             provider_id: window.Laravel.facebook.provider_id,
-            avatar: window.Laravel.faceboook.avatar,
+            user_avatar: window.Laravel.faceboook.avatar,
 
             name_message: '',
             lastname_message: '',
@@ -302,6 +302,7 @@ export default class SignupFacebook extends Component {
                 documentation: this.state.documentation,
                 provider: this.state.provider,
                 provider_id: this.state.provider_id,
+                user_avatar: this.state.user_avatar,
             }).then(response => {
                 this.setState({
                     isLoading: false,
