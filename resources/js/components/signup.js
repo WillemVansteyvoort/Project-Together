@@ -308,7 +308,10 @@ export default class SignupForm extends Component {
                 newsletter: this.state.newsletter,
                 hide_data: this.state.hide_data,
                 safety: this.state.safety,
-                documentation: this.state.documentation
+                documentation: this.state.documentation,
+                provider: '',
+                provider_id: '',
+                avatar: 'user.jpg',
             }).then(response => {
                 this.setState({
                     isLoading: false,

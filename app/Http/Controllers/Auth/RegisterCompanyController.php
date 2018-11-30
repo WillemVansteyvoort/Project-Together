@@ -57,13 +57,15 @@ class RegisterCompanyController extends Controller
             'company_id' => 0,
             'owner' => 1,
             'admin' => 1,
-            'avatar' => 'user.jpg',
+            'avatar' => $request->avatar,
             'termsOfService' => 1,
             'privacyPolicy' => 1,
             'function' => $request->function,
             'last_activity' => now(),
             'newsletter' => $request->newsletter,
             'hide_data' => $request->hide_data,
+            'provider' => $request->provider,
+            'provider_id' => $request->provider_id,
         ]);
 
         if(!empty($request->provider)) {

@@ -18,6 +18,8 @@ export default class SignupFacebook extends Component {
 
             provider: window.Laravel.facebook.provider,
             provider_id: window.Laravel.facebook.provider_id,
+            avatar: window.Laravel.faceboook.avatar,
+
             name_message: '',
             lastname_message: '',
             email_message: '',

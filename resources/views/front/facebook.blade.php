@@ -27,6 +27,7 @@
                'facebook' => $avatar,
                'provider' => $provider,
                'provider_id' => $provider_id,
+               'avatar' => $avatar,
            ],
     ]);
         ?>
