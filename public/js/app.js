@@ -79803,7 +79803,7 @@ var SignupForm = function (_Component) {
                     documentation: this.state.documentation,
                     provider: '',
                     provider_id: '',
-                    user_avatar: 'images/user.jpg'
+                    user_avatar: '/images/user.jpg'
                 }).then(function (response) {
                     _this4.setState({
                         isLoading: false,
