@@ -58,7 +58,7 @@ export default class SignupForm extends Component {
             documentation: 0,
             termsOfService: 0,
             privacyPolicy: 0,
-            user_avatar: 'user.jpg',
+            user_avatar: 'images/user.jpg',
 
         };
         //bind
@@ -312,7 +312,7 @@ export default class SignupForm extends Component {
                 documentation: this.state.documentation,
                 provider: '',
                 provider_id: '',
-                user_avatar: 'user.jpg',
+                user_avatar: 'images/user.jpg',
             }).then(response => {
                 this.setState({
                     isLoading: false,

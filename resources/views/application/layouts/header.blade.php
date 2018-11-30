@@ -84,7 +84,7 @@
             </ul>
             <div id="profile" class="profile-content tab-content" >
                 <div class="profile-user">
-                    <img class="profile-user--avatar" src="{{ asset('images/')}}/{{{ Auth::user()->avatar  }}}" />
+                    <img class="profile-user--avatar" src="{{{ Auth::user()->avatar  }}}" />
                     <h4 class="profile-user--name">{{{ Auth::user()->name  . "  ". Auth::user()->lastname}}}</h4>
                 </div>
                 <div class="clear line-small"></div>
