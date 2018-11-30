@@ -80,7 +80,7 @@
         </div>
         <div class="profile">
             <ul>
-                <li><a class="dropbtn" onclick="showNotifications('profile')"> {{Auth::user()->name}} <img src="{{ asset('images/')}}/{{{ Auth::user()->avatar  }}}" /></a></li>
+                <li><a class="dropbtn" onclick="showNotifications('profile')"> {{Auth::user()->name}} <img src="{{{ Auth::user()->avatar  }}}" /></a></li>
             </ul>
             <div id="profile" class="profile-content tab-content" >
                 <div class="profile-user">
