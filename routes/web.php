@@ -45,7 +45,7 @@ Route::group(['middleware' => ['auth', 'owner']], function () {
     Route::get('/company', 'CompanyController@index')->name('front_company');
     Route::get('/company/settings', 'CompanyController@settings')->name('front_settings');
     Route::post('/company/settings', 'CompanyController@update');
-    Route::post('/company/logo', 'companyController@deleteLogo');
+    Route::post('/company/logo', 'CompanyController@deleteLogo');
     Route::get('/welcome', 'CompanyController@welcome')->name('app_welcome');
 });
 
