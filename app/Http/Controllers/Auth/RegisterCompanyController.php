@@ -57,7 +57,7 @@ class RegisterCompanyController extends Controller
             'company_id' => 0,
             'owner' => 1,
             'admin' => 1,
-            'avatar' => $request->avatar,
+            'avatar' => $request->user_avatar,
             'termsOfService' => 1,
             'privacyPolicy' => 1,
             'function' => $request->function,

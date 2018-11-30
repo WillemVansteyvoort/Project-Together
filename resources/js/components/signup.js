@@ -311,7 +311,7 @@ export default class SignupForm extends Component {
                 documentation: this.state.documentation,
                 provider: '',
                 provider_id: '',
-                avatar: 'user.jpg',
+                user_avatar: 'user.jpg',
             }).then(response => {
                 this.setState({
                     isLoading: false,
