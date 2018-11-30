@@ -79799,7 +79799,10 @@ var SignupForm = function (_Component) {
                     newsletter: this.state.newsletter,
                     hide_data: this.state.hide_data,
                     safety: this.state.safety,
-                    documentation: this.state.documentation
+                    documentation: this.state.documentation,
+                    provider: '',
+                    provider_id: '',
+                    user_avatar: 'user.jpg'
                 }).then(function (response) {
                     _this4.setState({
                         isLoading: false,
@@ -92850,6 +92853,8 @@ var SignupFacebook = function (_Component) {
 
             provider: window.Laravel.facebook.provider,
             provider_id: window.Laravel.facebook.provider_id,
+            user_avatar: window.Laravel.faceboook.avatar,
+
             name_message: '',
             lastname_message: '',
             email_message: '',
@@ -93163,7 +93168,8 @@ var SignupFacebook = function (_Component) {
                     safety: this.state.safety,
                     documentation: this.state.documentation,
                     provider: this.state.provider,
-                    provider_id: this.state.provider_id
+                    provider_id: this.state.provider_id,
+                    user_avatar: this.state.user_avatar
                 }).then(function (response) {
                     _this4.setState({
                         isLoading: false,
