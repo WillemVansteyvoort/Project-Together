@@ -12,6 +12,7 @@ use App\User_verify;
 use App\Two_step;
 use Illuminate\Support\Facades\Auth;
 use App\User_right;
+use App\User_email;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Mail;
@@ -84,7 +85,9 @@ class RegisterCompanyController extends Controller
             'email' => 1,
             'phone' => 0,
         ]);
-
+        User_email::create([
+           'user_id' => $user->id,
+        ]);
         $url = strtolower(str_replace(' ', '', $request->company_name));
 
         $company = Company::create([

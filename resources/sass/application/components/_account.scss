@@ -101,4 +101,64 @@
     }
   }
 
+  &-avatar {
+    &-box {
+      margin: 0 6%;
+      img {
+        text-align: center;
+        max-width: 350px;
+        max-height: 350px;
+      }
+    }
+    &-upload {
+      margin: 50px 0 20px 0;
+      text-align: center;
+    }
+    &-info {
+      background-color: white;
+      padding: 20px 15px 15px 15px;
+
+      li {
+        list-style-type: none;
+        font-family: $font-standard;
+
+        &:hover {
+          color: $color-primary;
+        }
+
+      }
+    }
+  }
+
+  &-settings {
+    input {
+      display: inline !important;
+    }
+    input[type="number"] {
+      width: 60px;
+    }
+    &-info {
+      background-color: white;
+      padding: 20px 15px 15px 15px;
+      margin-top: 70px;
+      i {
+        font-size: 80px;
+        color: #2D3E50;
+        margin-bottom: 20px;
+      }
+      ul {
+        margin: 0 auto;
+      }
+      li {
+        list-style-type: none;
+        font-family: $font-standard;
+
+        &:hover {
+          color: $color-primary;
+        }
+
+      }
+    }
+  }
+
 }

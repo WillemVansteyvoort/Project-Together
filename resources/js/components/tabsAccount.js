@@ -4,6 +4,8 @@ import { Tabs, Tab, TabPanel, TabList } from 'react-web-tabs';
 import { Progress } from 'react-sweet-progress';
 import "react-sweet-progress/lib/style.css";
 import PopPop from 'react-poppop';
+import 'react-notifications/lib/notifications.css';
+import Notification from './notification';
 export default class TabsAccount extends Component {
 
     constructor(props) {
@@ -27,13 +29,29 @@ export default class TabsAccount extends Component {
             user_twitter: window.Laravel.user.twitter,
             user_facebook: window.Laravel.user.facebook,
             user_google: window.Laravel.user.google,
+            user_online: window.Laravel.user.online,
+            user_data: window.Laravel.user.hide_data,
+            user_notifications: window.Laravel.user.user_notifications,
 
-
+            //notifications
             profile: false,
-
+            profile_timer: 0,
+            settings: false,
+            settings_timer: 0,
+            password: false,
+            password_timer: 0,
+            //mail
+            mail_invites: window.Laravel.user.invites,
+            mail_sessions: window.Laravel.user.sessions,
+            mail_notifications: window.Laravel.user.notifications,
+            mail_overview: window.Laravel.user.overview,
             //overig
             countries: [],
 
+            //avatar
+            new_avatar: null,
+            //rights
+            right_avatar: window.Laravel.user.upload_avatar,
 
             //verifies
             errors_email: false,
@@ -75,12 +93,56 @@ export default class TabsAccount extends Component {
         this.sendVerify = this.sendVerify.bind(this);
         this.verify = this.verify.bind(this);
         this.updatePhone = this.updatePhone.bind(this);
+        this.updateAvatar = this.updateAvatar.bind(this);
+        this.handleFile = this.handleFile.bind(this);
+        this.updateOverview = this.updateOverview.bind(this);
+        this.updateSettings = this.updateSettings.bind(this);
+        this.changeProfile = this.changeProfile.bind(this);
+        this.changeProfileTimer = this.changeProfileTimer.bind(this);
+        this.changeSettings = this.changeSettings.bind(this);
+        this.changeSettingsTimer = this.changeSettingsTimer.bind(this);
+        this.changePassword = this.changePassword.bind(this);
+        this.changePasswordTimer = this.changePasswordTimer.bind(this);
     }
+
 
     componentWillMount() {
         this.getCountries();
     }
 
+    componentDidMount() {
+        this.interval =  setInterval(() => this.changeProfileTimer(), 3500);
+        this.interval2 =  setInterval(() => this.changeProfile(), 4000);
+        this.interval3 =  setInterval(() => this.changeSettingsTimer(), 3500);
+        this.interval4 =  setInterval(() => this.changeSettings(), 4000);
+        this.interval5 =  setInterval(() => this.changePasswordTimer(), 3500);
+        this.interval6 =  setInterval(() => this.changePassword(), 4000);
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.interval);
+    }
+
+    //notifcaties
+    changeProfile() {
+            this.setState({profile: false, profile_timer: 0})
+    }
+    changeProfileTimer() {
+        this.setState({profile_timer: true})
+    }
+    changeSettings() {
+            this.setState({settings: false, settings: 0})
+    }
+    changeSettingsTimer() {
+        this.setState({settings_timer: true})
+    }
+    changePassword() {
+            this.setState({password: false, password_timer: 0})
+    }
+    changePasswordTimer() {
+        this.setState({password_timer: true})
+
+    }
     getCountries() {
         axios.get('/api/countries').then((
             response
@@ -114,6 +176,7 @@ export default class TabsAccount extends Component {
         if(!error) {
             this.setState({errors_email: false, errors_name: false, errors_lastname: false, lastname_message: '', email_message: '', name_message: ''});
             this.updateAccount();
+
         }
 
 
@@ -143,6 +206,7 @@ export default class TabsAccount extends Component {
                     profile: true
                 });
             });
+
     }
 
     //two step authentication
@@ -162,6 +226,21 @@ export default class TabsAccount extends Component {
         });
     }
 
+    //avatar
+    handleFile(e) {
+        this.setState({
+            new_avatar: e.target.file,
+        })
+    }
+    updateAvatar() {
+        axios.post('/api/account/avatar/change', {
+           image: this.state.new_avatar
+        }).then(response => {
+            console.log(response);
+        });
+        console.log(this.state.new_avatar[0])
+    }
+
     //password
     updatePassword(e) {
         if(this.state.password_new.length < 8 || this.state.password_checkNew.length < 8) {
@@ -179,7 +258,7 @@ export default class TabsAccount extends Component {
                     if(!this.state.password_compare)  {
                         this.setState({password_errors: true, password_message: 'The old password does not match'});
                     } else {
-                        this.setState({password_errors: false, password_message: 'Your password is succesfully updated'});
+                        this.setState({password: true});
                     }
                 });
 
@@ -273,6 +352,34 @@ export default class TabsAccount extends Component {
             }
         });
     }
+
+    //settings
+    updateOverview(e) {
+        if(e  < 0) {
+            this.setState({mail_overview: 1})
+        } else if(e > 30) {
+            this.setState({mail_overview: 30})
+        } else {
+            this.setState({mail_overview: e})
+        }
+    }
+
+    updateSettings(e) {
+        axios.post('/api/account/settings/change', {
+            mail_invites: this.state.mail_invites,
+            mail_sessions: this.state.mail_sessions,
+            mail_notifications: this.state.mail_notifications,
+            mail_overview: this.state.mail_overview,
+            online: this.state.user_online,
+            hide_data: this.state.user_data,
+            notifications: this.state.user_notifications,
+        }).then(response => {
+            this.setState({
+                settings: true
+            });
+        });
+    }
+
     toggleShow(show) {
         this.setState({show});
     }
@@ -305,8 +412,10 @@ export default class TabsAccount extends Component {
                                    <TabPanel tabId="vertical-tab-one">
                                        <h4 id="success">Change your profile</h4>
                                        <form>
-                                           <div id="success" className={this.state.profile ? "alert alert-green" : "hidden"}>Your account was succesfully been updated</div>
-                                       <div className="row">
+                                           <div id="success" className={this.state.profile ? "" : "hidden"}>
+                                               <Notification  type="success" title="successfully" message="Your account was successfully been changed"/>
+                                           </div>
+                                           <div className="row">
                                            <div className="six columns">
                                                <label for="">First name</label>
                                                <div id="red">{this.state.name_message}</div>
@@ -366,14 +475,85 @@ export default class TabsAccount extends Component {
                                        </div>
                                        <h5>Biografy</h5>
                                        <textarea placeholder="Hello I am ..." onChange={e => this.setState({ user_biografy: e.target.value })}>{this.state.user_biografy}</textarea>
-                                           <a onClick={this.verifyAccount} href="#success" class="button button-primary">Update account</a>
+                                           <a onClick={this.updateAccount}  class="button button-primary">Update account</a>
                                        </form>
                                    </TabPanel>
                                    <TabPanel tabId="vertical-tab-two">
-                                       <p>Tab 2 content</p>
+                                       <div className="account-settings">
+                                           <div id="success" className={this.state.settings ? "" : "hidden"}>
+                                               <Notification  type="success" title="successfully" message="Your settings were succesfully been changed"/>
+                                           </div>
+                                           <div className="row">
+                                               <div className="six columns">
+                                                   <h4>Account settings</h4>
+                                                   <h5>General settings</h5>
+                                                   <div>
+                                                       <input type="checkbox" checked={this.state.user_online} onChange={e => this.setState({ user_online: !this.state.user_online })}/> Hide my online status when I am active on the entire website
+                                                   </div>
+                                                   <div>
+                                                       <input type="checkbox" checked={this.state.user_data}  onChange={e => this.setState({ user_data: !this.state.user_data })}/> Hide sensitive data on my profile (e-mail, phone, address)
+                                                   </div>
+                                                   <div>
+                                                       <input type="checkbox" checked={this.state.user_notifications} onChange={e => this.setState({ user_notifications: !this.state.user_notifications})}/> Receive notifications
+                                                   </div>
+                                                   <h5>E-mail notifications</h5>
+                                                   <div>
+                                                       <input type="checkbox" checked={this.state.mail_invites} onChange={e => this.setState({ mail_invites: !this.state.mail_invites })}/> Get an email when I am invited to a new project
+                                                   </div>
+                                                   <div>
+                                                       <input type="checkbox" checked={this.state.mail_notifications} onChange={e => this.setState({ mail_notifications: !this.state.mail_notifications })}/> Get an email when I receive a new notification
+                                                   </div>
+                                                   <div>
+                                                       <input type="checkbox" checked={this.state.mail_sessions} onChange={e => this.setState({ mail_sessions: !this.state.mail_sessions })} /> Receive an e-mail when a new session is started
+                                                   </div>
+                                                   <div>
+                                                       <input type="checkbox" /> Receive every <input type="number"  value={this.state.mail_overview} onChange={e => this.updateOverview(e.target.value)} min="1" max="30" /> days an overview of the company
+                                                   </div>
+                                                   <a onClick={this.updateSettings} href="#success" className="button button-primary">Update settings</a>
+                                               </div>
+                                               <div className="six columns">
+                                                   <div className="account-settings-info">
+                                                       <div className="center-text">
+                                                           <i className="fas fa-info-circle"></i>
+                                                       </div>
+                                                       <ul>
+                                                           <li>- When you hide your "online status", other members can't see if your active for the moment</li>
+                                                           <li>- Your sensitive data are: e-mail, phone, street, city and zipcode</li>
+                                                           <li>- An overview e-mail is an e-mail with all the current ongoing actions in the company like: events, new messages and so on </li>
+                                                           <li>- You will always receive the overview e-mail on 00u00 local time</li>
+                                                       </ul>
+                                                   </div>
+                                               </div>
+                                           </div>
+                                       </div>
                                    </TabPanel>
                                    <TabPanel tabId="vertical-tab-three">
-                                       <p>Tab 3 content</p>
+                                       <div className="account-avatar">
+                                           <h4>Change avatar</h4>
+                                           <div className="account-avatar-box">
+                                               <div className="row">
+                                                   <div className="six columns">
+                                                       <img src={this.state.user_avatar} />
+                                                   </div>
+                                                   <div className="six columns">
+                                                       {this.state.right_avatar ?
+                                                           <div className="account-avatar-upload">
+                                                                   <input type="file" onChange={this.handleFile} />
+                                                                   <input type="submit"/>
+                                                               <button onClick={this.updateAvatar} className="button button-primary no-button">Change avatar</button>
+                                                           </div>
+                                                           :
+                                                           <div className="alert alert-red center-text">You have no rights to change your avatar.</div> }
+                                                           <div className="account-avatar-info">
+                                                           <li>- Your avatar will be accessible to everyone across the website</li>
+                                                           <li>- Choose an avatar that fits to the standards of your company</li>
+                                                           <li>- Your avatar must be an image: jpeg or png file</li>
+
+                                                           </div>
+                                                           </div>
+                                               </div>
+                                           </div>
+                                       </div>
                                    </TabPanel>
                                    <TabPanel tabId="vertical-tab-four">
                                        <div className="account-twofactor">
@@ -387,6 +567,9 @@ export default class TabsAccount extends Component {
                                    <TabPanel tabId="vertical-tab-five">
                                        <h4>Change your password</h4>
                                        <div className="account-password">
+                                           <div id="success" className={this.state.password ? "" : "hidden"}>
+                                               <Notification  type="success" title="successfully" message="Your password is succesfully been updated"/>
+                                           </div>
                                            <div className="row">
                                                <div className="eight columns">
                                                    <div className="account-password--change">

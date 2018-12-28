@@ -47,6 +47,7 @@ class CreateUsersTable extends Migration
             $table->integer('online')->default(1);
             $table->integer('newsletter')->default(0);
             $table->integer('hide_data')->default(0);
+            $table->integer('notifications')->default(1);
             $table->rememberToken();
             $table->timestamps();
         });

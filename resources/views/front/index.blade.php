@@ -40,7 +40,8 @@
                 </ul>
             </div>
             <div class="header-text">
-                <h1 class="header-title">Organize your projects the best way</h1>
+                <h1 class="header-title">Organize your projects the best way
+                </h1>
                 <p class="header-beginText">Organize your projects for your organisation or your team the best possible way with WorkTogether. WorkTogether is the first team-manager that is totally free to use. </p>
                 <input class="hidden-mobile" type="text" placeholder="Give your email to start ...">
                 <a href="" class="button button-primary button-large hidden-mobile animation-up">

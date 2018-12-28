@@ -1,3 +1,5 @@
+@charset "UTF-8";
+
 /**** GENERAL ****/
 
 body {
@@ -1202,6 +1204,68 @@ input[type="submit"] {
   color: #5680e9;
 }
 
+.account-avatar-box {
+  margin: 0 6%;
+}
+
+.account-avatar-box img {
+  text-align: center;
+  max-width: 350px;
+  max-height: 350px;
+}
+
+.account-avatar-upload {
+  margin: 50px 0 20px 0;
+  text-align: center;
+}
+
+.account-avatar-info {
+  background-color: white;
+  padding: 20px 15px 15px 15px;
+}
+
+.account-avatar-info li {
+  list-style-type: none;
+  font-family: "Open Sans", sans-serif;
+}
+
+.account-avatar-info li:hover {
+  color: #5680e9;
+}
+
+.account-settings input {
+  display: inline !important;
+}
+
+.account-settings input[type="number"] {
+  width: 60px;
+}
+
+.account-settings-info {
+  background-color: white;
+  padding: 20px 15px 15px 15px;
+  margin-top: 70px;
+}
+
+.account-settings-info i {
+  font-size: 80px;
+  color: #2D3E50;
+  margin-bottom: 20px;
+}
+
+.account-settings-info ul {
+  margin: 0 auto;
+}
+
+.account-settings-info li {
+  list-style-type: none;
+  font-family: "Open Sans", sans-serif;
+}
+
+.account-settings-info li:hover {
+  color: #5680e9;
+}
+
 input[type=checkbox] {
   display: none;
 }
@@ -1696,6 +1760,122 @@ input[type=checkbox]:checked + #nav-mobile--menu {
     -webkit-transform: translateY(0);
             transform: translateY(0);
   }
+}
+
+.notification-container {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 999999;
+  width: 320px;
+  padding: 0px 15px;
+  max-height: calc(100% - 30px);
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.notification {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 15px 15px 15px 58px;
+  border-radius: 2px;
+  color: #fff;
+  background-color: #ccc;
+  -webkit-box-shadow: 0 0 12px #999;
+          box-shadow: 0 0 12px #999;
+  cursor: pointer;
+  font-size: 1em;
+  line-height: 1.2em;
+  position: relative;
+  opacity: 1;
+  margin-top: 15px;
+}
+
+.notification .title {
+  font-size: 1em;
+  line-height: 1.2em;
+  font-weight: bold;
+  margin: 0 0 5px 0;
+}
+
+.notification:hover,
+.notification:focus {
+  opacity: 1;
+}
+
+.notification-enter {
+  visibility: hidden;
+  -webkit-transform: translate3d(100%, 0, 0);
+          transform: translate3d(100%, 0, 0);
+}
+
+.notification-enter.notification-enter-active {
+  visibility: visible;
+  -webkit-transform: translate3d(0, 0, 0);
+          transform: translate3d(0, 0, 0);
+  -webkit-transition: all 0.4s;
+  transition: all 0.4s;
+}
+
+.notification-leave {
+  visibility: visible;
+  -webkit-transform: translate3d(0, 0, 0);
+          transform: translate3d(0, 0, 0);
+}
+
+.notification-leave.notification-leave-active {
+  visibility: hidden;
+  -webkit-transform: translate3d(100%, 0, 0);
+          transform: translate3d(100%, 0, 0);
+  -webkit-transition: all 0.4s;
+  transition: all 0.4s;
+}
+
+.notification:before {
+  position: absolute;
+  top: 50%;
+  left: 15px;
+  margin-top: -14px;
+  display: block;
+  width: 28px;
+  height: 28px;
+  font-size: 28px;
+  text-align: center;
+  line-height: 28px;
+}
+
+.notification-info {
+  background-color: #2f96b4;
+}
+
+.notification-info:before {
+  content: "\F05A";
+}
+
+.notification-success {
+  background-color: #51a351;
+}
+
+.notification-success:before {
+  content: "\F058";
+}
+
+.notification-warning {
+  background-color: #f89406;
+}
+
+.notification-warning:before {
+  content: "\F06A";
+}
+
+.notification-error {
+  background-color: #bd362f;
+}
+
+.notification-error:before {
+  content: "\F057";
 }
 
 /**** LINES ***/

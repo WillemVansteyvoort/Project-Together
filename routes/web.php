@@ -120,7 +120,8 @@ Route::get('/api/notifcations/older', 'Application\DashboardController@noticatio
 //account
 Route::post('/api/account/update/profile', 'Application\AccountController@updateProfile');
 Route::post('/api/account/password/change', 'Application\AccountController@updatePassword');
-
+Route::post('/api/account/avatar/change', 'Application\AccountController@changeAvatar');
+Route::post('/api/account/settings/change', 'Application\AccountController@updateSettings');
 //new user
 Route::post('/api/check/email', 'Application\CreateUserController@checkEmail');
 Route::post('/api/user/new', 'Application\CreateUserController@createUser');

@@ -10,6 +10,9 @@ use Auth;
 use App\City;
 use App\Plan;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\File;
+use Illuminate\Support\Facades\Storage;
+use App\User_email;
 class AccountController extends Controller
 {
 
@@ -46,6 +49,7 @@ class AccountController extends Controller
         //updaten
         $user->biografy = $request->user_biografy;
         $user->name = $request->user_name;
+        $user->lastname = $request->user_lastname;
         $user->email = $request->user_email;
         $user->birthdate = $request->user_date;
         $user->phone = $request->user_phone;
@@ -62,21 +66,41 @@ class AccountController extends Controller
         ]);
     }
 
+    public function updateSettings(Request $request) {
+        $user = Auth::user();
+
+        $user->online = $request->online;
+        $user->hide_data = $request->hide_data;
+        $user->notifications = $request->notifications;
+        $user->save();
+
+        $mails = User_email::where('user_id', $user->id)->first();
+        $mails->invites = $request->mail_invites;
+        $mails->sessions = $request->mail_sessions;
+        $mails->notifications = $request->mail_notifications;
+        $mails->overview = $request->mail_overview;
+        $mails->save();
+    }
+
+
+    public function changeAvatar(Request $request) {
+        Storage::putFile('photos', $request->formData);
+
+    }
 
     public function updatePassword(Request $request) {
         if (Hash::check($request->password_old, Auth::user()->password)) {
 
-           $user =  Auth::user();
-           $user->password = Hash::make($request->password_new);
-           $user->save();
-            return response()->json([
-                'password_compare' => true,
-            ]);
-        } else {
-            return response()->json([
-                'password_compare' => false,
-            ]);
+               $user =  Auth::user();
+               $user->password = Hash::make($request->password_new);
+               $user->save();
+                return response()->json([
+                    'password_compare' => true,
+                ]);
+            } else {
+                return response()->json([
+                    'password_compare' => false,
+                ]);
+            }
         }
-        }
-
 }

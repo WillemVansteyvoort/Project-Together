@@ -101,7 +101,7 @@ export default class PopupNewUser extends Component {
                                         <label>Group leader</label>
                                         <select  onChange={e => this.setState({ leader: e.target.value })} >
                                             {this.state.users.map(user => (
-                                                <option key={user.id} value={user.id}>{user.name}</option>
+                                                <option onChange={e => this.setState({ leader: user.id })} key={user.id} value={user.id}>{user.name}</option>
                                                 ))}
                                         </select>
                                     </div>

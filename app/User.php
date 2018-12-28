@@ -36,6 +36,7 @@ class User extends Authenticatable
         'function',
         'company_id',
         'two_step',
+        'notifications',
     ];
 
 
@@ -77,6 +78,9 @@ class User extends Authenticatable
 
     public function rights() {
         return $this->hasOne('App\User_right');
+    }
+    public function mails() {
+        return $this->hasOne('App\User_email');
     }
     public function groups() {
         return $this->belongsToMany('App\Group');

@@ -38,12 +38,23 @@
                 'zipcode' => Auth::user()->city->zipcode,
                 'country' => Auth::user()->city->country->name,
                 'country_id' => Auth::user()->city->country_id,
+                'hide_data' => Auth::user()->hide_data,
+                'online' => Auth::user()->online,
+                'notifications' => Auth::user()->notifications,
                 'two_step' => Auth::user()->two_step->active,
+                'upload_avatar' => Auth::user()->rights->upload_avatar,
+                'invites' => Auth::user()->mails->invites,
+                'sessions' => Auth::user()->mails->sessions,
+                'user_notifications' => Auth::user()->notifications,
+                'notifications' => Auth::user()->mails->notifications,
+                'overview' => Auth::user()->mails->overview,
             ],
+
             'company' => [
                 'users' => Auth::user()->company->users->count(),
                 'projects' =>  Auth::user()->company->projects->count(),
             ],
+
             'two_step' => [
                 'email' => Auth::user()->two_step->email,
                 'phone' => Auth::user()->two_step->phone,
@@ -53,7 +64,7 @@
             'plan' => [
                 'name' =>  Auth::user()->company->plan->name,
                 'projects' =>  Auth::user()->company->plan->projects,
-                'users' =>  Auth::user()->company->plan->users
+                'users' =>  Auth::user()->company->plan->users,
             ],
 
             'rights' => [
@@ -62,6 +73,9 @@
                 'create_projects' => Auth::user()->rights->create_projects,
                 'company_settings'=> Auth::user()->rights->company_settings,
             ],
+            'mails' => [
+
+            ]
         ]);
         ?>
     </script>
