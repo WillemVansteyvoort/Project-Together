@@ -77,6 +77,7 @@ Route::group(['middleware' => ['auth', 'company', 'verification']], function () 
     Route::get('/{company}/dashboard', 'Application\DashboardController@index')->name('app_dashboard');
     Route::get('/{company}/company', 'Application\CompanyController@index')->name('app_company');
     Route::get('/{company}/account', 'Application\AccountController@index')->name('app_account');
+    Route::get('/{company}/calendar', 'Application\CalendarController@index')->name('app_calendar');
 
 });
 

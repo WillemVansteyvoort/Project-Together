@@ -1878,6 +1878,92 @@ input[type=checkbox]:checked + #nav-mobile--menu {
   content: "\F057";
 }
 
+.calendar {
+  margin-top: 15px;
+  margin-left: 15px;
+  background-color: #F8F8F8;
+}
+
+.calendar-head {
+  background-color: #5ab9ea;
+  padding: 8px 20px 5px 20px;
+  height: 30px;
+  color: white;
+  border: 2px solid #5ab9ea;
+  margin-bottom: 5px;
+}
+
+.calendar a {
+  color: white;
+}
+
+.calendar-year {
+  font-weight: bold;
+}
+
+.calendar-title {
+  text-align: center;
+}
+
+.calendar-left {
+  padding-top: 2px;
+}
+
+.calendar-right {
+  padding-top: 2px;
+  text-align: right;
+}
+
+.calendar-body {
+  margin-top: 20px;
+  background-color: white;
+  -webkit-box-shadow: 0 0.1rem 0.1rem rgba(0, 0, 0, 0.05);
+          box-shadow: 0 0.1rem 0.1rem rgba(0, 0, 0, 0.05);
+  border-radius: 3px/6px;
+}
+
+.calendar-body .columns {
+  margin-left: 0 !important;
+}
+
+.calendar-body span {
+  display: block;
+}
+
+.calendar-body .gray {
+  opacity: 0.6;
+}
+
+.calendar-day {
+  height: 120px;
+  padding: 4px;
+  border-right: 0.5px dotted #f0f0f0;
+  border-top: 0.5px dotted #f0f0f0;
+}
+
+.calendar-event {
+  padding: 1.8px;
+  font-size: 14px;
+  color: white;
+  margin-bottom: 3.8px;
+}
+
+.calendar-event span {
+  display: inline;
+}
+
+.calendar-event-red {
+  background-color: #E54243;
+}
+
+.calendar-event-green {
+  background-color: #32CD32;
+}
+
+.calendar-event-blue {
+  background-color: #5680e9;
+}
+
 /**** LINES ***/
 
 .line-small {

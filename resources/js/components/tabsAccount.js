@@ -125,22 +125,34 @@ export default class TabsAccount extends Component {
 
     //notifcaties
     changeProfile() {
+        if(this.state.profile_timer > 0) {
             this.setState({profile: false, profile_timer: 0})
+        }
     }
     changeProfileTimer() {
-        this.setState({profile_timer: true})
+        if(this.state.profile) {
+            this.setState({profile_timer: true})
+        }
     }
     changeSettings() {
+        if(this.state.settings_timer > 0) {
             this.setState({settings: false, settings: 0})
+        }
     }
     changeSettingsTimer() {
-        this.setState({settings_timer: true})
+        if(this.state.settings) {
+            this.setState({settings_timer: true})
+        }
     }
     changePassword() {
+        if(this.state.password_timer > 0) {
             this.setState({password: false, password_timer: 0})
+        }
     }
     changePasswordTimer() {
-        this.setState({password_timer: true})
+        if(this.state.password) {
+            this.setState({password_timer: true})
+        }
 
     }
     getCountries() {
@@ -385,8 +397,6 @@ export default class TabsAccount extends Component {
     }
 
     render() {
-
-
         return (
                    <Tabs defaultTab="vertical-tab-one" vertical>
                        <div className="row">
