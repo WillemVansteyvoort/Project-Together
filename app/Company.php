@@ -47,5 +47,9 @@ class Company extends Model
         return $this->belongsTo('App\Plan');
     }
 
+    public function events() {
+        return $this->hasMany('App\Event');
+    }
+
 
 }

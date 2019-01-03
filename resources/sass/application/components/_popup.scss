@@ -122,4 +122,31 @@
     left: 4%;
     bottom: 20%;
   }
+  &-event {
+    input[type="time"] {
+      width: 38%;
+      margin-left: 5px;
+
+    }
+    input[type="date"] {
+      width: 60%;
+    }
+    &-colors {
+      border-radius: 50%;
+      display: inline-block;
+      width: 24px;
+      height: 24px;
+      margin-right: 10px;
+      &--red {
+        background-color: #E54243;
+      }
+      &--green {
+        background-color: #32CD32;
+      }
+      &--blue {
+        background-color: $color-primary;
+      }
+    }
+  }
+
 }

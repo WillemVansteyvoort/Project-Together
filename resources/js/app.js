@@ -26,3 +26,4 @@ require('./components/notifcations/yesterday');
 require('./components/notifcations/older');
 require('./components/socialmedia/facebook');
 require('./components/invite');
+require('./components/calendar')

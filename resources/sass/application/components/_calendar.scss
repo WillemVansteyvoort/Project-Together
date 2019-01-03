@@ -44,6 +44,7 @@
     }
     .gray {
       opacity: 0.6;
+
     }
   }
   &-day {
@@ -58,6 +59,7 @@
     padding: 1.8px;
     font-size: 14px;
     color: white;
+    padding-left: 4px;
     margin-bottom: 3.8px;
     span {
       display: inline;
@@ -70,6 +72,41 @@
     }
     &-blue {
       background-color: $color-primary;
+    }
+  }
+  &-current {
+    border-radius: 50%;
+    background-color: $color-primary;
+    width: 20px;
+    opacity: 1;
+    color: white;
+    padding: 2px;
+    padding-left: 4.5px;
+  }
+
+  &-sidebar {
+    padding-top: 18px;
+    padding-left: 30px;
+    margin-right: -40px;
+    font-family: $font_raleway !important;
+    button {
+      width: 100%;
+    }
+    h5 {
+      padding: 10px 0 0 0;
+      font-family: $font_standard;
+      margin: 0;
+    }
+    p {
+      margin: 0;
+      padding: 0 0 5px 0;
+      border-bottom: 1.5px solid #f0f0f0;
+    }
+    &-overview {
+      margin-top: 18px;
+      &--item {
+        font-family: $font_raleway !important;
+      }
     }
   }
 }

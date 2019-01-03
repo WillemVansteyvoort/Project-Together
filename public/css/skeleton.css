@@ -225,6 +225,7 @@ a:hover {
 /* Forms
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 input[type="email"],
+input[type="time"],
 input[type="datetime-local"],
 input[type="number"],
 input[type="search"],

@@ -139,6 +139,13 @@ Route::post('/api/twostep/change', 'Application\TwoStepController@change');
 Route::post('api/twostep/sendVerify', 'Application\TwoStepController@sendVerify');
 Route::post('api/twostep/verify', 'Application\TwoStepController@verify');
 Route::post('api/twostep/updatePhone', 'Application\TwoStepController@updatePhone');
+
+//calendar
+Route::post('/api/calendar/new', 'Application\CalendarController@create');
+Route::get('/api/calendar/today', 'Application\CalendarController@today');
+Route::post('/api/calendar/receive', 'Application\CalendarController@receive');
+
+
 Route::get('/testdf', function () {
     $message = Nexmo::message()->send([
         'to' => '32489099902',

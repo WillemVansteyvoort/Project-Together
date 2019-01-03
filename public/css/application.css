@@ -15,6 +15,10 @@ body {
   display: none !important;
 }
 
+.u-full-half {
+  width: 50%;
+}
+
 main {
   clear: both;
 }
@@ -1584,6 +1588,35 @@ input[type=checkbox]:checked + #nav-mobile--menu {
   bottom: 20%;
 }
 
+.popup-event input[type="time"] {
+  width: 38%;
+  margin-left: 5px;
+}
+
+.popup-event input[type="date"] {
+  width: 60%;
+}
+
+.popup-event-colors {
+  border-radius: 50%;
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  margin-right: 10px;
+}
+
+.popup-event-colors--red {
+  background-color: #E54243;
+}
+
+.popup-event-colors--green {
+  background-color: #32CD32;
+}
+
+.popup-event-colors--blue {
+  background-color: #5680e9;
+}
+
 /**
 * ----------------------------------------------
 * Demo styles
@@ -1945,6 +1978,7 @@ input[type=checkbox]:checked + #nav-mobile--menu {
   padding: 1.8px;
   font-size: 14px;
   color: white;
+  padding-left: 4px;
   margin-bottom: 3.8px;
 }
 
@@ -1962,6 +1996,47 @@ input[type=checkbox]:checked + #nav-mobile--menu {
 
 .calendar-event-blue {
   background-color: #5680e9;
+}
+
+.calendar-current {
+  border-radius: 50%;
+  background-color: #5680e9;
+  width: 20px;
+  opacity: 1;
+  color: white;
+  padding: 2px;
+  padding-left: 4.5px;
+}
+
+.calendar-sidebar {
+  padding-top: 18px;
+  padding-left: 30px;
+  margin-right: -40px;
+  font-family: "Raleway", sans-serif !important;
+}
+
+.calendar-sidebar button {
+  width: 100%;
+}
+
+.calendar-sidebar h5 {
+  padding: 10px 0 0 0;
+  font-family: "Open Sans", sans-serif;
+  margin: 0;
+}
+
+.calendar-sidebar p {
+  margin: 0;
+  padding: 0 0 5px 0;
+  border-bottom: 1.5px solid #f0f0f0;
+}
+
+.calendar-sidebar-overview {
+  margin-top: 18px;
+}
+
+.calendar-sidebar-overview--item {
+  font-family: "Raleway", sans-serif !important;
 }
 
 /**** LINES ***/

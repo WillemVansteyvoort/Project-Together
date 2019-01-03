@@ -1,0 +1,218 @@
+import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
+import { Tabs, Tab, TabPanel, TabList } from 'react-web-tabs';
+import { Progress } from 'react-sweet-progress';
+var moment = require('moment');
+moment().format();
+var d = new Date();
+var weekday = new Array(7);
+weekday[0] =  "Sun";
+weekday[1] = "Mon";
+weekday[2] = "Tue";
+weekday[3] = "Wed";
+weekday[4] = "Thur";
+weekday[5] = "Fri";
+weekday[6] = "Sat";
+var months = new Array(11);
+months[0] = "January";
+months[1] = "February";
+months[2] = "March";
+months[3] = "April";
+months[4] = "May";
+months[5] = "June";
+months[6] = "July";
+months[7] = "August";
+months[8] = "September";
+months[9] = "October";
+months[10] = "November";
+months[11] = "December";
+
+export default class Calendar extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            days: [],
+            currentMonth: d.getMonth()+1,
+            monthToday: d.getMonth()+1,
+            currentYear: d.getFullYear(),
+        };
+        //bind
+        this.init = this.init.bind(this);
+        this.daysInMonth = this.daysInMonth.bind(this);
+        this.previousMonth = this.previousMonth.bind(this);
+        this.nextMonth = this.nextMonth.bind(this);
+    }
+
+
+
+    componentWillMount() {
+        this.init();
+    }
+    componentDidMount() {
+        // this.interval =  setInterval(() => this.init(), 1000);
+    }
+
+
+    componentWillUnmount() {
+        clearInterval(this.interval);
+    }
+
+    daysInMonth(month, year) {
+        return new Date(year, month, 0).getDate();
+    }
+
+    init() {
+        var dagen = [];
+        //zien welke dag is en dagen ervoor vervormen
+        var firstDay = new Date(this.state.currentYear, this.state.currentMonth-1, 1);
+        var lengthOther =  firstDay.getDay();
+        var lastMonth = this.daysInMonth(this.state.currentMonth-1, this.state.currentYear);
+        console.log(lastMonth);
+        for (var x = 1; x < lengthOther; x++) {
+            var day2 = {
+                id: lastMonth - (lengthOther-x) + 1,
+                day: '',
+                month: '',
+                year: '',
+            }
+
+            dagen[x] = day2;
+        }
+
+        //alle dagen
+        var length= this.daysInMonth(this.state.currentMonth-1, this.state.currentYear);
+        for (var i = 0; i < length; i++) {
+            var date = new Date(this.state.currentYear, this.state.currentMonth-1, i+1);
+            var day = {
+                id: (i+1),
+                day: weekday[date.getDay()],
+                month: d.getMonth(),
+                year: d.getFullYear(),
+            }
+            dagen[i+lengthOther] = day;
+        }
+        this.setState({days: [dagen]})
+    }
+
+    previousMonth() {
+        if(this.state.currentMonth-1 === 0) {
+            var dagen = [];
+            //zien welke dag is en dagen ervoor vervormen
+            var firstDay = new Date(this.state.currentYear-1, 10, 1);
+            var lengthOther =  firstDay.getDay();
+            var lastMonth = this.daysInMonth(11, this.state.currentYear-1);
+            console.log(lastMonth);
+            for (var x = 1; x < lengthOther; x++) {
+                var day2 = {
+                    id: lastMonth - (lengthOther-x) + 1,
+                    day: '',
+                    month: '',
+                    year: '',
+                }
+
+                dagen[x] = day2;
+            }
+
+            //alle dagen
+            var length= this.daysInMonth(11, this.state.currentYear-1);
+            for (var i = 0; i < length; i++) {
+                var date = new Date(this.state.currentYear-1, 11, i+1);
+                var day = {
+                    id: (i+1),
+                    day: weekday[date.getDay()],
+                    month: d.getMonth(),
+                    year: d.getFullYear(),
+                }
+                dagen[i+lengthOther] = day;
+            }
+            this.setState({days: [dagen]})
+            this.setState({currentMonth: 12, currentYear: this.state.currentYear-1});
+        } else {
+            var dagen = [];
+            //zien welke dag is en dagen ervoor vervormen
+            var firstDay = new Date(this.state.currentYear, this.state.currentMonth-2, 1);
+            var lengthOther =  firstDay.getDay();
+            var lastMonth = this.daysInMonth(this.state.currentMonth-2, this.state.currentYear);
+            console.log(lastMonth);
+            for (var x = 1; x < lengthOther; x++) {
+                var day2 = {
+                    id: lastMonth - (lengthOther-x) + 1,
+                    day: '',
+                    month: '',
+                    year: '',
+                }
+
+                dagen[x] = day2;
+            }
+
+            //alle dagen
+            var length= this.daysInMonth(this.state.currentMonth-2, this.state.currentYear);
+            for (var i = 0; i < length; i++) {
+                var date = new Date(this.state.currentYear, this.state.currentMonth-2, i+1);
+                var day = {
+                    id: (i+1),
+                    day: weekday[date.getDay()],
+                    month: d.getMonth(),
+                    year: d.getFullYear(),
+                }
+                dagen[i+lengthOther] = day;
+            }
+            this.setState({days: [dagen]})
+            console.log("jo");
+            if(this.setState({days: [dagen]})) {
+                console.log("ja");
+            }
+            this.setState({currentMonth: this.state.currentMonth-1});
+        }
+    }
+
+    nextMonth() {
+        if(this.state.currentMonth+1 === 13) {
+            this.setState({currentMonth: 1, currentYear: this.state.currentYear+1});
+            this.init();
+        } else {
+            this.setState({currentMonth: this.state.currentMonth+1});
+            this.init();
+        }
+    }
+
+
+    render() {
+        return (
+            <div className="calendar">
+                <div className="calendar-head">
+                    <div className="row">
+                        <div className="four columns">
+                            <div className="calendar-left">
+                                <a onClick={this.previousMonth} className="fas fa-arrow-left"> </a>
+                            </div>
+                        </div>
+                        <div className="four columns">
+                            <h5 className="calendar-title">{months[this.state.currentMonth-1]} <span className="calendar-year">{this.state.currentYear}</span></h5>
+                        </div>
+                        <div className="four columns">
+                            <div className="calendar-right">
+                                <a onClick={this.nextMonth} className="fas fa-arrow-right"> </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div className="calendar-body">
+                    <div className="row">
+                        {this.state.days[0].map(dag => (
+                            <div className="day-column columns calendar-day">
+                                <span>{dag.day}</span>
+                                <span className={d.getDate() === dag.id && d.getMonth() === dag.month ? "gray calendar-current" : "gray"}>{dag.id}</span>
+                            </div>
+                        ))}
+                    </div>
+
+                </div>
+            </div>
+        );
+    }
+}
+
+if (document.getElementById('calendar-full')) {
+    ReactDOM.render(<Calendar />, document.getElementById('calendar-full'));
+}
