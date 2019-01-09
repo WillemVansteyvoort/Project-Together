@@ -62,6 +62,8 @@
   .two.columns                    { width: 13.3333333333%; }
   .day-column.columns              { width: 14.2857142857%; }
   .three.columns                  { width: 22%;            }
+  .pr1.columns { width: 15%}
+  .pr2.columns {width: 85%}
   .four.columns                   { width: 30.6666666667%; }
   .five.columns                   { width: 39.3333333333%; }
   .six.columns                    { width: 48%;            }

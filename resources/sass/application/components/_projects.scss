@@ -1,0 +1,45 @@
+.projects {
+  padding: 20px 0 10px 60px;
+  background-color: #F8F8F8;
+  h4 {
+    font-family: "Raleway", sans-serif;
+  }
+
+
+
+  &-overview {
+    margin: 0 20%;
+  }
+
+  &-overlay {
+
+  }
+
+  thead {
+    background-color: #2D3E50;
+    color: white;
+  }
+
+  table {
+    margin-top: 15px;
+    background-color: white;
+    padding: 20px !important;
+    box-shadow: 1px 1px 2px #fff inset, -1px -1px 2px #fff inset;
+    .star {
+      font-size: 20px;
+      margin-left: 120px;
+      color: yellow;
+    }
+    .arrow {
+      margin-right: 50px;
+    }
+  }
+
+  td, th {
+    padding: 14px !important;
+  }
+
+  td {
+    width: 25%;
+  }
+}

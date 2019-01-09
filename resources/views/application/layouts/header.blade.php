@@ -25,13 +25,12 @@
         <ul>
             <li><a class="header-name"  onclick="showNotifications('mode')"><i class="fas fa-home dropbtn icon"> </i> <i class="fas fa-sort-down down"></i></a></li>
             <li><a class="" href="{{route('app_dashboard', Auth::user()->company->url)}}">Dashboard</a></li>
-            <li><a href="about.html">Projects</a></li>
+            <li><a href="{{route('app_projects', Auth::user()->company->url)}}">Projects</a></li>
             <li><a href="{{route('app_calendar', Auth::user()->company->url)}}">Calendar</a></li>
             @if(Auth::user()->admin || Auth::user()->rights->create_members || Auth::user()->rights->create_groups || Auth::user()->rights->company_settings)
                 <li><a href="{{route('app_company', Auth::user()->company->url)}}">Company</a></li>
             @endif
-            <li ><a  href="" class="button button-second"><i class="fas fa-plus"> </i> New project</a></li>
-
+            <span id="popup-newProject"> </span>
         </ul>
 
     </div>

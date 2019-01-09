@@ -19,7 +19,7 @@ export default class PopupNewEvent extends Component {
             created_timer: 0,
             title: '',
             description: '',
-            color: '',
+            color: 'red',
             fromDate: '',
             fromTime: '',
             untilDate: '',

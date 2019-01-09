@@ -58,9 +58,17 @@
   &-groups {
     min-height: 120px;
 
-    li:nth-child(odd) {
-      background-color: #F2F2F2;
+    img {
+      float: left;
+      margin-top: -5px;
+      border-radius: 50%;
+      height: 37px;
+      margin-right: 5px;
+      width: 37px;
     }
+    li:nth-child(odd) {
+        background-color: #F2F2F2;
+      }
     li:nth-child(even) {
     }
     li {
@@ -148,5 +156,44 @@
       }
     }
   }
-
+  &-members {
+    &-list {
+      width: 65%;
+      display: inline-block;
+      margin-right: 10px;
+    }
+    &-roll {
+      width: 30% !important;
+      display: inline-block;
+    }
+    &-add {
+      margin-top: 10px;
+      float: left;
+    }
+  }
+  &-addons {
+    text-align: center;
+    h5 {
+      margin-bottom: 0;
+    }
+    i {
+      clear: both !important;
+      font-size: 25px;
+      color: #2D3E50;
+      margin-top: 3px;
+      margin-right: 10px;
+    }
+    .row {
+      margin: 20px 0 ;
+    }
+    &--switch {
+      margin: 8px 10px 10px 0 !important;
+    }
+  }
 }
+.css-10nd86i, .css-1oubc3t, .css-1hwfws3, .css-1wy0on6 {
+  height: 38px !important;
+
+}.css-10nd86i {
+   border-radius: 4px;
+ }

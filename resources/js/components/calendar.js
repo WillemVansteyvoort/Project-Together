@@ -59,7 +59,7 @@ export default class Calendar extends Component {
             ) =>
                 this.setState({
                     todayAll: response.data.all,
-                    todayPrivate: response.data.private,
+                    todayPrivate: [this.state.todayAll, ...response.data.private],
                 })
         );
         this.init();
@@ -109,7 +109,16 @@ export default class Calendar extends Component {
                 events = response.data.all
                 }
             );
-            if(i+1 < 10) {
+            if(i+1 < 10 && ((date.getMonth()) < 10)) {
+                var day = {
+                    id: "0"+(i+1),
+                    day: weekday[date.getDay()],
+                    year: date.getFullYear(),
+                    month: "0"+(date.getMonth()+1),
+                    events: [this.state.todayAll],
+                }
+                dagen[i+lengthOther] = day;
+            } else if((i+1 < 10)) {
                 var day = {
                     id: "0"+(i+1),
                     day: weekday[date.getDay()],
@@ -118,7 +127,15 @@ export default class Calendar extends Component {
                     events: [this.state.todayAll],
                 }
                 dagen[i+lengthOther] = day;
-            } else {
+            } else if(((date.getMonth()) < 10)) {
+                var day = {
+                    id: (i+1),
+                    day: weekday[date.getDay()],
+                    year: date.getFullYear(),
+                    month: "0"+(date.getMonth()+1),
+                    events: [this.state.todayAll],
+                }
+            } else
                 var day = {
                     id: (i+1),
                     day: weekday[date.getDay()],
@@ -127,7 +144,6 @@ export default class Calendar extends Component {
                     events: [this.state.todayAll],
                 }
                 dagen[i+lengthOther] = day;
-            }
         }
         console.log(this.state.days);
         this.setState({days: [dagen]})
@@ -182,17 +198,17 @@ export default class Calendar extends Component {
                                         <span className={d.getDate() === dag.id && d.getMonth() === dag.month ? "gray calendar-current" : "gray"}>{dag.id}</span>
                                         {this.state.todayAll.map(event => (
                                             <div>
-                                                {event.from === dag.year + "-" + (dag.month+1) + "-" + dag.id && event.color === "green" ?
+                                                {event.from === dag.year + "-" + (dag.month) + "-" + dag.id && event.color === "green" ?
                                                     <div className="calendar-event calendar-event-green">
                                                         {event.title}
                                                     </div>
                                                     : ""}
-                                                {event.from === dag.year + "-" + (dag.month+1) + "-" + dag.id && event.color === "red" ?
+                                                {event.from === dag.year + "-" + (dag.month) + "-" + dag.id && event.color === "red" ?
                                                     <div className="calendar-event calendar-event-red">
                                                         {event.title}
                                                     </div>
                                                     : ""}
-                                                {event.from === dag.year + "-" + (dag.month+1) + "-" + dag.id && event.color === "blue" ?
+                                                {event.from === dag.year + "-" + (dag.month) + "-" + dag.id && event.color === "blue" ?
                                                     <div className="calendar-event calendar-event-blue">
                                                         {event.title}
                                                     </div>

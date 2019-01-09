@@ -1,0 +1,67 @@
+.project {
+  background-color: #F8F8F8;
+  &-header {
+    position: relative;
+    color: white;
+    height: 320px;
+    background: linear-gradient(to right, rgba(80,64,119, 0.5), rgba(97,119,198,.8)), url("/../images/project.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+
+    &-title {
+      position: absolute;
+      top: 30%;
+      left: 20%;
+      h2 {
+        font-size: 50px;
+        font-family: $font-raleway;
+        text-transform: uppercase;
+      }
+      h5 {
+        text-transform: lowercase;
+        opacity: 0.6;
+      }
+    }
+
+    &-nav {
+      position: absolute;
+      left: 20%;
+      bottom: 0%;
+
+      button {
+        font-size: 16px;
+        text-transform: uppercase;
+        margin: 0;
+        background-color: transparent;;
+      }
+      &--item {
+        display: inline;
+        padding-bottom: -5px;
+        margin-right: 15px;
+      }
+      .active {
+        border-bottom: 3px solid $color-second;
+      }
+    }
+
+    &-plus {
+      font-size: 30px;
+      width: 55px;
+      height: 55px;
+      position: absolute;
+      right: 20%;
+      bottom: -9.5%;
+      background-color: $color-second;
+      border-radius: 50%;
+      text-align: center;
+      i {
+        padding-top: 13px;
+      }
+    }
+  }
+
+  &-main {
+    margin: 2% 15% 0 15%;
+  }
+
+}

@@ -198,7 +198,7 @@
 }
 
 h3 {
-  font-family: 'Open Sans', sans-serif;
+  font-family: "Open Sans", sans-serif;
   text-align: center;
   font-size: 26px;
   text-transform: uppercase;
@@ -214,7 +214,7 @@ h3 {
 }
 
 h5 {
-  font-family: 'Open Sans', sans-serif;
+  font-family: "Open Sans", sans-serif;
   font-size: 20px;
   text-transform: uppercase;
   font-weight: 400;
@@ -279,10 +279,9 @@ a:hover {
 
 .header {
   position: relative;
-  font-family: 'Open Sans', sans-serif;
+  font-family: "Open Sans", sans-serif;
   height: 470px;
   background: #5680e9;
-  background: -webkit-gradient(linear, left top, right top, from(#5680e9), color-stop(35%, #5ab9ea), to(#8488eb));
   background: linear-gradient(90deg, #5680e9 0%, #5ab9ea 35%, #8488eb 100%);
 }
 
@@ -311,7 +310,7 @@ a:hover {
   display: inline;
   color: white;
   font-size: 15px;
-  font-family: 'Open Sans', sans-serif;
+  font-family: "Open Sans", sans-serif;
   padding-right: 20px;
 }
 
@@ -331,7 +330,7 @@ a:hover {
   display: inline;
   color: white;
   font-size: 15px;
-  font-family: 'Open Sans', sans-serif;
+  font-family: "Open Sans", sans-serif;
   padding-right: 20px;
 }
 
@@ -345,7 +344,7 @@ a:hover {
 }
 
 .header-text {
-  font-family: 'Open Sans', sans-serif;
+  font-family: "Open Sans", sans-serif;
   position: absolute;
   top: 30%;
   left: 23%;
@@ -378,7 +377,7 @@ a:hover {
 }
 
 .header-basic--title {
-  font-family: 'Open Sans', sans-serif;
+  font-family: "Open Sans", sans-serif;
   text-transform: uppercase;
   color: white;
   position: absolute;
@@ -411,7 +410,7 @@ a:hover {
 }
 
 .products-title {
-  font-family: 'Open Sans', sans-serif;
+  font-family: "Open Sans", sans-serif;
   text-align: center;
   font-size: 26px;
   text-transform: uppercase;
@@ -431,23 +430,20 @@ a:hover {
 
 .price {
   z-index: 1000;
-  font-family: 'Open Sans', sans-serif;
+  font-family: "Open Sans", sans-serif;
   background: #5680e9;
-  background: -webkit-gradient(linear, left top, right top, color-stop(50%, rgba(90, 185, 234, 0.8)), color-stop(50%, rgba(132, 136, 235, 0.8)));
   background: linear-gradient(90deg, rgba(90, 185, 234, 0.8) 50%, rgba(132, 136, 235, 0.8) 50%);
   padding: 25px 0;
   padding: 120px 0;
 }
 
 .price-table {
-  -webkit-box-shadow: 0 0.1rem 0.1rem rgba(0, 0, 0, 0.05);
-          box-shadow: 0 0.1rem 0.1rem rgba(0, 0, 0, 0.05);
+  box-shadow: 0 0.1rem 0.1rem rgba(0, 0, 0, 0.05);
   background-color: white;
   width: 50%;
   margin: 0 auto;
   margin-top: 20px;
-  -webkit-transition: all .4s;
-  transition: all .4s;
+  transition: all 0.4s;
 }
 
 .price-table:hover {
@@ -504,7 +500,7 @@ a:hover {
   background-color: white;
   margin: 45px auto 0 auto;
   width: 920px;
-  font-family: 'Open Sans', sans-serif;
+  font-family: "Open Sans", sans-serif;
 }
 
 .add-ons--activeImage {
@@ -548,7 +544,7 @@ a:hover {
   background-color: white;
   padding: 20px;
   height: 150px;
-  font-family: 'Open Sans', sans-serif;
+  font-family: "Open Sans", sans-serif;
   font-style: italic;
   font-size: 16px;
   width: 95%;
@@ -579,7 +575,6 @@ a:hover {
 
 .blog-header {
   background: rgba(25, 0, 0, 0.8) url("/../images/blog.jpg");
-  -webkit-transition: background-color 1s;
   transition: background-color 1s;
   background-position: center;
   height: 450px;
@@ -589,7 +584,7 @@ a:hover {
 }
 
 .blog-header--title {
-  font-family: 'Open Sans', sans-serif;
+  font-family: "Open Sans", sans-serif;
   position: absolute;
   top: 38%;
   bottom: 25%;
@@ -607,15 +602,14 @@ a:hover {
 }
 
 .blog {
-  font-family: 'Open Sans', sans-serif;
+  font-family: "Open Sans", sans-serif;
   padding: 120px 220px;
 }
 
 .blog-highlight--image img {
   height: 360px;
   width: 100%;
-  -webkit-transition: all .4s;
-  transition: all .4s;
+  transition: all 0.4s;
   text-align: center;
   margin: 0 auto;
 }
@@ -672,8 +666,7 @@ a:hover {
 }
 
 .blog-item img {
-  -webkit-transition: all .4s;
-  transition: all .4s;
+  transition: all 0.4s;
   height: 200px;
   width: 380px;
 }
@@ -718,7 +711,7 @@ a:hover {
 .footer {
   padding: 120px 180px 60px 180px;
   text-align: center;
-  font-family: 'Open Sans', sans-serif;
+  font-family: "Open Sans", sans-serif;
 }
 
 .footer li {
@@ -760,12 +753,12 @@ a:hover {
 
 .about {
   padding: 120px 200px;
-  font-family: 'Open Sans', sans-serif;
+  font-family: "Open Sans", sans-serif;
 }
 
 .values {
   padding: 120px 200px;
-  font-family: 'Open Sans', sans-serif;
+  font-family: "Open Sans", sans-serif;
   background-color: #8488eb;
   color: white;
 }
@@ -784,7 +777,7 @@ a:hover {
 
 .founder {
   padding: 120px 200px;
-  font-family: 'Open Sans', sans-serif;
+  font-family: "Open Sans", sans-serif;
 }
 
 .founder-image {
@@ -801,7 +794,7 @@ a:hover {
 .support-items {
   padding: 120px 180px;
   text-align: center;
-  font-family: 'Open Sans', sans-serif;
+  font-family: "Open Sans", sans-serif;
 }
 
 .support-item i {
@@ -817,7 +810,7 @@ a:hover {
 .form {
   padding: 120px 180px;
   background-color: #5ab9ea;
-  font-family: 'Open Sans', sans-serif;
+  font-family: "Open Sans", sans-serif;
   color: white;
 }
 
@@ -876,7 +869,6 @@ a:hover {
 .login-left {
   color: white;
   float: left;
-  background: -webkit-gradient(linear, left top, right top, from(#5680e9), color-stop(35%, #5ab9ea), to(#8488eb));
   background: linear-gradient(90deg, #5680e9 0%, #5ab9ea 35%, #8488eb 100%);
   height: 100vh;
   width: 50%;
@@ -889,7 +881,7 @@ a:hover {
 .login-socialmedia {
   padding: 200px 0;
   font-size: 25px;
-  font-family: 'Muli', sans-serif;
+  font-family: "Muli", sans-serif;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -914,8 +906,7 @@ a:hover {
 .register-socialmedia button:hover,
 .login-socialmedia button:hover {
   opacity: 0.8;
-  -webkit-transition: all .2s;
-  transition: all .2s;
+  transition: all 0.2s;
   -webkit-animation-name: up;
           animation-name: up;
   -webkit-animation-duration: 2s;
@@ -987,13 +978,13 @@ a:hover {
   text-align: center;
 }
 
-.register-right form input[type="text"],
-.register-right form input[type="password"],
-.register-right form input[type="email"],
+.register-right form input[type=text],
+.register-right form input[type=password],
+.register-right form input[type=email],
 .register-right form select,
-.login-right form input[type="text"],
-.login-right form input[type="password"],
-.login-right form input[type="email"],
+.login-right form input[type=text],
+.login-right form input[type=password],
+.login-right form input[type=email],
 .login-right form select {
   width: 100%;
 }
@@ -1013,19 +1004,19 @@ a:hover {
 
 .register-right--title,
 .login-right--title {
-  font-family: 'Muli', sans-serif;
+  font-family: "Muli", sans-serif;
 }
 
 .register-right p,
 .login-right p {
-  font-family: 'Open Sans', sans-serif;
+  font-family: "Open Sans", sans-serif;
 }
 
 .register-right--alreadyAccount,
 .login-right--alreadyAccount {
   float: right;
   padding: 18px;
-  font-family: 'Muli', sans-serif;
+  font-family: "Muli", sans-serif;
 }
 
 .register-right--alreadyAccount a,
@@ -1040,12 +1031,12 @@ a:hover {
 }
 
 .verify h4 {
-  font-family: 'Muli', sans-serif;
+  font-family: "Muli", sans-serif;
 }
 
 /**** BUTTONS ***/
 
-input[type="submit"] {
+input[type=submit] {
   background-color: #5680e9;
   text-decoration: none;
   display: inline-block;
@@ -1131,14 +1122,13 @@ input[type="submit"] {
 
 .support-items {
   text-align: center;
-  font-family: 'Open Sans', sans-serif;
+  font-family: "Open Sans", sans-serif;
 }
 
 /**** Login company****/
 
 .login-company-bg,
 .new-invite-bg {
-  background: -webkit-gradient(linear, left top, right top, from(#5680e9), color-stop(35%, #5ab9ea), to(#8488eb));
   background: linear-gradient(90deg, #5680e9 0%, #5ab9ea 35%, #8488eb 100%);
 }
 
@@ -1176,19 +1166,19 @@ input[type="submit"] {
   color: black;
 }
 
-.login-company-content section input[type="text"],
-.login-company-content section input[type="password"],
-.login-company-content section input[type="email"],
+.login-company-content section input[type=text],
+.login-company-content section input[type=password],
+.login-company-content section input[type=email],
 .login-company-content section select,
-.new-invite-content section input[type="text"],
-.new-invite-content section input[type="password"],
-.new-invite-content section input[type="email"],
+.new-invite-content section input[type=text],
+.new-invite-content section input[type=password],
+.new-invite-content section input[type=email],
 .new-invite-content section select {
   width: 100%;
 }
 
-.login-company-content section input[type="submit"],
-.new-invite-content section input[type="submit"] {
+.login-company-content section input[type=submit],
+.new-invite-content section input[type=submit] {
   float: right;
 }
 
@@ -1206,7 +1196,7 @@ input[type="submit"] {
 .new-invite-content--copyright {
   text-align: center;
   color: white;
-  font-family: 'Open Sans', sans-serif;
+  font-family: "Open Sans", sans-serif;
 }
 
 .login-company-content img,
@@ -1217,7 +1207,7 @@ input[type="submit"] {
 
 .login-company--title,
 .new-invite--title {
-  font-family: 'Muli', sans-serif;
+  font-family: "Muli", sans-serif;
   text-align: center;
   color: white;
 }

@@ -78,7 +78,10 @@ Route::group(['middleware' => ['auth', 'company', 'verification']], function () 
     Route::get('/{company}/company', 'Application\CompanyController@index')->name('app_company');
     Route::get('/{company}/account', 'Application\AccountController@index')->name('app_account');
     Route::get('/{company}/calendar', 'Application\CalendarController@index')->name('app_calendar');
-
+    Route::get('/{company}/projects', 'Application\ProjectController@index')->name('app_projects');
+    Route::get('/{company}/project', function () {
+        return view('application.project.index');
+    });
 });
 
 /////********************** OTHER PAGES ********************** /////
