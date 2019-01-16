@@ -72,6 +72,7 @@ class CreateUserController extends Controller
         foreach ($request->selectedGroups as $name) {
             $group = Group::where([
                 ['name', '=',$name],
+                ['company_id', '=', Auth::user()->company_id],
             ])->first();
 
             $user->groups()->attach($group->id);

@@ -2,25 +2,41 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { Tabs, Tab, TabPanel, TabList } from 'react-web-tabs';
 import { Progress } from 'react-sweet-progress';
+const Timestamp = require('react-timestamp');
 import {ProgressBar} from "reprogressbars";
 import PulseLoader from "./company/company";
+import {Accordion, AccordionItem, AccordionItemTitle, AccordionItemBody,} from 'react-accessible-accordion';
 export default class Projects extends Component {
 
     constructor(props) {
         super(props)
         this.state = {
-            overlay: false
+            overlay: false,
+            projects: [],
+            currentProject: null,
         };
 
         this.changeOverlay = this.changeOverlay.bind(this);
+        this.getProjects = this.getProjects.bind(this);
     }
 
-
-    changeOverlay() {
-        this.setState({overlay: true})
+    componentWillMount() {
+        this.getProjects();
     }
 
+    changeOverlay(index) {
+        this.setState({overlay: true, currentProject: this.state.projects[index]})
+    }
 
+    getProjects() {
+        axios.get('/api/projects/all').then((
+            response
+            ) =>
+                this.setState({
+                    projects: response.data,
+                })
+        );
+    }
     render() {
         return (
             <div className="projects">
@@ -29,37 +45,68 @@ export default class Projects extends Component {
                       {this.state.overlay
                           ?
                           <div className="projects-overlay">
-
+                              {this.state.currentProject.map((project)=> (
+                                  <div>
+                                      {project.name}
+                                  </div>
+                              ))}
                           </div>
                           :
                           <div className="projects-overview">
                               <h4>Your projects</h4>
                               <button className="button button-primary no-button"><i className="fas fa-plus"> </i> New project</button>
-                              <table className="u-full-width">
-                                  <thead>
-                                  <tr>
-                                      <th> </th>
-                                      <th>Name</th>
-                                      <th>Started on</th>
-                                      <th>ends in</th>
-                                      <th>Status</th>
-                                  </tr>
-                                  </thead>
-                                  <tr onClick={this.changeOverlay}>
-                                      <th><i className="far fa-star star"></i></th>
-                                      <td>Pekesweekend</td>
-                                      <td>2 days ago</td>
-                                      <td>15 minutes</td>
-                                      <td><span className="tag tag-green">Open</span></td>
-                                  </tr>
-                                  <tr>
-                                      <th><i className="fas fa-star star"></i></th>
-                                      <td>Pekesweekend</td>
-                                      <td>2 days ago</td>
-                                      <td>15 minutes</td>
-                                      <td><span className="tag tag-red">Closed</span></td>
-                                  </tr>
-                              </table>
+                              <Tabs
+                                  defaultTab="one"
+                                  onChange={(tabId) => { console.log(tabId) }}
+                              >
+                                  <TabList>
+                                      <Tab tabFor="one" className="projects-tab">Active projects </Tab>
+                                      <Tab tabFor="two" className="projects-tab">Archive</Tab>
+                                  </TabList>
+                                  <TabPanel tabId="one">
+                                      <table className="u-full-width">
+                                          <thead>
+                                          <tr>
+                                              <th>Name</th>
+                                              <th>Started on</th>
+                                              <th>ends in</th>
+                                              <th>Status</th>
+                                          </tr>
+                                          </thead>
+                                          {this.state.projects.map((project, i)=> (
+                                              <tr className={project.status !== 0 ? "hidden" : ""}  onClick={e =>this.changeOverlay(i)}>
+                                                  <td>{project.name}</td>
+                                                  <td><Timestamp time={project.created_at} precision={2} utc={false} autoUpdate={60}   /></td>
+                                                  <td><Timestamp time={project.end_date} precision={2} utc={false} autoUpdate={60}  /></td>
+                                                  <td><span className="tag tag-green">Open</span></td>
+                                              </tr>
+
+                                          ))}
+                                      </table>
+                                  </TabPanel>
+                                  <TabPanel tabId="two">
+                                      <table className="u-full-width">
+                                          <thead>
+                                          <tr>
+                                              <th>Name</th>
+                                              <th>Started on</th>
+                                              <th>Finished on</th>
+                                              <th>Status</th>
+                                              <th></th>
+                                          </tr>
+                                          </thead>
+                                          {this.state.projects.map((project, i) => (
+                                              <tr className={project.status !== 1 ? "hidden" : ""} onClick={e =>this.changeOverlay(i)}>
+                                                  <td>{project.name}</td>
+                                                  <td><Timestamp time={project.created_at} precision={2} utc={false} autoUpdate={60}   /></td>
+                                                  <td><Timestamp time={project.end_date} precision={2} utc={false} autoUpdate={60}  /></td>
+                                                  <td><span className="tag tag-red">Closed</span></td>
+                                              </tr>
+
+                                          ))}
+                                      </table>
+                                  </TabPanel>
+                              </Tabs>
                           </div>
                       }
                   </div>

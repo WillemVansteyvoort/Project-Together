@@ -5,7 +5,14 @@
     font-family: "Raleway", sans-serif;
   }
 
-
+  &-tab {
+    border: none;
+    background-color: #F8F8F8;
+    padding: 14px 16px;
+    font-size: 14px;
+    cursor: pointer;
+    margin-right: 20px;
+  }
 
   &-overview {
     margin: 0 20%;

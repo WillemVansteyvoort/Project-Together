@@ -136,7 +136,7 @@ export default class TabsAccount extends Component {
     }
     changeSettings() {
         if(this.state.settings_timer > 0) {
-            this.setState({settings: false, settings: 0})
+            this.setState({settings: false})
         }
     }
     changeSettingsTimer() {

@@ -111,7 +111,7 @@ Route::post('/api/user/activity', 'UpdateActivity@update');
 Route::get('/api/menu/online', 'Application\MenuController@online');
 Route::get('/api/menu/notifications', 'Application\MenuController@notifications');
 Route::post('/api/menu/notifications', 'Application\MenuController@notificationsRead');
-    Route::get('/api/menu/test', 'Application\MenuController@newNotification');
+Route::get('/api/menu/test', 'Application\MenuController@newNotification');
 
 Route::get('/api/company/users', 'Application\CompanyController@users');
 Route::get('/api/company/invites', 'Application\CompanyController@invites');
@@ -148,7 +148,9 @@ Route::post('/api/calendar/new', 'Application\CalendarController@create');
 Route::get('/api/calendar/today', 'Application\CalendarController@today');
 Route::post('/api/calendar/receive', 'Application\CalendarController@receive');
 
-
+//Projects
+Route::post('/api/project/new', 'Application\ProjectController@create');
+Route::get('/api/projects/all', 'Application\ProjectController@getProjects');
 Route::get('/testdf', function () {
     $message = Nexmo::message()->send([
         'to' => '32489099902',

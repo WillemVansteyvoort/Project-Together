@@ -18,7 +18,7 @@
             <div class="no-margin three columns">
                 <section class="sidebar">
                     <div class="clear line-small"></div>
-                    @if(!Auth::user()->verified)
+                    @if(!Auth::user()->verified && Auth::user()->owner)
                         <div class="alert alert-red">This account has not been verified. You only have 2 days access to your company. <br/> <a>Send a new verification e-mail</a></div>
                     @endif
                     <div class="sidebar-projects">

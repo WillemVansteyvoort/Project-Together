@@ -74,6 +74,7 @@ export default class MenuOnline extends Component {
                     <h6 key={user.id}><i  className="fas fa-circle"> </i>{user.name}</h6>
 
                 ))}
+                {this.state.users.length === 0 ? "There are no members online" : ""}
             </div>
         );
     }

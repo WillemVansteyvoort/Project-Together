@@ -75,6 +75,9 @@
       display: block;
       padding: 8px;
     }
+    i {
+      margin-top: 6px;
+    }
   }
 
   &-addGroup {
@@ -169,7 +172,9 @@
     &-add {
       margin-top: 10px;
       float: left;
+      margin-bottom: 20px;
     }
+
   }
   &-addons {
     text-align: center;
@@ -190,10 +195,46 @@
       margin: 8px 10px 10px 0 !important;
     }
   }
+  &-tags {
+    margin-bottom: 8px;
+    h5 {
+      margin-bottom: 6px;
+    }
+    input[type="text"] {
+      width: 86%;
+    }
+    input {
+      margin-top: 15px;
+
+    }
+    span {
+      margin-right: 10px;
+      margin-bottom: 10px;
+    }
+  }
 }
 .css-10nd86i, .css-1oubc3t, .css-1hwfws3, .css-1wy0on6 {
   height: 38px !important;
 
 }.css-10nd86i {
    border-radius: 4px;
+ }
+ .css-19qxxs {
+   max-height: 140px;
+   overflow: auto;
+
+   &::-webkit-scrollbar {
+     width: 8px;
+   }
+   &::-webkit-scrollbar-track {
+     background: #f1f1f1;
+   }
+
+   &::-webkit-scrollbar-thumb {
+     background: #888;
+   }
+
+   &::-webkit-scrollbar-thumb:hover {
+     background: #555;
+   }
  }
