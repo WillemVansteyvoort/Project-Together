@@ -11,6 +11,7 @@ use App\Two_step;
 use App\Notification;
 use App\User_right;
 use Illuminate\Support\Facades\Auth;
+use App\User_email;
 use Illuminate\Support\Facades\Hash;
 class CreateUserController extends Controller
 {
@@ -94,6 +95,9 @@ class CreateUserController extends Controller
             'active' => $request->user_twostep,
             'email' => 1,
             'phone' => 1,
+        ]);
+        User_email::create([
+            'user_id' => $user->id,
         ]);
 
         $notification = Notification::create([

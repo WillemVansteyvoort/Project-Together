@@ -59,10 +59,12 @@ class Kernel extends HttpKernel
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
-        'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+        'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerifiesd::class,
         'company' => \App\Http\Middleware\CheckCompany::class,
         'owner' => \App\Http\Middleware\OnlyOwner::class,
-        'verification' => \App\Http\Middleware\CheckVerification::class
+        'verification' => \App\Http\Middleware\CheckVerification::class,
+        'project' => \App\Http\Middleware\CheckProject::class,
+
 
     ];
 }

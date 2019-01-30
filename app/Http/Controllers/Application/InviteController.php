@@ -104,7 +104,6 @@ class InviteController extends Controller
             'title' => 'Invitation accepted',
             'type' => 'fas fa-user-check',
             'content' => $invite->name . ' has accepted your invitation. ' . $invite->name . ' has now access to the company.',
-
         ]);
         // broadcast
         Auth::loginUsingId($user->id);

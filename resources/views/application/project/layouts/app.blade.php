@@ -66,6 +66,11 @@
                 'projects' =>  Auth::user()->company->plan->projects,
                 'users' =>  Auth::user()->company->plan->users,
             ],
+            'data' => [
+                'company' =>  $company,
+                'project' => $project,
+                'name' => $name,
+            ],
 
             'rights' => [
               'create_members' => Auth::user()->rights->create_members,

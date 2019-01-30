@@ -29,3 +29,7 @@ require('./components/invite');
 require('./components/calendar');
 require('./components/project');
 require('./components/popups/newProject');
+require('./components/project/index');
+require('./components/project/overview');
+require('./components/popups/changeProject');
+require('./components/project/notes');

@@ -83,6 +83,13 @@ Route::group(['middleware' => ['auth', 'company', 'verification']], function () 
         return view('application.project.index');
     });
 });
+/////********************** RIGHT PROJECT & AUTHENTICATED ********************** /////
+Route::group(['middleware' => ['auth', 'company', 'verification', 'project']], function () {
+    Route::get('/{company}/{project}/project/{path?}', [
+        'uses' => 'Application\ProjectController@data',
+        'where' => ['path' => '.*']
+    ]);
+});
 
 /////********************** OTHER PAGES ********************** /////
 /// //verification
@@ -151,24 +158,31 @@ Route::post('/api/calendar/receive', 'Application\CalendarController@receive');
 //Projects
 Route::post('/api/project/new', 'Application\ProjectController@create');
 Route::get('/api/projects/all', 'Application\ProjectController@getProjects');
-Route::get('/testdf', function () {
-    $message = Nexmo::message()->send([
-        'to' => '32489099902',
-        'from' => '32474455182',
-        'text' => 'Jo jonathan'
-    ]);
 
-});
+/////********************** PROJECT API ********************** /////
 
-Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/test', function () {
-    $company = "Google";
-    $name = "jo";
-    $mess = "dfdf";
-    $url = 'ddf';
-    $maker = "Willem";
-    return view('mails.invite', compact('company', 'name', 'mess', 'url', 'maker'));
-});
+//overview
+Route::post('/api/project/overview/info', 'Application\Project\OverviewController@getInfo');
+
+//notes
+Route::post('/api/project/notes/all', 'Application\Project\NoteController@getNotes');
+Route::post('/api/project/notes/create', 'Application\Project\NoteController@create');
+Route::post('/api/project/notes/delete', 'Application\Project\NoteController@delete');
+
+//forum
+Route::post('/api/project/forum/replies', 'Application\Project\ForumController@getReplies');
+Route::post('/api/project/forum/tags', 'Application\Project\ForumController@getTags');
+Route::post('/api/project/forum/createPost', 'Application\Project\ForumController@createPost');
+Route::post('/api/project/forum/post', 'Application\Project\ForumController@getPost');
+Route::post('/api/project/forum/createReply', 'Application\Project\ForumController@createReply');
+
+
+
+
+
+
+
+
 
 
 Route::post('/twostep', 'Application\TwoStepController@login');

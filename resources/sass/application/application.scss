@@ -18,6 +18,9 @@
 @import 'components/projects';
 @import 'components/project/project';
 @import 'components/project/dashboard';
+@import 'components/project/notes';
+@import 'components/project/forum';
+
 .line {
   &-small {
     border-top: 1px solid #f0f0f0;

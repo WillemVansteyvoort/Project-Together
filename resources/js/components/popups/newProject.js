@@ -591,20 +591,7 @@ export default class PopupNewProject extends Component {
                                         <div className="clear"></div>
                                     </TabPanel>
                                     <TabPanel tabId="five">
-                                        <div className="popup-tags">
-                                            <h5>Tags</h5>
-                                            {this.state.tags.length <= 0 ? <div id="red">No tags selected</div> :
-                                                <div>
-                                                    {this.state.tags.map(tag => (
-                                                        <span className="tag tag-second">{tag} <i onClick={e =>this.removeTag({tag})} className="fas fa-minus-circle"> </i></span>
-                                                    ))}
-                                                </div>
-                                            }
-                                            <form onSubmit={this.addTag} action="#">
-                                                <input type="text" value={this.state.current_tag} className="float-left" onChange={e => this.setState({ current_tag: e.target.value})} placeholder="Party, 2019, ..." required={true}/>
-                                                <input type="submit" className="float-right" value="Add new tag" />
-                                            </form>
-                                        </div>
+
                                         <h5>Other settings</h5>
                                         <div>
                                             <input type="checkbox" id="scales" name="feature" value="scales" onChange={e => this.setState({ private: !this.state.private})} checked={this.state.private} />

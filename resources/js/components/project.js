@@ -45,11 +45,12 @@ export default class Projects extends Component {
                       {this.state.overlay
                           ?
                           <div className="projects-overlay">
-                              {this.state.currentProject.map((project)=> (
-                                  <div>
+                              {this.state.currentProject.map(project => (
+                                  <div style="margin-top: 6%">
                                       {project.name}
                                   </div>
                               ))}
+                              <h3>dsfdsf</h3>
                           </div>
                           :
                           <div className="projects-overview">
@@ -74,13 +75,12 @@ export default class Projects extends Component {
                                           </tr>
                                           </thead>
                                           {this.state.projects.map((project, i)=> (
-                                              <tr className={project.status !== 0 ? "hidden" : ""}  onClick={e =>this.changeOverlay(i)}>
+                                              <tr className={new Date(project.end_date) >= new Date() || project.end_date === null ? "" : "hidden"}  onClick={e =>window.location.href='./' + project.url + "/project/"}>
                                                   <td>{project.name}</td>
                                                   <td><Timestamp time={project.created_at} precision={2} utc={false} autoUpdate={60}   /></td>
-                                                  <td><Timestamp time={project.end_date} precision={2} utc={false} autoUpdate={60}  /></td>
+                                                  <td>{project.end_date !== null ? <Timestamp time={new Date(project.end_date)} precision={2} utc={false} autoUpdate={60}  /> : "-" }</td>
                                                   <td><span className="tag tag-green">Open</span></td>
                                               </tr>
-
                                           ))}
                                       </table>
                                   </TabPanel>
@@ -96,10 +96,10 @@ export default class Projects extends Component {
                                           </tr>
                                           </thead>
                                           {this.state.projects.map((project, i) => (
-                                              <tr className={project.status !== 1 ? "hidden" : ""} onClick={e =>this.changeOverlay(i)}>
+                                              <tr className={new Date(project.end_date) >= new Date() ? "hidden" : ""}  onClick={e =>this.changeOverlay(i)}>
                                                   <td>{project.name}</td>
                                                   <td><Timestamp time={project.created_at} precision={2} utc={false} autoUpdate={60}   /></td>
-                                                  <td><Timestamp time={project.end_date} precision={2} utc={false} autoUpdate={60}  /></td>
+                                                  <td><Timestamp time={new Date(project.end_date)} precision={2} utc={false} autoUpdate={60}  /></td>
                                                   <td><span className="tag tag-red">Closed</span></td>
                                               </tr>
 
