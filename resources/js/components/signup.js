@@ -58,7 +58,7 @@ export default class SignupForm extends Component {
             documentation: 0,
             termsOfService: 0,
             privacyPolicy: 0,
-            user_avatar: 'https://project-together.com/images/user.jpg',
+            user_avatar: '/images/user.jpg',
 
         };
         //bind

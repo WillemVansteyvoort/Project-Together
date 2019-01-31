@@ -51,6 +51,8 @@ class ProjectController extends Controller
                'name' => $tag,
                'taggable_id' => $project->id,
                 'taggable_type' => 'App\Project',
+                'project_id' => $project->id,
+
             ]);
         }
 

@@ -19,6 +19,7 @@ export default class ProjectForum extends Component {
             replies: [],
             tags: [],
             show: false,
+            show2: false,
             //new note
             created: false,
             created_timer: 0,
@@ -39,6 +40,10 @@ export default class ProjectForum extends Component {
             //new reply
             reply_message: "",
 
+            //edit reply
+            reply: [],
+            replyNew_message: "",
+
         };
         this.init = this.init.bind(this);
         this.getReplies = this.getReplies.bind(this);
@@ -51,6 +56,10 @@ export default class ProjectForum extends Component {
         this.getPostById = this.getPostById.bind(this);
         this.createReply = this.createReply.bind(this);
         this.handleChange2 = this.handleChange2.bind(this);
+        this.getReply = this.getReply.bind(this);
+        this.editReply = this.editReply.bind(this);
+        this.handleChange3 = this.handleChange3.bind(this);
+        this.deleteReply = this.deleteReply.bind(this);
     }
 
     init() {
@@ -71,6 +80,11 @@ export default class ProjectForum extends Component {
             reply_message: value
         });
     };
+    handleChange3 (value) {
+        this.setState({
+            replyNew_message: value
+        });
+    };
     componentWillMount() {
         this.init();
         this.getReplies();
@@ -82,7 +96,9 @@ export default class ProjectForum extends Component {
     toggleShow(show) {
         this.setState({show});
     }
-
+    toggleShow2(show2) {
+        this.setState({show2});
+    }
     changeCreated() {
         if(this.state.created_timer) {
             this.setState({created: false})
@@ -170,6 +186,30 @@ export default class ProjectForum extends Component {
         });
     }
 
+    getReply(id) {
+        this.setState({reply: this.state.post_replies[id], show2: true});
+    }
+
+    editReply() {
+            axios.post('/api/project/forum/editReply', {
+                id: this.state.reply.id,
+                message: this.state.replyNew_message,
+            }).then(response => {
+                this.setState({show2: false,})
+            });
+            this.getPostById(this.state.post.id);
+    }
+
+    deleteReply(id) {
+        if (confirm('Are you sure you want to delete this reply?')) {
+            axios.post('/api/project/forum/deleteReply', {
+                id: id,
+            }).then(response => {
+            });
+            this.getPostById(this.state.post.id);
+        }
+    }
+
     forum() {
         let params = new URLSearchParams(location.search);
             return (
@@ -190,6 +230,7 @@ export default class ProjectForum extends Component {
                         </ul>
                     </div>
                     <div className="nine columns">
+                        {this.state.replies.length === 0 ? <div className="dashboard-forum-empty"> <i class="fas fa-comments"></i><h4>Nothing to find </h4></div> : ""}
                                 <span>
                                     {this.state.post_open ?
                                         <div className="row dashboard-forum-title">
@@ -220,6 +261,10 @@ export default class ProjectForum extends Component {
                                                             <div className="nine columns dashboard-forum-post-content">
                                                                 <ReactMarkdown source={reply.content} />
                                                                 </div>
+                                                            <div className="actions">
+                                                                {window.Laravel.user.id === reply.user_id ?<a onClick={e => this.getReply(i)}><i className="fas fa-pencil-alt"> </i></a> : ""}
+                                                                {window.Laravel.user.id === reply.user_id ?<a onClick={e => this.deleteReply(reply.id)}><i className="fas fa-trash-alt"> </i></a> : ""}
+                                                            </div>
                                                             </div>
                                                         :
                                                         ""
@@ -233,7 +278,7 @@ export default class ProjectForum extends Component {
                                                     value={this.state.reply_message}
                                                     onChange={this.handleChange2}
                                                 />
-                                                <button className="button button-primary no-button" onClick={this.createReply}>Reply</button>
+                                                <button className="button button-primary no-button"onClick={() => this.createReply()}>Reply</button>
                                             </div>
                                                 </div>
 
@@ -266,6 +311,8 @@ export default class ProjectForum extends Component {
     }
     render() {
         const {show} = this.state;
+        const {show2} = this.state;
+
         return (
             <main className="project-main">
                 {this.state.loading ?
@@ -320,14 +367,39 @@ export default class ProjectForum extends Component {
                                                     ))}
                                                 </div>
                                             }
-                                            <form onSubmit={this.addTag} action="#">
+                                            <form>
                                                 <input type="text" value={this.state.current_tag} className="float-left" onChange={e => this.setState({ current_tag: e.target.value})} placeholder="Party, 2019, ..." required={true}/>
-                                                <input type="submit" className="float-right" value="Add new tag" />
+                                                <input type="submit" onClick={this.addTag} className="float-right" value="Add new tag" />
                                             </form>
                                         </div>
                                 </TabPanel>
                             </Tabs>
                             <button className="button-primary button no-button" onClick={this.makePost}>Make thread</button>
+                        </div>
+                    </div>
+                </PopPop>
+                <PopPop
+                    open={show2}
+                    closeOnEsc={true}
+                    onClose={() => this.toggleShow2(false)}
+                    closeOnOverlay={true}>
+                    <div className="popup">
+                        <div className="popup-titleBar">
+                            Edit your reply
+                            <button className="popup-btn--close"  onClick={() => this.toggleShow2(false)}>✕</button>
+                        </div>
+                        <div className="popup-content">
+                            <div className="row">
+                                <div className="twelve columns">
+                                    <SimpleMDEReact
+                                        className={""}
+                                        label="Message"
+                                        value={this.state.reply.content}
+                                        onChange={this.handleChange3}
+                                    />
+                                </div>
+                            </div>
+                            <button className="button-primary button no-button" onClick={this.editReply}>Change reply</button>
                         </div>
                     </div>
                 </PopPop>

@@ -11,7 +11,8 @@ class Reply extends Model
       'post_id',
       'user_id',
         'content',
-        'created'
+        'created',
+        'project_id',
     ];
 
     public function post()

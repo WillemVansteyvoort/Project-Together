@@ -12,7 +12,8 @@ use Illuminate\Support\Facades\Auth;
 class ForumController extends Controller
 {
     public function getReplies(Request $request) {
-        $replies = Reply::with('post', 'user')->orderBy('created_at', 'desc')->get();
+        $project = Project::where('url', '=', $request->project)->first();
+        $replies = Reply::where('project_id', '=', $project->id)->with('post', 'user')->orderBy('created_at', 'desc')->get();
         return $replies;
     }
 
@@ -46,6 +47,7 @@ class ForumController extends Controller
         $reply = Reply::create([
             'post_id' => $post->id,
             'user_id' => Auth::user()->id,
+            'project_id' =>$project->id,
             'created' => true,
         ]);
     }
@@ -56,10 +58,22 @@ class ForumController extends Controller
     }
 
     public function createReply(Request $request) {
+        $post = Post::findOrFail($request->post_id);
         $reply = Reply::create([
            'post_id' => $request->post_id,
             'user_id' => Auth::user()->id,
+            'project_id' =>$post->id,
             'content' => $request->reply_message,
         ]);
+    }
+
+    public function editReply(Request $request) {
+        $reply = Reply::findOrFail($request->id);
+        $reply->content = $request->message;
+        $reply->save();
+    }
+
+    public function deleteReply(Request $request) {
+        Reply::destroy($request->id);
     }
 }

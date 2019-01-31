@@ -2759,6 +2759,7 @@ input[type=checkbox]:checked + #nav-mobile--menu {
 .dashboard-forum-post {
   background-color: white;
   padding: 12px;
+  position: relative;
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.15);
 }
 
@@ -2786,6 +2787,20 @@ input[type=checkbox]:checked + #nav-mobile--menu {
   max-width: 100%;
 }
 
+.dashboard-forum-post .actions {
+  position: absolute !important;
+  right: 15px !important;
+  bottom: 10px !important;
+}
+
+.dashboard-forum-post .actions i {
+  margin-left: 15px;
+}
+
+.dashboard-forum-post .actions a {
+  color: black;
+}
+
 .dashboard-forum-reply {
   margin-top: 25px;
   max-height: 40px;
@@ -2809,6 +2824,22 @@ input[type=checkbox]:checked + #nav-mobile--menu {
 
 .dashboard-forum blockquote p {
   display: inline;
+}
+
+.dashboard-forum-empty {
+  text-align: center;
+}
+
+.dashboard-forum-empty i {
+  color: #2D3E50;
+  font-size: 140px;
+}
+
+.dashboard-forum-empty h4 {
+  font-family: "Open Sans", sans-serif;
+  font-size: 25px;
+  text-transform: uppercase;
+  font-weight: 400;
 }
 
 .CodeMirror {

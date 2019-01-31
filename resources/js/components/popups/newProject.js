@@ -597,6 +597,20 @@ export default class PopupNewProject extends Component {
                                             <input type="checkbox" id="scales" name="feature" value="scales" onChange={e => this.setState({ private: !this.state.private})} checked={this.state.private} />
                                             Make this project public: this means that everyone can see the forum, tasks and so on
                                             </div>
+                                        <div className="popup-tags">
+                                            <h5>Tags</h5>
+                                            {this.state.tags.length <= 0 ? <div id="red">No tags selected</div> :
+                                                <div>
+                                                    {this.state.tags.map(tag => (
+                                                        <span className="tag tag-second">{tag} <i onClick={e =>this.removeTag({tag})} className="fas fa-minus-circle"> </i></span>
+                                                    ))}
+                                                </div>
+                                            }
+                                            <form>
+                                                <input type="text" value={this.state.current_tag} className="float-left" onChange={e => this.setState({ current_tag: e.target.value})} placeholder="Party, 2019, ..." required={true}/>
+                                                <input type="submit" onClick={this.addTag} className="float-right" value="Add new tag" />
+                                            </form>
+                                        </div>
                                     </TabPanel>
                                 </div>
                             </Tabs>

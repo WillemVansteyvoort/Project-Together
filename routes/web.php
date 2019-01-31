@@ -175,6 +175,8 @@ Route::post('/api/project/forum/tags', 'Application\Project\ForumController@getT
 Route::post('/api/project/forum/createPost', 'Application\Project\ForumController@createPost');
 Route::post('/api/project/forum/post', 'Application\Project\ForumController@getPost');
 Route::post('/api/project/forum/createReply', 'Application\Project\ForumController@createReply');
+Route::post('/api/project/forum/editReply', 'Application\Project\ForumController@editReply');
+Route::post('/api/project/forum/deleteReply', 'Application\Project\ForumController@deleteReply');
 
 
 

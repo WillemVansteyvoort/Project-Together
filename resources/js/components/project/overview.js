@@ -108,7 +108,7 @@ export default class ProjectOverview extends Component {
                 </div>
                 <div className="dashboard-project-info-date end float-right">
                     <h6>Ends</h6>
-                    <span>{this.state.end_date == null ? "-" : months[end_date.getMonth()]}</span>
+                    <span>{this.state.end_date == null ? "-" : end_date.getDate() + " " + months[end_date.getMonth()]}</span>
                     <h6>{this.state.end_date == null ? "" : end_date.getFullYear()}</h6>
                 </div>
                 <div className="float-left alert alert-black">Ends {this.state.end_date == null ? "never" : "in " + days + " days"}</div>
