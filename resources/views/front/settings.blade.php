@@ -61,7 +61,7 @@
                 <div class="float-left">
                     @if(!empty(Auth::user()->company->logo))
                         <img src="/logos/{{{Auth::user()->company->logo}}}" width="230px" height="80px">
-                        {!!Form::open(['method' => 'post', 'action' => 'companyController@deleteLogo'])  !!}
+                        {!!Form::open(['method' => 'post', 'action' => 'CompanyController@deleteLogo'])  !!}
                         {!! Form::hidden('id', Auth::user()->company->id,['class' => 'u-full-width']); !!}
                         {!! Form::submit('Remove logo', ['class' => 'delete-logo']) !!}
                         {!! Form::close() !!}
