@@ -33,3 +33,4 @@ If you're not in the mood to read, [Laracasts](https://laracasts.com) contains o
 - 2: New note is created
 - 3: New thread is created
 - 4: new reply on thread 
+- 5: New card on board
