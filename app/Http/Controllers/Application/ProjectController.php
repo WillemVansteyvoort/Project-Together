@@ -69,13 +69,25 @@ class ProjectController extends Controller
                 case "member":
                     $roll = 0;
                     break;
+                case "Member":
+                    $roll = 0;
+                    break;
                 case "watcher":
+                    $roll = 1;
+                    break;
+                case "Watcher":
                     $roll = 1;
                     break;
                 case "responsable" :
                     $roll = 2;
                     break;
+                 case "Responsable" :
+                    $roll = 2;
+                    break;
                 case "leader":
+                    $roll = 3;
+                    break;
+                case "Leader":
                     $roll = 3;
                     break;
 

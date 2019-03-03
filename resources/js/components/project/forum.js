@@ -287,7 +287,7 @@ export default class ProjectForum extends Component {
                                             {this.state.replies.map((reply, i) => (
                                                 <article>
                                                     <div className="item-head">
-                                                        <img src="http://127.0.0.1:8000/images/user.jpg" className="float-left"/> <span><a href='#'>{reply.user.name} {reply.user.lastname}</a>
+                                                        <img src={reply.user.avatar} className="float-left"/> <span><a href='#'>{reply.user.name} {reply.user.lastname}</a>
                                                         {reply.created ? " created " : " replied "} <Timestamp className="time" time={reply.created_at} precision={1} utc={false} autoUpdate={60}/></span>
                                                         <div className="clear"></div>
                                                     </div>
