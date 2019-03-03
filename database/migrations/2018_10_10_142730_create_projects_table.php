@@ -26,6 +26,7 @@ class CreateProjectsTable extends Migration
             $table->integer('tasks');
             $table->integer('notes');
             $table->integer('forum');
+            $table->integer('board');
             $table->integer('presences');
             $table->integer('polls');
             $table->integer('activities');

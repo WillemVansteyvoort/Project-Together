@@ -221,6 +221,9 @@
       margin-left: -40px;
     }
 
+    .pagination {
+      margin-top: 50px;
+    }
     &-line {
       padding-top: 20px;
       height: 500px;
@@ -233,20 +236,20 @@
       &--time {
         background-color: $color-primary;
         position: absolute;
-        left: -37px;
+        left: -67px;
         top: 9px;
         color: white;
         padding: 8px;
         font-size: 15px;
         text-align: center;
-        width: 55px;
+        width: 120px;
         font-family: $font_raleway;
       }
       &--content {
         background-color: white;
         border: 1px solid white;
         box-shadow: 1px 1px 2px white inset;
-        margin-left: 60px;
+        margin-left: 105px;
         height: 25px;
         display: inline-block;
         padding: 14px;

@@ -132,13 +132,15 @@ export default class ProjectNotes extends Component {
 
     deleteNote(id) {
         console.log(id);
-        axios.post('/api/project/notes/delete', {
-            id: id,
-        }).then(response => {
-            this.setState({
+        if (confirm('Are you sure you want to delete this note?')) {
+            axios.post('/api/project/notes/delete', {
+                id: id,
+            }).then(response => {
+                this.setState({
+                });
+                this.getNotes();
             });
-            this.getNotes();
-        });
+        }
     }
 
     notes() {

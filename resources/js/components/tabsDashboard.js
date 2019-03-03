@@ -15,9 +15,11 @@ export default class TabsDashboard extends Component {
             notificationsToday: [],
             notificationsYesterday: [],
             notificationsOlder: [],
+            activities: [],
             todos: [{"id":1,"user_id":1,"title":"dfgdfg","type":"d","content":"dfgdfgdfgdf","read":0,"created_at":"2018-11-06 00:00:00","updated_at":null},{"id":2,"user_id":1,"title":"dfgdfg","type":"d","content":"dfgdfgdfgdf","read":0,"created_at":"2018-11-08 00:00:00","updated_at":null},{"id":3,"user_id":1,"title":"dfgdfg","type":"d","content":"dfgdfgdfgdf","read":0,"created_at":"2018-11-09 00:00:00","updated_at":null}],
             currentPage: 1,
-            todosPerPage: 4
+            todosPerPage: 6,
+            perPage: 7
         };
         //bind
         this.notificationsToday = this.notificationsToday.bind(this);
@@ -36,6 +38,17 @@ export default class TabsDashboard extends Component {
         this.notificationsOlder();
         this.notificationsToday();
         this.notificationsYesterday();
+        this.activities();
+    }
+
+    activities() {
+        axios.get('/api/activities/all').then((
+            response
+            ) =>
+                this.setState({
+                    activities: response.data,
+                })
+        );
     }
 
     notificationsToday() {
@@ -67,32 +80,35 @@ export default class TabsDashboard extends Component {
         );
     }
     render() {
-        const { notificationsToday, currentPage, todosPerPage } = this.state;
+        const { activities, currentPage, todosPerPage } = this.state;
 
         // Logic for displaying current todos
         const indexOfLastTodo = currentPage * todosPerPage;
         const indexOfFirstTodo = indexOfLastTodo - todosPerPage;
-        const currentTodos = notificationsToday.slice(indexOfFirstTodo, indexOfLastTodo);
+        const currentTodos = activities.slice(indexOfFirstTodo, indexOfLastTodo);
 
-        const renderTodos = currentTodos.map((notification, index) => {
-            return (
-                    <article key={index} className={notification.read > 0 ? "" : ""}>
-                            <ul className="dashboard-notifications-item">
-                                <li className="dashboard-notifications-item--time"><Timestamp time={notification.created_at} precision={1} utc={false}/></li>
-                                <li className="dashboard-notifications-item--icon"><i className={notification.type}> </i></li>
-                            </ul>
-                            <div className="dashboard-notifications-item--content">
-                                <b>{notification.title}</b>
-                                <p>{notification.content}</p>
-                            </div>
-                            <div className="dashboard-notifications--line clear"> </div>
-                        </article>
+            const renderActivities = currentTodos.map((activity, i) => {
+                return (
+                    <div key={i} className="dashboard-activities-item">
+                    <span className="dashboard-activities-item--time">
+                       <Timestamp time={activity.created_at} precision={1}  utc={false}/>
+                    </span>
+                        <div className="dashboard-activities-item--content">
+                            {activity.type === 0 ? <span><a>{activity.user.name} {activity.user.lastname}</a> has created the project <a>{activity.project.name}</a></span> :""}
+                            {activity.type === 2 ? <span>There's a new note is created in  <a>{activity.project.name}</a> by <a>{activity.user.name} {activity.user.lastname}</a></span> :""}
+                            {activity.type === 3 ? <span><a>{activity.user.name} {activity.user.lastname}</a> created a new thread in <a>{activity.project.name}</a></span> :""}
+                            {activity.type === 4 ? <span><a>{activity.user.name} {activity.user.lastname}</a> replied on a thread in  <a>{activity.project.name}</a></span> :""}
+                            {activity.type === 5 ? <span><a>{activity.user.name} {activity.user.lastname}</a> created a new card on the board in  <a>{activity.project.name}</a></span> :""}
+
+                        </div>
+                    </div>
                 )
-        });
+            });
+
 
         // Logic for displaying page numbers
         const pageNumbers = [];
-        for (let i = 1; i <= Math.ceil(notificationsToday.length / todosPerPage); i++) {
+        for (let i = 1; i <= Math.ceil(activities.length / todosPerPage); i++) {
             pageNumbers.push(i);
         }
 
@@ -230,47 +246,9 @@ export default class TabsDashboard extends Component {
                             <div className="dashboard-activities">
                                 <h4>All activities</h4>
                                 <div className="dashboard-activities-line">
-                                    <div className="dashboard-activities-item">
-                                    <span className="dashboard-activities-item--time">
-                                        12u40
-                                    </span>
-                                        <div className="dashboard-activities-item--content">
-                                            <a>Willem Vansteyvoort</a> created a new post in <a>PekesFuif 2018</a>
-                                        </div>
-                                    </div>
-                                    <div className="dashboard-activities-item">
-                                    <span className="dashboard-activities-item--time">
-                                        08u30
-                                    </span>
-                                        <div className="dashboard-activities-item--content">
-                                            <a>Johan De boer</a> has marked a task as done in <a>Pekesfuif 2018</a>
-                                        </div>
-                                    </div>
-                                    <div className="dashboard-activities-item">
-                                    <span className="dashboard-activities-item--time">
-                                        4 mar.
-                                    </span>
-                                        <div className="dashboard-activities-item--content">
-                                            The end date of <a>PekesFuiif 2018</a> has been updated to 24/02/2019
-                                        </div>
-                                    </div>
-                                    <div className="dashboard-activities-item">
-                                    <span className="dashboard-activities-item--time">
-                                        12 feb.
-                                    </span>
-                                        <div className="dashboard-activities-item--content">
-                                            <a>Willem Vansteyvoort</a> uploaded a new file in <a>Pekesfuuif 2018</a> named: "Sponsor fiches"
-                                        </div>
-                                    </div>
-                                    <div className="dashboard-activities-item">
-                                    <span className="dashboard-activities-item--time">
-                                        1 jan.
-                                    </span>
-                                        <div className="dashboard-activities-item--content">
-                                            The name of <a>Pekesfuif 2017</a> is changed to <a>Pekesfuif 2019</a>
-                                        </div>
-                                    </div>
+                                    {renderActivities}
                                 </div>
+                                {renderPageNumbers}
                             </div>
                         </div>
                     </TabPanel>

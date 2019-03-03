@@ -96,7 +96,7 @@ export default class Projects extends Component {
                                           </tr>
                                           </thead>
                                           {this.state.projects.map((project, i) => (
-                                              <tr className={new Date(project.end_date) >= new Date() ? "hidden" : ""}  onClick={e =>this.changeOverlay(i)}>
+                                              <tr className={(new Date(project.end_date) >= new Date()) || (project.end_date === null) ? "hidden" : ""}  onClick={e =>this.changeOverlay(i)}>
                                                   <td>{project.name}</td>
                                                   <td><Timestamp time={project.created_at} precision={2} utc={false} autoUpdate={60}   /></td>
                                                   <td><Timestamp time={new Date(project.end_date)} precision={2} utc={false} autoUpdate={60}  /></td>

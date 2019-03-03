@@ -6,7 +6,9 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Reply;
 use App\Tag;
+use App\Activity;
 use App\Project;
+use Illuminate\Support\Facades\DB;
 use App\Post;
 use Illuminate\Support\Facades\Auth;
 class ForumController extends Controller
@@ -50,6 +52,16 @@ class ForumController extends Controller
             'project_id' =>$project->id,
             'created' => true,
         ]);
+
+        //activity
+        Activity::create([
+            'project_id' => $project->id,
+            'company_id' => $project->company_id,
+            'user_id' => Auth::user()->id,
+            'type' => 3,
+            'content' => 0,
+        ]);
+
     }
 
     public function getPost(Request $request) {
@@ -62,9 +74,21 @@ class ForumController extends Controller
         $reply = Reply::create([
            'post_id' => $request->post_id,
             'user_id' => Auth::user()->id,
-            'project_id' =>$post->id,
+            'project_id' => $post->project_id,
             'content' => $request->reply_message,
         ]);
+
+        Activity::create([
+            'project_id' => $post->project_id,
+            'company_id' => Auth::user()->company_id,
+            'user_id' => Auth::user()->id,
+            'type' => 4,
+            'content' => 0,
+        ]);
+    }
+
+    public function getPostwithTags() {
+
     }
 
     public function editReply(Request $request) {

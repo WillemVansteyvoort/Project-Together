@@ -18,7 +18,7 @@ class CompanyController extends Controller {
     public function users() {
         $users = User::where([
             ['company_id', '=', Auth::user()->company_id],
-        ])->get();
+        ])->with('city', 'rights', 'two_step')->get();
 
 
         return $users->toJson(JSON_PRETTY_PRINT);

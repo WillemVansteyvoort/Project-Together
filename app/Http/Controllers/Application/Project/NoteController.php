@@ -7,6 +7,7 @@ use Illuminate\Foundation\Console\PolicyMakeCommand;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Project;
+use App\Activity;
 use App\Note;
 use Illuminate\Support\Facades\Auth;
 class NoteController extends Controller
@@ -24,8 +25,16 @@ class NoteController extends Controller
             'user_id' => Auth::user()->id,
             'text' => $request->text,
             'private' => $request->private,
-
         ]);
+
+        Activity::create([
+            'project_id' => $project->id,
+            'company_id' => $project->company_id,
+            'user_id' => Auth::user()->id,
+            'type' => 2,
+            'content' => 0,
+        ]);
+
     }
 
     public function delete(Request $request) {

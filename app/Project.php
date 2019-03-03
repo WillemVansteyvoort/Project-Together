@@ -18,6 +18,7 @@ class Project extends Model
         'tasks',
         'notes',
         'forum',
+        'board',
         'presences',
         'polls',
         'activities',
@@ -44,4 +45,11 @@ class Project extends Model
         return $this->hasMany('App\Post');
     }
 
+    public function activities() {
+        return $this->hasMany('App\Activity');
+    }
+
+    public function boardItems() {
+        return $this->hasMany('App\BoardItem');
+    }
 }

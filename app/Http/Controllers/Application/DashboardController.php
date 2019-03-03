@@ -14,11 +14,13 @@ use DateTime;
 use Carbon\CarbonInterval;
 use Carbon\Carbon;
 use Auth;
+use App\BoardItem;
 class DashboardController extends Controller
 {
 
     public function index($company) {
         return view('application.dashboard');
+
         }
     public function test() {
         $notification = Auth::user()->notifcationsAll()->create([

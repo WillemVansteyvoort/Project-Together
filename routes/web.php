@@ -128,6 +128,8 @@ Route::get('/api/notifcations/today', 'Application\DashboardController@notifcati
 Route::get('/api/notifcations/yesterday', 'Application\DashboardController@notificationsYesterday');
 Route::get('/api/notifcations/older', 'Application\DashboardController@noticationsOlder');
 
+Route::get('/api/activities/all', 'Application\ActivityController@all');
+
 //account
 Route::post('/api/account/update/profile', 'Application\AccountController@updateProfile');
 Route::post('/api/account/password/change', 'Application\AccountController@updatePassword');
@@ -178,13 +180,13 @@ Route::post('/api/project/forum/createReply', 'Application\Project\ForumControll
 Route::post('/api/project/forum/editReply', 'Application\Project\ForumController@editReply');
 Route::post('/api/project/forum/deleteReply', 'Application\Project\ForumController@deleteReply');
 
-
-
-
-
-
-
-
+//board
+Route::post('/api/project/board/items', 'Application\Project\BoardController@getItems');
+Route::post('/api/project/board/columns', 'Application\Project\BoardController@getColumns');
+Route::post('/api/project/board/changeColumn', 'Application\Project\BoardController@changeColumn');
+Route::post('/api/project/board/createItem', 'Application\Project\BoardController@createItem');
+Route::post('/api/project/board/editItem', 'Application\Project\BoardController@editItem');
+Route::post('/api/project/board/deleteItem', 'Application\Project\BoardController@deleteItem');
 
 
 Route::post('/twostep', 'Application\TwoStepController@login');

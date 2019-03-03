@@ -11,12 +11,12 @@ import {
     Switch,
     Redirect
 } from "react-router-dom";
-// import PopupChangeProject from '../popups/changeProject';
-const Home = () => <h2>Home</h2>;
-const Topics = () => <h2>Topics</h2>;
 import ProjectOverview from './overview';
 import ProjectNotes from './notes';
 import ProjectForum from  './forum';
+import ProjectBoard from './board';
+import ProjectTasks from './tasks';
+
 import PopupChangeProject from "../popups/changeProject";
 
 export default class ProjectIndex extends Component {
@@ -34,6 +34,7 @@ export default class ProjectIndex extends Component {
             forum: null,
             presences: null,
             polls: null,
+            board: null,
             activities: null,
             logs: null,
             crisisCenter: null,
@@ -41,7 +42,7 @@ export default class ProjectIndex extends Component {
         this.overview = this.overview.bind(this);
         this.notes = this.notes.bind(this);
         this.forum = this.forum.bind(this);
-        this.tasks = this.tasks.bind(this);
+        this.board = this.board.bind(this);
         this.getProjectInfo();
         this.error = this.error.bind(this);
         this.init = this.init.bind(this);
@@ -63,6 +64,12 @@ export default class ProjectIndex extends Component {
             case "/" + this.state.company + "/" + this.state.project + "/project/forum" :
                 this.setState({page: 'Forum'})
                 break;
+            case "/" + this.state.company + "/" + this.state.project + "/project/tasks" :
+                this.setState({page: 'Tasks'})
+                break;
+            case "/" + this.state.company + "/" + this.state.project + "/project/board" :
+                this.setState({page: 'Board'})
+                break;
         }
     }
 
@@ -75,6 +82,7 @@ export default class ProjectIndex extends Component {
                 notes: response.data.notes,
                 forum: response.data.forum,
                 presences: response.data.presences,
+                board: response.data.board,
                 polls: response.data.polls,
                 activities: response.data.activities,
                 logs: response.data.logs,
@@ -93,12 +101,10 @@ export default class ProjectIndex extends Component {
         )
     }
 
-    tasks() {
+    board() {
         return (
             <div>
-                <h1>dsfds</h1>
-                <br />
-                <br />
+                <ProjectBoard/>
             </div>
         )
     }
@@ -119,6 +125,14 @@ export default class ProjectIndex extends Component {
         )
     }
 
+    tasks() {
+        return (
+            <div>
+            <ProjectTasks/>
+            </div>
+        )
+    }
+
     error (){
                 return (
                     <h4>Not found</h4>
@@ -126,9 +140,6 @@ export default class ProjectIndex extends Component {
 }
 
     render() {
-        const Home = () => <h2>Home</h2>;
-        const About = () => <h2> {match.params.id}</h2>;
-        const Topics = () => <h2>Topics</h2>;
         return (
             <div className="project">
                 <Router>
@@ -162,9 +173,9 @@ export default class ProjectIndex extends Component {
                                         <button onClick={() => this.init()} className="no-button"><Link to="forum"> Forum</Link></button>
                                     </div>
                                     : ""}
-                                {this.state.presences ?
+                                {this.state.board ?
                                     <div className="project-header-nav--item">
-                                        <button className="no-button"><Link to="tasks"> Presences</Link></button>
+                                        <button onClick={() => this.init()} className="no-button"><Link to="board"> Board</Link></button>
                                     </div>
                                     : ""}
                                 {this.state.polls ?
@@ -192,11 +203,12 @@ export default class ProjectIndex extends Component {
 
                         </div>
                         <Switch>
-                        <Route exact path={"/" + this.state.company + "/" + this.state.project + "/project/"} component={this.overview} />
-                        <Route path={"/" + this.state.company + "/" + this.state.project + "/project/tasks"} component={this.tasks} />
-                        <Route path={"/" + this.state.company + "/" + this.state.project + "/project/notes"} component={this.notes} />
-                        <Route path={"/" + this.state.company + "/" + this.state.project + "/project/forum"} component={this.forum} />
-                        <Route component={this.error} />
+                            <Route exact path={"/" + this.state.company + "/" + this.state.project + "/project/"} component={this.overview} />
+                            <Route path={"/" + this.state.company + "/" + this.state.project + "/project/tasks"} component={this.tasks} />
+                            <Route path={"/" + this.state.company + "/" + this.state.project + "/project/board"} component={this.board} />
+                            <Route path={"/" + this.state.company + "/" + this.state.project + "/project/notes"} component={this.notes} />
+                            <Route path={"/" + this.state.company + "/" + this.state.project + "/project/forum"} component={this.forum} />
+                            <Route component={this.error} />
                         </Switch>
                     </div>
                 </Router>

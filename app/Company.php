@@ -51,5 +51,8 @@ class Company extends Model
         return $this->hasMany('App\Event');
     }
 
+    public function activities() {
+        return $this->hasMany('App\Activity');
+    }
 
 }

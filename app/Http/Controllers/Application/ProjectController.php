@@ -10,6 +10,9 @@ use App\Group;
 use App\Events\Notifications;
 use App\Notification;
 use App\Company;
+use App\Activity;
+use App\Column;
+use App\BoardItem;
 use Illuminate\Support\Facades\Auth;
 class ProjectController extends Controller
 {
@@ -34,6 +37,7 @@ class ProjectController extends Controller
             'notes' => $request->notes,
             'forum' => $request->forum,
             'presences' => $request->presences,
+            'board' => $request->board,
             'polls' => $request->polls,
             'activities' => $request->activities,
             'crisiscenter' => $request->crisisCenter,
@@ -100,6 +104,42 @@ class ProjectController extends Controller
                 }
             }
         }
+
+        //make rows if board is selected
+        if($project->board) {
+            $firstColumn = Column::create([
+               'name' => 'Todo',
+                'project_id' => $project->id,
+                'position' => 0,
+            ]);
+            Column::create([
+                'name' => 'In Progress',
+                'project_id' => $project->id,
+                'position' => 1,
+            ]);
+            Column::create([
+                'name' => 'Done',
+                'project_id' => $project->id,
+                'position' => 2,
+            ]);
+            BoardItem::create([
+               'name' => "I'm a card",
+               'description' => "Hello, i'm an example card for testing :)",
+                'user_id' => 0,
+                'column_id' => $firstColumn->id,
+                'project_id' => $project->id,
+                'color' => 'red',
+            ]);
+        }
+
+        //make activity
+        Activity::create([
+           'project_id' => $project->id,
+           'company_id' => $project->company_id,
+           'user_id' => Auth::user()->id,
+            'type' => 0,
+            'content' => 0,
+            ]);
 
         //broadcast a notification
         foreach ($userIds as $user) {

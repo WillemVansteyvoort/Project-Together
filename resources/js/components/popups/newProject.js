@@ -66,6 +66,7 @@ export default class PopupNewProject extends Component {
             notes: 1,
             forum: 1,
             presences: 0,
+            board: 0,
             polls: 0,
             activities: 1,
             logs: 0,
@@ -79,7 +80,8 @@ export default class PopupNewProject extends Component {
             error_own: false,
             error_own_timer: 0,
 
-
+            created: false,
+            created_timer: 0,
         };
         //bind
 
@@ -102,6 +104,15 @@ export default class PopupNewProject extends Component {
     removeGroup() {
         this.setState(test => {this.state.memberOptions.filter(key => [key].value == 1);
         });
+    }
+
+    changeCreated() {
+        if(this.state.created_timer) {
+            this.setState({created: false})
+        }
+    }
+    changeCreatedTimer() {
+        this.setState({created_timer: 1})
     }
 
     addGroup(e) {
@@ -221,6 +232,7 @@ export default class PopupNewProject extends Component {
                 notes: this.state.notes,
                 forum: this.state.forum,
                 presences: this.state.presences,
+                board: this.state.board,
                 polls: this.state.polls,
                 activities: this.state.activities,
                 logs: this.state.logs,
@@ -244,6 +256,8 @@ export default class PopupNewProject extends Component {
                     crisisCenter: false,
                     private: false,
                     selectedMembers: [],
+                    show: false,
+                    created: true,
                 });
             });
            this.getUsers();
@@ -376,6 +390,9 @@ export default class PopupNewProject extends Component {
                 <li><button onClick={() => this.toggleShow(true)} className="button-second button no-button"><i className="fas fa-plus"> </i> New project</button></li>
                 <div className={this.state.error_own ? "" : "hidden"}>
                     <Notification  type="error" title="Attention" message="You have removed yourself from the list."/>
+                </div>
+                 <div id="success" className={this.state.created ? "" : "hidden"}>
+                    <Notification  type="success" title="successfully" message="The new project is successfully been created"/>
                 </div>
                 <PopPop
                     open={show}
@@ -524,14 +541,14 @@ export default class PopupNewProject extends Component {
                                                      </div>
                                                 </div>
                                                 <div className="three columns">
-                                                    <h5><i className="fas fa-calendar-check"></i> Presences </h5>
+                                                    <h5><i className="fas fa-calendar-check"></i> Board </h5>
                                                      <div>
                                                         <Switch
                                                             // onChange={this.handleChange}
-                                                            checked={this.state.presences}
+                                                            checked={this.state.board}
                                                             className="react-switch popup-addons--switch"
                                                             id="normal-switch"
-                                                            onChange={e => this.setState({ presences: !this.state.presences })}
+                                                            onChange={e => this.setState({ board: !this.state.board })}
                                                         />
                                                      </div>
                                                 </div>
