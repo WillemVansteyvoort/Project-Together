@@ -18,4 +18,10 @@ class Event extends Model
         'until_hour',
         'color'
     ];
+
+
+    public function user() {
+        return $this->belongsTo('App\User');
+    }
+
 }

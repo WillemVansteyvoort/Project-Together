@@ -32,25 +32,49 @@ class CalendarController extends Controller
     public function receive(Request $request) {
         $allEvents = Event::where([
             ['company_id', '=', Auth::user()->company_id],
-        ])->get();
+            ['private', false],
+        ])->orWhere([
+            ['company_id', '=', Auth::user()->company_id],
+            ['private', false],
+            ['user_id', auth::user()->id],
+            ]) ->with('user')->get();
         return response()->json([
             'all' => $allEvents,
         ]);
     }
 
+
     public function today() {
-        $allEvents = Event::where([
-            ['company_id', '=', Auth::user()->company_id],
-            ['private', false],
-        ])->get();
-        $privateEvents = Event::where([
+        $events = Event::where([
             ['user_id', '=', Auth::user()->id],
             ['from', '=', Carbon::today()],
             ['private', true],
+        ])->orWhere([
+            ['company_id', '=', Auth::user()->company_id],
+            ['private', false],
+            ['from', '=', Carbon::today()],
+            ['user_id', auth::user()->id],
         ])->get();
+
         return response()->json([
-           'all' => $allEvents,
-            'private' => $privateEvents,
+           'all' => $events,
+        ]);
+    }
+
+    public function tomorrow() {
+        $events = Event::where([
+            ['user_id', '=', Auth::user()->id],
+            ['from', '=', Carbon::tomorrow()],
+            ['private', true],
+        ])->orWhere([
+            ['company_id', '=', Auth::user()->company_id],
+            ['private', false],
+            ['from', '=', Carbon::tomorrow()],
+            ['user_id', auth::user()->id],
+        ])->get();
+
+        return response()->json([
+            'all' => $events,
         ]);
     }
 }

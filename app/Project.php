@@ -52,4 +52,8 @@ class Project extends Model
     public function boardItems() {
         return $this->hasMany('App\BoardItem');
     }
+
+    public function crisisItems(){
+        return $this->hasMany('App\CrisisItem');
+    }
 }

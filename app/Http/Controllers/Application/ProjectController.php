@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Application;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Others\SlugifyController;
 use Illuminate\Http\Request;
 use App\Project;
 use App\User;
@@ -14,7 +15,7 @@ use App\Activity;
 use App\Column;
 use App\BoardItem;
 use Illuminate\Support\Facades\Auth;
-class ProjectController extends Controller
+class ProjectController extends SlugifyController
 {
     public function index() {
 
@@ -24,11 +25,12 @@ class ProjectController extends Controller
 
     public function create(Request $request) {
         $url = strtolower(str_replace(' ', '', $request->title));
+        $slugify = $this->slugify($url, false);
         //create project
         $project =Project::create([
             'company_id' => Auth::user()->company_id,
             'name' => $request->title,
-            'url' => $url,
+            'url' => $slugify,
             'description' => $request->description,
             'end_date' => $request->end_date,
             'user_id' => Auth::user()->id,
@@ -69,25 +71,13 @@ class ProjectController extends Controller
                 case "member":
                     $roll = 0;
                     break;
-                case "Member":
-                    $roll = 0;
-                    break;
                 case "watcher":
-                    $roll = 1;
-                    break;
-                case "Watcher":
                     $roll = 1;
                     break;
                 case "responsable" :
                     $roll = 2;
                     break;
-                 case "Responsable" :
-                    $roll = 2;
-                    break;
                 case "leader":
-                    $roll = 3;
-                    break;
-                case "Leader":
                     $roll = 3;
                     break;
 
@@ -179,7 +169,7 @@ class ProjectController extends Controller
 
     public function getProjects() {
         $company = Company::findOrFail(Auth::user()->company_id);
-        return $company->projects;
+        return Auth::user()->projects;
     }
 
     public function data($company, $project) {

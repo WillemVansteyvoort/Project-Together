@@ -32,6 +32,7 @@
                 'facebook' =>  Auth::user()->facebook,
                 'google' =>  Auth::user()->google,
                 'biografy' =>  Auth::user()->biografy,
+                'admin' => Auth::user()->admin,
                 'function' =>  Auth::user()->function,
                 'date' => Auth::user()->birthdate,
                 'city' =>  Auth::user()->city->name,
@@ -53,6 +54,7 @@
             'company' => [
                 'users' => Auth::user()->company->users->count(),
                 'projects' =>  Auth::user()->company->projects->count(),
+                'owner' => Auth::user()->company->user_id,
             ],
 
             'two_step' => [
@@ -72,14 +74,23 @@
                 'create_groups' => Auth::user()->rights->create_groups,
                 'create_projects' => Auth::user()->rights->create_projects,
                 'company_settings'=> Auth::user()->rights->company_settings,
-            ],
-            'mails' => [
+                'change_online'=> Auth::user()->rights->change_online,
 
-            ]
+            ],
         ]);
         ?>
     </script>
-</head>
+        <?php
+        if(!empty($user)) {
+            ?>
+        <script>
+            window.Profile = <?php echo json_encode([
+            'user' => $user,
+        ]);
+            }
+            ?>
+        </script>
+    </head>
 <body>
 <div class="container">
     @include('application.layouts.header')

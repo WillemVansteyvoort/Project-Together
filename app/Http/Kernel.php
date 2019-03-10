@@ -64,6 +64,7 @@ class Kernel extends HttpKernel
         'owner' => \App\Http\Middleware\OnlyOwner::class,
         'verification' => \App\Http\Middleware\CheckVerification::class,
         'project' => \App\Http\Middleware\CheckProject::class,
+        'user' => \App\Http\Middleware\CheckCompanyUser::class,
 
 
     ];

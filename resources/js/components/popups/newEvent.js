@@ -16,7 +16,7 @@ export default class PopupNewEvent extends Component {
             show: false,
             users: [],
             created: false,
-            created_timer: 0,
+            created_timer: false,
             title: '',
             description: '',
             color: 'red',
@@ -24,7 +24,7 @@ export default class PopupNewEvent extends Component {
             fromTime: '',
             untilDate: '',
             untilTime: '',
-            private: 0,
+            private: false,
 
 
 

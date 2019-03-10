@@ -65,8 +65,8 @@ export default class MenuNotification extends Component {
                 <div id="notifications" className="notifications-content tab-content">
                 <h6 className="notifications-title">Notifications</h6>
                 <button className={this.state.empty ? "button button-red no-button" : "button button-green no-button"} onClick={this.delNot}>  {this.state.empty ? "There are no notifications found" : "Mark as read"}</button>
-                {this.state.notifications.map(notification => (
-                    <article  >
+                {this.state.notifications.map((notification, i) => (
+                    <article key={i}>
                         <div className="notifications-alert--icon">
                             <i className={notification.type}> </i>
                             <span className="notifications-alert--time"><Timestamp time={notification.created_at} precision={1} utc={false}  /></span>

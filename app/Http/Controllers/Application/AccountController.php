@@ -6,13 +6,12 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Country;
 use App\Notification;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use App\City;
-use App\Plan;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Http\File;
-use Illuminate\Support\Facades\Storage;
+use Faker\Provider\Image;
+use Validator;
 use App\User_email;
+use Carbon\Carbon;
 class AccountController extends Controller
 {
 
@@ -83,8 +82,44 @@ class AccountController extends Controller
     }
 
 
-    public function changeAvatar(Request $request) {
-        Storage::putFile('photos', $request->formData);
+    public function changeAvatar(Request $request){
+
+        $image = $request->get('file');
+        $validator = Validator::make($request->all(), [
+            'file' => 'required',
+        ]);
+
+        $isFile = false;
+        //https://stackoverflow.com/questions/33283993/laravel-check-if-image-path-string-is-image
+        $allowedMimeTypes = ['image/jpeg','image/gif','image/png','image/bmp','image/svg+xml'];
+        $contentType = mime_content_type($image);
+
+        if(!in_array($contentType, $allowedMimeTypes) ){
+            $isFile = true;
+        }
+
+        if ($validator->fails() || $isFile) {
+            return response()->json([
+                'uploaded' => false,
+                'message' => 'You have to upload an image'
+            ]);
+
+        } else {
+            if($request->get('file')) {
+                //https://appdividend.com/2018/03/23/react-js-laravel-file-upload-tutorial/
+                $name = time() . '.' . explode('/', explode(':', substr($image, 0, strpos($image, ';')))[1])[1];
+                \Image::make($request->get('file'))->save(public_path('images/users/') . $name);
+                $user = Auth::user();
+                $user->avatar = '/images/users/' . $name;
+                $user->save();
+                return response()->json([
+                    'uploaded' => true,
+                    'message' => 'Your avatar is succesfully updated',
+                    'avatar' => $user->avatar,
+                ]);
+            }
+        }
+
 
     }
 

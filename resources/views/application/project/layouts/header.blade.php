@@ -12,7 +12,7 @@
                 @if(Auth::user()->admin || Auth::user()->rights->create_members || Auth::user()->rights->create_groups || Auth::user()->rights->company_settings)
                     <li><a href="{{route('app_company', Auth::user()->company->url)}}">Company</a></li>
                 @endif
-                <li ><a  href="" class="button button-second"><i class="fas fa-plus"> </i> New project</a></li>
+                <li ><a style="opacity: 0" href="" class="button button-second"><i class="fas fa-plus"> </i> New project</a></li>
             </ul>
         </div>
     </div>
@@ -30,7 +30,7 @@
             @if(Auth::user()->admin || Auth::user()->rights->create_members || Auth::user()->rights->create_groups || Auth::user()->rights->company_settings)
                 <li><a href="{{route('app_company', Auth::user()->company->url)}}">Company</a></li>
             @endif
-            <li ><a  href="" class="button button-second"><i class="fas fa-plus"> </i> New project</a></li>
+            <li ><a  style="opacity: 0" href="" class="button button-second"><i class="fas fa-plus"> </i> New project</a></li>
 
         </ul>
 

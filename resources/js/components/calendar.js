@@ -3,10 +3,11 @@ import ReactDOM from 'react-dom';
 import { Tabs, Tab, TabPanel, TabList } from 'react-web-tabs';
 import { Progress } from 'react-sweet-progress';
 import PopupNewEvent from './popups/newEvent';
+import PopPup from "./project/notes";
 var moment = require('moment');
 moment().format();
 var d = new Date();
-console.log(d);
+import PopPop from 'react-poppop';
 var weekday = new Array(7);
 var currentMonth = d.getMonth()+1;
 weekday[0] =  "Sun";
@@ -35,13 +36,19 @@ export default class Calendar extends Component {
     constructor(props) {
         super(props)
         this.state = {
+            show: false,
+
             days: [],
+            allEvents: [],
             currentMonth: d.getMonth(),
             currentYear: d.getFullYear(),
 
             //events
             todayAll: [],
-            todayPrivate: [],
+            tomorrowAll:  [],
+
+            //selected event
+            selected_event: null,
         };
         //bind
         this.init = this.init.bind(this);
@@ -53,19 +60,39 @@ export default class Calendar extends Component {
 
 
     //receive data
+
+    getAll() {
+        axios.get('/api/calendar/receive').then((
+            response
+            ) => {
+                this.setState({allEvents: response.data.all, selected_event: response.data.all[0]});
+            }
+        );
+    }
     getToday() {
         axios.get('/api/calendar/today').then((
             response
             ) =>
                 this.setState({
                     todayAll: response.data.all,
-                    todayPrivate: [this.state.todayAll, ...response.data.private],
                 })
         );
         this.init();
     }
+
+    getTomorrow() {
+        axios.get('/api/calendar/tomorrow').then((
+            response
+            ) =>
+                this.setState({
+                    tomorrowAll: response.data.all,
+                })
+        );
+    }
     componentWillMount() {
+        this.getAll();
         this.getToday();
+        this.getTomorrow();
     }
     componentDidMount() {
         this.interval =  setInterval(() => this.init(), 1000);
@@ -85,7 +112,6 @@ export default class Calendar extends Component {
         //zien welke dag is en dagen ervoor vervormen
         var firstDay = new Date(this.state.currentYear, this.state.currentMonth, 1);
         var lengthOther =  firstDay.getDay();
-        console.log(lengthOther);
         var lastMonth =  new Date(this.state.currentYear, (this.state.currentMonth), 0).getDate();
         for (var x = 1; x < lengthOther; x++) {
             var day2 = {
@@ -93,7 +119,7 @@ export default class Calendar extends Component {
                 day: '',
                 month: '',
                 year: '',
-                events: [this.state.todayAll],
+                events: [this.state.allEvents],
             }
 
             dagen[x] = day2;
@@ -103,7 +129,7 @@ export default class Calendar extends Component {
         for (var i = 0; i < length; i++) {
             var date = new Date(this.state.currentYear, this.state.currentMonth, i+1);
             var events = [];
-            axios.get('/api/calendar/today').then((
+            axios.get('/api/calendar/receive').then((
                 response
                 ) => {
                 events = response.data.all
@@ -115,7 +141,7 @@ export default class Calendar extends Component {
                     day: weekday[date.getDay()],
                     year: date.getFullYear(),
                     month: "0"+(date.getMonth()+1),
-                    events: [this.state.todayAll],
+                    events: [this.state.allEvents],
                 }
                 dagen[i+lengthOther] = day;
             } else if((i+1 < 10)) {
@@ -124,7 +150,7 @@ export default class Calendar extends Component {
                     day: weekday[date.getDay()],
                     year: date.getFullYear(),
                     month: date.getMonth(),
-                    events: [this.state.todayAll],
+                    events: [this.state.allEvents],
                 }
                 dagen[i+lengthOther] = day;
             } else if(((date.getMonth()) < 10)) {
@@ -133,7 +159,7 @@ export default class Calendar extends Component {
                     day: weekday[date.getDay()],
                     year: date.getFullYear(),
                     month: "0"+(date.getMonth()+1),
-                    events: [this.state.todayAll],
+                    events: [this.state.allEvents],
                 }
             } else
                 var day = {
@@ -141,11 +167,10 @@ export default class Calendar extends Component {
                     day: weekday[date.getDay()],
                     year: date.getFullYear(),
                     month: date.getMonth(),
-                    events: [this.state.todayAll],
+                    events: [this.state.allEvents],
                 }
                 dagen[i+lengthOther] = day;
         }
-        console.log(this.state.days);
         this.setState({days: [dagen]})
 
     }
@@ -168,7 +193,14 @@ export default class Calendar extends Component {
             this.init();
         }
     }
+
+    toggleShow(show) {
+        this.setState({show});
+    }
+
     render() {
+        const {show} = this.state;
+        let {selected_event} = this.state;
         return (
             <div className="row">
                 <div className="ten columns">
@@ -192,27 +224,28 @@ export default class Calendar extends Component {
                         </div>
                         <div className="calendar-body">
                             <div className="row">
-                                {this.state.days[0].map(dag => (
-                                    <div className="day-column columns calendar-day">
+                                {this.state.days[0].map((dag, i) => (
+                                    <div key={i} className="day-column columns calendar-day">
                                         <span>{dag.day}</span>
                                         <span className={d.getDate() === dag.id && d.getMonth() === dag.month ? "gray calendar-current" : "gray"}>{dag.id}</span>
-                                        {this.state.todayAll.map(event => (
-                                            <div>
-                                                {event.from === dag.year + "-" + (dag.month) + "-" + dag.id && event.color === "green" ?
-                                                    <div className="calendar-event calendar-event-green">
+                                        {this.state.allEvents.map((event, i) => (
+                                            <div key={i}  onClick={e => this.setState({selected_event: this.state.allEvents[i], show: true})}>
+                                                {(event.from === dag.year + "-" + (dag.month) + "-" + dag.id && event.color === "green") && i <= 3 ?
+                                                    <div  className="calendar-event calendar-event-green">
                                                         {event.title}
                                                     </div>
                                                     : ""}
-                                                {event.from === dag.year + "-" + (dag.month) + "-" + dag.id && event.color === "red" ?
-                                                    <div className="calendar-event calendar-event-red">
+                                                {(event.from === dag.year + "-" + (dag.month) + "-" + dag.id && event.color === "red") && i <= 3 ?
+                                                    <div  className="calendar-event calendar-event-red">
                                                         {event.title}
                                                     </div>
                                                     : ""}
-                                                {event.from === dag.year + "-" + (dag.month) + "-" + dag.id && event.color === "blue" ?
-                                                    <div className="calendar-event calendar-event-blue">
+                                                {(event.from === dag.year + "-" + (dag.month) + "-" + dag.id && event.color === "blue") && i <= 3 ?
+                                                    <div  className="calendar-event calendar-event-blue">
                                                         {event.title}
                                                     </div>
                                                     : ""}
+                                                {(event.from === dag.year + "-" + (dag.month) + "-" + dag.id) && i === 3 ? "..." : ""}
                                             </div>
 
                                         ))}
@@ -228,28 +261,40 @@ export default class Calendar extends Component {
                         <PopupNewEvent/>
                         <article className="calendar-overview">
                             <h5 className="calendar-overview--title">Today</h5>
-                            {this.state.todayAll.map(event => (
-                                <div className="calendar-overview--item">
-                                    <p><span id="bold">{event.from_hour}- {event.until_hour}: </span> {event.title}</p>
-                                </div>
-                            ))}
-                            {this.state.todayPrivate.map(event => (
-                                <div className="calendar-overview--item">
+                            {this.state.todayAll.map((event, i) => (
+                                <div key={i} className="calendar-overview--item">
                                     <p><span id="bold">{event.from_hour}- {event.until_hour}: </span> {event.title}</p>
                                 </div>
                             ))}
                         </article>
                         <article className="calendar-overview">
                             <h5 className="calendar-overview--title">Tomorrow</h5>
-                            <div className="calendar-overview--item">
-                                <p><span id="bold">12u - 16u: </span> Vergadering met allen</p>
-                            </div>
-                            <div className="calendar-overview--item">
-                                <p><span id="bold">12u - 16u: </span> Vergadering met allen</p>
-                            </div>
+                            {this.state.tomorrowAll.map((event, i) => (
+                                <div key={i} className="calendar-overview--item">
+                                    <p><span id="bold">{event.from_hour}- {event.until_hour}: </span> {event.title}</p>
+                                </div>
+                            ))}
                         </article>
                     </div>
                 </div>
+                <PopPop
+                    open={show}
+                    closeOnEsc={true}
+                    onClose={() => this.toggleShow(false)}
+                    closeOnOverlay={true}>
+                    <div className="popup">
+                        <div className="popup-titleBar">
+                            Event
+                            <button className="popup-btn--close"  onClick={() => this.toggleShow(false)}>✕</button>
+                        </div>
+                        <div className="popup-content">
+                            <div className="row">
+
+                            </div>
+                            <label>Description</label>
+                        </div>
+                    </div>
+                </PopPop>
             </div>
 
         );

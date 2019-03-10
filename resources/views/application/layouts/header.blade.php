@@ -27,10 +27,12 @@
             <li><a class="" href="{{route('app_dashboard', Auth::user()->company->url)}}">Dashboard</a></li>
             <li><a href="{{route('app_projects', Auth::user()->company->url)}}">Projects</a></li>
             <li><a href="{{route('app_calendar', Auth::user()->company->url)}}">Calendar</a></li>
-            @if(Auth::user()->admin || Auth::user()->rights->create_members || Auth::user()->rights->create_groups || Auth::user()->rights->company_settings)
-                <li><a href="{{route('app_company', Auth::user()->company->url)}}">Company</a></li>
+            <li><a href="{{route('app_company', Auth::user()->company->url)}}">Company</a></li>
+        @if(Auth::user()->rights->create_projects)
+                <span id="popup-newProject"> </span>
+            @else
+                <button class="opacity-0 button-second button no-button" style="opacity: 0"><i class="fas fa-plus"> </i> </button>
             @endif
-            <span id="popup-newProject"> </span>
         </ul>
 
     </div>
@@ -58,7 +60,7 @@
                 <h6 class="help-title">Get Help</h6>
                 <article class="help-alert">
                     <div class="help-alert--text">
-                        <b><a href="" class="help-alert--title float-left">See our documentation<a></b>
+                        <b><a href="" class="help-alert--title float-left">See our documentation</a></b>
                         <p>Someone has login to your account from <i>Safari webbrowser.</i></p>
                     </div>
                 </article>
@@ -82,7 +84,7 @@
                 <li><a class="dropbtn" onclick="showNotifications('profile')"> {{Auth::user()->name}} <img src="{{{ Auth::user()->avatar  }}}" /></a></li>
             </ul>
             <div id="profile" class="profile-content tab-content" >
-                <div class="profile-user">
+                <div class="profile-user" onclick="window.location.href='{{{Auth::user()->username}}}/profile/'">
                     <img class="profile-user--avatar" src="{{{ Auth::user()->avatar  }}}" />
                     <h4 class="profile-user--name">{{{ Auth::user()->name  . "  ". Auth::user()->lastname}}}</h4>
                 </div>

@@ -210,5 +210,21 @@
       }
     }
   }
+}
 
+@media screen and (max-width : 760px) {
+  .dashboard-project {
+    &-tasks, &-members {
+      margin-bottom: 20px;
+    }
+    &-info {
+      .start {
+        margin-left: 0 !important;
+      }
+
+      .end {
+        margin-right: 0 !important;
+      }
+    }
+  }
 }

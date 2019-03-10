@@ -48,7 +48,7 @@ class InviteController extends Controller
         $user = User::create([
             'name' => $invite->name,
             'lastname' => $invite->lastname,
-            'username' => $invite->username,
+            'username' => $invite->name . $invite->lastname[0],
             'email' => $invite->email,
             'admin' => $invite->admin,
             'password' => Hash::make($request->password),
@@ -180,5 +180,14 @@ class InviteController extends Controller
         return response()->json([
             'email_check' => $email_check,
         ]);
+    }
+
+    public function deleteInvite(Request $request) {
+        User_invite::destroy($request->id);
+        $invites = User_invite::where([
+            ['company_id', '=', Auth::user()->company_id],
+        ])->get();
+
+        return $invites->toJson(JSON_PRETTY_PRINT);
     }
 }

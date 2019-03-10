@@ -1,0 +1,96 @@
+.project-crisiscenter {
+   h5 {
+    font-family: "Raleway", sans-serif;
+    margin-bottom: 9px;
+    font-weight: bold;
+    opacity: 0.8;
+    text-transform: uppercase;
+  }
+  &-left {
+
+
+    .info {
+      padding: 16px;
+      background-color: white;
+      box-shadow: 0 1px 5px rgba(0, 0, 0, 0.15);
+      list-style-type: none;
+      font-family: $font_multi;
+      margin-bottom: 30px;
+
+      .priority {
+        margin-top: 15px;
+        span {
+          margin-right: 8px;
+        }
+      }
+    }
+
+  }
+
+  &-right {
+    margin: 0 auto;
+    .logo {
+      text-align: center;
+
+      i {
+        color: #2D3E50;
+        font-size: 110px;
+      }
+    }
+    .item {
+      background-color: white;
+      box-shadow: 0 1px 5px rgba(0, 0, 0, 0.15);
+    }
+    .accordion__title {
+      background-color: white;
+      color: black;
+      padding: 0;
+      height: auto;
+    }
+    .accordion__body {
+      margin: 0 auto !important;
+      .row {
+        margin-bottom: 25px !important;
+      }
+      i {
+        padding-left: 8px;
+      }
+    }
+    table {
+
+      .p1 {
+        color: green;
+      }
+
+      .p2 {
+        color: #CCCC00;
+      }
+
+      .p3 {
+        color: #ef3d47;
+      }
+
+      margin: 0 auto;
+      width: 100%;
+
+      .title {
+        width: 40%;
+      }
+
+      .time {
+        width: 25%;
+      }
+      button {
+        margin: 0;
+      }
+
+      tr {
+
+      }
+        td {
+          padding: 12px;
+      }
+    }
+  }
+
+}

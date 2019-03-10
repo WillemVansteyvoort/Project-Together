@@ -170,7 +170,7 @@ export default class ProjectOverview extends Component {
                         <h5>Project members</h5>
                         <div className="dashboard-project-members">
                             {this.state.users.map((user, i)=> (
-                                <div>
+                                <div key={i}>
                                     <div className="dashboard-project-members-item">
                                         <img src={user.avatar} className="float-left"/>
                                         <h4 className="float-left">{user.name} {user.lastname}</h4>
@@ -194,7 +194,7 @@ export default class ProjectOverview extends Component {
                                     <h6>Leaders</h6>
                                     <div className="dashboard-project-info-responsable">
                                         {this.state.leaders.map((user, i)=> (
-                                            <img src={user.avatar}/>
+                                            <img key={i} src={user.avatar}/>
                                         ))}
                                     </div>
                                 </div>
@@ -204,7 +204,7 @@ export default class ProjectOverview extends Component {
                                         <h6>Responsables</h6>
                                         <div className="dashboard-project-info-responsable">
                                             {this.state.responsables.map((user, i)=> (
-                                                <img src={user.avatar}/>
+                                                <img key={i} src={user.avatar}/>
                                             ))}
                                         </div>
                                     </div>: ""

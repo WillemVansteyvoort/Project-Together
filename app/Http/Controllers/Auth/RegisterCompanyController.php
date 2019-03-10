@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\auth;
 
+use App\Http\Controllers\Others\SlugifyController;
 use App\Mail\Registered;
 use Illuminate\Http\Request;
 use App\User;
@@ -17,7 +18,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Mail;
 
-class RegisterCompanyController extends Controller
+class RegisterCompanyController extends SlugifyController
 {
     public function index() {
         return view('front.register');
@@ -43,9 +44,6 @@ class RegisterCompanyController extends Controller
             'emailCheck' => $validateUser,
             'companyCheck' => $validateCompany
         ]);
-
-
-
     }
 
     public function create(Request $request)
@@ -53,6 +51,7 @@ class RegisterCompanyController extends Controller
         $user = User::create([
             'name' => $request->name,
             'lastname' => $request->lastname,
+            'username' => $request->name . $request->lastname[0],
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'company_id' => 0,
@@ -89,9 +88,10 @@ class RegisterCompanyController extends Controller
            'user_id' => $user->id,
         ]);
         $url = strtolower(str_replace(' ', '', $request->company_name));
-
+        $slugify = $this->slugify($url, false);
+        $this->slugify($user, false);
         $company = Company::create([
-            'url' => $url,
+            'url' => $slugify,
             'user_id' => $user->id,
             'name' => $request->company_name,
             'industry_id' => $request->company_industry,
@@ -133,6 +133,5 @@ class RegisterCompanyController extends Controller
         Auth::loginUsingId($user->id, true);
         Mail::to($user->email)->send(new Registered($user, $verify));
     }
-
 
 }

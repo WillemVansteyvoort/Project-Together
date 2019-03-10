@@ -934,7 +934,7 @@ input[type="submit"] {
   transform: translate(-50%, -50%);
 }
 .opacity-0 {
-  opacity: 0;
+  opacity: 0 !important;
 }
 .center-text {
   text-align: center;

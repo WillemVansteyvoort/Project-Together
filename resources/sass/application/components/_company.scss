@@ -1,4 +1,8 @@
 .company {
+  .fas {
+    display: inherit !important;
+    padding-left: 8px;
+  }
   padding: 20px 0 10px 60px;
   h4 {
     font-family: $font_raleway;
@@ -19,6 +23,12 @@
     font-size: 14px;
     cursor: pointer;
     margin-right: 20px;
+  }
+  a {
+    color: black;
+    &:hover {
+      color: $color-primary;
+    }
   }
   .fixed-progress-bar {
     position: fixed;

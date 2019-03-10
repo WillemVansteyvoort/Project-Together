@@ -141,3 +141,9 @@
     box-shadow: 0 2.5em 0 0;
   }
 }
+
+@media screen and (max-width : 760px) {
+  .project-main {
+    margin: 20px 4%;
+  }
+}

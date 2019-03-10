@@ -30,7 +30,7 @@ class MenuController extends Controller
         $notifications = Notification::where([
             ['user_id', '=', Auth::user()->id],
             ['read', '=',0],
-        ])->get();
+        ])->OrderBy('id', 'desc')->get();
 
 
 

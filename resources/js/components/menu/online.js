@@ -71,7 +71,7 @@ export default class MenuOnline extends Component {
                              color={'#5680e9'}
                              loading={this.state.isLoading}
                 />                {this.state.users.map(user => (
-                    <h6 key={user.id}><i  className="fas fa-circle"> </i>{user.name}</h6>
+                <h6 key={user.id}><i  className="fas fa-circle"> </i><a href={user.username + "/profile/"}> {user.name}</a></h6>
 
                 ))}
                 {this.state.users.length === 0 ? "There are no members online" : ""}

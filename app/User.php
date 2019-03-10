@@ -49,6 +49,18 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    public static function boot() {
+        parent::boot();
+
+        static::deleting(function($user) { // before delete() method call this
+            $user->rights()->delete();
+            $user->two_step()->delete();
+            $user->mails()->delete();
+            $user->events()->delete();
+            $user->activities()->delete();
+
+        });
+    }
     public function city() {
 
         return $this->belongsTo('App\City');

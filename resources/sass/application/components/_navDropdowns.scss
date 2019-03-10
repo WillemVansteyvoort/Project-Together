@@ -61,6 +61,12 @@
     padding: 14px;
     color: black;
 
+    a {
+      color: black;
+      &:hover {
+        color: $color-primary;
+      }
+    }
     i {
       color: #32CD32;
       margin-right: 10px;
@@ -89,6 +95,16 @@
   article {
     margin-top: 10px;
   }
+  ::-webkit-scrollbar {
+    width: 1px;
+  }
+  ::-webkit-scrollbar-track {
+    background: white;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: white;
+  }
+
   &-content {
     right: 0;
     top: 140%;
@@ -103,6 +119,8 @@
     z-index: 1;
     padding: 14px;
     color: black;
+    max-height: 500px;
+
   }
   &-title {
     font-size: 18px;

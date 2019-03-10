@@ -16,6 +16,7 @@ import ProjectNotes from './notes';
 import ProjectForum from  './forum';
 import ProjectBoard from './board';
 import ProjectTasks from './tasks';
+import ProjectCrisisCenter from './crisisCenter';
 
 import PopupChangeProject from "../popups/changeProject";
 
@@ -69,6 +70,9 @@ export default class ProjectIndex extends Component {
                 break;
             case "/" + this.state.company + "/" + this.state.project + "/project/board" :
                 this.setState({page: 'Board'})
+                break;
+            case "/" + this.state.company + "/" + this.state.project + "/project/crisiscenter" :
+                this.setState({page: 'Crisis Center'})
                 break;
         }
     }
@@ -133,6 +137,14 @@ export default class ProjectIndex extends Component {
         )
     }
 
+    crisisCenter() {
+        return (
+            <div>
+                <ProjectCrisisCenter/>
+            </div>
+        )
+    }
+
     error (){
                 return (
                     <h4>Not found</h4>
@@ -190,7 +202,7 @@ export default class ProjectIndex extends Component {
                                     : ""}
                                 {this.state.crisisCenter ?
                                     <div className="project-header-nav--item">
-                                        <button className="no-button"><Link to="tasks"> Crisis center</Link></button>
+                                        <button className="no-button"><Link to="crisiscenter"> Crisis center</Link></button>
                                     </div>
                                     : ""}
                             </div>
@@ -208,6 +220,7 @@ export default class ProjectIndex extends Component {
                             <Route path={"/" + this.state.company + "/" + this.state.project + "/project/board"} component={this.board} />
                             <Route path={"/" + this.state.company + "/" + this.state.project + "/project/notes"} component={this.notes} />
                             <Route path={"/" + this.state.company + "/" + this.state.project + "/project/forum"} component={this.forum} />
+                            <Route path={"/" + this.state.company + "/" + this.state.project + "/project/crisiscenter"} component={this.crisisCenter} />
                             <Route component={this.error} />
                         </Switch>
                     </div>

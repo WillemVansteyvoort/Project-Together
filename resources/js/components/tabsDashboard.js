@@ -7,6 +7,7 @@ const Timestamp = require('react-timestamp');
 import NotificationsToday from './notifcations/today';
 import NotificationsYesterday from './notifcations/yesterday';
 import NotificationsOlder from './notifcations/older';
+import FileUploader from './others/fileUploader';
 export default class TabsDashboard extends Component {
 
     constructor(props) {
@@ -71,13 +72,13 @@ export default class TabsDashboard extends Component {
         );
     }
     notificationsOlder() {
-        axios.get('/api/notifcations/noticationsOlder/').then((
-            response
-            ) =>
-                this.setState({
-                    notificationsOlder: response.data,
-                })
-        );
+        // axios.get('/api/notifcations/noticationsOlder/').then((
+        //     response
+        //     ) =>
+        //         this.setState({
+        //             notificationsOlder: response.data,
+        //         })
+        // );
     }
     render() {
         const { activities, currentPage, todosPerPage } = this.state;
@@ -123,7 +124,6 @@ export default class TabsDashboard extends Component {
             <div>
                 <Tabs
                     defaultTab="one"
-                    onChange={(tabId) => { console.log(tabId) }}
                 >
                     <TabList>
                         <div className="row">
@@ -162,26 +162,28 @@ export default class TabsDashboard extends Component {
                                     <div className="dashboard-tasks">
                                         <h5>Your tasks</h5>
                                         <table className="u-full-width">
-                                            <tr>
-                                                <td><i className="fas fa-circle dashboard-tasks--danger"> </i></td>
-                                                <td><a href="">Verslag voor vergadering maken en doorsturen</a></td>
-                                                <td id="italic">10 minutes</td>
-                                            </tr>
-                                            <tr>
-                                                <td><i className="fas fa-circle dashboard-tasks--normal"> </i></td>
-                                                <td><a href="">Facebook evenement aanmaken en mensen uitnodigen</a></td>
-                                                <td id="italic">not estimated</td>
-                                            </tr>
-                                            <tr>
-                                                <td><i className="fas fa-circle dashboard-tasks--medium"> </i></td>
-                                                <td><a href="">Contacteren Coca Cola voor sponsoring</a></td>
-                                                <td id="italic">not estimated</td>
-                                            </tr>
-                                            <tr>
-                                                <td><i className="fas fa-circle dashboard-tasks--normal"> </i></td>
-                                                <td><a href="">Facebook evenement aanmaken en mensen uitnodigen</a></td>
-                                                <td id="italic">Two days</td>
-                                            </tr>
+                                            <tbody>
+                                                <tr>
+                                                    <td><i className="fas fa-circle dashboard-tasks--danger"> </i></td>
+                                                    <td><a href="">Verslag voor vergadering maken en doorsturen</a></td>
+                                                    <td id="italic">10 minutes</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><i className="fas fa-circle dashboard-tasks--normal"> </i></td>
+                                                    <td><a href="">Facebook evenement aanmaken en mensen uitnodigen</a></td>
+                                                    <td id="italic">not estimated</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><i className="fas fa-circle dashboard-tasks--medium"> </i></td>
+                                                    <td><a href="">Contacteren Coca Cola voor sponsoring</a></td>
+                                                    <td id="italic">not estimated</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><i className="fas fa-circle dashboard-tasks--normal"> </i></td>
+                                                    <td><a href="">Facebook evenement aanmaken en mensen uitnodigen</a></td>
+                                                    <td id="italic">Two days</td>
+                                                </tr>
+                                            </tbody>
                                         </table>
                                     </div>
                                 </div>
@@ -202,19 +204,19 @@ export default class TabsDashboard extends Component {
                                 <div className="row">
                                     <div className="four columns">
                                         <div className="dashboard-news--item">
-                                            <img className="dashboard-news--image"  src="images/calender.png"/>
+                                            <img className="dashboard-news--image"  src="/images/calender.png"/>
                                             <h6 className="dashboard-news--title"><a href="">Be organized with Calender</a></h6>
                                         </div>
                                     </div>
                                     <div className="four columns">
                                         <div className="dashboard-news--item">
-                                            <img className="dashboard-news--image"  src="images/note.jpg"/>
+                                            <img className="dashboard-news--image"  src="/images/note.jpg"/>
                                             <h6 className="dashboard-news--title"><a href="">New Update: make your notes</a></h6>
                                         </div>
                                     </div>
                                     <div className="four columns">
                                         <div className="dashboard-news--item">
-                                            <img className="dashboard-news--image"  src="images/work.jpg"/>
+                                            <img className="dashboard-news--image"  src="/images/work.jpg"/>
                                             <h6 className="dashboard-news--title"><a href="">Project Together version: 1.0</a></h6>
                                         </div>
                                     </div>

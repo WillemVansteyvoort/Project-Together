@@ -82,6 +82,8 @@ Route::group(['middleware' => ['auth', 'company', 'verification']], function () 
     Route::get('/{company}/project', function () {
         return view('application.project.index');
     });
+    Route::get('/{company}/{user}/profile', 'Application\ProfileController@index')->name('app_profile');
+
 });
 /////********************** RIGHT PROJECT & AUTHENTICATED ********************** /////
 Route::group(['middleware' => ['auth', 'company', 'verification', 'project']], function () {
@@ -122,6 +124,7 @@ Route::get('/api/menu/test', 'Application\MenuController@newNotification');
 
 Route::get('/api/company/users', 'Application\CompanyController@users');
 Route::get('/api/company/invites', 'Application\CompanyController@invites');
+Route::get('/api/company/invites', 'Application\CompanyController@invites');
 Route::get('/api/company/groups', 'Application\CompanyController@groups');
 
 Route::get('/api/notifcations/today', 'Application\DashboardController@notifcationsToday');
@@ -135,16 +138,21 @@ Route::post('/api/account/update/profile', 'Application\AccountController@update
 Route::post('/api/account/password/change', 'Application\AccountController@updatePassword');
 Route::post('/api/account/avatar/change', 'Application\AccountController@changeAvatar');
 Route::post('/api/account/settings/change', 'Application\AccountController@updateSettings');
-//new user
-Route::post('/api/check/email', 'Application\CreateUserController@checkEmail');
-Route::post('/api/user/new', 'Application\CreateUserController@createUser');
+//user
+Route::post('/api/check/email', 'Application\UserController@checkEmail');
+Route::post('/api/user/new', 'Application\UserController@createUser');
+Route::post('/api/user/edit', 'Application\UserController@editUser');
+Route::post('/api/user/delete', 'Application\UserController@deleteUser');
 });
 
-//new invite
+//invite
 Route::post('/api/invite/new', 'Application\InviteController@createInvite');
 Route::post('/api/invite/email', 'Application\InviteController@checkEmail');
+Route::post('/api/invite/delete', 'Application\InviteController@deleteInvite');
+
 //group
 Route::post('/api/group/new', 'Application\CreateGroupController@create');
+Route::post('/api/group/user/delete', 'Application\CreateGroupController@deleteGroupUser');
 
 //two step authentication
 Route::post('/api/twostep/change', 'Application\TwoStepController@change');
@@ -155,7 +163,8 @@ Route::post('api/twostep/updatePhone', 'Application\TwoStepController@updatePhon
 //calendar
 Route::post('/api/calendar/new', 'Application\CalendarController@create');
 Route::get('/api/calendar/today', 'Application\CalendarController@today');
-Route::post('/api/calendar/receive', 'Application\CalendarController@receive');
+Route::get('/api/calendar/tomorrow', 'Application\CalendarController@tomorrow');
+Route::get('/api/calendar/receive', 'Application\CalendarController@receive');
 
 //Projects
 Route::post('/api/project/new', 'Application\ProjectController@create');
@@ -187,6 +196,15 @@ Route::post('/api/project/board/changeColumn', 'Application\Project\BoardControl
 Route::post('/api/project/board/createItem', 'Application\Project\BoardController@createItem');
 Route::post('/api/project/board/editItem', 'Application\Project\BoardController@editItem');
 Route::post('/api/project/board/deleteItem', 'Application\Project\BoardController@deleteItem');
+
+//crisiscenter
+Route::post('/api/project/crisiscenter/items', 'Application\Project\CrisisCenterController@getItems');
+Route::post('/api/project/crisiscenter/create', 'Application\Project\CrisisCenterController@create');
+Route::post('/api/project/crisiscenter/solved', 'Application\Project\CrisisCenterController@setSolved');
+Route::post('/api/project/crisiscenter/progress', 'Application\Project\CrisisCenterController@setProgress');
+Route::post('/api/project/crisiscenter/delete', 'Application\Project\CrisisCenterController@deleteItem');
+Route::post('/api/project/crisiscenter/edit', 'Application\Project\CrisisCenterController@editItem');
+
 
 
 Route::post('/twostep', 'Application\TwoStepController@login');

@@ -89,3 +89,23 @@
     width: 10px;
   }
 }
+
+@media screen and (max-width : 760px) {
+  .project-notes {
+    &-items li {
+      width: 100%;
+    }
+    i:nth-child(even) span{
+      background: $color-second;
+      -o-transform:rotate(0);
+      -webkit-transform:rotate(0);
+      -moz-transform:rotate(0);
+    }
+    li:nth-child(3n) span{
+      -o-transform:rotate(0);
+      -webkit-transform:rotate(0);
+      -moz-transform:rotate(0);
+      background-color: #ccf;
+    }
+  }
+}

@@ -57,21 +57,21 @@ export default class PopupNewUser extends Component {
             isLoading: false,
 
             //settings
-            user_twostep: 1,
-            user_security: 0,
-            user_hideInformation: 0,
-            user_online: 0,
+            user_twostep: true,
+            user_security: false,
+            user_hideInformation: false,
+            user_online: false,
 
             //rights
             rights_showmore: false,
-            right_admin: 0,
-            right_createMembers: 0,
-            right_createGroups: 0,
-            right_createProject: 0,
-            right_companySettings: 0,
-            right_avatar: 0,
-            right_online: 0,
-            right_data: 0,
+            right_admin: false,
+            right_createMembers: false,
+            right_createGroups: false,
+            right_createProject: false,
+            right_companySettings: false,
+            right_avatar: false,
+            right_online: false,
+            right_data: false,
 
         };
         //bind
@@ -323,21 +323,21 @@ export default class PopupNewUser extends Component {
                 password_retype: '',
 
                 //settings
-                user_twostep: 1,
-                user_security: 0,
-                user_hideInformation: 0,
-                user_online: 0,
+                user_twostep: true,
+                user_security: false,
+                user_hideInformation: false,
+                user_online: false,
 
                 //rights
                 rights_showmore: false,
-                right_admin: 0,
-                right_createMembers: 0,
-                right_createGroups: 0,
-                right_createProject: 0,
-                right_companySettings: 0,
-                right_avatar: 0,
-                right_online: 0,
-                right_data: 0,
+                right_admin: false,
+                right_createMembers: false,
+                right_createGroups: false,
+                right_createProject: false,
+                right_companySettings: false,
+                right_avatar: false,
+                right_online: false,
+                right_data: false,
             });
         }
 

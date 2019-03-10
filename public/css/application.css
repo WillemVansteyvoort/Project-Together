@@ -205,7 +205,8 @@ a:hover {
 .header-primary-menuRight li img {
   display: inline;
   margin-top: -15px;
-  height: 54px;
+  height: 58px;
+  width: 58px;
   border-radius: 50%;
   float: right;
   padding-left: 6px;
@@ -327,6 +328,14 @@ a:hover {
   color: black;
 }
 
+.people-content a {
+  color: black;
+}
+
+.people-content a:hover {
+  color: #5680e9;
+}
+
 .people-content i {
   color: #32CD32;
   margin-right: 10px;
@@ -358,6 +367,18 @@ a:hover {
   margin-top: 10px;
 }
 
+.notifications ::-webkit-scrollbar {
+  width: 1px;
+}
+
+.notifications ::-webkit-scrollbar-track {
+  background: white;
+}
+
+.notifications ::-webkit-scrollbar-thumb {
+  background: white;
+}
+
 .notifications-content {
   right: 0;
   top: 140%;
@@ -371,6 +392,7 @@ a:hover {
   z-index: 1;
   padding: 14px;
   color: black;
+  max-height: 500px;
 }
 
 .notifications-title {
@@ -705,6 +727,10 @@ a:hover {
 
 .tag-green {
   background-color: green;
+}
+
+.tag-yellow {
+  background-color: #CCCC00;
 }
 
 .tag-red {
@@ -1314,6 +1340,11 @@ input[type=checkbox]:checked + #nav-mobile--menu {
   padding: 20px 0 10px 60px;
 }
 
+.company .fas {
+  display: inherit !important;
+  padding-left: 8px;
+}
+
 .company h4 {
   font-family: "Raleway", sans-serif;
 }
@@ -1338,6 +1369,14 @@ input[type=checkbox]:checked + #nav-mobile--menu {
   font-size: 14px;
   cursor: pointer;
   margin-right: 20px;
+}
+
+.company a {
+  color: black;
+}
+
+.company a:hover {
+  color: #5680e9;
 }
 
 .company .fixed-progress-bar {
@@ -2063,7 +2102,7 @@ input[type=checkbox]:checked + #nav-mobile--menu {
 }
 
 .calendar-day {
-  height: 120px;
+  height: 140px;
   padding: 4px;
   border-right: 0.5px dotted #f0f0f0;
   border-top: 0.5px dotted #f0f0f0;
@@ -2344,6 +2383,12 @@ input[type=checkbox]:checked + #nav-mobile--menu {
   }
 }
 
+@media screen and (max-width: 760px) {
+  .project-main {
+    margin: 20px 4%;
+  }
+}
+
 .dashboard-project {
   margin-bottom: 40px;
 }
@@ -2560,6 +2605,21 @@ input[type=checkbox]:checked + #nav-mobile--menu {
   margin-top: 25px;
 }
 
+@media screen and (max-width: 760px) {
+  .dashboard-project-tasks,
+  .dashboard-project-members {
+    margin-bottom: 20px;
+  }
+
+  .dashboard-project-info .start {
+    margin-left: 0 !important;
+  }
+
+  .dashboard-project-info .end {
+    margin-right: 0 !important;
+  }
+}
+
 .project-notes {
   margin: 0 auto;
   text-align: center;
@@ -2661,6 +2721,26 @@ input[type=checkbox]:checked + #nav-mobile--menu {
 
 .project-notes ::-webkit-scrollbar {
   width: 10px;
+}
+
+@media screen and (max-width: 760px) {
+  .project-notes-items li {
+    width: 100%;
+  }
+
+  .project-notes i:nth-child(even) span {
+    background: #5ab9ea;
+    -o-transform: rotate(0);
+    -webkit-transform: rotate(0);
+    -moz-transform: rotate(0);
+  }
+
+  .project-notes li:nth-child(3n) span {
+    -o-transform: rotate(0);
+    -webkit-transform: rotate(0);
+    -moz-transform: rotate(0);
+    background-color: #ccf;
+  }
 }
 
 .dashboard-forum {
@@ -3770,6 +3850,185 @@ span.CodeMirror-selectedtext {
   opacity: 0.8;
   font-size: 20px;
   text-transform: uppercase;
+}
+
+.project-crisiscenter h5 {
+  font-family: "Raleway", sans-serif;
+  margin-bottom: 9px;
+  font-weight: bold;
+  opacity: 0.8;
+  text-transform: uppercase;
+}
+
+.project-crisiscenter-left .info {
+  padding: 16px;
+  background-color: white;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.15);
+  list-style-type: none;
+  font-family: "Muli", sans-serif;
+  margin-bottom: 30px;
+}
+
+.project-crisiscenter-left .info .priority {
+  margin-top: 15px;
+}
+
+.project-crisiscenter-left .info .priority span {
+  margin-right: 8px;
+}
+
+.project-crisiscenter-right {
+  margin: 0 auto;
+}
+
+.project-crisiscenter-right .logo {
+  text-align: center;
+}
+
+.project-crisiscenter-right .logo i {
+  color: #2D3E50;
+  font-size: 110px;
+}
+
+.project-crisiscenter-right .item {
+  background-color: white;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.15);
+}
+
+.project-crisiscenter-right .accordion__title {
+  background-color: white;
+  color: black;
+  padding: 0;
+  height: auto;
+}
+
+.project-crisiscenter-right .accordion__body {
+  margin: 0 auto !important;
+}
+
+.project-crisiscenter-right .accordion__body .row {
+  margin-bottom: 25px !important;
+}
+
+.project-crisiscenter-right .accordion__body i {
+  padding-left: 8px;
+}
+
+.project-crisiscenter-right table {
+  margin: 0 auto;
+  width: 100%;
+}
+
+.project-crisiscenter-right table .p1 {
+  color: green;
+}
+
+.project-crisiscenter-right table .p2 {
+  color: #CCCC00;
+}
+
+.project-crisiscenter-right table .p3 {
+  color: #ef3d47;
+}
+
+.project-crisiscenter-right table .title {
+  width: 40%;
+}
+
+.project-crisiscenter-right table .time {
+  width: 25%;
+}
+
+.project-crisiscenter-right table button {
+  margin: 0;
+}
+
+.project-crisiscenter-right table td {
+  padding: 12px;
+}
+
+.user-profile {
+  margin: 2% 15%;
+}
+
+.user-profile h4 {
+  padding: 20px 0 10px 25px;
+  font-family: "Raleway", sans-serif;
+}
+
+.user-profile blockquote {
+  background: #f9f9f9;
+  border-left: 5px solid #ccc;
+  padding: 0.5em 10px;
+  margin-left: -10px;
+}
+
+.user-profile blockquote p {
+  display: inline;
+}
+
+.user-profile .online {
+  font-size: 20px;
+  color: #32CD32;
+  margin-right: 6px;
+}
+
+.user-profile .seen {
+  display: inline;
+}
+
+.user-profile-left {
+  width: 100%;
+}
+
+.user-profile-left h5 {
+  margin-top: 20px;
+  margin-bottom: 4px;
+}
+
+.user-profile-left span {
+  margin-bottom: 20px;
+}
+
+.user-profile-left img {
+  margin: 0 auto;
+  width: 300px;
+  text-align: center;
+  height: 300px;
+}
+
+.user-profile-socialmedia {
+  margin-top: 30px;
+  font-size: 25px;
+}
+
+.user-profile tr,
+.user-profile td,
+.user-profile th {
+  border-bottom: none !important;
+}
+
+.user-profile i {
+  color: #2D3E50;
+  margin-right: 8px;
+}
+
+.user-profile .tabs {
+  margin-top: 15px;
+}
+
+.user-profile-activity {
+  background-color: white;
+  border: 1px solid white;
+  box-shadow: 1px 1px 2px white inset;
+  margin-left: 2px;
+  height: 25px;
+  display: inline-block;
+  padding: 14px;
+}
+
+.user-profile-groups span {
+  margin-right: 8px;
 }
 
 .line-small {

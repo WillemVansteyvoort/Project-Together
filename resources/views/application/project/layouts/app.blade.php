@@ -51,6 +51,7 @@
             ],
 
             'company' => [
+                'url' => Auth::user()->company->url,
                 'users' => Auth::user()->company->users->count(),
                 'projects' =>  Auth::user()->company->projects->count(),
             ],

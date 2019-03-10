@@ -1251,7 +1251,7 @@ input[type=submit] {
 }
 
 .opacity-0 {
-  opacity: 0;
+  opacity: 0 !important;
 }
 
 .center-text {

@@ -20,6 +20,7 @@ class CreateUserEmailsTable extends Migration
             $table->integer('sessions')->default(1);
             $table->integer('notifications')->default(0);
             $table->integer('overview')->default(0);
+
         });
     }
 
@@ -30,6 +31,7 @@ class CreateUserEmailsTable extends Migration
      */
     public function down()
     {
+
         Schema::dropIfExists('user_emails');
     }
 }

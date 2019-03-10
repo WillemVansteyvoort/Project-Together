@@ -6,6 +6,7 @@ import "react-sweet-progress/lib/style.css";
 import PopPop from 'react-poppop';
 import 'react-notifications/lib/notifications.css';
 import Notification from './notification';
+import FileUploader from './others/fileUploader';
 export default class TabsAccount extends Component {
 
     constructor(props) {
@@ -49,7 +50,9 @@ export default class TabsAccount extends Component {
             countries: [],
 
             //avatar
-            new_avatar: null,
+            image: ' ',
+            uploaded: false,
+            message: '',
             //rights
             right_avatar: window.Laravel.user.upload_avatar,
 
@@ -93,8 +96,6 @@ export default class TabsAccount extends Component {
         this.sendVerify = this.sendVerify.bind(this);
         this.verify = this.verify.bind(this);
         this.updatePhone = this.updatePhone.bind(this);
-        this.updateAvatar = this.updateAvatar.bind(this);
-        this.handleFile = this.handleFile.bind(this);
         this.updateOverview = this.updateOverview.bind(this);
         this.updateSettings = this.updateSettings.bind(this);
         this.changeProfile = this.changeProfile.bind(this);
@@ -103,6 +104,9 @@ export default class TabsAccount extends Component {
         this.changeSettingsTimer = this.changeSettingsTimer.bind(this);
         this.changePassword = this.changePassword.bind(this);
         this.changePasswordTimer = this.changePasswordTimer.bind(this);
+        this.onFormSubmit = this.onFormSubmit.bind(this);
+        this.onChange = this.onChange.bind(this);
+        this.fileUpload = this.fileUpload.bind(this);
     }
 
 
@@ -238,20 +242,6 @@ export default class TabsAccount extends Component {
         });
     }
 
-    //avatar
-    handleFile(e) {
-        this.setState({
-            new_avatar: e.target.file,
-        })
-    }
-    updateAvatar() {
-        axios.post('/api/account/avatar/change', {
-           image: this.state.new_avatar
-        }).then(response => {
-            console.log(response);
-        });
-        console.log(this.state.new_avatar[0])
-    }
 
     //password
     updatePassword(e) {
@@ -392,6 +382,41 @@ export default class TabsAccount extends Component {
         });
     }
 
+    //avatar
+    onFormSubmit(e){
+        e.preventDefault()
+        this.fileUpload(this.state.image);
+    }
+    onChange(e) {
+        let files = e.target.files || e.dataTransfer.files;
+        if (!files.length)
+            return;
+        this.createImage(files[0]);
+    }
+    createImage(file) {
+        let reader = new FileReader();
+        reader.onload = (e) => {
+            this.setState({
+                image: e.target.result
+            })
+        };
+        reader.readAsDataURL(file);
+    }
+    fileUpload(image){
+        const url = '/api/account/avatar/change';
+        const formData = {file: this.state.image}
+
+        axios.post('/api/account/avatar/change', formData).then(response => {
+            console.log(response.data)
+            if(response.data.uploaded) {
+                this.setState({uploaded: true, message: response.data.message, image : '', user_avatar: response.data.avatar})
+            } else {
+                this.setState({uploaded: false, message: response.data.message})
+
+            }
+        });
+    }
+
     toggleShow(show) {
         this.setState({show});
     }
@@ -410,7 +435,6 @@ export default class TabsAccount extends Component {
                                        <h5>Account security</h5>
                                        <Tab tabFor="vertical-tab-four" className="account-tab"><i className="fas fa-user"> </i> Two step authentication</Tab>
                                        <Tab tabFor="vertical-tab-five"  className="account-tab"><i className="fas fa-life-ring"> </i>Change password</Tab>
-                                       <Tab tabFor="vertical-tab-six"  className="account-tab"><i className="fas fa-tags"> </i>My sessions</Tab>
                                        <h5>Website content</h5>
                                        <Tab tabFor="vertical-tab-one" className="account-tab"><i className="fas fa-signal"> </i> My statistics</Tab>
                                        <Tab tabFor="vertical-tab-seven"  className="account-tab"><i className="fas fa-download"> </i>Download your data</Tab>
@@ -453,8 +477,8 @@ export default class TabsAccount extends Component {
                                                <label htmlFor="">Country</label>
                                                <select  onChange={e => this.setState({ user_country_id: e.target.value })}>
                                                    <option value={this.state.user_country_id} selected="selected">{window.Laravel.user.country}</option>
-                                                   {this.state.countries.map(country => (
-                                                       <option value={country.id} key={country.id}>{country.name}</option>
+                                                   {this.state.countries.map((country,i) => (
+                                                       <option   value={country.id} key={i} >{country.name}</option>
                                                    ))}
                                                </select>
 
@@ -485,7 +509,7 @@ export default class TabsAccount extends Component {
                                        </div>
                                        <h5>Biografy</h5>
                                        <textarea placeholder="Hello I am ..." onChange={e => this.setState({ user_biografy: e.target.value })}>{this.state.user_biografy}</textarea>
-                                           <a onClick={this.updateAccount}  class="button button-primary">Update account</a>
+                                           <a onClick={this.updateAccount}  className="button button-primary">Update account</a>
                                        </form>
                                    </TabPanel>
                                    <TabPanel tabId="vertical-tab-two">
@@ -497,12 +521,10 @@ export default class TabsAccount extends Component {
                                                <div className="six columns">
                                                    <h4>Account settings</h4>
                                                    <h5>General settings</h5>
-                                                   <div>
-                                                       <input type="checkbox" checked={this.state.user_online} onChange={e => this.setState({ user_online: !this.state.user_online })}/> Hide my online status when I am active on the entire website
-                                                   </div>
+                                                   {window.Laravel.rights.change_online ? <div><input type="checkbox" checked={!this.state.user_online} onChange={e => this.setState({ user_online: !this.state.user_online })}/> Hide my online status when I am active on the entire website</div> : ""}
                                                    <div>
                                                        <input type="checkbox" checked={this.state.user_data}  onChange={e => this.setState({ user_data: !this.state.user_data })}/> Hide sensitive data on my profile (e-mail, phone, address)
-                                                   </div>
+                                                       </div>
                                                    <div>
                                                        <input type="checkbox" checked={this.state.user_notifications} onChange={e => this.setState({ user_notifications: !this.state.user_notifications})}/> Receive notifications
                                                    </div>
@@ -548,9 +570,12 @@ export default class TabsAccount extends Component {
                                                    <div className="six columns">
                                                        {this.state.right_avatar ?
                                                            <div className="account-avatar-upload">
-                                                                   <input type="file" onChange={this.handleFile} />
-                                                                   <input type="submit"/>
-                                                               <button onClick={this.updateAvatar} className="button button-primary no-button">Change avatar</button>
+                                                               {this.state.uploaded && this.state.message.length > 0 ? <div className="alert alert-green">{this.state.message}</div> : ''}
+                                                               {!this.state.uploaded && this.state.message.length > 0 ? <div className="alert alert-red">{this.state.message}</div> : ''}
+                                                               <form onSubmit={this.onFormSubmit}>
+                                                                   <input type="file"  onChange={this.onChange} />
+                                                                   <button type="submit" className="button button-primary no-button">Change avatar</button>
+                                                               </form>
                                                            </div>
                                                            :
                                                            <div className="alert alert-red center-text">You have no rights to change your avatar.</div> }
@@ -558,7 +583,6 @@ export default class TabsAccount extends Component {
                                                            <li>- Your avatar will be accessible to everyone across the website</li>
                                                            <li>- Choose an avatar that fits to the standards of your company</li>
                                                            <li>- Your avatar must be an image: jpeg or png file</li>
-
                                                            </div>
                                                            </div>
                                                </div>

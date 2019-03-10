@@ -62,16 +62,16 @@ export default class PopupNewProject extends Component {
             title: "",
             description: "",
             end_date: "",
-            tasks: 1,
-            notes: 1,
-            forum: 1,
-            presences: 0,
-            board: 0,
-            polls: 0,
-            activities: 1,
-            logs: 0,
-            crisisCenter: 0,
-            private: 0,
+            tasks: true,
+            notes: true,
+            forum: false,
+            presences: false,
+            board: false,
+            polls: false,
+            activities: true,
+            logs: false,
+            crisisCenter: false,
+            private: false,
 
             //errors
             error_title: "",
@@ -447,8 +447,8 @@ export default class PopupNewProject extends Component {
                                         <div className="popup-groups">
                                             <h5>Members</h5>
                                             {this.state.selectedMembers.length <= 0 ? <div className="alert alert-red">No users or groups have been selected</div> : ""}
-                                            {this.state.selectedMembers.map(selected => (
-                                                <span>
+                                            {this.state.selectedMembers.map((selected, i) => (
+                                                <span key={i}>
                                                        {selected.avatar.length > 0 ? <li className="groups-dark"><img src={selected.avatar} /> {selected.name} <span className="tag tag-primary">{selected.roll}</span> <i onClick={e =>this.removeItem({selected})} className="fas fa-minus-circle float-right"> </i>
                                                        </li> : <li className="groups-dark">{selected.name} <span className="tag tag-second">Group</span> <span className="tag tag-primary">{selected.roll}</span> <i onClick={e =>this.removeItem({selected})} className="fas fa-minus-circle float-right"> </i>
                                                        </li>}
@@ -618,8 +618,8 @@ export default class PopupNewProject extends Component {
                                             <h5>Tags</h5>
                                             {this.state.tags.length <= 0 ? <div id="red">No tags selected</div> :
                                                 <div>
-                                                    {this.state.tags.map(tag => (
-                                                        <span className="tag tag-second">{tag} <i onClick={e =>this.removeTag({tag})} className="fas fa-minus-circle"> </i></span>
+                                                    {this.state.tags.map((tag, i) => (
+                                                        <span key={i} className="tag tag-second">{tag} <i onClick={e =>this.removeTag({tag})} className="fas fa-minus-circle"> </i></span>
                                                     ))}
                                                 </div>
                                             }

@@ -63,14 +63,14 @@ export default class PopupNewInvite extends Component {
 
             //rights
             rights_showmore: false,
-            right_admin: 0,
-            right_createMembers: 0,
-            right_createGroups: 0,
-            right_createProject: 0,
-            right_companySettings: 0,
-            right_avatar: 0,
-            right_online: 0,
-            right_data: 0,
+            right_admin: false,
+            right_createMembers: false,
+            right_createGroups: false,
+            right_createProject: false,
+            right_companySettings: false,
+            right_avatar: false,
+            right_online: false,
+            right_data: false,
 
         };
         //bind
@@ -299,14 +299,14 @@ export default class PopupNewInvite extends Component {
                     invite_costumMessage: false,
                     invite_endData: false,
                     rights_showmore: false,
-                    right_admin: 0,
-                    right_createMembers: 0,
-                    right_createGroups: 0,
-                    right_createProject: 0,
-                    right_companySettings: 0,
-                    right_avatar: 0,
-                    right_online: 0,
-                    right_data: 0,
+                    right_admin: false,
+                    right_createMembers: false,
+                    right_createGroups: false,
+                    right_createProject: false,
+                    right_companySettings: false,
+                    right_avatar: false,
+                    right_online: false,
+                    right_data: false,
                 });
             });
             this.getGroups;
