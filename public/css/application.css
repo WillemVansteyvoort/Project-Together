@@ -1506,6 +1506,16 @@ input[type=checkbox]:checked + #nav-mobile--menu {
   padding: 20px 24px 30px;
 }
 
+.popup-content ul {
+  margin-top: 12px;
+}
+
+.popup-content img {
+  width: 300px;
+  text-align: center;
+  height: 300px;
+}
+
 .popup-tab {
   border: none;
   background-color: #F8F8F8;
@@ -2603,6 +2613,12 @@ input[type=checkbox]:checked + #nav-mobile--menu {
 
 .dashboard-project-members-item span {
   margin-top: 25px;
+}
+
+.dashboard-project-members-actions i {
+  text-align: right;
+  padding-left: 8px;
+  padding-bottom: 8px;
 }
 
 @media screen and (max-width: 760px) {

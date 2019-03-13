@@ -12,19 +12,19 @@ import Notification from '../notification';
 var roles  = [
     {
         value: "member",
-        label: "Member"
+        label: "member"
     },
     {
         value: "watcher",
-        label: "Watcher"
+        label: "watcher"
     },
     {
         value: "responsable",
-        label: "Responsable"
+        label: "responsable"
     },
     {
         value: "leader",
-        label: "Leader"
+        label: "leader"
     },
 
 ]

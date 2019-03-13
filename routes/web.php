@@ -168,12 +168,15 @@ Route::get('/api/calendar/receive', 'Application\CalendarController@receive');
 
 //Projects
 Route::post('/api/project/new', 'Application\ProjectController@create');
+Route::post('/api/project/edit', 'Application\ProjectController@edit');
 Route::get('/api/projects/all', 'Application\ProjectController@getProjects');
 
 /////********************** PROJECT API ********************** /////
 
 //overview
 Route::post('/api/project/overview/info', 'Application\Project\OverviewController@getInfo');
+Route::post('/api/project/overview/user/delete', 'Application\Project\OverviewController@deleteUser');
+Route::post('/api/project/overview/user/edit', 'Application\Project\OverviewController@editUser');
 
 //notes
 Route::post('/api/project/notes/all', 'Application\Project\NoteController@getNotes');

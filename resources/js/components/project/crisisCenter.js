@@ -199,7 +199,7 @@ $        }).then(response => {
                                                     <h5>Creator</h5>
                                                     <a href={"/" +  window.Laravel.company.url + "/" + item.user.username + "/profile/"}>{item.user.name} {item.user.lastname}</a>
                                                 </div>
-                                            </div>s
+                                            </div>
                                             <div className="float-right">
                                                 <i className="fas fa-edit" onClick={e => this.setState({edit_item: item, edit_description: item.description, edit_title: item.name, edit_priority: item.priority, edit_id: item.id, showEdit: true})}> </i>
                                                 <i className="fas fa-trash-alt" onClick={event => this.deleteItem(item.id)}> </i>

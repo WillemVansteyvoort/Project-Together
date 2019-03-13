@@ -6,8 +6,11 @@ import { Progress } from 'react-sweet-progress';
 const Timestamp = require('react-timestamp');
 import "react-sweet-progress/lib/style.css";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-
+import PopPop from 'react-poppop';
 import Switch from "react-switch";
+import Select from 'react-select';
+import {ProgressBar} from "reprogressbars";
+
 var months = new Array(11);
 months[0] = "JAN";
 months[1] = "FEB";
@@ -47,6 +50,7 @@ export default class ProjectOverview extends Component {
         super(props)
         this.state = {
             project: null,
+            show: false,
             created: '',
             end_date: '',
             description: '',
@@ -55,17 +59,63 @@ export default class ProjectOverview extends Component {
             responsables: [],
             tags: [],
             loading: true,
+
+
+            //project info
+            //data
+            project_memberOptions: [],
+            project_title: "",
+            project_description: "",
+            project_end_date: "",
+            project_tasks: true,
+            project_notes: true,
+            project_forum: false,
+            project_presences: false,
+            project_board: false,
+            project_polls: false,
+            project_activities: true,
+            project_logs: false,
+            project_crisisCenter: false,
+            project_private: false,
+            project_tags: [],
+            current_tag: '',
+
+            //errors
+            error_title: "",
+            error_date: "",
+            error_description: "",
+            error_own: false,
+            error_own_timer: 0,
+
+            //edit a single user
+            showUser: false,
+            user_id: 0,
+            user_name: '',
+            user_role: 0,
+            user_avatar: '',
         };
 
         this.getProjectInfo = this.getProjectInfo.bind(this);
         this.dates = this.dates.bind(this);
         this.overview = this.overview.bind(this);
+        this.addTag = this.addTag.bind(this);
+        this.removeTag = this.removeTag.bind(this);
+        this.editProject = this.editProject.bind(this);
+        this.deleteUser = this.deleteUser.bind(this);
+        this.editUser = this.editUser.bind(this);
     }
 
     componentWillMount() {
         this.getProjectInfo();
     }
 
+    toggleShowUser(showUser) {
+        this.setState({showUser});
+    }
+
+    toggleShow(show) {
+        this.setState({show});
+    }
     getProjectInfo() {
         axios.post('/api/project/overview/info', {
             project: window.Laravel.data.project,
@@ -80,9 +130,29 @@ export default class ProjectOverview extends Component {
                 tags: response.data.tags,
                 leaders: this.state.users.filter(function (user) {
                     return user.pivot.role === 3;
-                })
+                }),
+                project_title: response.data.name,
+                project_description: response.data.description,
+                project_end_date:response.data.end_date,
+                project_tasks: response.data.tasks,
+                project_notes: response.data.notes,
+                project_forum: response.data.forum,
+                project_presences: response.data.presences,
+                project_board: response.data.board,
+                project_polls: response.data.polls,
+                project_activities: response.data.activities,
+                project_logs: response.data.logs,
+                project_crisisCenter: response.data.crisiscenter,
+                project_private: response.data.public,
             });
+            let tags = response.data.tags;
+            let newTags = [];
+            for (let i = 0; i < tags.length; i++) {
+                let name = tags[i].name;
+                newTags.push(name);
+            }
             this.setState({
+                project_tags: newTags,
                 leaders: this.state.users.filter(function (user) {
                     return user.pivot.role === 3;
                 }),
@@ -91,6 +161,100 @@ export default class ProjectOverview extends Component {
                 }),
             });
         });
+    }
+
+    //tags
+    addTag(e) {
+        this.setState({project_tags: [...this.state.project_tags, this.state.current_tag], current_tag: ''})
+    }
+
+    removeTag(e) {
+        console.log(e);
+        var array = [...this.state.project_tags]; // make a separate copy of the array
+        var index = array.indexOf(e.tag);
+        if (index !== -1) {
+            array.splice(index, 1);
+            this.setState({project_tags: array});
+        }
+    }
+
+    editProject() {
+        var errors = false;
+        if(this.state.project_title.length < 4) {
+            this.setState({error_title: "The project title must have 4 characters minimum"});
+            errors = true;
+        } else {
+            this.setState({error_title: ""});
+            errors = false;
+        }
+        if(this.state.project_description.length < 10) {
+            this.setState({error_description: "The description must have 10 characters minimum"});
+            errors = true;
+        } else {
+            this.setState({error_description: ""});
+            errors = false;
+        }
+
+        let CurrentDate = new Date();
+        let givenDate = new Date(this.state.project_end_date);
+        if(this.state.project_end_date !== null && givenDate < CurrentDate){
+            this.setState({error_date: "Given date is not greater than the current date."});
+            errors = true;
+        } else {
+            this.setState({error_date: ""});
+        }
+        if(!errors) {
+            axios.post('/api/project/edit', {
+                project: window.Laravel.data.project,
+                project_title: this.state.project_title,
+                project_description: this.state.project_description,
+                project_end_date: this.state.project_end_date,
+                project_tasks: this.state.project_tasks,
+                project_notes: this.state.project_notes,
+                project_forum: this.state.project_forum,
+                project_presences: this.state.project_presences,
+                project_board: this.state.project_board,
+                project_polls: this.state.project_polls,
+                project_activities: this.state.project_activities,
+                project_logs: this.state.project_logs,
+                project_crisisCenter: this.state.project_crisisCenter,
+                project_private: this.state.project_private,
+                project_tags: this.state.project_tags,
+            }).then(response => {
+                this.getProjectInfo();
+                if(response.data.reload) {
+                    window.location.href = "..././" + response.data.url + "/project/overview";
+                }
+                this.setState({show: false})
+            });
+        }
+    }
+
+    deleteUser(id) {
+        if(confirm("Are you sure you want to delete this member? All his data will remain.")) {
+            axios.post('/api/project/overview/user/delete', {
+                project: window.Laravel.data.project,
+                user: id,
+            }).then(response => {
+                this.setState({show: false})
+                this.getProjectInfo();
+            });
+        }
+    }
+
+    editUser() {
+        axios.post('/api/project/overview/user/edit', {
+            project: window.Laravel.data.project,
+            user: this.state.user_id,
+            user_role: this.state.user_role,
+        }).then(response => {
+            this.setState({showUser: false})
+            this.getProjectInfo();
+        });
+    }
+
+    handleRoll(selectedOption) {
+        this.setState({selectedRoll: selectedOption})
     }
 
     dates() {
@@ -174,9 +338,14 @@ export default class ProjectOverview extends Component {
                                     <div className="dashboard-project-members-item">
                                         <img src={user.avatar} className="float-left"/>
                                         <h4 className="float-left">{user.name} {user.lastname}</h4>
-                                        <span className="tag tag-primary float-right">{roles[user.pivot.role].value}</span>
+                                        <span className="tag tag-primary float-right">{roles[user.pivot.role].value} </span>
+                                        <div className="clear"></div>
+
+                                        <span className="dashboard-project-members-actions">
+                                            <i className="fas fa-trash-alt" onClick={event => this.deleteUser(user.id)}> </i>
+                                            <i className="fas fa-user-edit" onClick={event => this.setState({showUser: true, user_id: user.id, user_name: user.name + user.lastname, user_role: user.pivot.role, user_avatar: user.avatar})}> </i>
+                                        </span>
                                     </div>
-                                    <div className="clear"></div>
                                 </div>
                             ))}
                         </div>
@@ -222,14 +391,236 @@ export default class ProjectOverview extends Component {
     }
 
     render() {
+        const {show} = this.state;
+        const {showUser} = this.state;
         return (
-                    <main className="project-main">
+            <span>
+                <button className="project-header-plus no-button test" onClick={() => this.toggleShow(true)}>
+                    <i className="fas fa-cog"> </i>
+                </button>
+                <main className="project-main">
                         {this.state.loading ?
                             <div className="project-loading">
                                 <div className="loader">Loading...</div>
                             </div>
                             : this.overview() }
                     </main>
+
+                 <PopPop
+                     open={show}
+                     closeOnEsc={true}
+                     onClose={() => this.toggleShow(false)}
+                     closeOnOverlay={true}>
+                    <div className="popup">
+                        <div className="popup-titleBar">
+                            Make a new Project
+                            <a className="popup-btn--close"  onClick={() => this.toggleShow(false)}>✕</a>
+                        </div>
+                        <div className="popup-content">
+                            <Tabs
+                                defaultTab="one"
+                                onChange={(tabId) => { tabId}}
+                            >
+                                <TabList>
+                                    <Tab tabFor="one" className="popup-tab">General</Tab>
+                                    <Tab tabFor="two" className="popup-tab">Members</Tab>
+                                    <Tab tabFor="three" className="popup-tab">Add-ons</Tab>
+                                    <Tab tabFor="five" className="popup-tab popup-tab--rights">Advanced</Tab>
+                                </TabList>
+                                <div>
+                                    <TabPanel tabId="one">
+                                        <div className="row">
+                                            <div className="twelve columns">
+                                                <label>Project name</label>
+                                                <div id="red">{this.state.error_title}</div>
+                                                <input type="text" className={this.state.error_title.length > 0 ? "border-red u-full-width" : "u-full-width"} value={this.state.project_title} onChange={e => this.setState({ project_title: e.target.value })} />
+                                            </div>
+                                        </div>
+                                          <div className="row">
+                                            <div className="twelve columns">
+                                                <label>Project description</label>
+                                                <div id="red">{this.state.error_description}</div>
+                                                <textarea value={this.state.project_description} className={this.state.error_description.length > 0 ? "border-red u-full-width" : "u-full-width"} onChange={e => this.setState({ project_description: e.target.value  })}> </textarea>
+                                            </div>
+                                        </div>
+                                        <div className="row">
+                                            <div className="twelve columns">
+                                                <label>End date</label>
+                                                <div id="red">{this.state.error_date}</div>
+                                                <input type="date" value={this.state.project_end_date} onChange={e => this.setState({ project_end_date: e.target.value  })} className={this.state.error_date.length > 0 ? "border-red u-full-width" : "u-full-width"}/>
+                                            </div>
+                                        </div>
+                                    </TabPanel>
+                                    <TabPanel tabId="two">
+
+                                    </TabPanel>
+                                    <TabPanel tabId="three">
+                                        <div className="popup-addons">
+                                            <div className="row">
+                                                <div className="three columns">
+                                                    <h5><i className="fas fa-tasks"> </i>Tasks</h5>
+                                                    <div>
+                                                        <Switch
+                                                            // onChange={this.handleChange}
+                                                            checked={this.state.project_tasks}
+                                                            className="react-switch popup-addons--switch"
+                                                            id="normal-switch"
+                                                            onChange={e => this.setState({ project_tasks: !this.state.project_tasks })}
+                                                        />
+                                                     </div>
+                                                </div>
+                                                <div className="three columns">
+                                                    <h5><i className="fas fa-sticky-note"></i> Notes</h5>
+                                                     <div>
+                                                        <Switch
+                                                            // onChange={this.handleChange}
+                                                            checked={this.state.project_notes}
+                                                            className="react-switch popup-addons--switch"
+                                                            id="normal-switch"
+                                                            onChange={e => this.setState({ project_notes: !this.state.project_notes })}
+                                                        />
+                                                     </div>
+                                                </div>
+                                                <div className="three columns">
+                                                    <h5><i className="fas fa-comments"></i> Forum</h5>
+                                                     <div>
+                                                        <Switch
+                                                            // onChange={this.handleChange}
+                                                            checked={this.state.project_forum}
+                                                            className="react-switch popup-addons--switch"
+                                                            id="normal-switch"
+                                                            onChange={e => this.setState({ project_forum: !this.state.project_forum })}
+                                                        />
+                                                     </div>
+                                                </div>
+                                                <div className="three columns">
+                                                    <h5><i className="fas fa-calendar-check"></i> Board </h5>
+                                                     <div>
+                                                        <Switch
+                                                            // onChange={this.handleChange}
+                                                            checked={this.state.project_board}
+                                                            className="react-switch popup-addons--switch"
+                                                            id="normal-switch"
+                                                            onChange={e => this.setState({ project_board: !this.state.project_board })}
+                                                        />
+                                                     </div>
+                                                </div>
+                                            </div>
+                                            <div className="line line-small"></div>
+                                            <div className="row">
+                                                <div className="three columns">
+                                                    <h5><i className="fas fa-poll"> </i>Polls</h5>
+                                                    <div>
+                                                        <Switch
+                                                            // onChange={this.handleChange}
+                                                            checked={this.state.project_polls}
+                                                            className="react-switch popup-addons--switch"
+                                                            id="normal-switch"
+                                                            onChange={e => this.setState({ project_polls: !this.state.project_polls })}
+                                                        />
+                                                     </div>
+                                                </div>
+                                                <div className="three columns">
+                                                    <h5><i className="fas fa-calendar-day"> </i> Activities</h5>
+                                                     <div>
+                                                        <Switch
+                                                            // onChange={this.handleChange}
+                                                            checked={this.state.project_activities}
+                                                            className="react-switch popup-addons--switch"
+                                                            id="normal-switch"
+                                                            onChange={e => this.setState({ project_activities: !this.state.project_activities })}
+                                                        />
+                                                     </div>
+                                                </div>
+                                                <div className="three columns">
+                                                    <h5><i className="fab fa-centercode"> </i> Crisis center</h5>
+                                                     <div>
+                                                        <Switch
+                                                            // onChange={this.handleChange}
+                                                            checked={this.state.project_crisisCenter}
+                                                            className="react-switch popup-addons--switch"
+                                                            id="normal-switch"
+                                                            onChange={e => this.setState({ project_crisisCenter: !this.state.project_crisisCenter })}
+                                                        />
+                                                     </div>
+                                                </div>
+                                                <div className="three columns">
+                                                    <h5><i className="fas fa-sign-in-alt"> </i> Logs </h5>
+                                                     <div>
+                                                        <Switch
+                                                            // onChange={this.handleChange}
+                                                            checked={this.state.project_logs}
+                                                            className="react-switch popup-addons--switch"
+                                                            id="normal-switch"
+                                                            onChange={e => this.setState({ project_logs: !this.state.project_logs })}
+                                                        />
+                                                     </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="clear"></div>
+                                    </TabPanel>
+                                    <TabPanel tabId="five">
+                                        <h5>Other settings</h5>
+                                        <div>
+                                            <input type="checkbox" id="scales" name="feature" value="scales" onChange={e => this.setState({ project_private: !this.state.project_private})} checked={this.state.project_private} />
+                                            Make this project public: this means that everyone can see the forum, tasks and so on
+                                            </div>
+                                        <div className="popup-tags">
+                                            <h5>Tags</h5>
+                                            {this.state.project_tags.length <= 0 ? <div id="red">No tags selected</div> :
+                                                <div>
+                                                    {this.state.project_tags.map((tag, i) => (
+                                                        <span key={i} className="tag tag-second">{tag} <i onClick={e =>this.removeTag({tag})} className="fas fa-minus-circle"> </i></span>
+                                                    ))}
+                                                </div>
+                                            }
+                                            <form>
+                                                <input type="text" value={this.state.current_tag} className="float-left" onChange={e => this.setState({ current_tag: e.target.value})} placeholder="Party, 2019, ..." required={true}/>
+                                                <input type="submit" onClick={this.addTag} className="float-right" value="Add new tag" />
+                                            </form>
+                                        </div>
+                                    </TabPanel>
+                                </div>
+                            </Tabs>
+                            <button className="button-primary button no-button" onClick={this.editProject}>Edit project</button>
+                        </div>
+                    </div>
+                </PopPop>
+
+                <PopPop
+                    open={showUser}
+                    closeOnEsc={true}
+                    onClose={() => this.toggleShowUser(false)}
+                    closeOnOverlay={true}>
+                    <div className="popup">
+                        <div className="popup-titleBar">
+                            Change {this.state.user_name}
+                            <button className="popup-btn--close"  onClick={() => this.toggleShow(false)}>✕</button>
+                        </div>
+                        <div className="popup-content">
+                            <div className="row">
+                                <div className="six columns">
+                                    <img src={this.state.user_avatar} />
+                                </div>
+                                 <div className="six columns">
+                                    <h5>Current role</h5>
+                                     <span className="tag tag-primary">{roles[this.state.user_role].value}</span>
+                                     <h5>Change members role</h5>
+                                      <select onChange={(event) => this.setState({user_role: event.target.value})}>
+                                          <option value="0">Member</option>
+                                          <option value="1">Watcher</option>
+                                          <option value="2">Responsable</option>
+                                          <option value="3">Leader</option>
+                                      </select>
+                                </div>
+                                <button className="button-primary button no-button float-right" onClick={this.editUser}>Change role</button>
+                            </div>
+                        </div>
+                    </div>
+                </PopPop>
+            </span>
+
         );
     }
 }

@@ -25,7 +25,7 @@ class ProjectController extends SlugifyController
 
     public function create(Request $request) {
         $url = strtolower(str_replace(' ', '', $request->title));
-        $slugify = $this->slugify($url, false);
+        $slugify = $this->slugify($url, true);
         //create project
         $project =Project::create([
             'company_id' => Auth::user()->company_id,
@@ -165,6 +165,76 @@ class ProjectController extends SlugifyController
                 broadcast(new Notifications($noti,$user))->toOthers();
             }
         }
+    }
+
+    public function edit(Request $request) {
+        $project = Project::where('url', '=', $request->project)->first();
+
+        $oldUrl = $project->url;
+        //general info
+        $project->name = $request->project_title;
+        $project->url = $this->slugify($request->project_title, true);
+        $project->description = $request->project_description;
+        $project->end_date = $request->project_end_date;
+        $project->public = $request->project_private;
+        $project->tasks = $request->project_tasks;
+        $project->notes = $request->project_notes;
+        $project->forum = $request->project_forum;
+        $project->presences = $request->project_presences;
+        $project->board = $request->project_board;
+        $project->polls = $request->project_polls;
+        $project->activities = $request->project_activities;
+        $project->crisiscenter = $request->project_crisisCenter;
+        $project->logs = $request->project_logs;
+        $project->save();
+
+        //tags
+        $tags = $project->tags;
+        Tag::where('project_id', $project->id)->delete();
+        foreach ($request->project_tags as $tag) {
+                Tag::create([
+                    'name' => $tag,
+                    'taggable_id' => $project->id,
+                    'taggable_type' => 'App\Project',
+                    'project_id' => $project->id,
+                ]);
+            }
+
+        //check if page need to be reloaded
+        if($oldUrl !== $project->url) {
+            return response()->json([
+                'reload' => true,
+                'url' => $project->url,
+            ]);
+        }
+
+        //add-ons
+        if($project->project_board) {
+            $firstColumn = Column::create([
+                'name' => 'Todo',
+                'project_id' => $project->id,
+                'position' => 0,
+            ]);
+            Column::create([
+                'name' => 'In Progress',
+                'project_id' => $project->id,
+                'position' => 1,
+            ]);
+            Column::create([
+                'name' => 'Done',
+                'project_id' => $project->id,
+                'position' => 2,
+            ]);
+            BoardItem::create([
+                'name' => "I'm a card",
+                'description' => "Hello, i'm an example card for testing :)",
+                'user_id' => 0,
+                'column_id' => $firstColumn->id,
+                'project_id' => $project->id,
+                'color' => 'red',
+            ]);
+        }
+
     }
 
     public function getProjects() {

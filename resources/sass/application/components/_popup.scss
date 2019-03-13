@@ -6,6 +6,14 @@
   }
 
   &-content {
+    ul {
+      margin-top: 12px;
+    }
+    img {
+      width: 300px;
+      text-align: center;
+      height: 300px;
+    }
     position: relative;
     overflow: hidden;
     background-color: white;
