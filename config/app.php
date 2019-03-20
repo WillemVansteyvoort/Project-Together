@@ -163,6 +163,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         Nexmo\Laravel\NexmoServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
+        \Wnx\LaravelStats\StatsServiceProvider::class,
 
 
     ],

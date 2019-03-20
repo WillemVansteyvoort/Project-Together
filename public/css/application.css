@@ -799,6 +799,10 @@ input[type=submit] {
   margin-right: 10px;
 }
 
+.button-grey {
+  background-color: #2D3E50;
+}
+
 .button-red {
   background-color: #E54243;
 }
@@ -1286,6 +1290,28 @@ input[type=submit] {
 
 .account-settings-info li:hover {
   color: #5680e9;
+}
+
+.account-sessions-all {
+  margin: 0 auto;
+  width: 90%;
+}
+
+.account-sessions thead {
+  background-color: #2D3E50;
+  color: white;
+}
+
+.account-sessions td,
+.account-sessions th {
+  padding: 14px !important;
+}
+
+.account-sessions table {
+  margin-top: 15px;
+  background-color: white;
+  padding: 20px !important;
+  box-shadow: 1px 1px 2px #fff inset, -1px -1px 2px #fff inset;
 }
 
 input[type=checkbox] {
@@ -3961,6 +3987,46 @@ span.CodeMirror-selectedtext {
 
 .project-crisiscenter-right table td {
   padding: 12px;
+}
+
+.project-logs {
+  margin: 0 4%;
+}
+
+.project-logs-users {
+  width: 100%;
+  text-align: right;
+}
+
+.project-logs-users img {
+  display: inline-block;
+  height: 98px;
+  width: 98px;
+  margin-bottom: 8px;
+  border-radius: 50%;
+}
+
+.project-logs-users img:hover {
+  transition: 0.2s ease;
+  opacity: 0.8;
+}
+
+.project-logs article {
+  background-color: white;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.15);
+  margin-bottom: 25px;
+}
+
+.project-logs .item {
+  background-color: white;
+  padding: 12px;
+}
+
+.project-logs .item-bottom {
+  margin-top: 24px;
+  padding: 8px;
+  color: white;
+  background-color: #2D3E50;
 }
 
 .user-profile {

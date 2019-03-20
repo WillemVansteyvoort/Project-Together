@@ -12,6 +12,7 @@ use Faker\Provider\Image;
 use Validator;
 use App\User_email;
 use Carbon\Carbon;
+use App\User;
 class AccountController extends Controller
 {
 
@@ -120,6 +121,11 @@ class AccountController extends Controller
             }
         }
 
+
+    }
+
+    public function getLogs() {
+      return  Auth::user()->authentications;
 
     }
 

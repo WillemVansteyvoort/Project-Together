@@ -34,4 +34,5 @@ require('./components/project/index');
 require('./components/project/overview');
 require('./components/popups/changeProject');
 require('./components/project/notes');
+require('./components/project/logs');
 require('./components/others/fileUploader');

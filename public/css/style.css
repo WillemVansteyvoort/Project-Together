@@ -1052,16 +1052,19 @@ input[type=submit] {
   text-align: center;
   padding: 9px;
   color: white;
+  margin-left: 8px;
 }
 
 .button-primary {
   background-color: #5680e9;
-  margin-left: 8px;
+}
+
+.button-grey {
+  background-color: #2D3E50;
 }
 
 .button-second {
   background-color: #5ab9ea;
-  margin-right: 10px;
 }
 
 .button-large {

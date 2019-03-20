@@ -209,7 +209,7 @@ class ProjectController extends SlugifyController
         }
 
         //add-ons
-        if($project->project_board) {
+        if($request->project_board) {
             $firstColumn = Column::create([
                 'name' => 'Todo',
                 'project_id' => $project->id,
@@ -238,8 +238,12 @@ class ProjectController extends SlugifyController
     }
 
     public function getProjects() {
-        $company = Company::findOrFail(Auth::user()->company_id);
         return Auth::user()->projects;
+    }
+
+    public function getUsers(Request $request) {
+        $project = Project::where('url', '=', $request->project)->first();
+        return $project->users;
     }
 
     public function data($company, $project) {

@@ -762,15 +762,17 @@ input[type="submit"] {
   text-align: center;
   padding: 9px;
   color: white;
-
+  margin-left: 8px;
   &-primary {
     background-color: $color-primary;
-    margin-left: 8px;
+  }
+
+  &-grey {
+    background-color: #2D3E50;
   }
 
   &-second {
     background-color: $color-second;
-    margin-right: 10px;
   }
   &-large {
     width: 20%;

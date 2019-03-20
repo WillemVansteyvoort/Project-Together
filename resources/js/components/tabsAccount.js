@@ -4,6 +4,7 @@ import { Tabs, Tab, TabPanel, TabList } from 'react-web-tabs';
 import { Progress } from 'react-sweet-progress';
 import "react-sweet-progress/lib/style.css";
 import PopPop from 'react-poppop';
+const Timestamp = require('react-timestamp');
 import 'react-notifications/lib/notifications.css';
 import Notification from './notification';
 import FileUploader from './others/fileUploader';
@@ -33,7 +34,7 @@ export default class TabsAccount extends Component {
             user_online: window.Laravel.user.online,
             user_data: window.Laravel.user.hide_data,
             user_notifications: window.Laravel.user.user_notifications,
-
+            logs: [],
             //notifications
             profile: false,
             profile_timer: 0,
@@ -112,6 +113,7 @@ export default class TabsAccount extends Component {
 
     componentWillMount() {
         this.getCountries();
+        this.getLogs();
     }
 
     componentDidMount() {
@@ -417,6 +419,12 @@ export default class TabsAccount extends Component {
         });
     }
 
+    getLogs() {
+        axios.get('/api//user/logs').then(response => {
+            this.setState({logs: response.data})
+        });
+    }
+
     toggleShow(show) {
         this.setState({show});
     }
@@ -435,6 +443,8 @@ export default class TabsAccount extends Component {
                                        <h5>Account security</h5>
                                        <Tab tabFor="vertical-tab-four" className="account-tab"><i className="fas fa-user"> </i> Two step authentication</Tab>
                                        <Tab tabFor="vertical-tab-five"  className="account-tab"><i className="fas fa-life-ring"> </i>Change password</Tab>
+                                       <Tab tabFor="vertical-tab-six"  className="account-tab"><i className="fas fa-tags"></i>My sessions</Tab>
+
                                        <h5>Website content</h5>
                                        <Tab tabFor="vertical-tab-one" className="account-tab"><i className="fas fa-signal"> </i> My statistics</Tab>
                                        <Tab tabFor="vertical-tab-seven"  className="account-tab"><i className="fas fa-download"> </i>Download your data</Tab>
@@ -641,7 +651,29 @@ export default class TabsAccount extends Component {
 
                                    </TabPanel>
                                    <TabPanel tabId="vertical-tab-six">
-                                       <p>Tab 6 content</p>
+                                       <div className="account-sessions">
+                                           <h4>My sessions</h4>
+                                           <div className="account-sessions-all">
+                                               <table className="u-full-width">
+                                                   <thead>
+                                                   <tr>
+                                                       <th>User agent</th>
+                                                       <th>Login at</th>
+                                                       <th>Logout at</th>
+                                                   </tr>
+                                                   </thead>
+                                                   <tbody>
+                                                   {this.state.logs.map((log,i) => (
+                                                       <tr>
+                                                           <td>{log.user_agent}</td>
+                                                           <td><Timestamp time={log.login_at} precision={2} utc={false} autoUpdate={60}   /></td>
+                                                           <td><Timestamp time={log.logout_at} precision={2} utc={false} autoUpdate={60}   /></td>
+                                                       </tr>
+                                                   ))}
+                                                   </tbody>
+                                               </table>
+                                           </div>
+                                       </div>
                                    </TabPanel>
                                    <TabPanel tabId="vertical-tab-seven">
                                        <p>Tab 7 content</p>

@@ -117,6 +117,7 @@ Route::get('/api/countries', 'Application\AccountController@getCountries');
 
 Route::group(['middleware' => ['auth']], function () {
 Route::post('/api/user/activity', 'UpdateActivity@update');
+Route::get('/api//user/logs', 'Application\AccountController@getLogs');
 Route::get('/api/menu/online', 'Application\MenuController@online');
 Route::get('/api/menu/notifications', 'Application\MenuController@notifications');
 Route::post('/api/menu/notifications', 'Application\MenuController@notificationsRead');
@@ -170,6 +171,7 @@ Route::get('/api/calendar/receive', 'Application\CalendarController@receive');
 Route::post('/api/project/new', 'Application\ProjectController@create');
 Route::post('/api/project/edit', 'Application\ProjectController@edit');
 Route::get('/api/projects/all', 'Application\ProjectController@getProjects');
+Route::post('/api/projects/users', 'Application\ProjectController@getUsers');
 
 /////********************** PROJECT API ********************** /////
 
@@ -208,6 +210,10 @@ Route::post('/api/project/crisiscenter/progress', 'Application\Project\CrisisCen
 Route::post('/api/project/crisiscenter/delete', 'Application\Project\CrisisCenterController@deleteItem');
 Route::post('/api/project/crisiscenter/edit', 'Application\Project\CrisisCenterController@editItem');
 
+//logs
+Route::post('/api/project/logs/items', 'Application\Project\LogController@getitems');
+Route::post('/api/project/logs/create', 'Application\Project\LogController@create');
+Route::post('/api/project/logs/edit', 'Application\Project\LogController@edit');
 
 
 Route::post('/twostep', 'Application\TwoStepController@login');

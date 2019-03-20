@@ -56,4 +56,8 @@ class Project extends Model
     public function crisisItems(){
         return $this->hasMany('App\CrisisItem');
     }
+
+    public function projectLogs() {
+        return $this->hasMany("App\Log")->orderBy('id', 'desc');
+    }
 }

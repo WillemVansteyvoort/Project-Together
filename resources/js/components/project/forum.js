@@ -17,6 +17,7 @@ export default class ProjectForum extends Component {
         this.state = {
             loading: true,
             replies: [],
+            repliesByTag: null,
             tags: [],
             show: false,
             show2: false,
@@ -27,7 +28,7 @@ export default class ProjectForum extends Component {
             //create post
             post_title: '',
             post_tags: [],
-            current_tag: '',
+            current_tag: 'all',
             post_message: '',
 
             //get current post
@@ -43,6 +44,7 @@ export default class ProjectForum extends Component {
             //edit reply
             reply: [],
             replyNew_message: "",
+
 
         };
         this.init = this.init.bind(this);
@@ -60,6 +62,7 @@ export default class ProjectForum extends Component {
         this.editReply = this.editReply.bind(this);
         this.handleChange3 = this.handleChange3.bind(this);
         this.deleteReply = this.deleteReply.bind(this);
+        this.repliesbyTag = this.repliesbyTag.bind(this);
     }
 
     init() {
@@ -109,15 +112,39 @@ export default class ProjectForum extends Component {
     }
 
     getReplies() {
-        this.getTags();
-            axios.post('/api/project/forum/replies', {
-                project: window.Laravel.data.project,
-            }).then(response => {
-                this.setState({
-                    loading: false,
-                    replies: response.data,
-                });
+        axios.post('/api/project/forum/replies', {
+            project: window.Laravel.data.project,
+        }).then(response => {
+            this.setState({
+                loading: false,
+                replies: response.data,
+                repliesByTag: response.data,
             });
+            this.getTags();
+        });
+    }
+
+
+    repliesbyTag(name) {
+        if (name === "All") {
+            this.setState({repliesByTag: this.state.replies})
+        } else {
+            let replies = this.state.replies;
+            let data = [];
+            for (let i = 0; i < replies.length; i++) {
+                let good = false;
+                for (let j = 0; j < replies[i].post.tags.length; j++) {
+                    if (replies[i].post.tags[j].name === name) {
+                        good = true;
+                    }
+                }
+                if (good) {
+                    data.push(replies[i]);
+                }
+            }
+
+            this.setState({repliesByTag: data})
+        }
     }
 
     getTags() {
@@ -127,6 +154,9 @@ export default class ProjectForum extends Component {
             this.setState({
                 tags: response.data,
             });
+
+
+
         });
     }
 
@@ -155,10 +185,10 @@ export default class ProjectForum extends Component {
                 post_title: '',
                 post_message: '',
                 show: false,
+                replies: [response.data, ...this.state.replies],
+                repliesByTag:[response.data, ...this.state.replies],
             });
         });
-        this.getReplies();
-        this.getTags();
     }
     getPostById(id) {
         axios.post('/api/project/forum/post', {
@@ -191,13 +221,13 @@ export default class ProjectForum extends Component {
     }
 
     editReply() {
-            axios.post('/api/project/forum/editReply', {
-                id: this.state.reply.id,
-                message: this.state.replyNew_message,
-            }).then(response => {
-                this.setState({show2: false,})
-            });
-            this.getPostById(this.state.post.id);
+        axios.post('/api/project/forum/editReply', {
+            id: this.state.reply.id,
+            message: this.state.replyNew_message,
+        }).then(response => {
+            this.setState({show2: false,})
+        });
+        this.getPostById(this.state.post.id);
     }
 
     deleteReply(id) {
@@ -212,26 +242,33 @@ export default class ProjectForum extends Component {
 
     forum() {
         let params = new URLSearchParams(location.search);
-            return (
-                <span>
+        return (
+            <span>
                     <div className="dashboard-forum">
                 <div className="row">
                     <div className="three columns">
                         <div className="dashboard-forum-head">
                             <input type="text" placeholder="Search for threads"/>
-                            {this.state.post_open ? <button className="button button-primary no-button" href="#reply">Reply to this post</button>: <button className="button button-primary no-button" onClick={() => this.setState({show: true})}>Create thread</button>}
+                            {this.state.post_open ?
+                                <div>
+                                    <button className="button button-primary no-button" href="#reply"><i className="fas fa-reply"> </i>Reply to this post</button>
+                                    <button className="button button-grey no-button" href="#reply" onClick={() => this.setState({post_open: false})}><i className="fas fa-chevron-left"></i>Go back</button>
+
+                                </div>
+                                :
+                                <button className="button button-primary no-button" onClick={() => this.setState({show: true})}><i className="fas fa-plus"></i> Create thread</button>}
                         </div>
                         <h5>Tags</h5>
                         <ul className="dashboard-forum-tags">
-                            <li>All</li>
+                            <li  onClick={event => this.repliesbyTag("All")}>All</li>
                             {this.state.tags.map((tag, i) => (
-                                <li key={i}>{tag.name}</li>
+                                <li key={i} onClick={event => this.repliesbyTag(tag.name)}>{tag.name}</li>
                             ))}
                         </ul>
                     </div>
                     <div className="nine columns">
                         {this.state.replies.length === 0 ? <div className="dashboard-forum-empty"> <i class="fas fa-comments"></i><h4>Nothing to find </h4></div> : ""}
-                                <span>
+                        <span>
                                     {this.state.post_open ?
                                         <div className="row dashboard-forum-title">
                                             <div className="item-head">
@@ -256,19 +293,19 @@ export default class ProjectForum extends Component {
                                                                 <div className="dashboard-forum-post-sidebar">
                                                                     <img src={reply.user.avatar} />
                                                                     <h5>{reply.user.name}</h5>
-                                                                    </div>
                                                                 </div>
+                                                            </div>
                                                             <div className="nine columns dashboard-forum-post-content">
                                                                 <ReactMarkdown source={reply.content} />
-                                                                </div>
+                                                            </div>
                                                             <div className="actions">
                                                                 {window.Laravel.user.id === reply.user_id ?<a onClick={e => this.getReply(i)}><i className="fas fa-pencil-alt"> </i></a> : ""}
                                                                 {window.Laravel.user.id === reply.user_id ?<a onClick={e => this.deleteReply(reply.id)}><i className="fas fa-trash-alt"> </i></a> : ""}
                                                             </div>
-                                                            </div>
+                                                        </div>
                                                         :
                                                         ""
-                                                            }
+                                                    }
                                                         </span>
                                             ))}
                                             <div id="reply" className="dashboard-forum-reply">
@@ -280,11 +317,11 @@ export default class ProjectForum extends Component {
                                                 />
                                                 <button className="button button-primary no-button"onClick={() => this.createReply()}>Reply</button>
                                             </div>
-                                                </div>
+                                        </div>
 
                                         :
                                         <div className="dashboard-forum-items">
-                                            {this.state.replies.map((reply, i) => (
+                                            {this.state.repliesByTag.map((reply, i) => (
                                                 <article>
                                                     <div className="item-head">
                                                         <img src={reply.user.avatar} className="float-left"/> <span><a href='#'>{reply.user.name} {reply.user.lastname}</a>
@@ -293,7 +330,7 @@ export default class ProjectForum extends Component {
                                                     </div>
                                                     <div className="item-body">
                                                         <h5><a  onClick={() => this.getPostById( reply.post.id)}>{reply.post.title}</a></h5>
-                                                        <p>{reply.post.content.substring(0, 200)}...</p>
+                                                        <ReactMarkdown source={reply.post.content.substring(0, 200)} />
                                                         {reply.post.tags.map((tag, i) => (
                                                             <span className="tag tag-primary">{tag.name}</span>
                                                         ))}
@@ -307,7 +344,7 @@ export default class ProjectForum extends Component {
                             </div>
                     </div>
             </span>
-            )
+        )
     }
     render() {
         const {show} = this.state;
@@ -357,21 +394,21 @@ export default class ProjectForum extends Component {
                                         </div>
                                     </div>
                                 </TabPanel>
-                                    <TabPanel tabId="two">
-                                        <div className="popup-tags">
-                                            <h5>Tags</h5>
-                                            {this.state.post_tags.length <= 0 ? <div id="red">No tags selected</div> :
-                                                <div>
-                                                    {this.state.post_tags.map(tag => (
-                                                        <span className="tag tag-second">{tag} <i onClick={e =>this.removeTag({tag})} className="fas fa-minus-circle"> </i></span>
-                                                    ))}
-                                                </div>
-                                            }
-                                            <form>
-                                                <input type="text" value={this.state.current_tag} className="float-left" onChange={e => this.setState({ current_tag: e.target.value})} placeholder="Party, 2019, ..." required={true}/>
-                                                <input type="submit" onClick={this.addTag} className="float-right" value="Add new tag" />
-                                            </form>
-                                        </div>
+                                <TabPanel tabId="two">
+                                    <div className="popup-tags">
+                                        <h5>Tags</h5>
+                                        {this.state.post_tags.length <= 0 ? <div id="red">No tags selected</div> :
+                                            <div>
+                                                {this.state.post_tags.map(tag => (
+                                                    <span className="tag tag-second">{tag} <i onClick={e =>this.removeTag({tag})} className="fas fa-minus-circle"> </i></span>
+                                                ))}
+                                            </div>
+                                        }
+                                        <form>
+                                            <input type="text" value={this.state.current_tag} className="float-left" onChange={e => this.setState({ current_tag: e.target.value.toLowerCase()})} placeholder="Party, 2019, ..." required={true}/>
+                                            <input type="submit" onClick={this.addTag} className="float-right" value="Add new tag" />
+                                        </form>
+                                    </div>
                                 </TabPanel>
                             </Tabs>
                             <button className="button-primary button no-button" onClick={this.makePost}>Make thread</button>

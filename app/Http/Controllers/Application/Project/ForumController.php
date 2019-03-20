@@ -21,7 +21,7 @@ class ForumController extends Controller
 
     public function getTags(Request $request) {
         $project = Project::where('url', '=', $request->project)->first();
-        $tags = Tag::where([['project_id', '=', $project->id], ['taggable_type', '=', 'App\Post']])->get();
+        $tags = Tag::select('name')->where([['project_id', '=', $project->id], ['taggable_type', '=', 'App\Post']])->groupBy('name')->get();
         return $tags;
     }
 
@@ -61,6 +61,9 @@ class ForumController extends Controller
             'type' => 3,
             'content' => 0,
         ]);
+
+        return Reply::with('post', 'user')->find($reply->id);
+
 
     }
 
