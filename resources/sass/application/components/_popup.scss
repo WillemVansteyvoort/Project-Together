@@ -63,6 +63,11 @@
     }
   }
 
+  &-poll {
+    margin-bottom: 15px;
+    max-height: 150px;
+    overflow-y: auto;
+  }
   &-groups {
     min-height: 120px;
 

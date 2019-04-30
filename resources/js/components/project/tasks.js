@@ -10,7 +10,6 @@ import PopPop from 'react-poppop';
 import Switch from "react-switch";
 import Notification from "../notification";
 import Board from 'react-trello-for-timeline'
-var test = "test";
 export default class ProjectTasks extends Component {
 
     constructor(props) {
@@ -57,11 +56,13 @@ export default class ProjectTasks extends Component {
                 <button className="project-header-plus no-button test" onClick={() => this.toggleShow(true)}>
                     <i className="fas fa-plus"> </i>
                 </button>
-                <main className="project-tasks">
-                    <div className="row">
-                        <div className="twelve columns">
-                            <h5>All tasks</h5>
-                        </div>
+                <main className="project-main">
+                    <div className="project-tasks">
+                        <div className="row">
+                            <div className="twelve columns">
+                                <h5>All tasks</h5>
+                            </div>
+                    </div>
                     </div>
                 </main>
             </span>

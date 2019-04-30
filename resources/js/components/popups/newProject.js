@@ -368,7 +368,6 @@ export default class PopupNewProject extends Component {
     }
 
     removeTag(e) {
-        console.log(e);
         var array = [...this.state.tags]; // make a separate copy of the array
         var index = array.indexOf(e.tag);
         if (index !== -1) {

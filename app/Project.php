@@ -60,4 +60,8 @@ class Project extends Model
     public function projectLogs() {
         return $this->hasMany("App\Log")->orderBy('id', 'desc');
     }
+
+    public function projectPolls() {
+        return $this->hasMany('App\Poll');
+    }
 }

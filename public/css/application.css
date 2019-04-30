@@ -1586,6 +1586,12 @@ input[type=checkbox]:checked + #nav-mobile--menu {
   color: #000;
 }
 
+.popup-poll {
+  margin-bottom: 15px;
+  max-height: 150px;
+  overflow-y: auto;
+}
+
 .popup-groups {
   min-height: 120px;
 }
@@ -3987,6 +3993,56 @@ span.CodeMirror-selectedtext {
 
 .project-crisiscenter-right table td {
   padding: 12px;
+}
+
+.project-polls h5 {
+  font-family: "Raleway", sans-serif;
+  margin-bottom: 9px;
+  font-weight: bold;
+  opacity: 0.8;
+  text-transform: uppercase;
+  width: 100%;
+}
+
+.project-polls-item {
+  float: left;
+  width: 48%;
+  margin: 0 25px 25px 0;
+}
+
+.project-polls-head {
+  padding: 8px;
+  color: white;
+  background-color: #2D3E50;
+  position: relative;
+}
+
+.project-polls-head .votes {
+  position: absolute;
+  right: 12px;
+  font-weight: bold;
+}
+
+.project-polls-body {
+  padding: 16px;
+  background-color: white;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.15);
+  list-style-type: none;
+  font-family: "Muli", sans-serif;
+  margin-bottom: 30px;
+}
+
+.project-polls-body .option {
+  cursor: pointer;
+  text-align: center;
+  padding: 8px;
+  background-color: white;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.15);
+  margin-bottom: 15px;
+}
+
+.project-polls-body .option:active {
+  opacity: 0.6;
 }
 
 .project-logs {

@@ -1,0 +1,50 @@
+.project-polls {
+  h5 {
+    font-family: "Raleway", sans-serif;
+    margin-bottom: 9px;
+    font-weight: bold;
+    opacity: 0.8;
+    text-transform: uppercase;
+    width: 100%;
+  }
+
+  &-item {
+    float: left;
+    width: 48%;
+    margin: 0 25px 25px 0;
+  }
+
+  &-head {
+    padding: 8px;
+    color: white;
+    background-color: #2D3E50;
+    position: relative;
+    .votes {
+      position: absolute;
+      right: 12px;
+      font-weight: bold;
+    }
+  }
+
+  &-body {
+    padding: 16px;
+    background-color: white;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.15);
+    list-style-type: none;
+    font-family: "Muli", sans-serif;
+    margin-bottom: 30px;
+
+    .option {
+      cursor: pointer;
+      text-align: center;
+      padding: 8px;
+      background-color: white;
+      box-shadow: 0 1px 5px rgba(0, 0, 0, 0.15);
+      margin-bottom: 15px;
+      &:active {
+        opacity: 0.6;
+      }
+    }
+  }
+
+}

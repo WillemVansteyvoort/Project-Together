@@ -215,6 +215,12 @@ Route::post('/api/project/logs/items', 'Application\Project\LogController@getite
 Route::post('/api/project/logs/create', 'Application\Project\LogController@create');
 Route::post('/api/project/logs/edit', 'Application\Project\LogController@edit');
 
+//polls
+Route::post('/api/project/polls/items', 'Application\Project\PollController@getitems');
+Route::post('/api/project/polls/vote', 'Application\Project\PollController@vote');
+Route::post('/api/project/polls/create', 'Application\Project\PollController@create');
+Route::post('/api/project/polls/delete', 'Application\Project\PollController@delete');
+
 
 Route::post('/twostep', 'Application\TwoStepController@login');
 
