@@ -392,9 +392,10 @@ export default class ProjectOverview extends Component {
         const {showUser} = this.state;
         return (
             <span>
-                <button className="project-header-plus no-button test" onClick={() => this.toggleShow(true)}>
+                {!window.Laravel.data.ended ? <button className="project-header-plus no-button test" onClick={() => this.toggleShow(true)}>
                     <i className="fas fa-cog"> </i>
-                </button>
+                    </button> : ""}
+
                 <main className="project-main">
                         {this.state.loading ?
                             <div className="project-loading">

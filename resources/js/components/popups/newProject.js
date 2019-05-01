@@ -75,6 +75,7 @@ export default class PopupNewProject extends Component {
 
             //errors
             error_title: "",
+            error_name: false,
             error_date: "",
             error_description: "",
             error_own: false,
@@ -98,6 +99,7 @@ export default class PopupNewProject extends Component {
         this.createProject = this.createProject.bind(this);
         this.changeOwn = this.changeOwn.bind(this);
         this.changeOwnTimer = this.changeOwnTimer.bind(this);
+        this.checkName = this.checkName.bind(this);
     }
 
 
@@ -195,31 +197,29 @@ export default class PopupNewProject extends Component {
 
     createProject() {
 
-        var errors = false;
         if(this.state.title.length < 4) {
             this.setState({error_title: "The project title must have 4 characters minimum"});
-            errors = true;
         } else {
             this.setState({error_title: ""});
-            errors = false;
+        }
+        if(this.state.error_name) {
+            this.setState({error_title: "This name is already in use"});
+
         }
         if(this.state.description.length < 10) {
             this.setState({error_description: "The description must have 10 characters minimum"});
-            errors = true;
         } else {
             this.setState({error_description: ""});
-            errors = false;
         }
 
         let CurrentDate = new Date();
         let givenDate = new Date(this.state.end_date);
         if(givenDate < CurrentDate){
             this.setState({error_date: "Given date is not greater than the current date."});
-            errors = true;
         } else {
                 this.setState({error_date: ""});
         }
-        if(!errors) {
+        if(!this.state.title.length < 4 && !this.state.description.length < 10 && !givenDate < CurrentDate && !this.state.error_name) {
             this.setState({
                 isLoading: true,
             });
@@ -376,6 +376,16 @@ export default class PopupNewProject extends Component {
         }
     }
 
+    checkName() {
+        axios.post('/api/project/check/name', {
+           name: this.state.title
+        }).then(response => {
+            if(response.data) {
+                this.setState({error_title: "This name is already in use", error_name: true});
+            }
+        });
+    }
+
     //popup
     toggleShow(show) {
         this.setState({show});
@@ -424,7 +434,7 @@ export default class PopupNewProject extends Component {
                                             <div className="twelve columns">
                                                 <label>Project name</label>
                                                 <div id="red">{this.state.error_title}</div>
-                                                <input type="text" className={this.state.error_title.length > 0 ? "border-red u-full-width" : "u-full-width"} value={this.state.title} onChange={e => this.setState({ title: e.target.value })} />
+                                                <input type="text" className={this.state.error_title.length > 0 ? "border-red u-full-width" : "u-full-width"} value={this.state.title} onChange={e => this.setState({ title: e.target.value })} onBlur={e => this.checkName()} />
                                             </div>
                                         </div>
                                           <div className="row">

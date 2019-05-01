@@ -90,7 +90,10 @@ Route::group(['middleware' => ['auth', 'company', 'verification', 'project']], f
     Route::get('/{company}/{project}/project/{path?}', [
         'uses' => 'Application\ProjectController@data',
         'where' => ['path' => '.*']
-    ]);
+    ])->name('app_project');
+    Route::get('/{company}/{project}/end/project/','Application\ProjectController@ended')->name('app_projectEnd');
+    Route::post('/{company}/{project}/project', 'Application\ProjectController@reopen');
+
 });
 
 /////********************** OTHER PAGES ********************** /////
@@ -169,6 +172,8 @@ Route::get('/api/calendar/receive', 'Application\CalendarController@receive');
 
 //Projects
 Route::post('/api/project/new', 'Application\ProjectController@create');
+Route::post('/api/project/check/name', 'Application\ProjectController@checkName');
+
 Route::post('/api/project/edit', 'Application\ProjectController@edit');
 Route::get('/api/projects/all', 'Application\ProjectController@getProjects');
 Route::post('/api/projects/users', 'Application\ProjectController@getUsers');

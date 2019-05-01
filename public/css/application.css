@@ -4032,6 +4032,16 @@ span.CodeMirror-selectedtext {
   margin-bottom: 30px;
 }
 
+.project-polls-body p {
+  margin: 0 0 15px 0;
+}
+
+.project-polls-body .date {
+  font-weight: bold;
+  float: right;
+  margin-top: 10px;
+}
+
 .project-polls-body .option {
   cursor: pointer;
   text-align: center;
@@ -4083,6 +4093,41 @@ span.CodeMirror-selectedtext {
   padding: 8px;
   color: white;
   background-color: #2D3E50;
+}
+
+.project-end {
+  margin: 2% 25% 0 25%;
+}
+
+.project-end-box {
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.15);
+  padding: 16px;
+}
+
+.project-end h5 {
+  font-family: "Raleway", sans-serif;
+  margin-bottom: 9px;
+  font-weight: bold;
+  opacity: 0.8;
+  text-transform: uppercase;
+}
+
+.project-end h6 {
+  font-family: "Raleway", sans-serif;
+  font-weight: bold;
+  font-size: 18px;
+  opacity: 0.8;
+}
+
+.project-end input,
+.project-end button {
+  display: inline-block !important;
+}
+
+.project-end img {
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
 }
 
 .user-profile {

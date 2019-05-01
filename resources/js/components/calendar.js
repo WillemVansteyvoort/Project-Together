@@ -93,9 +93,10 @@ export default class Calendar extends Component {
         this.getAll();
         this.getToday();
         this.getTomorrow();
+        this.init();
     }
     componentDidMount() {
-        this.interval =  setInterval(() => this.init(), 1000);
+        // this.interval =  setInterval(() => this.init(), 000);
     }
 
 
@@ -175,23 +176,160 @@ export default class Calendar extends Component {
 
     }
 
-
     previousMonth() {
+
+        var dagen = [];
+        let year = this.state.currentYear;
+        //zien welke dag is en dagen ervoor vervormen
         if(this.state.currentMonth === 0) {
-            this.setState({currentMonth: 11, currentYear: this.state.currentYear-1});
+            this.setState({currentMonth: 0, currentYear: this.state.currentYear-1});
+            year = this.state.currentYear-1;
         } else {
-            this.setState({currentMonth: (this.state.currentMonth-1)});
+            this.setState({currentMonth: this.state.currentMonth-1});
         }
-        this.init();
+
+        var firstDay = new Date(year, this.state.currentMonth-1, 1);
+        var lengthOther =  firstDay.getDay();
+        var lastMonth =  new Date(year, (this.state.currentMonth-1), 0).getDate();
+        for (var x = 1; x < lengthOther; x++) {
+            var day2 = {
+                id: lastMonth - (lengthOther-x) + 1,
+                day: '',
+                month: '',
+                year: '',
+                events: [this.state.allEvents],
+            }
+
+            dagen[x] = day2;
+        }
+        //alle dagen
+        var length=  new Date(year, (this.state.currentMonth), 0).getDate();
+        for (var i = 0; i < length; i++) {
+            var date = new Date(year, this.state.currentMonth, i+1);
+            var events = [];
+            axios.get('/api/calendar/receive').then((
+                response
+                ) => {
+                    events = response.data.all
+                }
+            );
+            if(i+1 < 10 && ((date.getMonth()) < 10)) {
+                var day = {
+                    id: "0"+(i+1),
+                    day: weekday[date.getDay()],
+                    year: date.getFullYear(),
+                    month: "0"+(date.getMonth()+1),
+                    events: [this.state.allEvents],
+                }
+                dagen[i+lengthOther] = day;
+            } else if((i+1 < 10)) {
+                var day = {
+                    id: "0"+(i+1),
+                    day: weekday[date.getDay()],
+                    year: date.getFullYear(),
+                    month: date.getMonth(),
+                    events: [this.state.allEvents],
+                }
+                dagen[i+lengthOther] = day;
+            } else if(((date.getMonth()) < 10)) {
+                var day = {
+                    id: (i+1),
+                    day: weekday[date.getDay()],
+                    year: date.getFullYear(),
+                    month: "0"+(date.getMonth()+1),
+                    events: [this.state.allEvents],
+                }
+            } else
+                var day = {
+                    id: (i+1),
+                    day: weekday[date.getDay()],
+                    year: date.getFullYear(),
+                    month: date.getMonth(),
+                    events: [this.state.allEvents],
+                }
+            dagen[i+lengthOther] = day;
+        }
+        this.setState({days: [dagen]})
+        this.setState({currentMonth: this.state.currentMonth-1});
     }
+
     nextMonth() {
+
+        var dagen = [];
+        let year = this.state.currentYear;
+        let month = this.state.currentMonth;
+        //zien welke dag is en dagen ervoor vervormen
         if(this.state.currentMonth === 11) {
             this.setState({currentMonth: 0, currentYear: this.state.currentYear+1});
-            this.init();
+            year = this.state.currentYear+1;
+            month = 0;
         } else {
             this.setState({currentMonth: this.state.currentMonth+1});
-            this.init();
+            month = this.state.currentMonth+1;
         }
+
+        var firstDay = new Date(year, month-1, 1);
+        var lengthOther =  firstDay.getDay();
+        var lastMonth =  new Date(year, (month-1), 0).getDate();
+        for (var x = 1; x < lengthOther; x++) {
+            var day2 = {
+                id: lastMonth - (lengthOther-x) + 1,
+                day: '',
+                month: '',
+                year: '',
+                events: [this.state.allEvents],
+            }
+
+            dagen[x] = day2;
+        }
+        //alle dagen
+        var length=  new Date(year, (month), 0).getDate();
+        for (var i = 0; i < length; i++) {
+            var date = new Date(year, month, i+1);
+            var events = [];
+            axios.get('/api/calendar/receive').then((
+                response
+                ) => {
+                    events = response.data.all
+                }
+            );
+            if(i+1 < 10 && ((date.getMonth()) < 10)) {
+                var day = {
+                    id: "0"+(i+1),
+                    day: weekday[date.getDay()],
+                    year: date.getFullYear(),
+                    month: "0"+(date.getMonth()+1),
+                    events: [this.state.allEvents],
+                }
+                dagen[i+lengthOther] = day;
+            } else if((i+1 < 10)) {
+                var day = {
+                    id: "0"+(i+1),
+                    day: weekday[date.getDay()],
+                    year: date.getFullYear(),
+                    month: date.getMonth(),
+                    events: [this.state.allEvents],
+                }
+                dagen[i+lengthOther] = day;
+            } else if(((date.getMonth()) < 10)) {
+                var day = {
+                    id: (i+1),
+                    day: weekday[date.getDay()],
+                    year: date.getFullYear(),
+                    month: "0"+(date.getMonth()+1),
+                    events: [this.state.allEvents],
+                }
+            } else
+                var day = {
+                    id: (i+1),
+                    day: weekday[date.getDay()],
+                    year: date.getFullYear(),
+                    month: date.getMonth(),
+                    events: [this.state.allEvents],
+                }
+            dagen[i+lengthOther] = day;
+        }
+        this.setState({days: [dagen]})
     }
 
     toggleShow(show) {
@@ -209,7 +347,7 @@ export default class Calendar extends Component {
                             <div className="row">
                                 <div className="four columns">
                                     <div className="calendar-left">
-                                        <a  onClick={this.previousMonth} className="fas fa-arrow-left"> </a>
+                                        <a  onClick={ e =>this.previousMonth()} className="fas fa-arrow-left"> </a>
                                     </div>
                                 </div>
                                 <div className="four columns">
@@ -217,7 +355,7 @@ export default class Calendar extends Component {
                                 </div>
                                 <div className="four columns">
                                     <div className="calendar-right">
-                                        <a onClick={this.nextMonth} className="fas fa-arrow-right"> </a>
+                                        <a onClick={e => this.nextMonth()} className="fas fa-arrow-right"> </a>
                                     </div>
                                 </div>
                             </div>

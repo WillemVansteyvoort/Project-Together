@@ -106,21 +106,9 @@ export default class ProjectCrisisCenter extends Component {
     }
 
     setSolved(item) {
-        axios.post('/api/project/crisiscenter/solved', {
-           id: item.id,
-            project: window.Laravel.data.project,
-        }).then(response => {
-            this.setState({
-                solved_items: response.data.solved,
-                progress_items: response.data.progress,
-            });
-        });
-    }
-
-    setProgress(id) {
-        if(confirm("Are you sure you want to reopen this item?")) {
-            axios.post('/api/project/crisiscenter/progress', {
-                id: id,
+        if(!window.Laravel.data.ended) {
+            axios.post('/api/project/crisiscenter/solved', {
+                id: item.id,
                 project: window.Laravel.data.project,
             }).then(response => {
                 this.setState({
@@ -128,6 +116,22 @@ export default class ProjectCrisisCenter extends Component {
                     progress_items: response.data.progress,
                 });
             });
+        }
+    }
+
+    setProgress(id) {
+        if(!window.Laravel.data.ended) {
+            if(confirm("Are you sure you want to reopen this item?")) {
+                axios.post('/api/project/crisiscenter/progress', {
+                    id: id,
+                    project: window.Laravel.data.project,
+                }).then(response => {
+                    this.setState({
+                        solved_items: response.data.solved,
+                        progress_items: response.data.progress,
+                    });
+                });
+            }
         }
     }
 
@@ -200,10 +204,13 @@ $        }).then(response => {
                                                     <a href={"/" +  window.Laravel.company.url + "/" + item.user.username + "/profile/"}>{item.user.name} {item.user.lastname}</a>
                                                 </div>
                                             </div>
+                                            {!window.Laravel.data.ended ?
                                             <div className="float-right">
+
                                                 <i className="fas fa-edit" onClick={e => this.setState({edit_item: item, edit_description: item.description, edit_title: item.name, edit_priority: item.priority, edit_id: item.id, showEdit: true})}> </i>
                                                 <i className="fas fa-trash-alt" onClick={event => this.deleteItem(item.id)}> </i>
                                             </div>
+                                                : ""}
                                             <div className="clear"> </div>
                                         </AccordionItemBody>
                                     </AccordionItem>
@@ -274,9 +281,11 @@ $        }).then(response => {
         const {showEdit} = this.state;
         return (
             <span>
+                {!window.Laravel.data.ended ?
                  <button className="project-header-plus no-button test" onClick={() => this.toggleShow(true)}>
                     <i className="fas fa-plus"> </i>
                 </button>
+                    : ""}
                 <main className="project-main">
                 <div className="project-crisiscenter">
                     <div className="row">

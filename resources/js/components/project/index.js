@@ -32,6 +32,7 @@ export default class ProjectIndex extends Component {
             company: window.Laravel.data.company,
             name: window.Laravel.data.name,
             currentPath: window.location.pathname,
+            end_date: '',
             tasks: null,
             notes: null,
             forum: null,
@@ -93,6 +94,7 @@ export default class ProjectIndex extends Component {
             project: window.Laravel.data.project,
         }).then(response => {
             this.setState({
+                end_date: response.data.end_date,
                 tasks: response.data.tasks,
                 notes: response.data.notes,
                 forum: response.data.forum,

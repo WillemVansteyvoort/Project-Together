@@ -25,6 +25,7 @@ class PollController extends Controller
             'title' => $request->title,
             'content' => $request->desc,
             'project_id' => $project->id,
+            'end_date' => $request->end_date,
             'multiple' => $request->multiple,
             'change' => $request->change,
         ]);
@@ -40,14 +41,26 @@ class PollController extends Controller
     }
 
     public function vote(Request $request) {
-        PollVote::create([
-           'poll_id' => $request->poll_id,
-            'poll_option_id' => $request->vote_id,
-            'user_id' => Auth()->user()->id
+        $created = true;
+        $duplicated = false;
+
+        if(PollVote::where([['poll_id', $request->poll_id], ['poll_option_id', $request->vote_id], ['user_id', Auth::user()->id]])->count() > 0) {
+           $created = false;
+           $duplicated = true;
+        } else {
+            PollVote::create([
+                'poll_id' => $request->poll_id,
+                'poll_option_id' => $request->vote_id,
+                'user_id' => Auth()->user()->id
+            ]);
+        }
+        return response()->json([
+            'created' => $created,
+            'duplicate' => $duplicated,
         ]);
     }
 
     public function delete(Request $request) {
-        PollVote::destroy($request->vote_id);
+        PollVote::where([['poll_id', $request->poll_id], ['user_id', Auth::user()->id]])->delete();
     }
 }

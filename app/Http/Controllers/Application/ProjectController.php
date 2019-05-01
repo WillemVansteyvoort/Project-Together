@@ -11,6 +11,7 @@ use App\Group;
 use App\Events\Notifications;
 use App\Notification;
 use App\Company;
+use Carbon\Carbon;
 use App\Activity;
 use App\Column;
 use App\BoardItem;
@@ -167,6 +168,14 @@ class ProjectController extends SlugifyController
         }
     }
 
+    public function checkName(Request $request) {
+        if(Project::where([['name', $request->name], ['company_id', Auth::user()->company_id]])->count() > 0) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+
     public function edit(Request $request) {
         $project = Project::where('url', '=', $request->project)->first();
 
@@ -209,7 +218,7 @@ class ProjectController extends SlugifyController
         }
 
         //add-ons
-        if($request->project_board) {
+        if($request->project_board && Column::where([["project_id" => $project->id]])->count() === 0) {
             $firstColumn = Column::create([
                 'name' => 'Todo',
                 'project_id' => $project->id,
@@ -249,6 +258,43 @@ class ProjectController extends SlugifyController
     public function data($company, $project) {
         $project_all = Project::where('url', '=', $project)->first();
         $name = $project_all->name;
+        $end_date = $project_all->end_date;
+        $members = $project_all->users;
+        $desc = $project_all->description;
+        $ended = 0;
+        if($end_date <= Carbon::now() && $end_date != null) {
+            $ended = true;
+            return view('application.project.index', compact('company', 'project', 'name', 'ended'));
+        } else {
+            return view('application.project.index', compact('company', 'project', 'ended', 'name'));
+        }
+    }
+
+    public function ended($company, $project) {
+        $project_all = Project::where('url', '=', $project)->first();
+        $name = $project_all->name;
+        $end_date = $project_all->end_date;
+        $members = $project_all->users;
+        $desc = $project_all->description;
+        $ended = 1;
+        return view('application.project.end', compact('company', 'project', 'name', 'members', 'desc', 'ended'));
+
+    }
+    public function reopen(Request $request) {
+        $project_all = Project::where('url', '=', $request->project)->first();
+        $project_all->end_date = null;
+        $project_all->save();
+        $name = $project_all->name;
+        $company = $request->company;
+        $project = $request->project;
+        $ended = 0;
+        return view('application.project.index', compact('company', 'project', 'name', 'ended'));
+    }
+
+    public function guest($company, $project) {
+        $project_all = Project::where('url', '=', $project)->first();
+        $name = $project_all->name;
         return view('application.project.index', compact('company', 'project', 'name'));
+
     }
 }

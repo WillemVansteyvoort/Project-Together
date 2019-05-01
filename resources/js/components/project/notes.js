@@ -150,7 +150,7 @@ export default class ProjectNotes extends Component {
                     {this.state.notes.map((note, i)=> (
                         <li key={i}>
                         <span href="#">
-                            {note.user_id === window.Laravel.user.id ? <i className="fas fa-trash-alt delete" onClick={() => this.deleteNote(note.id)}> </i> : ""}
+                            {note.user_id === window.Laravel.user.id && !window.Laravel.data.ended ? <i className="fas fa-trash-alt delete" onClick={() => this.deleteNote(note.id)}> </i> : ""}
                             <h5>{note.name}</h5>
                             <p>{note.text}</p>
                             <div className="creator">
@@ -180,9 +180,9 @@ export default class ProjectNotes extends Component {
                  <div id="success" className={this.state.created ? "" : "hidden"}>
                     <Notification  type="success" title="successfully" message="The new note is successfully been created"/>
                 </div>
-                <button className="project-header-plus no-button test" onClick={() => this.toggleShow(true)}>
+                {!window.Laravel.data.ended ? <button className="project-header-plus no-button test" onClick={() => this.toggleShow(true)}>
                     <i className="fas fa-plus"> </i>
-                </button>
+                </button> : ""}
                 <main className="project-main">
                     {(this.state.notes.length === 0 && !this.state.loading)  ?
                         <div className="project-loading">

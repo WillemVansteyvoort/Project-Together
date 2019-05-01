@@ -99,7 +99,7 @@ export default class Projects extends Component {
                                           </thead>
                                           <tbody>
                                           {this.state.projects.map((project, i) => (
-                                              <tr key={i} className={(new Date(project.end_date) >= new Date()) || (project.end_date === null) ? "hidden" : ""}  onClick={e =>this.changeOverlay(i)}>
+                                              <tr key={i} className={(new Date(project.end_date) >= new Date()) || (project.end_date === null) ? "hidden" : ""}   onClick={e =>window.location.href='./' + project.url + "/end/project"}>
                                                   <td>{project.name}</td>
                                                   <td><Timestamp time={project.created_at} precision={2} utc={false} autoUpdate={60}   /></td>
                                                   <td><Timestamp time={new Date(project.end_date)} precision={2} utc={false} autoUpdate={60}  /></td>

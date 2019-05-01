@@ -1,0 +1,29 @@
+.project-end {
+  margin: 2% 25% 0 25%;
+
+  &-box {
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.15);
+    padding: 16px;
+  }
+  h5 {
+    font-family: "Raleway", sans-serif;
+    margin-bottom: 9px;
+    font-weight: bold;
+    opacity: 0.8;
+    text-transform: uppercase;
+  }
+  h6 {
+    font-family: "Raleway", sans-serif;
+    font-weight: bold;
+    font-size: 18px;
+    opacity: 0.8;
+  }
+  input, button {
+    display: inline-block !important;
+  }
+  img {
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+  }
+}

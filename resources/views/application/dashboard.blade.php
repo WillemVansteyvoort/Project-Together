@@ -27,7 +27,7 @@
                         @foreach(Auth::user()->limitProjects  as $project)
                             <div class="sidebar-project">
                                 <span class="sidebar-project--title">{{$project->name}}</span>
-                                <a href=""><i class="fas fa-arrow-right"> </i></a>
+                                <a href="{{route('app_project', [\Illuminate\Support\Facades\Auth::user()->company->url, $project->url])}}"><i class="fas fa-arrow-right"> </i></a>
                                 <div class="clear"></div>
                             </div>
                         @endforeach

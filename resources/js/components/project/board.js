@@ -42,6 +42,7 @@ export default class ProjectBoard extends Component {
         this.createCard = this.createCard.bind(this);
         this.editCard = this.editCard.bind(this);
         this.deleteCard = this.deleteCard.bind(this);
+        this.openItem = this.openItem.bind(this);
     }
 
     getItems() {
@@ -156,6 +157,12 @@ export default class ProjectBoard extends Component {
     onDragStart(ev, id) {
         ev.dataTransfer.setData("id", id);
     }
+
+    openItem(t) {
+        if(!window.Laravel.data.ended) {
+            this.setState({selected_card: t, show_edit: true, editCard_name: t.name, editCard_description: t.description, editCard_expected: t.duration, editCard_color: t.color, editCard_user: t.user_id})
+        }
+    }
     onDrop (ev, cat) {
         console.log(id);
         let id = ev.dataTransfer.getData("id");
@@ -206,7 +213,7 @@ export default class ProjectBoard extends Component {
                         key={t.id}
                         className="project-board-item"
                         onDragStart = {(e) => this.onDragStart(e, t.id)}
-                        onClick= {(e) => this.setState({selected_card: t, show_edit: true, editCard_name: t.name, editCard_description: t.description, editCard_expected: t.duration, editCard_color: t.color, editCard_user: t.user_id})}
+                        onClick= {(e) => this.openItem(t)}
                         draggable >
                         <div className={t.color === "red" ? "project-board-item-content border-" + t.color : "project-board-item-content border-grey"}>
                             <h6 className="title"> {t.name}</h6>
@@ -221,9 +228,9 @@ export default class ProjectBoard extends Component {
 
         return (
             <span>
-                <button className="project-header-plus no-button test" onClick={() => this.toggleShow(true)}>
-                    <i className="fas fa-plus"> </i>
-                </button>
+                {!window.Laravel.data.ended ?  <button className="project-header-plus no-button test" onClick={() => this.toggleShow(true)}>
+                        <i className="fas fa-plus"> </i>
+                    </button> : ""}
                 <main className="project-board">
                     {this.state.loading ?
                         <div className="project-loading">

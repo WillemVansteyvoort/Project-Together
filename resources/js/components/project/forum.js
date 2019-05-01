@@ -256,7 +256,12 @@ export default class ProjectForum extends Component {
 
                                 </div>
                                 :
-                                <button className="button button-primary no-button" onClick={() => this.setState({show: true})}><i className="fas fa-plus"></i> Create thread</button>}
+                                <span>
+                                    {!window.Laravel.data.ended ?
+                                        <button className="button button-primary no-button" onClick={() => this.setState({show: true})}><i className="fas fa-plus"></i> Create thread</button>
+                                        : ""}
+                                </span>
+                            }
                         </div>
                         <h5>Tags</h5>
                         <ul className="dashboard-forum-tags">
@@ -298,25 +303,31 @@ export default class ProjectForum extends Component {
                                                             <div className="nine columns dashboard-forum-post-content">
                                                                 <ReactMarkdown source={reply.content} />
                                                             </div>
+                                                            {!window.Laravel.data.ended ?
                                                             <div className="actions">
                                                                 {window.Laravel.user.id === reply.user_id ?<a onClick={e => this.getReply(i)}><i className="fas fa-pencil-alt"> </i></a> : ""}
                                                                 {window.Laravel.user.id === reply.user_id ?<a onClick={e => this.deleteReply(reply.id)}><i className="fas fa-trash-alt"> </i></a> : ""}
                                                             </div>
+                                                                : ""}
                                                         </div>
                                                         :
                                                         ""
                                                     }
                                                         </span>
                                             ))}
-                                            <div id="reply" className="dashboard-forum-reply">
-                                                <SimpleMDEReact
-                                                    className={""}
-                                                    label="Reply to this post"
-                                                    value={this.state.reply_message}
-                                                    onChange={this.handleChange2}
-                                                />
-                                                <button className="button button-primary no-button"onClick={() => this.createReply()}>Reply</button>
-                                            </div>
+                                            <span>
+                                            {!window.Laravel.data.ended ?
+                                                <div id="reply" className="dashboard-forum-reply">
+                                                    <SimpleMDEReact
+                                                        className={""}
+                                                        label="Reply to this post"
+                                                        value={this.state.reply_message}
+                                                        onChange={this.handleChange2}
+                                                    />
+                                                    <button className="button button-primary no-button"onClick={() => this.createReply()}>Reply</button>
+                                                </div>
+                                        : ""}
+                                            </span>
                                         </div>
 
                                         :

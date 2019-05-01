@@ -101,9 +101,9 @@ export default class ProjectLogs extends Component {
         const {show} = this.state;
         return (
             <span>
-                <button className="project-header-plus no-button test" onClick={() => this.toggleShow(true)}>
-                    <i className="fas fa-plus"> </i>
-                </button>
+               {!window.Laravel.data.ended ? <button className="project-header-plus no-button test" onClick={() => this.toggleShow(true)}>
+                   <i className="fas fa-plus"> </i>
+               </button> : ""}
                 <main className="project-main">
                     <div className="project-logs">
                         <div className="row">
