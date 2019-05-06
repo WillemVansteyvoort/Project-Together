@@ -118,13 +118,13 @@
 
   &-message {
     margin: 70px  40px 20px 40px;
-
+    padding-top: 12px;
+    font-family: $font_raleway;
     h5 {
       text-transform: uppercase;
     }
-    p {
-      padding-top: 12px;
-      font-family: $font_raleway;
+    img {
+      max-width: 40%;
     }
     td {
       border-bottom: 1px solid #f0f0f0;

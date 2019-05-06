@@ -76,9 +76,10 @@ export default class ProjectNotes extends Component {
     }
 
     componentDidMount() {
-        this.interval =  setInterval(() => this.changeCreatedTimer(), 3500);
-        this.interval =  setInterval(() => this.changeCreated(), 4000);
     }
+    componentWillUnmount() {
+    }
+
     getNotes() {
         axios.post('/api/project/notes/all', {
             project: window.Laravel.data.project,

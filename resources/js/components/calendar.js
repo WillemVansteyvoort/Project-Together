@@ -43,6 +43,7 @@ export default class Calendar extends Component {
             currentMonth: d.getMonth(),
             currentYear: d.getFullYear(),
 
+            eventsDay: [],
             //events
             todayAll: [],
             tomorrowAll:  [],
@@ -56,6 +57,7 @@ export default class Calendar extends Component {
         this.previousMonth = this.previousMonth.bind(this);
         this.nextMonth = this.nextMonth.bind(this);
         this.getToday = this.getToday.bind(this);
+        this.getDay = this.getDay.bind(this);
     }
 
 
@@ -89,6 +91,18 @@ export default class Calendar extends Component {
                 })
         );
     }
+
+    getDay(date) {
+        axios.post('/api/calendar/day', {
+            from: date
+        }).then(response => {
+            this.setState({
+                show: true,
+                eventsDay: response.data,
+            });
+        });
+    }
+
     componentWillMount() {
         this.getAll();
         this.getToday();
@@ -177,20 +191,23 @@ export default class Calendar extends Component {
     }
 
     previousMonth() {
-
         var dagen = [];
         let year = this.state.currentYear;
+        let month = this.state.currentMonth;
         //zien welke dag is en dagen ervoor vervormen
-        if(this.state.currentMonth === 0) {
+        if(this.state.currentMonth === 11) {
             this.setState({currentMonth: 0, currentYear: this.state.currentYear-1});
             year = this.state.currentYear-1;
+            month = 0;
         } else {
             this.setState({currentMonth: this.state.currentMonth-1});
+            month = this.state.currentMonth;
         }
 
-        var firstDay = new Date(year, this.state.currentMonth-1, 1);
+
+        var firstDay = new Date(year, month, 1);
         var lengthOther =  firstDay.getDay();
-        var lastMonth =  new Date(year, (this.state.currentMonth-1), 0).getDate();
+        var lastMonth =  new Date(year, (month), 0).getDate();
         for (var x = 1; x < lengthOther; x++) {
             var day2 = {
                 id: lastMonth - (lengthOther-x) + 1,
@@ -203,9 +220,9 @@ export default class Calendar extends Component {
             dagen[x] = day2;
         }
         //alle dagen
-        var length=  new Date(year, (this.state.currentMonth), 0).getDate();
+        var length=  new Date(year, (month), 0).getDate();
         for (var i = 0; i < length; i++) {
-            var date = new Date(year, this.state.currentMonth, i+1);
+            var date = new Date(year, month, i+1);
             var events = [];
             axios.get('/api/calendar/receive').then((
                 response
@@ -250,7 +267,6 @@ export default class Calendar extends Component {
             dagen[i+lengthOther] = day;
         }
         this.setState({days: [dagen]})
-        this.setState({currentMonth: this.state.currentMonth-1});
     }
 
     nextMonth() {
@@ -262,15 +278,14 @@ export default class Calendar extends Component {
         if(this.state.currentMonth === 11) {
             this.setState({currentMonth: 0, currentYear: this.state.currentYear+1});
             year = this.state.currentYear+1;
-            month = 0;
         } else {
             this.setState({currentMonth: this.state.currentMonth+1});
             month = this.state.currentMonth+1;
         }
 
-        var firstDay = new Date(year, month-1, 1);
+        var firstDay = new Date(year, month, 1);
         var lengthOther =  firstDay.getDay();
-        var lastMonth =  new Date(year, (month-1), 0).getDate();
+        var lastMonth =  new Date(year, (month+1), 0).getDate();
         for (var x = 1; x < lengthOther; x++) {
             var day2 = {
                 id: lastMonth - (lengthOther-x) + 1,
@@ -283,7 +298,7 @@ export default class Calendar extends Component {
             dagen[x] = day2;
         }
         //alle dagen
-        var length=  new Date(year, (month), 0).getDate();
+        var length=  new Date(year, (month+1), 0).getDate();
         for (var i = 0; i < length; i++) {
             var date = new Date(year, month, i+1);
             var events = [];
@@ -367,7 +382,7 @@ export default class Calendar extends Component {
                                         <span>{dag.day}</span>
                                         <span className={d.getDate() === dag.id && d.getMonth() === dag.month ? "gray calendar-current" : "gray"}>{dag.id}</span>
                                         {this.state.allEvents.map((event, i) => (
-                                            <div key={i}  onClick={e => this.setState({selected_event: this.state.allEvents[i], show: true})}>
+                                            <div key={i}  onClick={e => this.getDay(event.from)}>
                                                 {(event.from === dag.year + "-" + (dag.month) + "-" + dag.id && event.color === "green") && i <= 3 ?
                                                     <div  className="calendar-event calendar-event-green">
                                                         {event.title}
@@ -407,9 +422,9 @@ export default class Calendar extends Component {
                         </article>
                         <article className="calendar-overview">
                             <h5 className="calendar-overview--title">Tomorrow</h5>
-                            {this.state.tomorrowAll.map((event, i) => (
+                            {this.state.tomorrowAll.map((te, i) => (
                                 <div key={i} className="calendar-overview--item">
-                                    <p><span id="bold">{event.from_hour}- {event.until_hour}: </span> {event.title}</p>
+                                    <p><span id="bold">{te.from_hour}- {event.until_hour}: </span> {te.title}</p>
                                 </div>
                             ))}
                         </article>
@@ -426,10 +441,18 @@ export default class Calendar extends Component {
                             <button className="popup-btn--close"  onClick={() => this.toggleShow(false)}>✕</button>
                         </div>
                         <div className="popup-content">
-                            <div className="row">
-
-                            </div>
-                            <label>Description</label>
+                            {this.state.eventsDay.map((event, i) => (
+                            <article className="sidebar-event" key={i}>
+                                <div className="sidebar-event--date sidebar-event-black">
+                                    <span className="sidebar-event--date-day">01</span>
+                                    <span className="sidebar-event--date-month">Jan</span>
+                                </div>
+                                <div className="sidebar-event--content">
+                                    <h6 className="sidebar-event--content-title"> {event.title}</h6>
+                                    <span className="sidebar-event--content-hours"> - </span>
+                                </div>
+                            </article>
+                            ))}
                         </div>
                     </div>
                 </PopPop>

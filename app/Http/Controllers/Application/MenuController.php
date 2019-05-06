@@ -18,7 +18,7 @@ class MenuController extends Controller
             ['company_id', '=', $currentCompany],
             ['last_activity', '>', new \DateTime('-13 seconds')],
             ['online', '=', 1],
-            ])->get();
+            ])->select("username", "name", "id")->get();
 
 
         return $users->toJson(JSON_PRETTY_PRINT);

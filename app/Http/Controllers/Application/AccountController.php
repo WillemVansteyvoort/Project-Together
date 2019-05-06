@@ -129,6 +129,23 @@ class AccountController extends Controller
 
     }
 
+    public function getStats() {
+        $userProjects = Auth::user()->projects->count();
+        $totalProjects = Auth::user()->company->projects->count();
+        $totalNotifications = Auth::user()->notifcationsAll->count();
+        $totalActivities = Auth::user()->activities->count();
+
+        return response()->json([
+            'memberSince' => Auth::user()->created_at,
+            'userProjects' => $userProjects,
+            'totalEvents' => Auth::user()->company->events->count(),
+            'totalProjects' => $totalProjects,
+            'totalNotifications' => $totalNotifications,
+            'totalActivities' => $totalActivities,
+
+        ]);
+    }
+
     public function updatePassword(Request $request) {
         if (Hash::check($request->password_old, Auth::user()->password)) {
 

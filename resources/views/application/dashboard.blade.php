@@ -40,7 +40,7 @@
                     </div>
                     <div class="sidebar-events">
                         <h5>Upcoming events</h5>
-                            @if(Auth::user()->events->count() > 0)
+                    @if(Auth::user()->events->count() > 0)
                                 @foreach(Auth::user()->limitEvents  as $event)
                                 <article class="sidebar-event">
                                     <div class="sidebar-event--date sidebar-event-black">

@@ -103,4 +103,5 @@ class ForumController extends Controller
     public function deleteReply(Request $request) {
         Reply::destroy($request->id);
     }
+
 }

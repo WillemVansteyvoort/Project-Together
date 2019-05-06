@@ -181,4 +181,16 @@
     }
   }
 
+
+  &-stats {
+    margin: 0 auto;
+    width: 80%;
+    .react-sweet-progress-symbol {
+      width: 120px !important;
+    }
+    h5 {
+      margin-top: 10px;
+    }
+  }
+
 }

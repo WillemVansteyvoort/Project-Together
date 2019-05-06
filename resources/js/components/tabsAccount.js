@@ -86,6 +86,15 @@ export default class TabsAccount extends Component {
             password_message: '',
             password_compare: true,
 
+
+            //stats
+            userProjects: '',
+            totalProjects: '',
+            totalNotifications: '',
+            totalActivities: '',
+            memberSince: '',
+            totalEvents: '',
+
         };
         //bind
         this.getCountries = this.getCountries.bind(this);
@@ -108,12 +117,14 @@ export default class TabsAccount extends Component {
         this.onFormSubmit = this.onFormSubmit.bind(this);
         this.onChange = this.onChange.bind(this);
         this.fileUpload = this.fileUpload.bind(this);
+        this.getStats = this.getStats.bind(this);
     }
 
 
     componentWillMount() {
         this.getCountries();
         this.getLogs();
+        this.getStats();
     }
 
     componentDidMount() {
@@ -168,6 +179,23 @@ export default class TabsAccount extends Component {
                 this.setState({
                     countries: response.data
                 })
+        );
+    }
+
+    getStats() {
+        axios.get('/api/account/stats/').then((
+            response
+            ) => {
+          this.setState({
+              userProjects: response.data.userProjects,
+              totalProjects: response.data.totalProjects,
+              totalNotifications: response.data.totalNotifications,
+              totalActivities: response.data.totalActivities,
+              memberSince: response.data.memberSince,
+              totalEvents: response.data.totalEvents,
+          })
+
+        }
         );
     }
 
@@ -446,8 +474,8 @@ export default class TabsAccount extends Component {
                                        <Tab tabFor="vertical-tab-six"  className="account-tab"><i className="fas fa-tags"></i>My sessions</Tab>
 
                                        <h5>Website content</h5>
-                                       <Tab tabFor="vertical-tab-one" className="account-tab"><i className="fas fa-signal"> </i> My statistics</Tab>
-                                       <Tab tabFor="vertical-tab-seven"  className="account-tab"><i className="fas fa-download"> </i>Download your data</Tab>
+                                       <Tab tabFor="vertical-tab-seven" className="account-tab"><i className="fas fa-signal"> </i> My statistics</Tab>
+                                       <Tab tabFor="vertical-tab-eight"  className="account-tab"><i className="fas fa-download"> </i>Download your data</Tab>
                                    </TabList>
                                </div>
                            </div>
@@ -676,7 +704,31 @@ export default class TabsAccount extends Component {
                                        </div>
                                    </TabPanel>
                                    <TabPanel tabId="vertical-tab-seven">
-                                       <p>Tab 7 content</p>
+                                       <div className="account-stats">
+                                           <h4>My statistics</h4>
+                                           <h5>Your projects of company total</h5>
+                                           <Progress
+                                               percent={this.state.userProjects/this.state.totalProjects * 100}
+                                               theme={
+                                                   {
+                                                       active: {
+                                                           symbol: this.state.userProjects + " of the " + this.state.totalProjects,
+                                                           trailColor: 'white',
+                                                           color: '#5680e9'
+                                                       },
+                                                       success: {
+                                                           symbol: 'All projects',
+                                                           trailColor: 'lime',
+                                                           color: '#5680e9'
+                                                       }
+                                                   }
+                                               }
+                                           />
+                                           <h5>Other stats</h5>
+                                           <p>
+                                               You're a member since <b><Timestamp time={this.state.memberSince.date} precision={2} utc={false} autoUpdate={60}   /></b>. From that moment you have <b>{this.state.totalNotifications}</b> notifications and <b>{this.state.totalActivities}</b> activities in total. You have also created <b>{this.state.totalEvents}</b> events.
+                                           </p>
+                                       </div>
                                    </TabPanel>
                                </div>
                            </div>

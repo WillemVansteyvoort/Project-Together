@@ -10,108 +10,113 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-use Illuminate\Support\Facades\Mail;
-Route::get('/', function () {
-    return view('front.index');
-})->name('front_home');
+Route::group(['middleware' => ['lang']], function () {
+    Route::get('/', function () {
+        return view('front.index');
+    })->name('front_home');
 
-Route::get('/about', function () {
-    return view('front.about');
-})->name('front_about');
+    Route::get('/about', function () {
+        return view('front.about');
+    })->name('front_about');
 
-Route::get('/support', function () {
-   return view('front.support');
-})->name('front_support');
-
-
-Route::get('/blog', function () {
-    return view('front.blog');
-})->name('front_blog');
+    Route::get('/support', function () {
+        return view('front.support');
+    })->name('front_support');
 
 
-Route::get('/account', function () {
-    return view('application.account');
-});
+    Route::get('/blog', function () {
+        return view('front.blog');
+    })->name('front_blog');
 
 
-Route::post('/posts', 'HomeController@create');
+    Route::get('/account', function () {
+        return view('application.account');
+    });
 
-Route::get('/test', function () {
-    return view('application.test');
-});
+
+    Route::post('/posts', 'HomeController@create');
+
+    Route::get('/test', function () {
+        return view('application.test');
+    });
+
+//lang
+    Route::get('/', function () {
+        return view('front.index');
+    })->name('front_home');
+    Route::get('/lang/{lang}', 'LangController@set')->name('lang_set');
+
 
 /////********************** ONLY ADMIN ********************** /////
-Route::group(['middleware' => ['auth', 'owner']], function () {
-    Route::get('/company', 'CompanyController@index')->name('front_company');
-    Route::get('/company/settings', 'CompanyController@settings')->name('front_settings');
-    Route::post('/company/settings', 'CompanyController@update');
-    Route::post('/company/logo', 'CompanyController@deleteLogo');
-    Route::get('/welcome', 'CompanyController@welcome')->name('app_welcome');
-});
-
+    Route::group(['middleware' => ['auth', 'owner']], function () {
+        Route::get('/company', 'CompanyController@index')->name('front_company');
+        Route::get('/company/settings', 'CompanyController@settings')->name('front_settings');
+        Route::post('/company/settings', 'CompanyController@update');
+        Route::post('/company/logo', 'CompanyController@deleteLogo');
+        Route::get('/welcome', 'CompanyController@welcome')->name('app_welcome');
+    });
 
 
 /////********************** AUTHORIZATION ********************** /////
-Route::get('/{company}/login', 'Auth\CompanyLoginController@index')->name('front_loginCompany');
+    Route::get('/{company}/login', 'Auth\CompanyLoginController@index')->name('front_loginCompany');
 
-Route::post('/company/login', 'Auth\CompanyLoginController@store');
-Route::get('/login', 'Auth\LoginController@index')->name('front_login');
-Route::post('/login', 'Auth\LoginController@store')->name('front_login');
-Route::get('/signup', 'Auth\RegisterController@index')->name('front_signup');
+    Route::post('/company/login', 'Auth\CompanyLoginController@store');
+    Route::get('/login', 'Auth\LoginController@index')->name('front_login');
+    Route::post('/login', 'Auth\LoginController@store')->name('front_login');
+    Route::get('/signup', 'Auth\RegisterController@index')->name('front_signup');
 
 
-
-Route::get('auth/{provider}', 'Auth\LoginController@redirectToProvider');
-Route::get('auth/{provider}/callback', 'Auth\LoginController@handleProviderCallback');
+    Route::get('auth/{provider}', 'Auth\LoginController@redirectToProvider');
+    Route::get('auth/{provider}/callback', 'Auth\LoginController@handleProviderCallback');
 
 /////********************** ONLY AUTHENTICATED ********************** /////
-Route::group(['middleware' => ['auth']], function () {
-    Route::get('/logout', 'Auth\LogoutController@index')->name('app_logout');
-    Route::get('/no-access', function () {
-        return view('front.no-access');
+    Route::group(['middleware' => ['auth']], function () {
+        Route::get('/logout', 'Auth\LogoutController@index')->name('app_logout');
+        Route::get('/no-access', function () {
+            return view('front.no-access');
+        });
     });
-});
 
 /////********************** RIGHT COMPANY & AUTHENTICATED ********************** /////
-Route::group(['middleware' => ['auth', 'company', 'verification']], function () {
-    Route::get('/{company}/dashboard', 'Application\DashboardController@index')->name('app_dashboard');
-    Route::get('/{company}/company', 'Application\CompanyController@index')->name('app_company');
-    Route::get('/{company}/account', 'Application\AccountController@index')->name('app_account');
-    Route::get('/{company}/calendar', 'Application\CalendarController@index')->name('app_calendar');
-    Route::get('/{company}/projects', 'Application\ProjectController@index')->name('app_projects');
-    Route::get('/{company}/project', function () {
-        return view('application.project.index');
+    Route::group(['middleware' => ['auth', 'company', 'verification']], function () {
+        Route::get('/{company}/dashboard', 'Application\DashboardController@index')->name('app_dashboard');
+        Route::get('/{company}/company', 'Application\CompanyController@index')->name('app_company');
+        Route::get('/{company}/account', 'Application\AccountController@index')->name('app_account');
+        Route::get('/{company}/calendar', 'Application\CalendarController@index')->name('app_calendar');
+        Route::get('/{company}/projects', 'Application\ProjectController@index')->name('app_projects');
+        Route::get('/{company}/project', function () {
+            return view('application.project.index');
+        });
+        Route::get('/{company}/{user}/profile', 'Application\ProfileController@index')->name('app_profile');
+
     });
-    Route::get('/{company}/{user}/profile', 'Application\ProfileController@index')->name('app_profile');
-
-});
 /////********************** RIGHT PROJECT & AUTHENTICATED ********************** /////
-Route::group(['middleware' => ['auth', 'company', 'verification', 'project']], function () {
-    Route::get('/{company}/{project}/project/{path?}', [
-        'uses' => 'Application\ProjectController@data',
-        'where' => ['path' => '.*']
-    ])->name('app_project');
-    Route::get('/{company}/{project}/end/project/','Application\ProjectController@ended')->name('app_projectEnd');
-    Route::post('/{company}/{project}/project', 'Application\ProjectController@reopen');
+    Route::group(['middleware' => ['auth', 'company', 'verification', 'project']], function () {
+        Route::get('/{company}/{project}/project/{path?}', [
+            'uses' => 'Application\ProjectController@data',
+            'where' => ['path' => '.*']
+        ])->name('app_project');
+        Route::get('/{company}/{project}/end/project/', 'Application\ProjectController@ended')->name('app_projectEnd');
+        Route::post('/{company}/{project}/project', 'Application\ProjectController@reopen');
 
-});
+    });
 
 /////********************** OTHER PAGES ********************** /////
 /// //verification
-Route::get('/user/verify/{token}/{id}', 'Application\VerifyUser@index')->name('front_verify');
-Route::post('/user/verify/', 'Application\VerifyUser@verify');
+    Route::get('/user/verify/{token}/{id}', 'Application\VerifyUser@index')->name('front_verify');
+    Route::post('/user/verify/', 'Application\VerifyUser@verify');
 //password reset
-Route::get('/{company}/password', 'Application\PasswordResetController@index')->name('front_reset');
-Route::post('/password', 'Application\PasswordResetController@store');
-Route::get('/password/{url}/{token}', 'Application\PasswordResetController@verifyPage');
-Route::post('/password/change', 'Application\PasswordResetController@updatePassword');
+    Route::get('/{company}/password', 'Application\PasswordResetController@index')->name('front_reset');
+    Route::post('/password', 'Application\PasswordResetController@store');
+    Route::get('/password/{url}/{token}', 'Application\PasswordResetController@verifyPage');
+    Route::post('/password/change', 'Application\PasswordResetController@updatePassword');
 //invite
-Route::group(['middleware' => ['guest']], function () {
-  Route::get('/{company}/invite/{token}', 'Application\InviteController@index');
-  Route::post('/invite/verify', 'Application\InviteController@createUser');
+    Route::group(['middleware' => ['guest']], function () {
+        Route::get('/{company}/invite/{token}', 'Application\InviteController@index');
+        Route::post('/invite/verify', 'Application\InviteController@createUser');
+    });
+
 });
-
-
 //CLOSED API CALLS
 Route::post('/api/user/create', 'Auth\RegisterCompanyController@create');
 Route::post('/api/register/check', 'Auth\RegisterCompanyController@check');
@@ -125,11 +130,14 @@ Route::get('/api/menu/online', 'Application\MenuController@online');
 Route::get('/api/menu/notifications', 'Application\MenuController@notifications');
 Route::post('/api/menu/notifications', 'Application\MenuController@notificationsRead');
 Route::get('/api/menu/test', 'Application\MenuController@newNotification');
+Route::get('/api/company/message', 'Application\DashboardController@message');
 
 Route::get('/api/company/users', 'Application\CompanyController@users');
 Route::get('/api/company/invites', 'Application\CompanyController@invites');
 Route::get('/api/company/invites', 'Application\CompanyController@invites');
 Route::get('/api/company/groups', 'Application\CompanyController@groups');
+Route::get('/api/company/stats', 'Application\CompanyController@stats');
+Route::post('/api/company/settings/save', 'Application\CompanyController@saveSettings');
 
 Route::get('/api/notifcations/today', 'Application\DashboardController@notifcationsToday');
 Route::get('/api/notifcations/yesterday', 'Application\DashboardController@notificationsYesterday');
@@ -142,6 +150,8 @@ Route::post('/api/account/update/profile', 'Application\AccountController@update
 Route::post('/api/account/password/change', 'Application\AccountController@updatePassword');
 Route::post('/api/account/avatar/change', 'Application\AccountController@changeAvatar');
 Route::post('/api/account/settings/change', 'Application\AccountController@updateSettings');
+Route::get('/api/account/stats/', 'Application\AccountController@getStats');
+
 //user
 Route::post('/api/check/email', 'Application\UserController@checkEmail');
 Route::post('/api/user/new', 'Application\UserController@createUser');
@@ -169,11 +179,13 @@ Route::post('/api/calendar/new', 'Application\CalendarController@create');
 Route::get('/api/calendar/today', 'Application\CalendarController@today');
 Route::get('/api/calendar/tomorrow', 'Application\CalendarController@tomorrow');
 Route::get('/api/calendar/receive', 'Application\CalendarController@receive');
+Route::post('/api/calendar/day', 'Application\CalendarController@getDay');
 
 //Projects
 Route::post('/api/project/new', 'Application\ProjectController@create');
 Route::post('/api/project/check/name', 'Application\ProjectController@checkName');
-
+Route::post('/api/project/close', 'Application\ProjectController@close');
+Route::post('/api/project/user/new', 'Application\ProjectController@addUser');
 Route::post('/api/project/edit', 'Application\ProjectController@edit');
 Route::get('/api/projects/all', 'Application\ProjectController@getProjects');
 Route::post('/api/projects/users', 'Application\ProjectController@getUsers');
@@ -214,11 +226,13 @@ Route::post('/api/project/crisiscenter/solved', 'Application\Project\CrisisCente
 Route::post('/api/project/crisiscenter/progress', 'Application\Project\CrisisCenterController@setProgress');
 Route::post('/api/project/crisiscenter/delete', 'Application\Project\CrisisCenterController@deleteItem');
 Route::post('/api/project/crisiscenter/edit', 'Application\Project\CrisisCenterController@editItem');
+Route::post('/api/project/crisiscenter/widget', 'Application\Project\CrisisCenterController@getWidget');
 
 //logs
 Route::post('/api/project/logs/items', 'Application\Project\LogController@getitems');
 Route::post('/api/project/logs/create', 'Application\Project\LogController@create');
 Route::post('/api/project/logs/edit', 'Application\Project\LogController@edit');
+Route::post('/api/project/logs/delete', 'Application\Project\LogController@delete');
 
 //polls
 Route::post('/api/project/polls/items', 'Application\Project\PollController@getitems');
@@ -226,6 +240,16 @@ Route::post('/api/project/polls/vote', 'Application\Project\PollController@vote'
 Route::post('/api/project/polls/create', 'Application\Project\PollController@create');
 Route::post('/api/project/polls/delete', 'Application\Project\PollController@delete');
 
+//tasks
+Route::post('/api/project/tasks/lists', 'Application\Project\TaskController@getLists');
+Route::post('/api/project/tasks/done', 'Application\Project\TaskController@asDone');
+Route::post('/api/project/tasks/timer', 'Application\Project\TaskController@addTimer');
+Route::post('/api/project/tasks/users', 'Application\Project\TaskController@getProjectUsers');
+Route::post('/api/project/tasks/create', 'Application\Project\TaskController@createTask');
+Route::post('/api/project/tasks/delete', 'Application\Project\TaskController@deleteTask');
+Route::post('/api/project/tasks/edit', 'Application\Project\TaskController@editTask');
+Route::post('/api/project/tasks/list/create', 'Application\Project\TaskController@createList');
+Route::post('/api/project/overview/tasks/get', 'Application\Project\TaskController@getModule');
 
 Route::post('/twostep', 'Application\TwoStepController@login');
 

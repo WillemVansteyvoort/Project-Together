@@ -15,13 +15,15 @@ use Carbon\CarbonInterval;
 use Carbon\Carbon;
 use Auth;
 use App\BoardItem;
+use Illuminate\Support\Facades\App;
 class DashboardController extends Controller
 {
 
     public function index($company) {
         return view('application.dashboard');
 
-        }
+
+    }
     public function test() {
         $notification = Auth::user()->notifcationsAll()->create([
             'user_id' => 1,
@@ -61,6 +63,10 @@ class DashboardController extends Controller
         ])->get();
 
         return $notifcations;
+    }
+
+    public function message() {
+        return Auth::user()->company->message;
     }
 
 

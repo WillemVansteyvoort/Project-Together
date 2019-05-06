@@ -32,7 +32,7 @@ export default class ProjectLogs extends Component {
         this.logsByUser = this.logsByUser.bind(this);
         this.createLog = this.createLog.bind(this);
         this.handleChange1 = this.handleChange1.bind(this);
-
+        this.deleteLog = this.deleteLog.bind(this);
     }
 
 
@@ -79,6 +79,19 @@ export default class ProjectLogs extends Component {
         });
     }
 
+    deleteLog(id, i) {
+        axios.post('/api/project/logs/delete', {
+            log_id: id
+        }).then(response => {
+            let test = this.state.logs;
+            test.splice(i, 1);
+            console.log(test)
+            this.setState({
+                logsByUser: test
+            });
+        });
+    }
+
     componentWillMount() {
         this.getUsers();
         this.getLogs();
@@ -110,7 +123,7 @@ export default class ProjectLogs extends Component {
                             <div className="three columns">
                                 <div className="project-logs-users">
                                      {this.state.users.map((user, i)=> (
-                                         <div>
+                                         <div key={i}>
                                              <img src={user.avatar} onClick={event => this.logsByUser(user.id)}/>
                                          </div>
                                      ))}
@@ -127,16 +140,22 @@ export default class ProjectLogs extends Component {
                                         <div>
                                             {this.state.logsByUser.length === 0 ?
                                                 <div className="project-loading">
-                                                    <h4>No logs found</h4>
+                                                    <h4>This user have no logs</h4>
                                                 </div>
                                                 : ""}
                                             {this.state.logsByUser.map((log, i)=> (
                                                 <article key={i}>
                                                     <div className="item">
-                                                    {log.content}
+                                                        <ReactMarkdown source={log.content} />
                                                     </div>
                                                     <div className="item-bottom">
                                                         <Timestamp className="time" time={log.created_at} precision={1} utc={false} autoUpdate={60}/>
+                                                        <div className="float-right">
+                                                            {/*<a ><i*/}
+                                                            {/*className="fas fa-pencil-alt"> </i></a>*/}
+
+                                                            <a onClick={event => this.deleteLog(log.id, i)}><i
+                                                            className="fas fa-trash-alt" > </i></a></div>
                                                     </div>
                                                 </article>
                                             ))}

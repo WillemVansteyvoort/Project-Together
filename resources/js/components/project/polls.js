@@ -8,7 +8,6 @@ import "react-sweet-progress/lib/style.css";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import PopPop from 'react-poppop';
 import Switch from "react-switch";
-import  withToastManager  from 'react-toast-notifications';
 import Notification from "../notification";
 const ReactMarkdown = require('react-markdown');
 var test = "test";
@@ -196,7 +195,7 @@ export default class ProjectPolls extends Component {
                             </div>
                             <div className="project-polls-body">
                                 <p>{poll.content}</p>
-                                {poll.voted || poll.ended
+                                {(poll.voted )|| (poll.end_date !== null & new Date(poll.end_date) < new Date())
                                     ?
                                     <div>
                                         {this.state.polls[i].options.map((option, j) => (

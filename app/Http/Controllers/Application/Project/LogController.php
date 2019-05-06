@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Application\Project;
 
+use App\Http\Middleware\Language;
+use function GuzzleHttp\describe_type;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Project;
@@ -24,6 +26,10 @@ class LogController extends Controller
         ]);
 
         return $log;
+    }
+
+    public function delete(Request $request) {
+        Log::destroy($request->log_id);
     }
 
     public function edit(Request $request) {

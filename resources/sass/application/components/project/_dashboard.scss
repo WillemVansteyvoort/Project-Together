@@ -49,17 +49,8 @@
       }
     }
 
-    &-date {
-      margin-top: 12px;
-      color: #929292;
-
-      i {
-        font-size: 25px !important;
-      }
-
-    }
-
     &-item {
+      position: relative;
       margin: 8px 8px 15px 8px;
       height: 88px;
       padding: 12px;
@@ -70,6 +61,24 @@
         padding-right: 8px;
         font-size: 16px;
       }
+      img {
+        position: absolute;
+        bottom: 15px;
+      }
+
+      &-date {
+        position: absolute;
+        bottom: 15px;
+        right: 12px;
+        margin-top: 12px;
+        color: #929292;
+
+        i {
+          font-size: 25px !important;
+        }
+
+      }
+
     }
 
     &-item:nth-child(odd) {
@@ -90,6 +99,7 @@
   &-info {
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.15);
     padding: 16px;
+    margin-bottom: 30px;
 
     h6 {
       margin-bottom: 5px;
@@ -218,6 +228,59 @@
       }
     }
   }
+  .new-user {
+    margin-left: 4px;
+    font-size: 18px !important;
+  }
+
+  &-crisiscenter {
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.15);
+    padding: 20px;
+    margin-top: 30px;
+    h6 {
+      margin-bottom: 5px;
+    }
+    .green {
+      color: green;
+    }
+    .yellow {
+      color: #CCCC00;
+    }
+    .red {
+      color: #ef3d47;
+    }
+    text-align: center;
+    font-size: 25px;
+
+  }
+
+  &-forum {
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.15);
+    padding: 16px;
+    margin-top: 30px;
+    height: 130px;
+    overflow: auto;
+    &::-webkit-scrollbar {
+      width: 8px;
+    }
+    &::-webkit-scrollbar-track {
+      background: #f1f1f1;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: #888;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+      background: #555;
+    }
+
+    div {
+      padding: 8px;
+      border-bottom: 2px solid #f0f0f0;
+    }
+  }
+
 }
 
 @media screen and (max-width : 760px) {

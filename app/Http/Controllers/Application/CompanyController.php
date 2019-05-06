@@ -9,6 +9,7 @@ use App\User;
 use Auth;
 use App\User_invite;
 use App\Group;
+use App\Task;
 class CompanyController extends Controller {
 
     public function index($company) {
@@ -37,6 +38,22 @@ class CompanyController extends Controller {
     public function groups() {
         $groups = Group::where('company_id', Auth::user()->company_id)->with(['users'], ['owner'])->get();
         return $groups->toJson(JSON_PRETTY_PRINT);
+    }
+
+    public function stats() {
+        $doneTasks = Task::where([['company_id', Auth::user()->company_id], ['status', true]])->count();
+        $buzzyTasks = Task::where([['company_id', Auth::user()->company_id], ['status', false]])->count();
+
+        return response()->json([
+            'doneTasks' => $doneTasks,
+            'buzzyTasks' => $buzzyTasks
+        ]);
+    }
+
+    public function saveSettings(Request $request) {
+        $company = Auth::user()->company;
+        $company->message = $request->message;
+        $company->save();
     }
 
 

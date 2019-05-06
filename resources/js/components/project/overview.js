@@ -55,6 +55,8 @@ export default class ProjectOverview extends Component {
             end_date: '',
             description: '',
             users: [],
+            companyUsers: [],
+            groups: [],
             leaders: [],
             responsables: [],
             tags: [],
@@ -79,8 +81,14 @@ export default class ProjectOverview extends Component {
             project_private: false,
             project_tags: [],
             current_tag: '',
-
+            memberOptions: [],
+            allGroups: [],
+            selectedGroups: [],
+            selectedGroupsId: [],
+            group: '',
+            groupId: 0,
             //errors
+            error_name: false,
             error_title: "",
             error_date: "",
             error_description: "",
@@ -93,6 +101,17 @@ export default class ProjectOverview extends Component {
             user_name: '',
             user_role: 0,
             user_avatar: '',
+
+            //add a single user
+            showAdd: false,
+            add_userId: 0,
+            add_roleId: 0,
+            add_avatar: '/images/user.jpg',
+
+            //widgets
+            tasks: [],
+            crisisItems: [],
+            replies: [],
         };
 
         this.getProjectInfo = this.getProjectInfo.bind(this);
@@ -103,20 +122,56 @@ export default class ProjectOverview extends Component {
         this.editProject = this.editProject.bind(this);
         this.deleteUser = this.deleteUser.bind(this);
         this.editUser = this.editUser.bind(this);
+        this.close = this.close.bind(this);
+        this.getCompanyUsers = this.getCompanyUsers.bind(this);
+        this.addUser = this.addUser.bind(this);
+        this.checkName = this.checkName.bind(this);
+        this.getTasks = this.getTasks.bind(this);
+        this.getReplies = this.getReplies.bind(this);
+        this.getCrisisItems = this.getCrisisItems.bind(this);
+        this.taskAsDone = this.taskAsDone.bind(this);
     }
 
     componentWillMount() {
         this.getProjectInfo();
+        this.getTasks();
+        this.getCrisisItems();
+        this.getReplies();
     }
 
     toggleShowUser(showUser) {
         this.setState({showUser});
     }
 
+    toggleShowAdd(showAdd) {
+        this.setState({showAdd});
+    }
+
     toggleShow(show) {
         this.setState({show});
     }
+
+    close() {
+        if(confirm("Are you sure you want to close this project?")) {
+            axios.post('/api/project/close', {
+                project: window.Laravel.data.project,
+            }).then(response => {
+                window.location.reload();
+            });
+        }
+    }
+
+    getCompanyUsers() {
+        axios.get('/api/company/users').then((
+            response
+            ) => {
+                this.setState({companyUsers: response.data,})
+            }
+        );
+    }
+
     getProjectInfo() {
+        this.getCompanyUsers();
         axios.post('/api/project/overview/info', {
             project: window.Laravel.data.project,
         }).then(response => {
@@ -151,18 +206,81 @@ export default class ProjectOverview extends Component {
                 let name = tags[i].name;
                 newTags.push(name);
             }
-            this.setState({
-                project_tags: newTags,
-                leaders: this.state.users.filter(function (user) {
-                    return user.pivot.role === 3;
-                }),
-                responsables:  this.state.users.filter(function (user) {
+
+            let companyUsers = this.state.companyUsers;
+            let projectUsers = response.data.users;
+            let newCompanyUsers = [];
+            for (let i  = 0; i < companyUsers.length; i++) {
+                let exists = false;
+                for (let j  = 0; j < projectUsers.length; j++) {
+                        if(companyUsers[i].id === projectUsers[j].id) {
+                            exists = true;
+                    }
+                }
+
+                if(!exists) {
+                   newCompanyUsers[newCompanyUsers.length+1] = companyUsers[i];
+                }
+            }
+             this.setState({
+                 companyUsers: newCompanyUsers,
+                 project_tags: newTags,
+                 leaders:  this.state.users.filter(function (user) {
+                     return user.pivot.role === 3;
+                 }),
+                 responsables:  this.state.users.filter(function (user) {
                     return user.pivot.role === 2;
                 }),
             });
         });
     }
 
+
+    getTasks() {
+        axios.post('/api/project/overview/tasks/get', {
+            project: window.Laravel.data.project,
+        }).then(response => {
+            this.setState({
+                tasks: response.data,
+            });
+        });
+    }
+    getCrisisItems() {
+            axios.post('/api/project/crisiscenter/widget', {
+                project: window.Laravel.data.project,
+            }).then(response => {
+                this.setState({
+                    crisisItems: response.data,
+                });
+            });
+
+    }
+
+    getReplies() {
+            axios.post('/api/project/forum/replies', {
+                project: window.Laravel.data.project,
+            }).then(response => {
+                this.setState({
+                    replies: response.data,
+                });
+            });
+
+    }
+
+    taskAsDone(taskId, i) {
+        if(confirm("You sure you want to mark this task as done?")) {
+            axios.post('/api/project/tasks/done', {
+                project: window.Laravel.data.project,
+                task_id: taskId
+            }).then(response => {
+                let tasks = this.state.tasks;
+                tasks.splice(i, 1);
+                this.setState({
+                    tasks: tasks
+                });
+            });
+        }
+    }
     //tags
     addTag(e) {
         this.setState({project_tags: [...this.state.project_tags, this.state.current_tag], current_tag: ''})
@@ -179,31 +297,32 @@ export default class ProjectOverview extends Component {
     }
 
     editProject() {
-        var errors = false;
         if(this.state.project_title.length < 4) {
             this.setState({error_title: "The project title must have 4 characters minimum"});
-            errors = true;
         } else {
             this.setState({error_title: ""});
-            errors = false;
         }
-        if(this.state.project_description.length < 10) {
+        if(this.state.error_name) {
+            this.setState({error_title: "This name is already in use"});
+
+        }
+        if(this.state.project_title.length < 10) {
             this.setState({error_description: "The description must have 10 characters minimum"});
-            errors = true;
         } else {
             this.setState({error_description: ""});
-            errors = false;
         }
 
         let CurrentDate = new Date();
         let givenDate = new Date(this.state.project_end_date);
-        if(this.state.project_end_date !== null && givenDate < CurrentDate){
+        if(givenDate < CurrentDate){
             this.setState({error_date: "Given date is not greater than the current date."});
-            errors = true;
         } else {
             this.setState({error_date: ""});
         }
-        if(!errors) {
+        if(!this.state.project_title.length < 4 && !this.state.project_description.length < 10 && !givenDate < CurrentDate && !this.state.error_name) {
+            this.setState({
+                isLoading: true,
+            });
             axios.post('/api/project/edit', {
                 project: window.Laravel.data.project,
                 project_title: this.state.project_title,
@@ -228,6 +347,16 @@ export default class ProjectOverview extends Component {
         }
     }
 
+    checkName() {
+        axios.post('/api/project/check/name', {
+            name: this.state.project_title
+        }).then(response => {
+            if(response.data) {
+                this.setState({error_title: "This name is already in use", error_name: true});
+            }
+        });
+    }
+
     deleteUser(id) {
         if(confirm("Are you sure you want to delete this member? All his data will remain.")) {
             axios.post('/api/project/overview/user/delete', {
@@ -247,6 +376,17 @@ export default class ProjectOverview extends Component {
             user_role: this.state.user_role,
         }).then(response => {
             this.setState({showUser: false})
+            this.getProjectInfo();
+        });
+    }
+
+    addUser() {
+        axios.post('/api/project/user/new', {
+            project: window.Laravel.data.project,
+            user_id: this.state.add_userId,
+            role_id: this.state.add_roleId,
+        }).then(response => {
+            this.setState({showAdd: false})
             this.getProjectInfo();
         });
     }
@@ -287,49 +427,27 @@ export default class ProjectOverview extends Component {
                         <h5>Current tasks</h5>
                         <div className="dashboard-project-tasks">
                             <h6 className="float-left">Task List </h6>
-                            <button className="button button-primary no-button float-right">New task
-                            </button>
                             <div className="clear"></div>
-                            <div className="dashboard-project-tasks-item">
-                                <div className="dashboard-project-tasks-title float-left">
-                                    Rondgaan voor sponsering
+                            {this.state.tasks.length === 0 ? <div className="alert alert-green center-text">You have no tasks for the moment</div> : ""}
+                            {this.state.tasks.map((task, i)=> (
+                                <div className="dashboard-project-tasks-item" key={i}>
+                                    <div className="dashboard-project-tasks-title float-left">
+                                        {task.title}
+                                    </div>
+                                    <div className="float-right">
+                                        <i className="fas fa-check" onClick={event => this.taskAsDone(task.id, i)}> </i>
+                                    </div>
+                                    <div className="clear"></div>
+                                    {task.user_id === 0 ? <span className="dashboard-project-tasks-priority">Anyone</span> :  <div className="dashboard-project-tasks-user float-left">
+                                        <img src="http://127.0.0.1:8000/images/founder.jpg"/>
+                                    </div>}
+                                    <div className="dashboard-project-tasks-item-date float-right">
+                                        {task.end_date === null ? <span><span className="float-right">No deadline</span><i className="fas fa-clock float-right"> </i></span> : <span><span className="float-right"><Timestamp className="time" time={task.end_date} precision={1} utc={false} autoUpdate={60}/></span><i className="fas fa-clock float-right"> </i></span>}
+                                    </div>
                                 </div>
-                                <div className="float-right">
-                                    <i className="fas fa-pen"> </i>
-                                    <i className="fas fa-check"> </i>
-                                </div>
-                                <div className="clear"></div>
-                                <span className="dashboard-project-tasks-priority">High priority</span>
-                                <div className="clear"></div>
-                                <div className="dashboard-project-tasks-user float-left">
-                                    <img src="http://127.0.0.1:8000/images/founder.jpg"/>
-                                </div>
-                                <div className="dashboard-project-tasks-date float-right">
-                                    <span className="float-right">2 days to go</span><i
-                                    className="fas fa-clock float-right"> </i>
-                                </div>
-                            </div>
-                            <div className="dashboard-project-tasks-item">
-                                <div className="dashboard-project-tasks-title float-left">
-                                    Rondgaan voor sponsering
-                                </div>
-                                <div className="float-right">
-                                    <i className="fas fa-pen"> </i>
-                                    <i className="fas fa-check"> </i>
-                                </div>
-                                <div className="clear"></div>
-                                <span className="dashboard-project-tasks-priority">Low priority</span>
-                                <div className="clear"></div>
-                                <div className="dashboard-project-tasks-user float-left">
-                                    <img src="http://127.0.0.1:8000/images/founder.jpg"/>
-                                </div>
-                                <div className="dashboard-project-tasks-date float-right">
-                                    <span className="float-right">2 days to go</span><i
-                                    className="fas fa-clock float-right"> </i>
-                                </div>
-                            </div>
+                                ))}
                         </div>
-                        <h5>Project members</h5>
+                    <h5>Project members {!window.Laravel.data.ended && (window.Laravel.data.role === 3 || window.Laravel.data.role === 2) ?<span className="button button-primary new-user" onClick={e => this.setState({showAdd: true})}><i className="fas fa-user-plus"> </i></span>: ""}</h5>
                         <div className="dashboard-project-members">
                             {this.state.users.map((user, i)=> (
                                 <div key={i}>
@@ -338,7 +456,7 @@ export default class ProjectOverview extends Component {
                                         <h4 className="float-left">{user.name} {user.lastname}</h4>
                                         <span className="tag tag-primary float-right">{roles[user.pivot.role].value} </span>
                                         <div className="clear"></div>
-                                        {window.Laravel.user.id !== user.id ? <span className="dashboard-project-members-actions">
+                                        {window.Laravel.user.id !== user.id && !window.Laravel.data.ended && (window.Laravel.data.role === 3 || window.Laravel.data.role === 2) ? <span className="dashboard-project-members-actions">
                                             <i className="fas fa-trash-alt" onClick={event => this.deleteUser(user.id)}> </i>
                                             <i className="fas fa-user-edit" onClick={event => this.setState({showUser: true, user_id: user.id, user_name: user.name + user.lastname, user_role: user.pivot.role, user_avatar: user.avatar})}> </i>
                                         </span> : ""}
@@ -381,6 +499,41 @@ export default class ProjectOverview extends Component {
                                 <span className="tag tag-primary" key={i}>{tag.name}</span>
                             ))}
                         </div>
+                        <div className="row">
+                            {this.state.project_crisisCenter ?
+                            <div className="six columns">
+                                <h5>Crisis center</h5>
+                                <div className="dashboard-project-crisiscenter">
+                                    <div className="row">
+                                        <div className="four columns">
+                                            {this.state.crisisItems[0]} <i className="fas fa-exclamation-triangle green"></i>
+                                        </div>
+                                        <div className="four columns">
+                                            {this.state.crisisItems[1]} <i className="fas fa-exclamation-triangle yellow"></i>
+                                        </div>
+                                        <div className="four columns">
+                                            {this.state.crisisItems[2]} <i className="fas fa-exclamation-triangle red"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                                : ""}
+                            <div className="six columns">
+                                {this.state.project_forum ?
+                                    <span>
+                                        <h5>Forum activity</h5>
+                                        <div className="dashboard-project-forum">
+                                                {this.state.replies.map((reply, i)=> (
+                                                    <div key={i}>
+                                                        {reply.created ? <span>New post created named: <a>{reply.post.title}</a></span> : <span>New reply on <a>{reply.post.title}</a></span>}
+                                                    </div>
+                                                    ))}
+                                        </div>
+                                    </span>
+
+                                    : ""}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -390,11 +543,10 @@ export default class ProjectOverview extends Component {
     render() {
         const {show} = this.state;
         const {showUser} = this.state;
+        const {showAdd} = this.state;
         return (
             <span>
-                {!window.Laravel.data.ended ? <button className="project-header-plus no-button test" onClick={() => this.toggleShow(true)}>
-                    <i className="fas fa-cog"> </i>
-                    </button> : ""}
+                {!window.Laravel.data.ended && (window.Laravel.data.role === 3)  ? <button className="project-header-plus no-button test" onClick={() => this.toggleShow(true)}><i className="fas fa-cog"> </i></button> : ""}
 
                 <main className="project-main">
                         {this.state.loading ?
@@ -421,7 +573,6 @@ export default class ProjectOverview extends Component {
                             >
                                 <TabList>
                                     <Tab tabFor="one" className="popup-tab">General</Tab>
-                                    <Tab tabFor="two" className="popup-tab">Members</Tab>
                                     <Tab tabFor="three" className="popup-tab">Add-ons</Tab>
                                     <Tab tabFor="five" className="popup-tab popup-tab--rights">Advanced</Tab>
                                 </TabList>
@@ -431,7 +582,7 @@ export default class ProjectOverview extends Component {
                                             <div className="twelve columns">
                                                 <label>Project name</label>
                                                 <div id="red">{this.state.error_title}</div>
-                                                <input type="text" className={this.state.error_title.length > 0 ? "border-red u-full-width" : "u-full-width"} value={this.state.project_title} onChange={e => this.setState({ project_title: e.target.value })} />
+                                                <input type="text" className={this.state.error_title.length > 0 ? "border-red u-full-width" : "u-full-width"} value={this.state.project_title} onChange={e => this.setState({ project_title: e.target.value })} onBlur={this.checkName} />
                                             </div>
                                         </div>
                                           <div className="row">
@@ -564,6 +715,8 @@ export default class ProjectOverview extends Component {
                                             <input type="checkbox" id="scales" name="feature" value="scales" onChange={e => this.setState({ project_private: !this.state.project_private})} checked={this.state.project_private} />
                                             Make this project public: this means that everyone can see the forum, tasks and so on
                                             </div>
+                                        <h5>Actions</h5>
+                                        <button className="no-button button button-red close" onClick={this.close}>Close project</button>
                                         <div className="popup-tags">
                                             <h5>Tags</h5>
                                             {this.state.project_tags.length <= 0 ? <div id="red">No tags selected</div> :
@@ -613,6 +766,43 @@ export default class ProjectOverview extends Component {
                                       </select>
                                 </div>
                                 <button className="button-primary button no-button float-right" onClick={this.editUser}>Change role</button>
+                            </div>
+                        </div>
+                    </div>
+                </PopPop>
+
+                 <PopPop
+                     open={showAdd}
+                     closeOnEsc={true}
+                     onClose={() => this.toggleShowAdd(false)}
+                     closeOnOverlay={true}>
+                    <div className="popup">
+                        <div className="popup-titleBar">
+                            Change {this.state.user_name}
+                            <button className="popup-btn--close"  onClick={() => this.toggleShow(false)}>✕</button>
+                        </div>
+                        <div className="popup-content">
+                            <div className="row">
+                                <div className="six columns">
+                                    <img src={this.state.add_avatar} />
+                                </div>
+                                 <div className="six columns">
+                                     <h5>Company member</h5>
+                                     <select onChange={(event) => this.setState({add_userId: event.target.value})}>
+                                         <option></option>
+                                        {this.state.companyUsers.map((user, i) => (
+                                            <option value={user.id} key={i}>{user.name} {user.lastname}</option>
+                                        ))}
+                                      </select>
+                                     <h5>Member role</h5>
+                                      <select onChange={(event) => this.setState({add_roleId: event.target.value})}>
+                                          <option value="0">Member</option>
+                                          <option value="1">Watcher</option>
+                                          <option value="2">Responsable</option>
+                                          <option value="3">Leader</option>
+                                      </select>
+                                </div>
+                                <button className="button-primary button no-button float-right" onClick={this.addUser}>Add member</button>
                             </div>
                         </div>
                     </div>

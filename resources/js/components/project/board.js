@@ -159,12 +159,11 @@ export default class ProjectBoard extends Component {
     }
 
     openItem(t) {
-        if(!window.Laravel.data.ended) {
+        if((!window.Laravel.data.ended && window.Laravel.data.role !== 0) && (t.user_id === window.Laravel.user.id ||window.Laravel.data.role !== 1)) {
             this.setState({selected_card: t, show_edit: true, editCard_name: t.name, editCard_description: t.description, editCard_expected: t.duration, editCard_color: t.color, editCard_user: t.user_id})
         }
     }
     onDrop (ev, cat) {
-        console.log(id);
         let id = ev.dataTransfer.getData("id");
         let currentTask = null;
         let tasks = this.state.tasks.filter((task) => {
@@ -228,7 +227,7 @@ export default class ProjectBoard extends Component {
 
         return (
             <span>
-                {!window.Laravel.data.ended ?  <button className="project-header-plus no-button test" onClick={() => this.toggleShow(true)}>
+                {!window.Laravel.data.ended && window.Laravel.data.role !== 0  ?  <button className="project-header-plus no-button test" onClick={() => this.toggleShow(true)}>
                         <i className="fas fa-plus"> </i>
                     </button> : ""}
                 <main className="project-board">
@@ -239,7 +238,7 @@ export default class ProjectBoard extends Component {
                         :
                         <div className="row">
                             {this.state.columns.map((column, i) => (
-                                <div className="three columns">
+                                <div className="three columns" key={i}>
                                     <h5> {column} <span className="tag tag-primary">{tasks[column].length}</span></h5>
                                     <div
                                         className="project-board-row"
@@ -250,16 +249,16 @@ export default class ProjectBoard extends Component {
                                     </div>
                                 </div>
                             ))}
-                            <div className="three columns">
-                                {Object.keys(tasks).length === 4 ?
-                                    ""
-                                    :
-                                    <div className="project-board-column">
-                                        <i className="fas fa-plus button-primary button"> </i>
-                                        <h5>Add new column</h5>
-                                    </div>
-                                }
-                            </div>
+                            {/*<div className="three columns">*/}
+                                {/*{Object.keys(tasks).length === 4 ?*/}
+                                    {/*""*/}
+                                    {/*:*/}
+                                    {/*<div className="project-board-column">*/}
+                                        {/*<i className="fas fa-plus button-primary button"> </i>*/}
+                                        {/*<h5>Add new column</h5>*/}
+                                    {/*</div>*/}
+                                {/*}*/}
+                            {/*</div>*/}
                         </div>
                     }
             </main>

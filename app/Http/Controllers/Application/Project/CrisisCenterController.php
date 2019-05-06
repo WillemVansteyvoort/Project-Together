@@ -113,4 +113,16 @@ class CrisisCenterController extends Controller
         ]);
     }
 
+    public function getWidget(Request $request) {
+        $project = Project::where('url', '=', $request->project)->first();
+        $numbers = [];
+
+        $numbers[0] = CrisisItem::where([['project_id', $project->id], ['priority', 0], ['solved', false]])->count();
+        $numbers[1] = CrisisItem::where([['project_id', $project->id], ['priority', 1], ['solved', false]])->count();
+        $numbers[2] = CrisisItem::where([['project_id', $project->id], ['priority', 2], ['solved', false]])->count();
+
+        return $numbers;
+
+    }
+
 }

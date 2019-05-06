@@ -272,7 +272,7 @@ export default class ProjectForum extends Component {
                         </ul>
                     </div>
                     <div className="nine columns">
-                        {this.state.replies.length === 0 ? <div className="dashboard-forum-empty"> <i class="fas fa-comments"></i><h4>Nothing to find </h4></div> : ""}
+                        {this.state.replies.length === 0 ? <div className="dashboard-forum-empty"> <i className="fas fa-comments"></i><h4>Nothing to find </h4></div> : ""}
                         <span>
                                     {this.state.post_open ?
                                         <div className="row dashboard-forum-title">
@@ -291,7 +291,7 @@ export default class ProjectForum extends Component {
                                                 </div>
                                             </div>
                                             {this.state.post_replies.map((reply, i) => (
-                                                <span>
+                                                <span key={i}>
                                                     {!reply.created ?
                                                         <div className="dashboard-forum-post row">
                                                             <div className="three columns">
@@ -333,7 +333,7 @@ export default class ProjectForum extends Component {
                                         :
                                         <div className="dashboard-forum-items">
                                             {this.state.repliesByTag.map((reply, i) => (
-                                                <article>
+                                                <article key={i}>
                                                     <div className="item-head">
                                                         <img src={reply.user.avatar} className="float-left"/> <span><a href='#'>{reply.user.name} {reply.user.lastname}</a>
                                                         {reply.created ? " created " : " replied "} <Timestamp className="time" time={reply.created_at} precision={1} utc={false} autoUpdate={60}/></span>
@@ -343,7 +343,7 @@ export default class ProjectForum extends Component {
                                                         <h5><a  onClick={() => this.getPostById( reply.post.id)}>{reply.post.title}</a></h5>
                                                         <ReactMarkdown source={reply.post.content.substring(0, 200)} />
                                                         {reply.post.tags.map((tag, i) => (
-                                                            <span className="tag tag-primary">{tag.name}</span>
+                                                            <span className="tag tag-primary" key={i}>{tag.name}</span>
                                                         ))}
                                                     </div>
                                                 </article>
@@ -410,8 +410,8 @@ export default class ProjectForum extends Component {
                                         <h5>Tags</h5>
                                         {this.state.post_tags.length <= 0 ? <div id="red">No tags selected</div> :
                                             <div>
-                                                {this.state.post_tags.map(tag => (
-                                                    <span className="tag tag-second">{tag} <i onClick={e =>this.removeTag({tag})} className="fas fa-minus-circle"> </i></span>
+                                                {this.state.post_tags.map((tag, i) => (
+                                                    <span className="tag tag-second" key={i}>{tag} <i onClick={e =>this.removeTag({tag})} className="fas fa-minus-circle"> </i></span>
                                                 ))}
                                             </div>
                                         }

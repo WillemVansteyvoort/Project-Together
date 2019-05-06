@@ -4,8 +4,71 @@
     font-family: "Raleway", sans-serif;
     margin-bottom: 9px;
     font-weight: bold;
+    margin-top: 15px;
     opacity: 0.8;
     font-size: 20px;
     text-transform: uppercase;
   }
+
+  .accordion__title {
+    height: 20px;
+    padding-bottom: 18px;
+    font-size: 17px;
+    font-weight: bold;
+    i {
+      font-weight: bold;
+    }
+  }
+  .accordion__body {
+    background-color: white;
+    padding: 18px 5% 12px 5%;
+  }
+
+  &-item {
+    clear: both;
+    margin-bottom: 20px;
+    .checkbox {
+      width: 20px;
+      height: 20px;
+    }
+
+    .pretty {
+      float: left;
+      font-size: 25px;
+    }
+
+    .title {
+      float: left;
+      font-size: 15px;
+      font-family: $font_standard;
+      padding: 5px 0 0 8px;
+    }
+
+    .tag {
+      float: left;
+      margin: 0 0 0 8px !important;
+      padding: 5px;
+    }
+
+    .time {
+      padding-right: 15px;
+      font-style: italic;
+    }
+
+    .actions {
+      padding: 5px 0 0 8px;
+    }
+    .end {
+      font-weight: bold;
+      padding-right: 60px;
+    }
+  }
+
+  .fa-edit {
+    margin-left: 12px;
+  }
+  .fa-trash-alt {
+    margin-left: 8px;
+  }
+
 }

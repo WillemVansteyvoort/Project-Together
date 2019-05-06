@@ -72,6 +72,7 @@
                 'project' => $project,
                 'name' => $name,
                 'ended' => $ended,
+                'role' => $role,
             ],
 
             'rights' => [

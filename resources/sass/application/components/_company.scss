@@ -76,7 +76,7 @@
     margin: auto;
     margin-bottom: 20px;
     &--content {
-      padding: 25px 0 0 20px;
+      padding: 55px 0 0 20px;
     }
   }
   &-square {
@@ -108,6 +108,7 @@
 
   &-sidebar {
     &-settings {
+      margin-top: 45px;
       background-color: $color-primary;
       font-size: 16px;
       border: 5px solid $color-primary;
@@ -137,4 +138,8 @@
       overflow: scroll !important;
     }
   }
+}
+.editor {
+  height: 460px;
+  overflow: auto;
 }

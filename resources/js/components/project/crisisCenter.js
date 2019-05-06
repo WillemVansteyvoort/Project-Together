@@ -96,7 +96,7 @@ export default class ProjectCrisisCenter extends Component {
                 this.setState({
                     item_title: '',
                     item_description: '',
-                    item_priority: '',
+                    item_priority: 0,
                     solved_items: response.data.solved,
                     progress_items: response.data.progress,
                     show: false,
@@ -106,7 +106,7 @@ export default class ProjectCrisisCenter extends Component {
     }
 
     setSolved(item) {
-        if(!window.Laravel.data.ended) {
+        if(!window.Laravel.data.ended && item.user_id === window.Laravel.user.id || window.Laravel.data.role !== 0 || window.Laravel.data.role !== 1 ) {
             axios.post('/api/project/crisiscenter/solved', {
                 id: item.id,
                 project: window.Laravel.data.project,
@@ -119,8 +119,8 @@ export default class ProjectCrisisCenter extends Component {
         }
     }
 
-    setProgress(id) {
-        if(!window.Laravel.data.ended) {
+    setProgress(id, item) {
+        if(!window.Laravel.data.ended && item.user_id === window.Laravel.user.id || window.Laravel.data.role !== 0 || window.Laravel.data.role !== 1 ) {
             if(confirm("Are you sure you want to reopen this item?")) {
                 axios.post('/api/project/crisiscenter/progress', {
                     id: id,
@@ -204,8 +204,8 @@ $        }).then(response => {
                                                     <a href={"/" +  window.Laravel.company.url + "/" + item.user.username + "/profile/"}>{item.user.name} {item.user.lastname}</a>
                                                 </div>
                                             </div>
-                                            {!window.Laravel.data.ended ?
-                                            <div className="float-right">
+                                            {!window.Laravel.data.ended && item.user_id === window.Laravel.user.id || window.Laravel.data.role !== 0 || window.Laravel.data.role !== 1  ?
+                                                <div className="float-right">
 
                                                 <i className="fas fa-edit" onClick={e => this.setState({edit_item: item, edit_description: item.description, edit_title: item.name, edit_priority: item.priority, edit_id: item.id, showEdit: true})}> </i>
                                                 <i className="fas fa-trash-alt" onClick={event => this.deleteItem(item.id)}> </i>
@@ -235,7 +235,7 @@ $        }).then(response => {
                                                 {item.priority === 2 ? <span><i className="fas fa-circle p3"> </i> High Priority</span>  : ""}
 
                                             </td>
-                                            <td className="float-right"><button onClick={event => this.setProgress(item.id)} className="button button-primary no-button">Solved</button></td>
+                                            <td className="float-right"><button onClick={event => this.setProgress(item.id, item)} className="button button-primary no-button">Solved</button></td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -262,8 +262,12 @@ $        }).then(response => {
                                         </div>
                                     </div>
                                     <div className="float-right">
+                                        {!window.Laravel.data.ended && (item.user_id === window.Laravel.user.id || window.Laravel.data.role === 2 || window.Laravel.data.role === 3) ?
+                                            <span>
                                         <i className="fas fa-edit" onClick={e => this.setState({edit_item: item, edit_description: item.description, edit_title: item.name, edit_priority: item.priority, edit_id: item.id, showEdit: true})}> </i>
                                         <i className="fas fa-trash-alt" onClick={event => this.deleteItem(item.id)}> </i>
+                                            </span>
+                                            : ""}
                                     </div>
                                     <div className="clear"> </div>
                                 </AccordionItemBody>
@@ -281,7 +285,7 @@ $        }).then(response => {
         const {showEdit} = this.state;
         return (
             <span>
-                {!window.Laravel.data.ended ?
+                {!window.Laravel.data.ended && window.Laravel.data.role !== 0   ?
                  <button className="project-header-plus no-button test" onClick={() => this.toggleShow(true)}>
                     <i className="fas fa-plus"> </i>
                 </button>

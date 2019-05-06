@@ -168,6 +168,20 @@ class ProjectController extends SlugifyController
         }
     }
 
+    public function addUser(Request $request) {
+        $project = Project::where('url', '=', $request->project)->first();
+        $user = User::findorFail($request->user_id);
+        $user->projects()->attach($project, ['role' => $request->role_id]);
+
+        $noti =  Notification::create([
+            'user_id' => $user->id,
+            'title' => 'Added to new project',
+            'type' => 'fas fa-project-diagram',
+            'content' => 'You are just added to a new project called ' . $project->name . ' by ' . Auth::user()->name . '. Go now to your projects to check it out.',
+        ]);
+        broadcast(new Notifications($noti,$user))->toOthers();
+    }
+
     public function checkName(Request $request) {
         if(Project::where([['name', $request->name], ['company_id', Auth::user()->company_id]])->count() > 0) {
             return 1;
@@ -209,16 +223,8 @@ class ProjectController extends SlugifyController
                 ]);
             }
 
-        //check if page need to be reloaded
-        if($oldUrl !== $project->url) {
-            return response()->json([
-                'reload' => true,
-                'url' => $project->url,
-            ]);
-        }
-
         //add-ons
-        if($request->project_board && Column::where([["project_id" => $project->id]])->count() === 0) {
+        if($request->project_board && Column::where([["project_id", '=', $project->id]])->count() == 0) {
             $firstColumn = Column::create([
                 'name' => 'Todo',
                 'project_id' => $project->id,
@@ -244,6 +250,10 @@ class ProjectController extends SlugifyController
             ]);
         }
 
+        return response()->json([
+            'reload' => true,
+            'url' => $project->url,
+        ]);
     }
 
     public function getProjects() {
@@ -262,12 +272,22 @@ class ProjectController extends SlugifyController
         $members = $project_all->users;
         $desc = $project_all->description;
         $ended = 0;
-        if($end_date <= Carbon::now() && $end_date != null) {
+        if($end_date <= Carbon::now() && $end_date != null || $project_all->status === 2) {
             $ended = true;
-            return view('application.project.index', compact('company', 'project', 'name', 'ended'));
-        } else {
-            return view('application.project.index', compact('company', 'project', 'ended', 'name'));
         }
+
+
+        $users = $project_all->users;
+
+        $role = 0;
+        foreach ($users as $user) {
+            if($user->id == Auth::user()->id) {
+                $role = $user->pivot->role;
+            }
+        }
+
+        return view('application.project.index', compact('company', 'project', 'name', 'ended', 'role'));
+
     }
 
     public function ended($company, $project) {
@@ -277,18 +297,27 @@ class ProjectController extends SlugifyController
         $members = $project_all->users;
         $desc = $project_all->description;
         $ended = 1;
-        return view('application.project.end', compact('company', 'project', 'name', 'members', 'desc', 'ended'));
-
+        $role = 1;
+        return view('application.project.end', compact('company', 'project', 'name', 'members', 'desc', 'ended', 'role'));
     }
+
+    public function close(Request $request) {
+        $project_all = Project::where('url', '=', $request->project)->first();
+        $project_all->status = 2;
+        $project_all->save();
+    }
+
     public function reopen(Request $request) {
         $project_all = Project::where('url', '=', $request->project)->first();
         $project_all->end_date = null;
+        $project_all->status = 0;
         $project_all->save();
         $name = $project_all->name;
         $company = $request->company;
         $project = $request->project;
         $ended = 0;
-        return view('application.project.index', compact('company', 'project', 'name', 'ended'));
+        $role = 0;
+        return view('application.project.index', compact('company', 'project', 'name', 'ended', 'role'));
     }
 
     public function guest($company, $project) {

@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { Tabs, Tab, TabPanel, TabList } from 'react-web-tabs';
 import { Progress } from 'react-sweet-progress';
 const Timestamp = require('react-timestamp');
+import newProject from './popups/newProject'
 import {ProgressBar} from "reprogressbars";
 import PulseLoader from "./company/company";
 import {Accordion, AccordionItem, AccordionItemTitle, AccordionItemBody,} from 'react-accessible-accordion';
@@ -14,6 +15,9 @@ export default class Projects extends Component {
             overlay: false,
             projects: [],
             currentProject: null,
+            openProjects: [],
+            closedProjects: [],
+
         };
 
         this.changeOverlay = this.changeOverlay.bind(this);
@@ -34,6 +38,12 @@ export default class Projects extends Component {
             ) =>
                 this.setState({
                     projects: response.data,
+                    openProjects:  response.data.filter(function (project) {
+                        return (new Date(project.end_date) >= new Date() || project.end_date === null && project.status === 0);
+                    }),
+                    closedProjects: response.data.filter(function (project) {
+                        return ((new Date(project.end_date) < new Date() && project.end_date !== null) || project.status === 2);
+                    }),
                 })
         );
     }
@@ -55,7 +65,6 @@ export default class Projects extends Component {
                           :
                           <div className="projects-overview">
                               <h4>Your projects</h4>
-                              <button className="button button-primary no-button"><i className="fas fa-plus"> </i> New project</button>
                               <Tabs
                                   defaultTab="one"
                                   onChange={(tabId) => { console.log(tabId) }}
@@ -75,14 +84,15 @@ export default class Projects extends Component {
                                           </tr>
                                           </thead>
                                           <tbody>
-                                          {this.state.projects.map((project, i)=> (
-                                              <tr key={i} className={new Date(project.end_date) >= new Date() || project.end_date === null ? "" : "hidden"}  onClick={e =>window.location.href='./' + project.url + "/project"}>
+                                          {this.state.openProjects.map((project, i)=> (
+                                              <tr key={i}  onClick={e =>window.location.href='./' + project.url + "/project"}>
                                                   <td>{project.name}</td>
                                                   <td><Timestamp time={project.created_at} precision={2} utc={false} autoUpdate={60}   /></td>
                                                   <td>{project.end_date !== null ? <Timestamp time={new Date(project.end_date)} precision={2} utc={false} autoUpdate={60}  /> : "-" }</td>
                                                   <td><span className="tag tag-green">Open</span></td>
                                               </tr>
                                           ))}
+                                          {this.state.openProjects.length === 0 ? <p>No open projects found</p> : ""}
                                           </tbody>
                                       </table>
                                   </TabPanel>
@@ -98,14 +108,15 @@ export default class Projects extends Component {
                                           </tr>
                                           </thead>
                                           <tbody>
-                                          {this.state.projects.map((project, i) => (
-                                              <tr key={i} className={(new Date(project.end_date) >= new Date()) || (project.end_date === null) ? "hidden" : ""}   onClick={e =>window.location.href='./' + project.url + "/end/project"}>
+                                          {this.state.closedProjects.map((project, i) => (
+                                              <tr key={i} onClick={e =>window.location.href='./' + project.url + "/end/project"}>
                                                   <td>{project.name}</td>
                                                   <td><Timestamp time={project.created_at} precision={2} utc={false} autoUpdate={60}   /></td>
                                                   <td><Timestamp time={new Date(project.end_date)} precision={2} utc={false} autoUpdate={60}  /></td>
                                                   <td><span className="tag tag-red">Closed</span></td>
                                               </tr>
                                           ))}
+                                          {this.state.closedProjects.length === 0 ? <p>No closed projects found</p> : ""}
                                           </tbody>
                                       </table>
                                   </TabPanel>

@@ -8,6 +8,7 @@ import NotificationsToday from './notifcations/today';
 import NotificationsYesterday from './notifcations/yesterday';
 import NotificationsOlder from './notifcations/older';
 import FileUploader from './others/fileUploader';
+const ReactMarkdown = require('react-markdown');
 export default class TabsDashboard extends Component {
 
     constructor(props) {
@@ -20,7 +21,8 @@ export default class TabsDashboard extends Component {
             todos: [{"id":1,"user_id":1,"title":"dfgdfg","type":"d","content":"dfgdfgdfgdf","read":0,"created_at":"2018-11-06 00:00:00","updated_at":null},{"id":2,"user_id":1,"title":"dfgdfg","type":"d","content":"dfgdfgdfgdf","read":0,"created_at":"2018-11-08 00:00:00","updated_at":null},{"id":3,"user_id":1,"title":"dfgdfg","type":"d","content":"dfgdfgdfgdf","read":0,"created_at":"2018-11-09 00:00:00","updated_at":null}],
             currentPage: 1,
             todosPerPage: 6,
-            perPage: 7
+            perPage: 7,
+            message: '',
         };
         //bind
         this.notificationsToday = this.notificationsToday.bind(this);
@@ -40,6 +42,7 @@ export default class TabsDashboard extends Component {
         this.notificationsToday();
         this.notificationsYesterday();
         this.activities();
+        this.message();
     }
 
     activities() {
@@ -58,6 +61,16 @@ export default class TabsDashboard extends Component {
             ) =>
                 this.setState({
                     notificationsToday: response.data,
+                })
+        );
+    }
+
+    message() {
+        axios.get('/api/company/message').then((
+            response
+            ) =>
+                this.setState({
+                    message: response.data,
                 })
         );
     }
@@ -190,13 +203,8 @@ export default class TabsDashboard extends Component {
                                 <div className="six columns">
                                     <div className="dashboard-message">
                                         <h5>Message from the company</h5>
-                                        <p>
-                                            Nunc posuere sollicitudin ipsum id feugiat. <a>Nunc rhoncus</a> nisl quis massa venenatis ultricies. Morbi eleifend faucibus orci ac consectetur. Etiam vitae pharetra neque. Sed pulvinar magna ut neque convallis fringilla. Aliquam ultricies quam eu eros laoreet faucibus.
-                                        </p>
-                                        <p>
-                                            Integer a ipsum quis justo sollicitudin accumsan ac a lectus. Nulla dapibus hendrerit dui, finibus tincidunt arcu rutrum et. Donec rhoncus tincidunt eleifend. Donec quis elit libero. Donec semper quis turpis ut mollis. Nullam vitae libero quis libero placerat tristique.
-
-                                        </p>
+                                        <ReactMarkdown source={this.state.message} />
+                                        {this.state.message.length > 0 ? "" : "This is a reserved place where administrators can post announcements. Administrators can change this text on the \"company\" page and then click on the button."}
                                     </div>
                                 </div>
                             </div>

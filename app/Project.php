@@ -32,6 +32,10 @@ class Project extends Model
         return $this->belongsToMany('App\User')->withPivot('role');
     }
 
+    public function test() {
+        return $this->belongsToMany('App\User')->withPivot('role');
+    }
+
 
     public function tags() {
         return $this->morphMany('App\Tag', 'taggable');
@@ -63,5 +67,13 @@ class Project extends Model
 
     public function projectPolls() {
         return $this->hasMany('App\Poll');
+    }
+
+    public function taskLists() {
+        return $this->hasMany('App\Tlist');
+    }
+
+    public function tasks() {
+        return $this->hasMany('App\Task');
     }
 }

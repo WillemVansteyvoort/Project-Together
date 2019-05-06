@@ -19,6 +19,7 @@ class Kernel extends HttpKernel
         \App\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
         \App\Http\Middleware\TrustProxies::class,
+        \App\Http\Middleware\Language::class,
     ];
 
     /**
@@ -65,6 +66,7 @@ class Kernel extends HttpKernel
         'verification' => \App\Http\Middleware\CheckVerification::class,
         'project' => \App\Http\Middleware\CheckProject::class,
         'user' => \App\Http\Middleware\CheckCompanyUser::class,
+        'lang' => \App\Http\Middleware\Language::class,
 
 
     ];

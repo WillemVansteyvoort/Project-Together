@@ -77,4 +77,14 @@ class CalendarController extends Controller
             'all' => $events,
         ]);
     }
+
+    public function getDay(Request $request) {
+        $events = Event::where([
+            ['company_id', '=', Auth::user()->company_id],
+            ['from', $request->from],
+            ['private', false],
+        ])->get();
+        return $events;
+    }
+
 }
