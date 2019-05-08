@@ -84,7 +84,6 @@ export default class CompanyUsers extends Component {
         //bind
 
         this.getUsers = this.getUsers.bind(this);
-        this.getInvites = this.getInvites.bind(this);
         this.getGroups = this.getGroups.bind(this);
         this.openPopupbox = this.openPopupbox.bind(this);
         this.checkEmail = this.checkEmail.bind(this);
@@ -145,17 +144,6 @@ export default class CompanyUsers extends Component {
             });
         }
 
-    }
-
-    //invite
-    getInvites() {
-        axios.get('/api/company/invites').then((
-            response
-            ) =>
-                this.setState({
-                    invites: response.data,
-                })
-        );
     }
 
     deleteInvite(event) {
