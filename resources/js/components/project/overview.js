@@ -94,6 +94,7 @@ export default class ProjectOverview extends Component {
             error_description: "",
             error_own: false,
             error_own_timer: 0,
+            error_new: '',
 
             //edit a single user
             showUser: false,
@@ -202,7 +203,7 @@ export default class ProjectOverview extends Component {
             });
 
             if(response.data.end_date === null) {
-                this.setState({project_end_date: null})
+                this.setState({project_end_date: ''})
             }
             let tags = response.data.tags;
             let newTags = [];
@@ -393,6 +394,7 @@ export default class ProjectOverview extends Component {
 
     addUser() {
         if(this.state.add_userId > 0) {
+            this.setState({error_new: ''})
             axios.post('/api/project/user/new', {
                 project: window.Laravel.data.project,
                 user_id: this.state.add_userId,
@@ -401,6 +403,8 @@ export default class ProjectOverview extends Component {
                 this.setState({showAdd: false})
                 this.getProjectInfo();
             });
+        } else {
+            this.setState({error_new: 'Please select a member from the list'})
         }
     }
 
@@ -773,8 +777,8 @@ export default class ProjectOverview extends Component {
                                      <span className="tag tag-primary">{roles[this.state.user_role].value}</span>
                                      <h5>Change members role</h5>
                                       <select onChange={(event) => this.setState({user_role: event.target.value})}>
-                                          <option value="0">Member</option>
-                                          <option value="1">Watcher</option>
+                                          <option value="0">Watcher</option>
+                                          <option value="1">Member</option>
                                           <option value="2">Responsable</option>
                                           <option value="3">Leader</option>
                                       </select>
@@ -792,7 +796,7 @@ export default class ProjectOverview extends Component {
                      closeOnOverlay={true}>
                     <div className="popup">
                         <div className="popup-titleBar">
-                            Change {this.state.user_name}
+                            New member
                             <button className="popup-btn--close"  onClick={() => this.toggleShow(false)}>✕</button>
                         </div>
                         <div className="popup-content">
@@ -802,16 +806,18 @@ export default class ProjectOverview extends Component {
                                 </div>
                                  <div className="six columns">
                                      <h5>Company member</h5>
+                                     <div id="red">{this.state.error_new} </div>
                                      <select onChange={(event) => this.setState({add_userId: event.target.value})}>
-                                         <option></option>
+                                         <option> </option>
+
                                         {this.state.companyUsers.map((user, i) => (
                                             <option value={user.id} key={i}>{user.name} {user.lastname}</option>
                                         ))}
                                       </select>
                                      <h5>Member role</h5>
                                       <select onChange={(event) => this.setState({add_roleId: event.target.value})}>
-                                          <option value="0">Member</option>
-                                          <option value="1">Watcher</option>
+                                          <option value="0">Watcher</option>
+                                          <option value="1">Member</option>
                                           <option value="2">Responsable</option>
                                           <option value="3">Leader</option>
                                       </select>

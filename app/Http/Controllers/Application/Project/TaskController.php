@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Application\Project;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Project;
-use App\tlist;
+use App\Tlist;
 use App\Task;
 use Illuminate\Support\Facades\Auth;
 use PhpParser\Node\Expr\List_;

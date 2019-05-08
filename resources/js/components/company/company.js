@@ -204,7 +204,6 @@ export default class CompanyUsers extends Component {
                 user: user,
             }).then(response => {
                 this.setState({
-                    groups: response.data
                 })
             });
         }
@@ -367,7 +366,6 @@ export default class CompanyUsers extends Component {
                 this.setState({
                     updated: true,
                     showUser: false,
-                    users: response.data,
                     user_name: '',
                     user_lastname: '',
                     user_username: '',
