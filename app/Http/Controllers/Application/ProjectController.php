@@ -192,16 +192,29 @@ class ProjectController extends SlugifyController
     }
 
     public function checkName(Request $request) {
-        $project = Project::where('url', '=', $request->project)->first();
-        if($request->name !== $project->name) {
+        if($request->project) {
+            $project = Project::where('url', '=', $request->project)->first();
+            if($request->name !== $project->name) {
+                if(Project::where([['name', $request->name], ['company_id', Auth::user()->company_id]])->count() > 0) {
+                    return 1;
+                } else {
+                    return 0;
+                }
+            } else {
+                return 0;
+            }
+        } else {
             if(Project::where([['name', $request->name], ['company_id', Auth::user()->company_id]])->count() > 0) {
                 return 1;
             } else {
                 return 0;
             }
-        } else {
-            return 0;
         }
+
+    }
+
+    public function checkNameNew(Request $request) {
+
     }
 
     public function edit(Request $request) {

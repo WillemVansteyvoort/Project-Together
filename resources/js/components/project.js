@@ -67,7 +67,7 @@ export default class Projects extends Component {
                               <h4>Your projects</h4>
                               <Tabs
                                   defaultTab="one"
-                                  onChange={(tabId) => { console.log(tabId) }}
+                                  onChange={(tabId) => { }}
                               >
                                   <TabList>
                                       <Tab tabFor="one" className="projects-tab">Active projects </Tab>
@@ -76,7 +76,7 @@ export default class Projects extends Component {
                                   <TabPanel tabId="one">
                                       <table className="u-full-width">
                                           <thead>
-                                          <tr>
+                                          <tr id="no-bg">
                                               <th>Name</th>
                                               <th>Started on</th>
                                               <th>ends in</th>
@@ -92,7 +92,7 @@ export default class Projects extends Component {
                                                   <td><span className="tag tag-green">Open</span></td>
                                               </tr>
                                           ))}
-                                          {this.state.openProjects.length === 0 ? <p>No open projects found</p> : ""}
+                                          {this.state.openProjects.length === 0 ? <tr><td>No open projects found</td></tr> : ""}
                                           </tbody>
                                       </table>
                                   </TabPanel>
@@ -116,7 +116,7 @@ export default class Projects extends Component {
                                                   <td><span className="tag tag-red">Closed</span></td>
                                               </tr>
                                           ))}
-                                          {this.state.closedProjects.length === 0 ? <p>No closed projects found</p> : ""}
+                                          {this.state.closedProjects.length === 0 ? <tr><td>No closed projects found</td></tr> : ""}
                                           </tbody>
                                       </table>
                                   </TabPanel>

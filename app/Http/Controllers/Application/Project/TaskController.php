@@ -86,7 +86,7 @@ class TaskController extends Controller
 
     public function createList(Request $request) {
         $project = Project::where('url', '=', $request->project)->first();
-       $list = tlist::create([
+       $list = Tlist::create([
            'name' => $request->list_name,
             'project_id' => $project->id,
         ]);
@@ -109,7 +109,7 @@ class TaskController extends Controller
     }
 
     public function deleteTask(Request $request) {
-        $task = findOrFail($request->taskId);
+        $task = Task::findOrFail($request->taskId);
         Task::destroy($request->taskId);
 
         Activity::create([

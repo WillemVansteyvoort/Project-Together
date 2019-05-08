@@ -196,7 +196,7 @@ export default class PopupNewProject extends Component {
     }
 
     createProject() {
-
+        this.checkName();
         if(this.state.title.length < 4) {
             this.setState({error_title: "The project title must have 4 characters minimum"});
         } else {
@@ -219,7 +219,7 @@ export default class PopupNewProject extends Component {
         } else {
                 this.setState({error_date: ""});
         }
-        if(!this.state.title.length < 4 && !this.state.description.length < 10 && !givenDate < CurrentDate && !this.state.error_name) {
+        if(this.state.title.length >= 4 && this.state.description.length >= 10 && givenDate > CurrentDate && !this.state.error_name) {
             this.setState({
                 isLoading: true,
             });
@@ -377,10 +377,9 @@ export default class PopupNewProject extends Component {
     }
 
     checkName() {
+        console.log("wa");
         axios.post('/api/project/check/name', {
            name: this.state.title,
-            project: window.Laravel.data.project,
-
         }).then(response => {
             if(response.data) {
                 this.setState({error_title: "This name is already in use", error_name: true});

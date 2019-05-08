@@ -43,11 +43,41 @@ export default class Profile extends Component {
             return (
                 <div key={i} className="dashboard-activities-item">
                     <div className="user-profile-activity">
-                        {activity.type === 0 ? <span>Has created the project <a>{activity.project.name}</a> <Timestamp time={activity.created_at} precision={1}  utc={false}/></span> :""}
-                        {activity.type === 2 ? <span>Has created a new note in  <a>{activity.project.name}</a> <Timestamp time={activity.created_at} precision={1}  utc={false}/></span> :""}
-                        {activity.type === 3 ? <span>Created a new thread in <a>{activity.project.name}</a> <Timestamp time={activity.created_at} precision={1}  utc={false}/></span> :""}
-                        {activity.type === 4 ? <span>Replied on a thread in  <a>{activity.project.name}</a> <Timestamp time={activity.created_at} precision={1}  utc={false}/></span> :""}
-                        {activity.type === 5 ? <span>Created a new card on the board in  <a>{activity.project.name}</a> <Timestamp time={activity.created_at} precision={1}  utc={false}/></span> :""}
+                        {activity.type === 0 ? <span>Has created the project <a>{activity.project.name}</a></span> :""}
+                        {activity.type === 2 ? <span>Has created a new note in <a>{activity.project.name}</a></span> :""}
+                        {activity.type === 3 ? <span>Has created a new thread in <a>{activity.project.name}</a></span> :""}
+                        {activity.type === 4 ? <span>Has replied on a thread in  <a>{activity.project.name}</a></span> :""}
+                        {activity.type === 5 ? <span>Has created a new task list in  <a>{activity.project.name}</a></span> :""}
+                        {activity.type === 6 ? <span>Has created a new tak in  <a>{activity.project.name}</a></span> :""}
+                        {activity.type === 7 ? <span>Has verified a task as done in <a>{activity.project.name}</a></span> :""}
+                        {activity.type === 8 ? <span>Has reopened a task  in <a>{activity.project.name}</a></span> :""}
+                        {activity.type === 9 ? <span>Has edited a task in  <a>{activity.project.name}</a></span> :""}
+                        {activity.type === 10 ? <span>Has deleted a task in  <a>{activity.project.name}</a></span> :""}
+                        {activity.type === 11 ? <span>Has deleted a note in  <a>{activity.project.name}</a></span> :""}
+                        {activity.type === 12 ? <span>Has deleted a thread  in  <a>{activity.project.name}</a></span> :""}
+                        {activity.type === 13 ? <span>Has edited a thread  in  <a>{activity.project.name}</a></span> :""}
+                        {activity.type === 14 ? <span>Has edited a reply in <a>{activity.project.name}</a></span> :""}
+                        {activity.type === 15 ? <span>Has deleted a reply  in  <a>{activity.project.name}</a></span> :""}
+                        {activity.type === 16 ? <span>Has created a new card on the board  in  <a>{activity.project.name}</a></span> :""}
+                        {activity.type === 17 ? <span>Has deleted a card from the board in  <a>{activity.project.name}</a></span> :""}
+                        {activity.type === 18 ? <span>Has edited a card from the board in  <a>{activity.project.name}</a></span> :""}
+                        {activity.type === 19 ? <span>Has created a new poll in <a>{activity.project.name}</a></span> :""}
+                        {activity.type === 20 ? <span>Has voted on a poll in  <a>{activity.project.name}</a></span> :""}
+                        {activity.type === 21 ? <span>Has deleted his vote on a poll  in  <a>{activity.project.name}</a></span> :""}
+                        {activity.type === 22 ? <span>Has edited a poll in  <a>{activity.project.name}</a></span> :""}
+                        {activity.type === 23 ? <span>Has deleted a poll  in  <a>{activity.project.name}</a></span> :""}
+                        {activity.type === 24 ? <span>Has created a new log in  <a>{activity.project.name}</a></span> :""}
+                        {activity.type === 25 ? <span>Has deleted a log  in  <a>{activity.project.name}</a></span> :""}
+                        {activity.type === 26 ? <span>Has created a new crisis-item in  <a>{activity.project.name}</a></span> :""}
+                        {activity.type === 27 ? <span>Has deleted a crisis-item  in  <a>{activity.project.name}</a></span> :""}
+                        {activity.type === 28 ? <span>Has modified a crisis-item in <a>{activity.project.name}</a></span> :""}
+                        {activity.type === 29 ? <span>Has solved a crisis-item in <a>{activity.project.name}</a></span> :""}
+                        {activity.type === 31 ? <span>Has added {activity.content} to  <a>{activity.project.name}</a></span> :""}
+                        {activity.type === 32 ? <span>Has deleted {activity.content} in <a>{activity.project.name}</a></span> :""}
+                        {activity.type === 33 ? <span>Has modified the roll of {activity.content} in <a>{activity.project.name}</a></span> :""}
+                        {activity.type === 34 ? <span>Has edited the project <a>{activity.project.name}</a></span> :""}
+                        {activity.type === 35 ? <span>Has closed the project <a>{activity.project.name}</a></span> :""}
+                        {activity.type === 36 ? <span>Has reopened the project <a>{activity.project.name}</a></span> :""}
 
                     </div>
                 </div>

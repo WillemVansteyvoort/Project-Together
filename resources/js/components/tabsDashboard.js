@@ -112,8 +112,37 @@ export default class TabsDashboard extends Component {
                             {activity.type === 2 ? <span>There's a new note is created in  <a>{activity.project.name}</a> by <a>{activity.user.name} {activity.user.lastname}</a></span> :""}
                             {activity.type === 3 ? <span><a>{activity.user.name} {activity.user.lastname}</a> created a new thread in <a>{activity.project.name}</a></span> :""}
                             {activity.type === 4 ? <span><a>{activity.user.name} {activity.user.lastname}</a> replied on a thread in  <a>{activity.project.name}</a></span> :""}
-                            {activity.type === 5 ? <span><a>{activity.user.name} {activity.user.lastname}</a> created a new card on the board in  <a>{activity.project.name}</a></span> :""}
-
+                            {activity.type === 5 ? <span><a>{activity.user.name} {activity.user.lastname}</a> created a new task list in  <a>{activity.project.name}</a></span> :""}
+                            {activity.type === 6 ? <span><a>{activity.user.name} {activity.user.lastname}</a> created a new tak in  <a>{activity.project.name}</a></span> :""}
+                            {activity.type === 7 ? <span><a>{activity.user.name} {activity.user.lastname}</a> verified a task as done in <a>{activity.project.name}</a></span> :""}
+                            {activity.type === 8 ? <span><a>{activity.user.name} {activity.user.lastname}</a> reopened a task  in <a>{activity.project.name}</a></span> :""}
+                            {activity.type === 9 ? <span><a>{activity.user.name} {activity.user.lastname}</a> edited a task in  <a>{activity.project.name}</a></span> :""}
+                            {activity.type === 10 ? <span><a>{activity.user.name} {activity.user.lastname}</a> deleted a task in  <a>{activity.project.name}</a></span> :""}
+                            {activity.type === 11 ? <span><a>{activity.user.name} {activity.user.lastname}</a> deleted a note in  <a>{activity.project.name}</a></span> :""}
+                            {activity.type === 12 ? <span><a>{activity.user.name} {activity.user.lastname}</a> deleted a thread  in  <a>{activity.project.name}</a></span> :""}
+                            {activity.type === 13 ? <span><a>{activity.user.name} {activity.user.lastname}</a> edited a thread  in  <a>{activity.project.name}</a></span> :""}
+                            {activity.type === 14 ? <span><a>{activity.user.name} {activity.user.lastname}</a> edited a reply in <a>{activity.project.name}</a></span> :""}
+                            {activity.type === 15 ? <span><a>{activity.user.name} {activity.user.lastname}</a> deleted a reply  in  <a>{activity.project.name}</a></span> :""}
+                            {activity.type === 16 ? <span><a>{activity.user.name} {activity.user.lastname}</a> created a new card on the board  in  <a>{activity.project.name}</a></span> :""}
+                            {activity.type === 17 ? <span><a>{activity.user.name} {activity.user.lastname}</a> deleted a card from the board in  <a>{activity.project.name}</a></span> :""}
+                            {activity.type === 18 ? <span><a>{activity.user.name} {activity.user.lastname}</a> edited a card from the board in  <a>{activity.project.name}</a></span> :""}
+                            {activity.type === 19 ? <span><a>{activity.user.name} {activity.user.lastname}</a> created a new poll in <a>{activity.project.name}</a></span> :""}
+                            {activity.type === 20 ? <span><a>{activity.user.name} {activity.user.lastname}</a> voted on a poll in  <a>{activity.project.name}</a></span> :""}
+                            {activity.type === 21 ? <span><a>{activity.user.name} {activity.user.lastname}</a> deleted his vote on a poll  in  <a>{activity.project.name}</a></span> :""}
+                            {activity.type === 22 ? <span><a>{activity.user.name} {activity.user.lastname}</a> edited a poll in  <a>{activity.project.name}</a></span> :""}
+                            {activity.type === 23 ? <span><a>{activity.user.name} {activity.user.lastname}</a> deleted a poll  in  <a>{activity.project.name}</a></span> :""}
+                            {activity.type === 24 ? <span><a>{activity.user.name} {activity.user.lastname}</a> created a new log in  <a>{activity.project.name}</a></span> :""}
+                            {activity.type === 25 ? <span><a>{activity.user.name} {activity.user.lastname}</a> deleted a log  in  <a>{activity.project.name}</a></span> :""}
+                            {activity.type === 26 ? <span><a>{activity.user.name} {activity.user.lastname}</a> created a new crisis-item in  <a>{activity.project.name}</a></span> :""}
+                            {activity.type === 27 ? <span><a>{activity.user.name} {activity.user.lastname}</a> deleted a crisis-item  in  <a>{activity.project.name}</a></span> :""}
+                            {activity.type === 28 ? <span><a>{activity.user.name} {activity.user.lastname}</a> modified a crisis-item in <a>{activity.project.name}</a></span> :""}
+                            {activity.type === 29 ? <span><a>{activity.user.name} {activity.user.lastname}</a> solved a crisis-item in <a>{activity.project.name}</a></span> :""}
+                            {activity.type === 31 ? <span><a>{activity.user.name} {activity.user.lastname}</a> added {activity.content} to  <a>{activity.project.name}</a></span> :""}
+                            {activity.type === 32 ? <span><a>{activity.user.name} {activity.user.lastname}</a> deleted {activity.content} in <a>{activity.project.name}</a></span> :""}
+                            {activity.type === 33 ? <span><a>{activity.user.name} {activity.user.lastname}</a> modified the roll of {activity.content} in <a>{activity.project.name}</a></span> :""}
+                            {activity.type === 34 ? <span><a>{activity.user.name} {activity.user.lastname}</a> edited the project <a>{activity.project.name}</a></span> :""}
+                            {activity.type === 35 ? <span><a>{activity.user.name} {activity.user.lastname}</a> closed the project <a>{activity.project.name}</a></span> :""}
+                            {activity.type === 36 ? <span><a>{activity.user.name} {activity.user.lastname}</a> reopened the project <a>{activity.project.name}</a></span> :""}
                         </div>
                     </div>
                 )

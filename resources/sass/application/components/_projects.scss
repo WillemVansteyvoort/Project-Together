@@ -18,6 +18,9 @@
     margin: 0 20%;
   }
 
+  tr:hover {
+    background: #CCC;
+  }
   &-overlay {
 
   }
@@ -52,5 +55,20 @@
 
   td {
     width: 25%;
+  }
+}#no-bg {
+   &:hover {
+     background: none !important;
+   }
+ }
+
+@media screen and (max-width : 760px) {
+  .projects {
+    padding: 0;
+    &-overview {
+      margin: 0;
+      padding: 20px 25px 10px 25px;
+
+    }
   }
 }

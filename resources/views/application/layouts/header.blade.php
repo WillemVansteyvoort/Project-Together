@@ -6,11 +6,11 @@
             <label for="show-menu" class="show-menu left"><i class="fas fa-times"></i></label>
             <ul>
                 <h5>{{{ Auth::user()->company->name }}}</h5>
-                <li><a class="" href="{{route('app_dashboard', Auth::user()->company->url)}}">Dashboard</a></li>
-                <li><a href="about.html">Projects</a></li>
-                <li><a href="">Calender</a></li>
+                <li><a class="" href="{{route('app_dashboard', Auth::user()->company->url)}}">@lang('Dashboard')</a></li>
+                <li><a href="{{route('app_projects', Auth::user()->company->url)}}">@lang('Projects')</a></li>
+                <li><a href="{{route('app_calendar', Auth::user()->company->url)}}">@lang('Calendar')</a></li>
                 @if(Auth::user()->admin || Auth::user()->rights->create_members || Auth::user()->rights->create_groups || Auth::user()->rights->company_settings)
-                    <li><a href="{{route('app_company', Auth::user()->company->url)}}">Company</a></li>
+                    <li><a href="{{route('app_company', Auth::user()->company->url)}}">@lang('Company')</a></li>
                 @endif
                 <li ><a  href="" class="button button-second"><i class="fas fa-plus"> </i> New project</a></li>
             </ul>

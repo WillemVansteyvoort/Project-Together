@@ -58,3 +58,11 @@
   }
 
 }
+
+@media screen and (max-width : 760px) {
+  .project-polls {
+    &-item {
+      width: 100%;
+    }
+  }
+}
