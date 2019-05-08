@@ -25,7 +25,7 @@
 - 14: Reply is edited
 - 15: Reply is deleted
 
-## Board
+### Board
 - 16: Item is created
 - 17: Item is deleted
 - 18: Item is modified
