@@ -1,3 +1,4 @@
+# Project Toegether
 ## Types of activities
 - 0: Project created
 - 1: A new event is added
