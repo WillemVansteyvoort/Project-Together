@@ -24,3 +24,10 @@
 - 13: Thread is edited
 - 14: Reply is edited
 - 15: Reply is deleted
+
+## Board
+- 16: Item is created
+- 17: Item is deleted
+- 18: Item is modified
+
+
