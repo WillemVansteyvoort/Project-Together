@@ -85,6 +85,7 @@ export default class CompanyUsers extends Component {
 
         this.getUsers = this.getUsers.bind(this);
         this.getInvites = this.getInvites.bind(this);
+        this.getCountries = this.getCountries.bind(this);
         this.getGroups = this.getGroups.bind(this);
         this.openPopupbox = this.openPopupbox.bind(this);
         this.checkEmail = this.checkEmail.bind(this);
@@ -112,6 +113,9 @@ export default class CompanyUsers extends Component {
     }
     componentWillMount() {
         this.getUsers();
+        this.getInvites();
+        this.getGroups();
+        this.getCountries();
     }
 
     componentDidMount() {
@@ -120,18 +124,25 @@ export default class CompanyUsers extends Component {
     componentWillUnmount() {
     }
 
+    getCountries() {
+        axios.get('/api/countries').then((
+            response
+            ) =>
+                this.setState({
+                    user_countries: response.data
+                })
+        );
+    }
 
     //user
     getUsers() {
         axios.get('/api/company/users').then((
             response
-            ) => {
-            this.getInvites();
+            ) =>
                 this.setState({
                     users: response.data,
                     isLoading: false,
                 })
-            }
         );
     }
 
@@ -193,6 +204,7 @@ export default class CompanyUsers extends Component {
                 user: user,
             }).then(response => {
                 this.setState({
+                    groups: response.data
                 })
             });
         }
@@ -355,6 +367,7 @@ export default class CompanyUsers extends Component {
                 this.setState({
                     updated: true,
                     showUser: false,
+                    users: response.data,
                     user_name: '',
                     user_lastname: '',
                     user_username: '',
@@ -481,7 +494,6 @@ export default class CompanyUsers extends Component {
                                         <td>{invite.email}</td>
                                         <td><Timestamp time={invite.created_at} precision={1} utc={false}/></td>
                                         <td>
-                                            {(window.Laravel.user.admin && window.Laravel.user.id !== user.id && !user.admin) || (window.Laravel.user.id === window.Laravel.company.owner && window.Laravel.user.id !== user.id) ? <i onClick={event => this.deleteInvite(invite.id)} className="fas fa-trash-alt"> </i> : ""}
                                             <i onClick={event => this.deleteInvite(invite.id)} className="fas fa-trash-alt"> </i>
                                         </td>
                                     </tr>
