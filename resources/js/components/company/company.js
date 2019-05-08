@@ -112,7 +112,6 @@ export default class CompanyUsers extends Component {
     }
     componentWillMount() {
         this.getUsers();
-        this.getInvites();
     }
 
     componentDidMount() {
