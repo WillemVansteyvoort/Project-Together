@@ -13,4 +13,6 @@
 - 6: New task created
 - 7: Task as done
 - 8: Reopen task
+- 9: edited task
+- 10: deleted task
 
