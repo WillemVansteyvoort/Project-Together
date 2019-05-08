@@ -31,7 +31,7 @@
 - 18: Item is modified
 
 
-## Polls
+### Polls
 - 19: New poll is created
 - 20: Voted on poll
 - 21: Deleted vote on poll
