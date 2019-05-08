@@ -2,8 +2,6 @@
 
 
 ## Types of activities
-- 0: Project created
-- 1: A new event is added
 
 ### Tasks
 - 5: New task-list created
@@ -54,3 +52,11 @@
 - 31: New member in project
 - 32: Deleted member in project
 - 33: Modified role in project
+
+### Project others
+- 0: Project created
+- 1: A new event is added
+- 34: Project is editted
+- 35: Project is closed
+- 36: Project is reopend
+
