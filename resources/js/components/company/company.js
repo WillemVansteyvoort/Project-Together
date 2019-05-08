@@ -84,7 +84,6 @@ export default class CompanyUsers extends Component {
         //bind
 
         this.getUsers = this.getUsers.bind(this);
-        this.getGroups = this.getGroups.bind(this);
         this.openPopupbox = this.openPopupbox.bind(this);
         this.checkEmail = this.checkEmail.bind(this);
         this.checkName = this.checkName.bind(this);
@@ -112,13 +111,6 @@ export default class CompanyUsers extends Component {
     componentWillMount() {
         this.getUsers();
     }
-
-    componentDidMount() {
-    }
-
-    componentWillUnmount() {
-    }
-
 
     //user
     getUsers() {
@@ -159,18 +151,6 @@ export default class CompanyUsers extends Component {
     }
 
     //groups
-    getGroups() {
-        axios.get('/api/company/groups').then((
-            response
-            ) =>
-                this.setState({
-                    groups: response.data,
-                })
-        );
-        this.setState({
-            selectedGroups: this.state.groups,
-        });
-    }
 
     deleteGroupUser(group, user) {
         if (confirm('Are you sure you want to delete this user from the group?')) {
