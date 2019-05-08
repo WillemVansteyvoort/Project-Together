@@ -28,7 +28,7 @@ export default class CompanyUsers extends Component {
             groups: [],
             selectedGroups: [],
             test: 'ghgh',
-            isLoading: true,
+            isLoading: false,
             show: false,
 
             //edit user
@@ -84,7 +84,6 @@ export default class CompanyUsers extends Component {
         //bind
 
         this.getUsers = this.getUsers.bind(this);
-        this.getInvites = this.getInvites.bind(this);
         this.getGroups = this.getGroups.bind(this);
         this.openPopupbox = this.openPopupbox.bind(this);
         this.checkEmail = this.checkEmail.bind(this);
@@ -124,14 +123,14 @@ export default class CompanyUsers extends Component {
 
     //user
     getUsers() {
-        axios.get('/api/company/users').then((
+        axios.get('/api/company/all').then((
             response
             ) => {
                 this.setState({
-                    users: response.data,
+                    users: response.data.users,
+                    invites: response.data.invites,
                     isLoading: false,
                 });
-                this.getInvites();
         }
 
         );
@@ -151,16 +150,6 @@ export default class CompanyUsers extends Component {
 
     }
 
-    //invite
-    getInvites() {
-        axios.get('/api/company/invites').then((
-            response
-            ) =>
-                this.setState({
-                    invites: response.data,
-                })
-        );
-    }
 
     deleteInvite(event) {
         if (confirm('Are you sure you want to delete this invite?')) {

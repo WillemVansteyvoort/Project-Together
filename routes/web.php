@@ -134,6 +134,7 @@ Route::get('/api/company/message', 'Application\DashboardController@message');
 
 Route::get('/api/company/users', 'Application\CompanyController@users');
 Route::get('/api/company/invites', 'Application\CompanyController@invites');
+Route::get('/api/company/all', 'Application\CompanyController@allInOne');
 Route::get('/api/company/invites', 'Application\CompanyController@invites');
 Route::get('/api/company/groups', 'Application\CompanyController@groups');
 Route::get('/api/company/stats', 'Application\CompanyController@stats');

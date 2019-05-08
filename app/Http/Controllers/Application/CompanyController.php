@@ -35,6 +35,19 @@ class CompanyController extends Controller {
 
     }
 
+    public function allInOne() {
+        $users = User::where([
+            ['company_id', '=', Auth::user()->company_id],
+        ])->with('city','city.country', 'two_step' ,'rights', 'two_step', 'groups')->get();
+        $invites = User_invite::where([
+            ['company_id', '=', Auth::user()->company_id],
+        ])->get();
+        return response()->json([
+            'users' => $users,
+            'invites' => $invites
+        ]);
+    }
+
     public function groups() {
         $groups = Group::where('company_id', Auth::user()->company_id)->with(['users'], ['owner'])->get();
         return $groups->toJson(JSON_PRETTY_PRINT);
