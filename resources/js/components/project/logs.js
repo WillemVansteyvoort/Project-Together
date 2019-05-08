@@ -27,6 +27,9 @@ export default class ProjectLogs extends Component {
 
             //create
             text: '',
+
+            //errors
+            error_content: '',
         };
 
         this.logsByUser = this.logsByUser.bind(this);
@@ -67,16 +70,23 @@ export default class ProjectLogs extends Component {
     }
 
     createLog() {
-        axios.post('/api/project/logs/create', {
-            project: window.Laravel.data.project,
-            text: this.state.text,
-        }).then(response => {
-            this.setState({
-                logs: [response.data, ...this.state.logs],
-                currentUser: null,
-                show: false,
+
+        if(this.state.text.length >= 5) {
+            this.setState({error_content: ""})
+            axios.post('/api/project/logs/create', {
+                project: window.Laravel.data.project,
+                text: this.state.text,
+            }).then(response => {
+                this.setState({
+                    logs: [response.data, ...this.state.logs],
+                    currentUser: null,
+                    show: false,
+                });
             });
-        });
+        } else {
+            this.setState({error_content: "The content must have at least 5 characters"})
+        }
+
     }
 
     deleteLog(id, i) {
@@ -114,7 +124,7 @@ export default class ProjectLogs extends Component {
         const {show} = this.state;
         return (
             <span>
-               {!window.Laravel.data.ended ? <button className="project-header-plus no-button test" onClick={() => this.toggleShow(true)}>
+                {!window.Laravel.data.ended &&  window.Laravel.data.role !== 0  ? <button className="project-header-plus no-button test" onClick={() => this.toggleShow(true)}>
                    <i className="fas fa-plus"> </i>
                </button> : ""}
                 <main className="project-main">
@@ -153,9 +163,12 @@ export default class ProjectLogs extends Component {
                                                         <div className="float-right">
                                                             {/*<a ><i*/}
                                                             {/*className="fas fa-pencil-alt"> </i></a>*/}
-
+                                                            {!window.Laravel.data.ended && window.Laravel.data.role !== 0 && (log.user_id === window.Laravel.user.id || window.Laravel.data.role === 2 || window.Laravel.data.role === 3) ?
                                                             <a onClick={event => this.deleteLog(log.id, i)}><i
-                                                            className="fas fa-trash-alt" > </i></a></div>
+                                                            className="fas fa-trash-alt" > </i></a>
+                                                                : ""}
+
+                                                                </div>
                                                     </div>
                                                 </article>
                                             ))}
@@ -179,6 +192,7 @@ export default class ProjectLogs extends Component {
                         <div className="popup-content">
                             <div className="row">
                                 <div className="twelve columns">
+                                    <div id="red">{this.state.error_content}</div>
                                     <SimpleMDEReact
                                         className={""}
                                         label=""

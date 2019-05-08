@@ -761,7 +761,7 @@ a:hover {
 }
 
 .alert-blue {
-  background-color: #E54243;
+  background-color: #5680e9;
 }
 
 .alert-black {
@@ -3824,8 +3824,9 @@ input[type=checkbox]:checked + #nav-mobile--menu {
   width: 37px;
 }
 
-.project-notes .creator h8 {
+.project-notes .creator h6 {
   float: left;
+  font-weight: bold;
 }
 
 .project-notes ::-webkit-scrollbar {

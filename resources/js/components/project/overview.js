@@ -27,12 +27,12 @@ months[11] = "DEC";
 months[12] = "JAN";
 var roles  = [
     {
-        value: "member",
-        label: "Member"
-    },
-    {
         value: "watcher",
         label: "Watcher"
+    },
+    {
+        value: "member",
+        label: "Member"
     },
     {
         value: "responsable",
@@ -200,6 +200,10 @@ export default class ProjectOverview extends Component {
                 project_crisisCenter: response.data.crisiscenter,
                 project_private: response.data.public,
             });
+
+            if(response.data.end_date === null) {
+                this.setState({project_end_date: null})
+            }
             let tags = response.data.tags;
             let newTags = [];
             for (let i = 0; i < tags.length; i++) {
@@ -287,7 +291,6 @@ export default class ProjectOverview extends Component {
     }
 
     removeTag(e) {
-        console.log(e);
         var array = [...this.state.project_tags]; // make a separate copy of the array
         var index = array.indexOf(e.tag);
         if (index !== -1) {
@@ -302,11 +305,12 @@ export default class ProjectOverview extends Component {
         } else {
             this.setState({error_title: ""});
         }
+
         if(this.state.error_name) {
             this.setState({error_title: "This name is already in use"});
 
         }
-        if(this.state.project_title.length < 10) {
+        if(this.state.project_description.length < 10) {
             this.setState({error_description: "The description must have 10 characters minimum"});
         } else {
             this.setState({error_description: ""});
@@ -314,12 +318,15 @@ export default class ProjectOverview extends Component {
 
         let CurrentDate = new Date();
         let givenDate = new Date(this.state.project_end_date);
-        if(givenDate < CurrentDate){
+        let dateError = false;
+        if(this.state.project_end_date !== null && givenDate < CurrentDate){
             this.setState({error_date: "Given date is not greater than the current date."});
+            dateError = true;
         } else {
             this.setState({error_date: ""});
+            dateError = false;
         }
-        if(!this.state.project_title.length < 4 && !this.state.project_description.length < 10 && !givenDate < CurrentDate && !this.state.error_name) {
+        if(this.state.project_title.length >= 4 && this.state.project_description.length >= 10 && !this.state.error_name && !dateError) {
             this.setState({
                 isLoading: true,
             });
@@ -349,10 +356,14 @@ export default class ProjectOverview extends Component {
 
     checkName() {
         axios.post('/api/project/check/name', {
-            name: this.state.project_title
+            name: this.state.project_title,
+            project: window.Laravel.data.project,
         }).then(response => {
             if(response.data) {
                 this.setState({error_title: "This name is already in use", error_name: true});
+            } else {
+                this.setState({error_title: "", error_name: false});
+
             }
         });
     }
@@ -381,14 +392,16 @@ export default class ProjectOverview extends Component {
     }
 
     addUser() {
-        axios.post('/api/project/user/new', {
-            project: window.Laravel.data.project,
-            user_id: this.state.add_userId,
-            role_id: this.state.add_roleId,
-        }).then(response => {
-            this.setState({showAdd: false})
-            this.getProjectInfo();
-        });
+        if(this.state.add_userId > 0) {
+            axios.post('/api/project/user/new', {
+                project: window.Laravel.data.project,
+                user_id: this.state.add_userId,
+                role_id: this.state.add_roleId,
+            }).then(response => {
+                this.setState({showAdd: false})
+                this.getProjectInfo();
+            });
+        }
     }
 
     handleRoll(selectedOption) {
@@ -523,6 +536,7 @@ export default class ProjectOverview extends Component {
                                     <span>
                                         <h5>Forum activity</h5>
                                         <div className="dashboard-project-forum">
+                                            {this.state.replies.length === 0 ? <div className="alert alert-blue center-text">No activity to show</div> : ""}
                                                 {this.state.replies.map((reply, i)=> (
                                                     <div key={i}>
                                                         {reply.created ? <span>New post created named: <a>{reply.post.title}</a></span> : <span>New reply on <a>{reply.post.title}</a></span>}
@@ -611,7 +625,7 @@ export default class ProjectOverview extends Component {
                                                     <div>
                                                         <Switch
                                                             // onChange={this.handleChange}
-                                                            checked={this.state.project_tasks}
+                                                            checked={!!this.state.project_tasks}
                                                             className="react-switch popup-addons--switch"
                                                             id="normal-switch"
                                                             onChange={e => this.setState({ project_tasks: !this.state.project_tasks })}
@@ -623,7 +637,7 @@ export default class ProjectOverview extends Component {
                                                      <div>
                                                         <Switch
                                                             // onChange={this.handleChange}
-                                                            checked={this.state.project_notes}
+                                                            checked={!!this.state.project_notes}
                                                             className="react-switch popup-addons--switch"
                                                             id="normal-switch"
                                                             onChange={e => this.setState({ project_notes: !this.state.project_notes })}
@@ -635,7 +649,7 @@ export default class ProjectOverview extends Component {
                                                      <div>
                                                         <Switch
                                                             // onChange={this.handleChange}
-                                                            checked={this.state.project_forum}
+                                                            checked={!!this.state.project_forum}
                                                             className="react-switch popup-addons--switch"
                                                             id="normal-switch"
                                                             onChange={e => this.setState({ project_forum: !this.state.project_forum })}
@@ -647,7 +661,7 @@ export default class ProjectOverview extends Component {
                                                      <div>
                                                         <Switch
                                                             // onChange={this.handleChange}
-                                                            checked={this.state.project_board}
+                                                            checked={!!this.state.project_board}
                                                             className="react-switch popup-addons--switch"
                                                             id="normal-switch"
                                                             onChange={e => this.setState({ project_board: !this.state.project_board })}
@@ -662,7 +676,7 @@ export default class ProjectOverview extends Component {
                                                     <div>
                                                         <Switch
                                                             // onChange={this.handleChange}
-                                                            checked={this.state.project_polls}
+                                                            checked={!!this.state.project_polls}
                                                             className="react-switch popup-addons--switch"
                                                             id="normal-switch"
                                                             onChange={e => this.setState({ project_polls: !this.state.project_polls })}
@@ -674,7 +688,7 @@ export default class ProjectOverview extends Component {
                                                      <div>
                                                         <Switch
                                                             // onChange={this.handleChange}
-                                                            checked={this.state.project_activities}
+                                                            checked={!!this.state.project_activities}
                                                             className="react-switch popup-addons--switch"
                                                             id="normal-switch"
                                                             onChange={e => this.setState({ project_activities: !this.state.project_activities })}
@@ -686,7 +700,7 @@ export default class ProjectOverview extends Component {
                                                      <div>
                                                         <Switch
                                                             // onChange={this.handleChange}
-                                                            checked={this.state.project_crisisCenter}
+                                                            checked={!!this.state.project_crisisCenter}
                                                             className="react-switch popup-addons--switch"
                                                             id="normal-switch"
                                                             onChange={e => this.setState({ project_crisisCenter: !this.state.project_crisisCenter })}
@@ -698,7 +712,7 @@ export default class ProjectOverview extends Component {
                                                      <div>
                                                         <Switch
                                                             // onChange={this.handleChange}
-                                                            checked={this.state.project_logs}
+                                                            checked={!!this.state.project_logs}
                                                             className="react-switch popup-addons--switch"
                                                             id="normal-switch"
                                                             onChange={e => this.setState({ project_logs: !this.state.project_logs })}

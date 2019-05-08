@@ -107,12 +107,16 @@ export default class ProjectTasks extends Component {
 
     timer() {
         if(this.state.startTimer) {
-            let lists = this.state.lists;
-            lists[this.state.timerList].tasks[this.state.timerTask].timer += 1;
-            this.setState({
-                lists: lists,
-                timer:  (this.state.timer + 1)
-            });
+            if((window.Laravel.data.role !== 0 && !window.Laravel.data.end)) {
+                let lists = this.state.lists;
+                lists[this.state.timerList].tasks[this.state.timerTask].timer += 1;
+                this.setState({
+                    lists: lists,
+                    timer:  (this.state.timer + 1)
+                });
+            } else {
+            }
+
         }
     }
 
@@ -131,35 +135,39 @@ export default class ProjectTasks extends Component {
     }
 
     asDone(taskId, i, j, user_id) {
-        if(this.state.lists[i].tasks[j].status) {
-            if(confirm("You sure you want to do this?")) {
-                axios.post('/api/project/tasks/done', {
-                    project: window.Laravel.data.project,
-                    task_id: taskId
-                }).then(response => {
-                    let lists = this.state.lists;
-                    lists[i].tasks[j].status = 0;
-                    this.setState({
-                        lists: lists
+        if(window.Laravel.data.role !== 0 && !window.Laravel.data.end) {
+            if(this.state.lists[i].tasks[j].status) {
+                if(confirm("You sure you want to do this?")) {
+                    axios.post('/api/project/tasks/done', {
+                        project: window.Laravel.data.project,
+                        task_id: taskId
+                    }).then(response => {
+                        let lists = this.state.lists;
+                        lists[i].tasks[j].status = 0;
+                        this.setState({
+                            lists: lists
+                        });
                     });
-                });
+                }
+            } else {
+                if(window.Laravel.user.id === user_id || user_id === 0) {
+                    axios.post('/api/project/tasks/done', {
+                        project: window.Laravel.data.project,
+                        task_id: taskId
+                    }).then(response => {
+                        let lists = this.state.lists;
+                        lists[i].tasks[j].status = 1;
+                        this.setState({
+                            lists: lists
+                        });
+                    });
+                } else {
+                    alert("This task is not for you");
+                }
+
             }
         } else {
-            if(window.Laravel.user.id === user_id || user_id === 0) {
-                axios.post('/api/project/tasks/done', {
-                    project: window.Laravel.data.project,
-                    task_id: taskId
-                }).then(response => {
-                    let lists = this.state.lists;
-                    lists[i].tasks[j].status = 1;
-                    this.setState({
-                        lists: lists
-                    });
-                });
-            } else {
-                alert("This task is not for you")
-            }
-
+            alert("You have not the permission to do this action");
         }
     }
     makeList(e) {
@@ -305,8 +313,12 @@ export default class ProjectTasks extends Component {
                                                     {task.end_date !== null ? <span className="end">{new Date(task.end_date) > new Date() ? <Timestamp time={task.end_date} precision={2} utc={false} autoUpdate={60}   /> : <span id="red">Too late</span>}</span> : ""}
                                                     <span className="time">{task.timer}"</span>
                                                     {this.state.startTimer ? <a onClick={e => this.stopTimer(task.id, i, j)}><i className="fas fa-pause"> </i></a> : <a onClick={e => this.initTimer(i, j)}><i className="fas fa-play"> </i></a>}
+                                                    {!window.Laravel.data.ended &&  window.Laravel.data.role !== 0 && (task.user_id === window.Laravel.user.id || window.Laravel.data.role === 2 ||  window.Laravel.data.role === 3 || task.user_id === 0 )?
+                                                        <span>
                                                     <i className="fas fa-edit" onClick={event => this.setState({showEdit: true, edit_id: task.id, edit_title: task.title, edit_desc: task.desc, edit_user: task.user_id, edit_end: task.end_date, edit_i: i, edit_j: j})}> </i>
                                                     <i className="fas fa-trash-alt" onClick={event => this.deleteTask(task.id, i, j)}> </i>
+                                                        </span>
+                                                        : ""}
                                                 </div>
                                                 <div className="clear"> </div>
                                             </article>
@@ -332,9 +344,11 @@ export default class ProjectTasks extends Component {
         return (
 
             <span>
+                 {!window.Laravel.data.ended &&  window.Laravel.data.role !== 0  ?
                 <button className="project-header-plus no-button test" onClick={() => this.toggleShow(true)}>
                     <i className="fas fa-plus"> </i>
                 </button>
+                     : ""}
                 <main className="project-main">
                     {this.state.loading ?
                         <div className="project-loading">

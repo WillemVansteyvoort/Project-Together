@@ -10,6 +10,7 @@ use App\PollOption;
 use App\PollVote;
 use App\User;
 use Illuminate\Support\Facades\Auth;
+use App\Activity;
 class PollController extends Controller
 {
 
@@ -38,11 +39,20 @@ class PollController extends Controller
                 'poll_id' => $poll->id,
             ]);
         }
+
+        Activity::create([
+            'project_id' => $project->id,
+            'company_id' => Auth::user()->company_id,
+            'user_id' => Auth::user()->id,
+            'type' => 19,
+            'content' => 0,
+        ]);
     }
 
     public function vote(Request $request) {
         $created = true;
         $duplicated = false;
+        $poll = Poll::findOrFail($request->poll_id);
 
         if(PollVote::where([['poll_id', $request->poll_id], ['poll_option_id', $request->vote_id], ['user_id', Auth::user()->id]])->count() > 0) {
            $created = false;
@@ -54,6 +64,15 @@ class PollController extends Controller
                 'user_id' => Auth()->user()->id
             ]);
         }
+
+        Activity::create([
+            'project_id' => $poll->project_id,
+            'company_id' => Auth::user()->company_id,
+            'user_id' => Auth::user()->id,
+            'type' => 20,
+            'content' => 0,
+        ]);
+
         return response()->json([
             'created' => $created,
             'duplicate' => $duplicated,
@@ -61,6 +80,17 @@ class PollController extends Controller
     }
 
     public function delete(Request $request) {
+        $poll = Poll::findOrFail($request->poll_id);
+
+        Activity::create([
+            'project_id' => $poll->project_id,
+            'company_id' => Auth::user()->company_id,
+            'user_id' => Auth::user()->id,
+            'type' => 21,
+            'content' => 0,
+        ]);
+
+
         PollVote::where([['poll_id', $request->poll_id], ['user_id', Auth::user()->id]])->delete();
     }
 }

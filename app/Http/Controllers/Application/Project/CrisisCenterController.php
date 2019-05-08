@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Application\Project;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\CrisisItem;
+use App\Activity;
 use App\Project;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -35,6 +36,14 @@ class CrisisCenterController extends Controller
         $progress = CrisisItem::where([['project_id', '=', $project->id], ['solved', false]])->with('user')->orderBy('id', 'desc')->get();
         $solved = CrisisItem::where([['project_id', '=', $project->id], ['solved', true]])->with('user')->orderBy('id', 'desc')->get();
 
+        Activity::create([
+            'project_id' => $project->id,
+            'company_id' => Auth::user()->company_id,
+            'user_id' => Auth::user()->id,
+            'type' => 26,
+            'content' => 0,
+        ]);
+
         return response()->json([
             'progress' => $progress,
             'solved' => $solved,
@@ -54,6 +63,14 @@ class CrisisCenterController extends Controller
         $project = Project::where('url', '=', $request->project)->first();
         $progress = CrisisItem::where([['project_id', '=', $project->id], ['solved', false]])->with('user')->orderBy('id', 'desc')->get();
         $solved = CrisisItem::where([['project_id', '=', $project->id], ['solved', true]])->with('user')->orderBy('id', 'desc')->get();
+
+        Activity::create([
+            'project_id' => $project->id,
+            'company_id' => Auth::user()->company_id,
+            'user_id' => Auth::user()->id,
+            'type' => 29,
+            'content' => 0,
+        ]);
 
         return response()->json([
             'progress' => $progress,
@@ -76,6 +93,14 @@ class CrisisCenterController extends Controller
         $progress = CrisisItem::where([['project_id', '=', $project->id], ['solved', false]])->with('user')->orderBy('id', 'desc')->get();
         $solved = CrisisItem::where([['project_id', '=', $project->id], ['solved', true]])->with('user')->orderBy('id', 'desc')->get();
 
+        Activity::create([
+            'project_id' => $project->id,
+            'company_id' => Auth::user()->company_id,
+            'user_id' => Auth::user()->id,
+            'type' => 30,
+            'content' => 0,
+        ]);
+
         return response()->json([
             'progress' => $progress,
             'solved' => $solved,
@@ -88,6 +113,14 @@ class CrisisCenterController extends Controller
         $project = Project::where('url', '=', $request->project)->first();
         $progress = CrisisItem::where([['project_id', '=', $project->id], ['solved', false]])->with('user')->orderBy('id', 'desc')->get();
         $solved = CrisisItem::where([['project_id', '=', $project->id], ['solved', true]])->with('user')->orderBy('id', 'desc')->get();
+
+        Activity::create([
+            'project_id' => $project->id,
+            'company_id' => Auth::user()->company_id,
+            'user_id' => Auth::user()->id,
+            'type' => 27,
+            'content' => 0,
+        ]);
 
         return response()->json([
             'progress' => $progress,
@@ -106,6 +139,14 @@ class CrisisCenterController extends Controller
         $project = Project::where('url', '=', $request->project)->first();
         $progress = CrisisItem::where([['project_id', '=', $project->id], ['solved', false]])->with('user')->orderBy('id', 'desc')->get();
         $solved = CrisisItem::where([['project_id', '=', $project->id], ['solved', true]])->with('user')->orderBy('id', 'desc')->get();
+
+        Activity::create([
+            'project_id' => $project->id,
+            'company_id' => Auth::user()->company_id,
+            'user_id' => Auth::user()->id,
+            'type' => 28,
+            'content' => 0,
+        ]);
 
         return response()->json([
             'progress' => $progress,

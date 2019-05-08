@@ -7,6 +7,7 @@ use function GuzzleHttp\describe_type;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Project;
+use App\Activity;
 use App\Log;
 use Illuminate\Support\Facades\Auth;
 
@@ -25,10 +26,28 @@ class LogController extends Controller
             'project_id' => $project->id,
         ]);
 
+        Activity::create([
+            'project_id' => $project->id,
+            'company_id' => Auth::user()->company_id,
+            'user_id' => Auth::user()->id,
+            'type' => 24,
+            'content' => 0,
+        ]);
+
         return $log;
     }
 
     public function delete(Request $request) {
+        $log = Log::findOrFail($request->log_id);
+
+        Activity::create([
+            'project_id' => $log->project_id,
+            'company_id' => Auth::user()->company_id,
+            'user_id' => Auth::user()->id,
+            'type' => 25,
+            'content' => 0,
+        ]);
+
         Log::destroy($request->log_id);
     }
 

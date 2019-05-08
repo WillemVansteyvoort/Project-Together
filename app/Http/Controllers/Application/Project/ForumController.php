@@ -98,9 +98,60 @@ class ForumController extends Controller
         $reply = Reply::findOrFail($request->id);
         $reply->content = $request->message;
         $reply->save();
+
+        Activity::create([
+            'project_id' => $reply->project_id,
+            'company_id' => Auth::user()->company_id,
+            'user_id' => Auth::user()->id,
+            'type' => 14,
+            'content' => 0,
+        ]);
+
+    }
+
+    public function editFirst(Request $request) {
+        $post = Post::findOrfail($request->id);
+        $post->content = $request->message;
+        $post->title = $request->title;
+        $post->save();
+
+        Activity::create([
+            'project_id' => $post->project_id,
+            'company_id' => Auth::user()->company_id,
+            'user_id' => Auth::user()->id,
+            'type' => 13,
+            'content' => 0,
+        ]);
+
+    }
+
+    public function deleteFirst(Request $request) {
+        $post = Post::findOrfail($request->id);
+        $post->replies()->delete();
+        $post->tags()->delete();
+
+        Activity::create([
+            'project_id' => $post->project_id,
+            'company_id' => Auth::user()->company_id,
+            'user_id' => Auth::user()->id,
+            'type' => 12,
+            'content' => 0,
+        ]);
+
+        Post::destroy($request->id);
     }
 
     public function deleteReply(Request $request) {
+        $reply = Reply::findOrFail($request->id);
+
+        Activity::create([
+            'project_id' => $reply->project_id,
+            'company_id' => Auth::user()->company_id,
+            'user_id' => Auth::user()->id,
+            'type' => 15,
+            'content' => 0,
+        ]);
+
         Reply::destroy($request->id);
     }
 

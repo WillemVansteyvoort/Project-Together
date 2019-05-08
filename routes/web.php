@@ -210,6 +210,8 @@ Route::post('/api/project/forum/post', 'Application\Project\ForumController@getP
 Route::post('/api/project/forum/createReply', 'Application\Project\ForumController@createReply');
 Route::post('/api/project/forum/editReply', 'Application\Project\ForumController@editReply');
 Route::post('/api/project/forum/deleteReply', 'Application\Project\ForumController@deleteReply');
+Route::post('/api/project/forum/editFirst', 'Application\Project\ForumController@editFirst');
+Route::post('/api/project/forum/deleteFirst', 'Application\Project\ForumController@deleteFirst');
 
 //board
 Route::post('/api/project/board/items', 'Application\Project\BoardController@getItems');

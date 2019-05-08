@@ -48,9 +48,9 @@ class BoardController extends Controller
 
         Activity::create([
             'project_id' => $project->id,
-            'company_id' => $project->company_id,
+            'company_id' => Auth::user()->company_id,
             'user_id' => Auth::user()->id,
-            'type' => 5,
+            'type' => 16,
             'content' => 0,
         ]);
         
@@ -69,9 +69,25 @@ class BoardController extends Controller
         $item->color = $request->editCard_color;
         $item->duration = $request->editCard_expected;
         $item->save();
+
+        Activity::create([
+            'project_id' => $item->project_id,
+            'company_id' => Auth::user()->company_id,
+            'user_id' => Auth::user()->id,
+            'type' => 18,
+            'content' => 0,
+        ]);
     }
 
     public function deleteItem(Request $request) {
+        $item = BoardItem::findOrFail($request->id);
+        Activity::create([
+            'project_id' => $item->project_id,
+            'company_id' => Auth::user()->company_id,
+            'user_id' => Auth::user()->id,
+            'type' => 17,
+            'content' => 0,
+        ]);
         BoardItem::destroy($request->id);
     }
 }

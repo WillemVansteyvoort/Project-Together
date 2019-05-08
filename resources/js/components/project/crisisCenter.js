@@ -36,6 +36,10 @@ export default class ProjectCrisisCenter extends Component {
             edit_description: '',
             edit_priority: 0,
             showEdit: false,
+
+            //errors
+            error_name: '',
+            error_editName: '',
         };
 
         this.crisisCenter = this.crisisCenter.bind(this);
@@ -78,11 +82,11 @@ export default class ProjectCrisisCenter extends Component {
     createItem() {
 
         let errors= false;
-        if(this.state.item_title.length <= 4) {
+        if(this.state.item_title.length < 5) {
             errors = true;
-            this.setState({error_title: 'The title must have at least 4 characters'})
+            this.setState({error_name: 'The title must have at least 5 characters'})
         } else {
-            this.setState({error_title: ''})
+            this.setState({error_name: ''})
         }
 
         if(!errors) {
@@ -106,7 +110,7 @@ export default class ProjectCrisisCenter extends Component {
     }
 
     setSolved(item) {
-        if(!window.Laravel.data.ended && item.user_id === window.Laravel.user.id || window.Laravel.data.role !== 0 || window.Laravel.data.role !== 1 ) {
+        if(!window.Laravel.data.ended && window.Laravel.data.role !== 0 && (item.user_id === window.Laravel.user.id || window.Laravel.data.role === 2 || window.Laravel.data.role === 3 )) {
             axios.post('/api/project/crisiscenter/solved', {
                 id: item.id,
                 project: window.Laravel.data.project,
@@ -120,7 +124,7 @@ export default class ProjectCrisisCenter extends Component {
     }
 
     setProgress(id, item) {
-        if(!window.Laravel.data.ended && item.user_id === window.Laravel.user.id || window.Laravel.data.role !== 0 || window.Laravel.data.role !== 1 ) {
+        if(!window.Laravel.data.ended && window.Laravel.data.role !== 0 && (item.user_id === window.Laravel.user.id || window.Laravel.data.role === 2 || window.Laravel.data.role === 3 )) {
             if(confirm("Are you sure you want to reopen this item?")) {
                 axios.post('/api/project/crisiscenter/progress', {
                     id: id,
@@ -150,19 +154,25 @@ export default class ProjectCrisisCenter extends Component {
     }
 
     editItem() {
-        axios.post('/api/project/crisiscenter/edit', {
-            project: window.Laravel.data.project,
-            id: this.state.edit_item.id,
-            item_title: this.state.edit_title,
-            item_description: this.state.edit_description,
-            item_priority: this.state.edit_priority,
-$        }).then(response => {
-            this.setState({
-                solved_items: response.data.solved,
-                progress_items: response.data.progress,
-                showEdit: false,
+        if(this.state.edit_title.length >= 5) {
+            this.setState({error_editName: ""});
+            axios.post('/api/project/crisiscenter/edit', {
+                project: window.Laravel.data.project,
+                id: this.state.edit_item.id,
+                item_title: this.state.edit_title,
+                item_description: this.state.edit_description,
+                item_priority: this.state.edit_priority,
+                $        }).then(response => {
+                this.setState({
+                    solved_items: response.data.solved,
+                    progress_items: response.data.progress,
+                    showEdit: false,
+                });
             });
-        });
+        } else {
+            this.setState({error_editName: "The title must have at least 5 characters"})
+        }
+
 
     }
 
@@ -262,7 +272,7 @@ $        }).then(response => {
                                         </div>
                                     </div>
                                     <div className="float-right">
-                                        {!window.Laravel.data.ended && (item.user_id === window.Laravel.user.id || window.Laravel.data.role === 2 || window.Laravel.data.role === 3) ?
+                                        {!window.Laravel.data.ended && window.Laravel.data.role !== 0 && (item.user_id === window.Laravel.user.id || window.Laravel.data.role === 2 || window.Laravel.data.role === 3) ?
                                             <span>
                                         <i className="fas fa-edit" onClick={e => this.setState({edit_item: item, edit_description: item.description, edit_title: item.name, edit_priority: item.priority, edit_id: item.id, showEdit: true})}> </i>
                                         <i className="fas fa-trash-alt" onClick={event => this.deleteItem(item.id)}> </i>
@@ -344,6 +354,7 @@ $        }).then(response => {
                             <div className="row">
                                 <div className="six columns">
                                     <label>Title</label>
+                                    <div id="red">{this.state.error_name}</div>
                                     <input type="text" onChange={e => this.setState({ item_title: e.target.value })} value={this.state.item_title} />
                                 </div>
                                 <div className="six columns">
@@ -378,6 +389,7 @@ $        }).then(response => {
                             <div className="row">
                                 <div className="six columns">
                                     <label>Title</label>
+                                    <div id="red">{this.state.error_editName}</div>
                                     <input type="text" onChange={e => this.setState({ edit_title: e.target.value })} value={this.state.edit_title} />
                                 </div>
                                 <div className="six columns">
@@ -393,7 +405,7 @@ $        }).then(response => {
                             <textarea onChange={event => this.setState({edit_priority: event.target.value})} value={this.state.edit_description}> </textarea>
                             <div>
                             </div>
-                            <button className="button-primary button no-button" onClick={this.editItem}>Make item</button>
+                            <button className="button-primary button no-button" onClick={this.editItem}>Edit item</button>
                         </div>
                     </div>
                 </PopPop>

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+const abortController = new AbortController();
 import PieChart from 'react-minimal-pie-chart';
 import { Tabs, Tab, TabPanel, TabList } from 'react-web-tabs';
 import { Progress } from 'react-sweet-progress';
@@ -177,6 +178,10 @@ export default class ProjectPolls extends Component {
     componentDidMount() {
     }
 
+    componentWillUnmount() {
+        this.getPolls();
+    }
+
 
     toggleShow(show) {
         this.setState({show});
@@ -229,7 +234,7 @@ export default class ProjectPolls extends Component {
                                         ))}
                                     </div>
                                 }
-                                {poll.change && !poll.ended && !window.Laravel.data.ended ?
+                                {poll.change && !poll.ended && !window.Laravel.data.ended && window.Laravel.data.role !== 0 ?
                                     <button className="button no-button button-primary"
                                             onClick={event => this.deleteVote(poll.id)}><i
                                         className="fas fa-edit"> </i> Change vote</button>
@@ -250,7 +255,7 @@ export default class ProjectPolls extends Component {
         const {show} = this.state;
         return (
             <span>
-                {!window.Laravel.data.ended ? <button className="project-header-plus no-button test" onClick={() => this.toggleShow(true)}>
+                {!window.Laravel.data.ended && window.Laravel.data.role !== 0 ? <button className="project-header-plus no-button test" onClick={() => this.toggleShow(true)}>
                     <i className="fas fa-plus"> </i>
                 </button> : ""}
                  <div id="success" className={this.state.created ? "" : "hidden"}>
@@ -326,7 +331,7 @@ export default class ProjectPolls extends Component {
                                          onChange={e => this.setState({ change: !this.state.change})}
                                          className="react-switch popup-rights--switch"
                                          id="normal-switch"
-                                     /><b>Change vote(ds)</b>
+                                     /><b>Change vote(s)</b>
                                 </div>
                             </div>
                             <button className="button-primary button no-button" onClick={this.createPoll}>Make poll</button>

@@ -378,7 +378,9 @@ export default class PopupNewProject extends Component {
 
     checkName() {
         axios.post('/api/project/check/name', {
-           name: this.state.title
+           name: this.state.title,
+            project: window.Laravel.data.project,
+
         }).then(response => {
             if(response.data) {
                 this.setState({error_title: "This name is already in use", error_name: true});

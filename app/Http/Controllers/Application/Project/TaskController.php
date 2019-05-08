@@ -10,6 +10,7 @@ use App\Task;
 use Illuminate\Support\Facades\Auth;
 use PhpParser\Node\Expr\List_;
 use Carbon\Carbon;
+use App\Activity;
 class TaskController extends Controller
 {
     public function getLists(Request $request) {
@@ -25,6 +26,26 @@ class TaskController extends Controller
         $task = Task::findOrFail($request->task_id);
         $task->user_id = Auth::user()->id;
         $task->status = !$task->status;
+
+        if($task->status) {
+            Activity::create([
+                'project_id' => $task->project_id,
+                'company_id' => Auth::user()->company_id,
+                'user_id' => Auth::user()->id,
+                'type' => 7,
+                'content' => 0,
+            ]);
+        }
+         else {
+             Activity::create([
+                 'project_id' => $task->project_id,
+                 'company_id' => Auth::user()->company_id,
+                 'user_id' => Auth::user()->id,
+                 'type' => 8,
+                 'content' => 0,
+             ]);
+         }
+
         $task->save();
     }
 
@@ -41,6 +62,7 @@ class TaskController extends Controller
 
     public function createTask(Request $request) {
         $project = Project::where('url', '=', $request->project)->first();
+
         Task::create([
             'title' => $request->task_title,
             'description' => $request->task_desc,
@@ -50,6 +72,15 @@ class TaskController extends Controller
             'company_id' => $project->company_id,
             'project_id' => $project->id,
         ]);
+
+        Activity::create([
+            'project_id' => $project->id,
+            'company_id' => Auth::user()->company_id,
+            'user_id' => Auth::user()->id,
+            'type' => 6,
+            'content' => 0,
+        ]);
+
          return $project->taskLists;
     }
 
@@ -58,6 +89,14 @@ class TaskController extends Controller
        $list = tlist::create([
            'name' => $request->list_name,
             'project_id' => $project->id,
+        ]);
+
+        Activity::create([
+            'project_id' => $project->id,
+            'company_id' => Auth::user()->company_id,
+            'user_id' => Auth::user()->id,
+            'type' => 5,
+            'content' => 0,
         ]);
 
        return $project->taskLists;
@@ -70,7 +109,17 @@ class TaskController extends Controller
     }
 
     public function deleteTask(Request $request) {
+        $task = findOrFail($request->taskId);
         Task::destroy($request->taskId);
+
+        Activity::create([
+            'project_id' => $task->project_id,
+            'company_id' => Auth::user()->company_id,
+            'user_id' => Auth::user()->id,
+            'type' => 10,
+            'content' => 0,
+        ]);
+
     }
 
     public function editTask(Request $request) {
@@ -80,6 +129,14 @@ class TaskController extends Controller
         $task->end_date = $request->edit_end;
         $task->user_id = $request->edit_user;
         $task->save();
+
+        Activity::create([
+            'project_id' => $task->project_id,
+            'company_id' => Auth::user()->company_id,
+            'user_id' => Auth::user()->id,
+            'type' => 9,
+            'content' => 0,
+        ]);
 
         return $task;
     }

@@ -25,7 +25,7 @@ export default class ProjectBoard extends Component {
             //new card
             card_name: '',
             card_description: '',
-            card_color: '',
+            card_color: 'blue',
             card_user: 0,
             card_expected: '',
 
@@ -37,6 +37,13 @@ export default class ProjectBoard extends Component {
             editCard_color: '',
             editCard_user: 0,
             editCard_expected: '',
+
+
+            //errors
+            error_name: '',
+            error_description: '',
+            error_editName: '',
+            error_editDescription: '',
         };
 
         this.createCard = this.createCard.bind(this);
@@ -65,47 +72,77 @@ export default class ProjectBoard extends Component {
     }
 
     createCard() {
-        this.setState({show: false,})
-        axios.post('/api/project/board/createItem', {
-            project: window.Laravel.data.project,
-            card_name: this.state.card_name,
-            card_description: this.state.card_description,
-            card_color: this.state.card_color,
-            card_user: this.state.card_user,
-            card_expected: this.state.card_expected,
-        }).then(response => {
-            this.setState({
-                card_name: '',
-                show: false,
-                card_description: '',
-                card_color: '',
-                card_user: '',
-                tasks: [response.data,...this.state.tasks],
-                card_expected: '',
+
+        if(this.state.card_name.length < 2) {
+            this.setState({error_name: "The title must have at least 2 characters"})
+        } else {
+            this.setState({error_name: ""})
+        }
+
+        if(this.state.card_description.length < 5) {
+            this.setState({error_description: "The description must have at least 5 characters"})
+        } else {
+            this.setState({error_description: ""})
+        }
+
+        if(this.state.card_name.length >= 2 && this.state.card_description.length >= 5) {
+            this.setState({show: false,})
+            axios.post('/api/project/board/createItem', {
+                project: window.Laravel.data.project,
+                card_name: this.state.card_name,
+                card_description: this.state.card_description,
+                card_color: this.state.card_color,
+                card_user: this.state.card_user,
+                card_expected: this.state.card_expected,
+            }).then(response => {
+                this.setState({
+                    card_name: '',
+                    show: false,
+                    card_description: '',
+                    card_color: '',
+                    card_user: 0,
+                    tasks: [response.data,...this.state.tasks],
+                    card_expected: '',
+                });
             });
-        });
+        }
+
     }
 
     editCard() {
-        this.setState({show_edit: false,})
-        axios.post('/api/project/board/editItem', {
-            project: window.Laravel.data.project,
-            editCard_id: this.state.selected_card.id,
-            editCard_name: this.state.editCard_name,
-            editCard_description: this.state.editCard_description,
-            editCard_color: this.state.editCard_color,
-            editCard_user: this.state.editCard_user,
-            editCard_expected: this.state.editCard_expected,
-        }).then(response => {
-            this.getItems();
-            this.setState({
-                card_name: '',
-                card_description: '',
-                card_color: '',
-                card_user: '',
-                card_expected: '',
+        if(this.state.editCard_name.length < 2) {
+            this.setState({error_editName: "The title must have at least 2 characters"})
+        } else {
+            this.setState({error_editName: ""})
+        }
+
+        if(this.state.editCard_description.length < 5) {
+            this.setState({error_editDescription: "The description must have at least 5 characters"})
+        } else {
+            this.setState({error_editDescription: ""})
+        }
+
+        if(this.state.editCard_name.length >= 2 && this.state.editCard_description.length >= 5) {
+            this.setState({show_edit: false,})
+            axios.post('/api/project/board/editItem', {
+                project: window.Laravel.data.project,
+                editCard_id: this.state.selected_card.id,
+                editCard_name: this.state.editCard_name,
+                editCard_description: this.state.editCard_description,
+                editCard_color: this.state.editCard_color,
+                editCard_user: this.state.editCard_user,
+                editCard_expected: this.state.editCard_expected,
+            }).then(response => {
+                this.getItems();
+                this.setState({
+                    card_name: '',
+                    card_description: '',
+                    card_color: '',
+                    card_user: '',
+                    card_expected: '',
+                });
             });
-        });
+        }
     }
 
     deleteCard() {
@@ -155,8 +192,9 @@ export default class ProjectBoard extends Component {
     }
 
     onDragStart(ev, id) {
-        ev.dataTransfer.setData("id", id);
-    }
+        if(!window.Laravel.data.ended && window.Laravel.data.role !== 0 ) {
+            ev.dataTransfer.setData("id", id);
+        }}
 
     openItem(t) {
         if((!window.Laravel.data.ended && window.Laravel.data.role !== 0) && (t.user_id === window.Laravel.user.id ||window.Laravel.data.role !== 1)) {
@@ -276,12 +314,14 @@ export default class ProjectBoard extends Component {
                              <div className="row">
                                 <div className="twelve columns">
                                     <label>Name of the card</label>
+                                    <div id="red">{this.state.error_name}</div>
                                     <input type="text" onChange={e => this.setState({ card_name: e.target.value })} value={this.state.card_name}/>
                                 </div>
                             </div>
                             <div className="row">
                                 <div className="twelve columns">
                                     <label>Description of the card</label>
+                                    <div id="red">{this.state.error_description}</div>
                                     <textarea onChange={e => this.setState({ card_description: e.target.value })} value={this.state.card_description}> </textarea>
                                 </div>
                             </div>
@@ -328,11 +368,13 @@ export default class ProjectBoard extends Component {
                                 <div className="row">
                                     <div className="twelve columns">
                                         <label>Name of the card</label>
+                                        <div id="red">{this.state.error_editName}</div>
                                         <input type="text" onChange={e => this.setState({ editCard_name: e.target.value })} value={this.state.editCard_name} />
                                     </div>
                                 </div>
                                 <div className="row">
                                     <div className="twelve columns">
+                                        <div id="red">{this.state.error_editDescription}</div>
                                         <label>Description of the card</label>
                                         <textarea onChange={e => this.setState({ editCard_description: e.target.value })} value={this.state.editCard_description}> </textarea>
                                     </div>

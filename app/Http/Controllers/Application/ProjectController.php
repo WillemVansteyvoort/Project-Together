@@ -180,11 +180,25 @@ class ProjectController extends SlugifyController
             'content' => 'You are just added to a new project called ' . $project->name . ' by ' . Auth::user()->name . '. Go now to your projects to check it out.',
         ]);
         broadcast(new Notifications($noti,$user))->toOthers();
+
+        Activity::create([
+            'project_id' => $project->id,
+            'company_id' => Auth::user()->company_id,
+            'user_id' => Auth::user()->id,
+            'type' => 31,
+            'content' => $user->name . " " . $user->lastname,
+        ]);
+
     }
 
     public function checkName(Request $request) {
-        if(Project::where([['name', $request->name], ['company_id', Auth::user()->company_id]])->count() > 0) {
-            return 1;
+        $project = Project::where('url', '=', $request->project)->first();
+        if($request->name !== $project->name) {
+            if(Project::where([['name', $request->name], ['company_id', Auth::user()->company_id]])->count() > 0) {
+                return 1;
+            } else {
+                return 0;
+            }
         } else {
             return 0;
         }
@@ -250,6 +264,14 @@ class ProjectController extends SlugifyController
             ]);
         }
 
+        Activity::create([
+            'project_id' => $project->id,
+            'company_id' => Auth::user()->company_id,
+            'user_id' => Auth::user()->id,
+            'type' => 34,
+            'content' => '',
+        ]);
+
         return response()->json([
             'reload' => true,
             'url' => $project->url,
@@ -305,6 +327,15 @@ class ProjectController extends SlugifyController
         $project_all = Project::where('url', '=', $request->project)->first();
         $project_all->status = 2;
         $project_all->save();
+
+        Activity::create([
+            'project_id' => $project_all->id,
+            'company_id' => Auth::user()->company_id,
+            'user_id' => Auth::user()->id,
+            'type' => 35,
+            'content' => '',
+        ]);
+
     }
 
     public function reopen(Request $request) {
@@ -317,6 +348,15 @@ class ProjectController extends SlugifyController
         $project = $request->project;
         $ended = 0;
         $role = 0;
+
+        Activity::create([
+            'project_id' => $project_all->id,
+            'company_id' => Auth::user()->company_id,
+            'user_id' => Auth::user()->id,
+            'type' => 36,
+            'content' => '',
+        ]);
+
         return view('application.project.index', compact('company', 'project', 'name', 'ended', 'role'));
     }
 

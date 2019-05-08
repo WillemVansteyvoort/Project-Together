@@ -21,7 +21,10 @@ class CreateRepliesTable extends Migration
             $table->integer('created')->default(0);
             $table->text('content')->nullable();
             $table->timestamps();
+
+
         });
+
     }
 
     /**

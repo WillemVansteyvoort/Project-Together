@@ -27,17 +27,29 @@ class NoteController extends Controller
             'private' => $request->private,
         ]);
 
-        Activity::create([
-            'project_id' => $project->id,
-            'company_id' => $project->company_id,
-            'user_id' => Auth::user()->id,
-            'type' => 2,
-            'content' => 0,
-        ]);
+        if(!$request->private) {
+            Activity::create([
+                'project_id' => $project->id,
+                'company_id' => $project->company_id,
+                'user_id' => Auth::user()->id,
+                'type' => 2,
+                'content' => 0,
+            ]);
+        }
 
     }
 
     public function delete(Request $request) {
+        $note = Note::findOrFail($request->id);
+        if(!$note->private) {
+            Activity::create([
+                'project_id' => $note->project_id,
+                'company_id' => Auth::user()->company_id,
+                'user_id' => Auth::user()->id,
+                'type' => 11,
+                'content' => 0,
+            ]);
+        }
         Note::destroy($request->id);
     }
 }
