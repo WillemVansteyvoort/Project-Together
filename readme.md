@@ -37,3 +37,10 @@
 - 21: Deleted vote on poll
 - 22: Modified poll
 - 23: deleted poll
+
+### Logs
+- 24: New log
+- 25: Deleted log
+
+
+### Crisis center
