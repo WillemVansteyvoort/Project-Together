@@ -32,6 +32,20 @@ months[10] = "November";
 months[11] = "December";
 months[12] = "January";
 
+var months2 = new Array(11);
+months[0] = "Jan";
+months[1] = "Feb";
+months[2] = "Mar";
+months[3] = "Apr";
+months[4] = "May";
+months[5] = "Jun";
+months[6] = "Jul";
+months[7] = "Aug";
+months[8] = "Sep";
+months[9] = "Oct";
+months[10] = "Nov";
+months[11] = "Dec";
+months[12] = "Jan";
 export default class Calendar extends Component {
     constructor(props) {
         super(props)
@@ -442,14 +456,15 @@ export default class Calendar extends Component {
                         </div>
                         <div className="popup-content">
                             {this.state.eventsDay.map((event, i) => (
-                            <article className="sidebar-event" key={i}>
-                                <div className="sidebar-event--date sidebar-event-black">
-                                    <span className="sidebar-event--date-day">01</span>
-                                    <span className="sidebar-event--date-month">Jan</span>
+                            <article className=" calendar-item" key={i}>
+                                <div className="sidebar-event--date sidebar-event-black calendar-date">
+                                    <span className="sidebar-event--date-day ">{new Date(event.from).getDay()}</span>
+                                    <span className="sidebar-event--date-month">{months[new Date(event.from).getMonth()]}</span>
                                 </div>
                                 <div className="sidebar-event--content">
                                     <h6 className="sidebar-event--content-title"> {event.title}</h6>
-                                    <span className="sidebar-event--content-hours"> - </span>
+                                    <p>{event.description}</p>
+                                    <p><b>{event.from} {event.from_hour} {event.until !== null ? "UNTIL" : ""} {event.until} {event.until_hour}</b></p>
                                 </div>
                             </article>
                             ))}

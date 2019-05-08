@@ -55,6 +55,7 @@
   }
 
 
+
   &-event {
     padding: 1.8px;
     font-size: 14px;
@@ -109,4 +110,13 @@
       }
     }
   }
+
+  &-date {
+    height: auto !important;
+  }
+
+  &-item {
+    margin-bottom: 85px !important;
+  }
+
 }
