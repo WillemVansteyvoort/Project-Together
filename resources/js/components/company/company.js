@@ -85,7 +85,6 @@ export default class CompanyUsers extends Component {
 
         this.getUsers = this.getUsers.bind(this);
         this.getInvites = this.getInvites.bind(this);
-        this.getCountries = this.getCountries.bind(this);
         this.getGroups = this.getGroups.bind(this);
         this.openPopupbox = this.openPopupbox.bind(this);
         this.checkEmail = this.checkEmail.bind(this);
@@ -113,9 +112,7 @@ export default class CompanyUsers extends Component {
     }
     componentWillMount() {
         this.getUsers();
-        this.getInvites();
-        this.getGroups();
-        this.getCountries();
+
     }
 
     componentDidMount() {
@@ -124,25 +121,19 @@ export default class CompanyUsers extends Component {
     componentWillUnmount() {
     }
 
-    getCountries() {
-        axios.get('/api/countries').then((
-            response
-            ) =>
-                this.setState({
-                    user_countries: response.data
-                })
-        );
-    }
 
     //user
     getUsers() {
         axios.get('/api/company/users').then((
             response
-            ) =>
+            ) => {
                 this.setState({
                     users: response.data,
                     isLoading: false,
-                })
+                });
+                this.getInvites();
+        }
+
         );
     }
 
