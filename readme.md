@@ -4,11 +4,8 @@
 ## Types of activities
 - 0: Project created
 - 1: A new event is added
-- 2: New note is created
-- 3: New thread is created
-- 4: new reply on thread 
 
-### Task
+### Tasks
 - 5: New task-list created
 - 6: New task created
 - 7: Task as done
@@ -16,3 +13,14 @@
 - 9: edited task
 - 10: deleted task
 
+### Notes
+- 2: Note is created
+- 11: Note is deleted
+
+### Forum
+- 3: New thread is created
+- 4: new reply on thread 
+- 12: Thread is deleted
+- 13: Thread is edited
+- 14: Reply is edited
+- 15: Reply is deleted
