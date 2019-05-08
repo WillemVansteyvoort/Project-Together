@@ -44,3 +44,8 @@
 
 
 ### Crisis center
+- 26: New item
+- 27: Item is deleted
+- 28: Item is modified
+- 29: Item as solved
+- 30: Item in progress
