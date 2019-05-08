@@ -42,9 +42,11 @@ class CompanyController extends Controller {
         $invites = User_invite::where([
             ['company_id', '=', Auth::user()->company_id],
         ])->get();
+        $groups = Group::where('company_id', Auth::user()->company_id)->with(['users'], ['owner'])->get();
         return response()->json([
             'users' => $users,
-            'invites' => $invites
+            'invites' => $invites,
+            'groups' => $groups,
         ]);
     }
 
