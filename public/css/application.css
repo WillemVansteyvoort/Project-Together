@@ -3204,6 +3204,14 @@ input[type=checkbox]:checked + #nav-mobile--menu {
   font-family: "Raleway", sans-serif !important;
 }
 
+.calendar-date {
+  height: auto !important;
+}
+
+.calendar-item {
+  margin-bottom: 85px !important;
+}
+
 .projects {
   padding: 20px 0 10px 60px;
   background-color: #F8F8F8;
