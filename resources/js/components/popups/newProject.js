@@ -4,6 +4,7 @@ import { Tabs, Tab, TabPanel, TabList } from 'react-web-tabs';
 import { Progress } from 'react-sweet-progress';
 import "react-sweet-progress/lib/style.css";
 import PopPop from 'react-poppop';
+import Popup from 'reactjs-popup'
 import ReactPasswordStrength from '@rodrigowpl/react-password-strength';
 import { ProgressBar } from 'reprogressbars';
 import Switch from "react-switch";
@@ -214,12 +215,15 @@ export default class PopupNewProject extends Component {
 
         let CurrentDate = new Date();
         let givenDate = new Date(this.state.end_date);
-        if(givenDate < CurrentDate){
+        let timeError = false;
+        if(this.state.end_date !== null && givenDate < CurrentDate){
+            timeError = true;
             this.setState({error_date: "Given date is not greater than the current date."});
         } else {
+            timeError = false;
                 this.setState({error_date: ""});
         }
-        if(this.state.title.length >= 4 && this.state.description.length >= 10 && givenDate > CurrentDate && !this.state.error_name) {
+        if(this.state.title.length >= 4 && this.state.description.length >= 10 && !timeError && !this.state.error_name) {
             this.setState({
                 isLoading: true,
             });
@@ -411,7 +415,27 @@ export default class PopupNewProject extends Component {
                     closeOnOverlay={true}>
                     <div className="popup">
                         <div className="popup-titleBar">
-                            Make a new Project
+                            Make a new Project  <Popup trigger={<i className="fas fa-question white float-right"> </i>} position="top right">
+                                  {close => (
+                                      <div className="popup-sidebar">
+                                          <h2>New project</h2>
+                                          <p>You are now on the page where can you can make a new project. You have four tabs: general, members, add-ons and Advanced.</p>
+                                          <h5>General</h5>
+                                          <p>On this tab you can find basic information for your project. If you want you can also select an end date for the project. </p>
+                                          <h5>Members</h5>
+                                          <p>Here you can add members to the project. You can add members individualy or with a group. Then you have to choose a specific role for the member:</p>
+                                          <ul>
+                                              <li><b>Watcher:</b> Member has access, but can just observe</li>
+                                              <li><b>Member:</b> Normal access</li>
+                                              <li><b>Responsable:</b> Has admin access</li>
+                                              <li><b>Leader:</b> Can change project-settings</li>
+                                          </ul>
+                                          <p>To know more about the roles, you can go to <a>this page.</a></p>
+                                          <h5>Add-ons</h5>
+                                          <p>here you must choose the features for your project. To know what each add-on is, you can go to <a>this page</a>.</p>
+                                      </div>
+                                  )}
+                              </Popup>
                             <a className="popup-btn--close"  onClick={() => this.toggleShow(false)}>✕</a>
                         </div>
                         <div className="popup-content">

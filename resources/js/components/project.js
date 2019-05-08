@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { Tabs, Tab, TabPanel, TabList } from 'react-web-tabs';
 import { Progress } from 'react-sweet-progress';
 const Timestamp = require('react-timestamp');
+import Popup from 'reactjs-popup'
 import newProject from './popups/newProject'
 import {ProgressBar} from "reprogressbars";
 import PulseLoader from "./company/company";
@@ -64,7 +65,14 @@ export default class Projects extends Component {
                           </div>
                           :
                           <div className="projects-overview">
-                              <h4>Your projects</h4>
+                              <h4>Your projects  <Popup trigger={<i className="fas fa-question info"> </i>} position="top left">
+                                  {close => (
+                                      <div className="popup-sidebar">
+                                          <h2>Projects</h2>
+                                          <p>This is the project page where you can find all your projects you belongs to. When you want to go to a project, you simply have to click on a project.</p>
+                                      </div>
+                                  )}
+                              </Popup></h4>
                               <Tabs
                                   defaultTab="one"
                                   onChange={(tabId) => { }}

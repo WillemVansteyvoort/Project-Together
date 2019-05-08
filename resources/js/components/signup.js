@@ -348,19 +348,19 @@ export default class SignupForm extends Component {
                                         Media or make a
                                         manual acount. We will see you inside!
                                     </p>
-                                    <label>First name</label>
+                                    <label>First name *</label>
                                     <div id="red">{this.state.name_message}</div>
                                     <input className={this.state.name_errors ? "border-red" : ""} type="text" value={this.state.name} name="name" onBlur={this.checkName} onChange={e => this.setState({ name: e.target.value })} placeholder="Project-Together" required/>
-                                    <label>Last name</label>
+                                    <label>Last name *</label>
                                     <div id="red">{this.state.lastname_message}</div>
                                     <input className={this.state.lastname_errors ? "border-red" : ""} type="text" value={this.state.lastname} name="name" onBlur={this.checkLastName} onChange={e => this.setState({ lastname: e.target.value })} placeholder="Project-Together" required/>
-                                    <label>E-mail</label>
+                                    <label>E-mail *</label>
                                     <div onBlur={this.handleSubmit}>
                                         <div id="red">{this.validateEmail()}</div>
                                         <div id="red">{this.state.email_message}</div>
                                         <input type="text" value={this.state.email} className={!this.state.emailCheck || this.state.email_errors ? "border-red" : ""}  onBlur={this.checkEmail} name="email" placeholder="jochem@project-Together.com" id="email" onChange={e => this.setState({ email: e.target.value })} required />
                                     </div>
-                                    <label>Password</label>
+                                    <label>Password *</label>
                                     <div id="red">{this.state.password_message}</div>
                                     <input className={this.state.password_errors  ? "border-red" : ""} value={this.state.password} type="password"  placeholder="********" required onBlur={this.checkPassword} onChange={e => this.setState({ password: e.target.value, passwordManager: true })} />
                                     <div className={this.state.passwordManager ? "view" : "passwordChecker"}>

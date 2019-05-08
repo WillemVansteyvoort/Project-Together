@@ -17,6 +17,7 @@ use App\City;
 use Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Hash;
+use App\User_email;
 class InviteController extends Controller
 {
     public function index($company, $token) {
@@ -98,6 +99,11 @@ class InviteController extends Controller
             'content' => 'Welcome to Project-Together. If you have any questions, be sure to check our documentation.',
 
         ]);
+
+        User_email::create([
+            'user_id' => $user->id,
+        ]);
+
         $creator = User::where([['id', '=', $invite->user_id]])->first();
        $noti =  Notification::create([
             'user_id' => $invite->user_id,

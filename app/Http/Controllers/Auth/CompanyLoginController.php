@@ -4,6 +4,7 @@
 namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Mail\Two_step;
+use const http\Client\Curl\AUTH_ANY;
 use Illuminate\Http\Request;
 use App\User;
 use App\Company;
@@ -52,7 +53,7 @@ class CompanyLoginController extends Controller
 
                 $user_id = Auth::user()->id;
 
-                if(Auth::user()->two_step->phone) {
+                if(Auth::user()->two_step->phone && Auth::user()->phone != null) {
                     $message = Nexmo::message()->send([
                         'to' => Auth::user()->phone,
                         'from' => '32474455182',

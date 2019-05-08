@@ -92,10 +92,10 @@
                 <div class="profile-links">
                     <ul>
                         <li><a href="{{route('app_account', Auth::user()->company->url)}}"> Change my acccount</a></li>
-                        <li><a href=""> Settings</a></li>
-                        <li><a href=""> View sessions</a></li>
-                        <li><a href=""> Two Step Authentication</a></li>
-                        <li><a href=""> Statistics</a></li>
+                        <li><a href="{{route('app_account', Auth::user()->company->url)}}"> Settings</a></li>
+                        <li><a href="{{route('app_account', Auth::user()->company->url)}}"> View sessions</a></li>
+                        <li><a href="{{route('app_account', Auth::user()->company->url)}}"> Two Step Authentication</a></li>
+                        <li><a href="{{route('app_account', Auth::user()->company->url)}}"> Statistics</a></li>
                     </ul>
                     <ul>
                         <div class="clear line-small"> </div>

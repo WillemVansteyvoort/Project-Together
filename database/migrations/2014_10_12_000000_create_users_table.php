@@ -42,6 +42,7 @@ class CreateUsersTable extends Migration
             $table->text('biografy')->nullable();
             $table->date('birthdate')->nullable();
             $table->integer('status')->default(0);
+            $table->integer('welcome')->default(0);
             $table->string('function')->nullable();
             $table->timestamp('last_activity')->default(date(now()));
             $table->integer('online')->default(1);

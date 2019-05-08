@@ -231,6 +231,42 @@
   .close {
     margin: 0 !important;
   }
+
+  .fa-question {
+    padding-top: 4px;
+  }
+
+  &-sidebar {
+    position: fixed;
+    top: 0;
+    z-index: 999;
+    font-size: 15.5px;
+    font-family: "Open Sans", sans-serif;
+    line-height: 1.6;
+    color: black;
+    font-weight: 400;
+    left: 0;
+    width: 420px;
+    bottom: 0;
+    background-color: white;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.15);
+    padding: 30px 20px 20px 20px;
+    overflow: auto;
+    max-height: 100%;
+
+    a {
+      color: $color-primary;
+
+      &:hover {
+        color: black;
+      }
+    }
+    h3, h2 {
+      font-family: "Raleway", sans-serif;
+
+    }
+  }
+
 }
 .css-10nd86i, .css-1oubc3t, .css-1hwfws3, .css-1wy0on6 {
   height: 38px !important;
@@ -258,6 +294,7 @@
    }
  }
 
+
 @media screen and (max-width : 760px) {
   .popup {
     width: 100%;
@@ -269,4 +306,19 @@
       overflow: auto;
     }
   }
+}
+
+.popup-content2 {
+  position: static;
+  z-index: 2;
+  width: 0;
+  background: none;
+  border: 1px solid rgb(187, 187, 187);
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 3px;
+  padding: 5px;
+  top: 200px;
+  left: 60px;
+}
+.info {
+  color: #2D3E50 !important;
 }
