@@ -19,7 +19,7 @@ import ProjectTasks from './tasks';
 import ProjectCrisisCenter from './crisisCenter';
 import ProjectLogs from './logs';
 import ProjectPolls from './polls';
-
+import PopPop from 'react-poppop';
 import PopupChangeProject from "../popups/changeProject";
 
 export default class ProjectIndex extends Component {
@@ -42,6 +42,14 @@ export default class ProjectIndex extends Component {
             activities: null,
             logs: null,
             crisisCenter: null,
+
+            //welcome
+            welcome: window.Laravel.user.firstProject,
+            welcomeOpen: false,
+            welcome1: false,
+            welcome2: false,
+            welcome3: false,
+            welcome4: false,
         };
         this.overview = this.overview.bind(this);
         this.notes = this.notes.bind(this);
@@ -50,10 +58,31 @@ export default class ProjectIndex extends Component {
         this.getProjectInfo();
         this.error = this.error.bind(this);
         this.init = this.init.bind(this);
+        this.firstProjectIsDone = this.firstProjectIsDone.bind(this);
     }
 
     componentWillMount() {
         this.init();
+        this.welcome();
+    }
+
+    welcome () {
+        if(!this.state.welcome) {
+            this.setState({welcome1: true, welcomeOpen: true})
+        }
+    }
+
+    firstProjectIsDone() {
+        this.setState({
+            welcome: false,
+            welcomeOpen: false,
+            welcome1: false,
+            welcome2: false,
+            welcome3: false
+        });
+        axios.post('/api/user/firstProject', {
+        }).then(response => {
+        });
     }
 
     init() {
@@ -179,6 +208,7 @@ export default class ProjectIndex extends Component {
 }
 
     render() {
+        const {welcomeOpen} = this.state;
         return (
             <div className="project">
                 <Router>
@@ -255,6 +285,64 @@ export default class ProjectIndex extends Component {
                         </Switch>
                     </div>
                 </Router>
+                <PopPop
+                    open={welcomeOpen}
+                    closeOnEsc={true}
+                    onClose={() => this.toggleShowEdit(false)}
+                    closeOnOverlay={true}>
+                    <div className="popup">
+                        <div className="popup-titleBar">
+                            Welcome
+                        </div>
+                        <button className="popup-btn--close">✕</button>
+                        <div className="popup-content popup-welcome">
+                            {this.state.welcome1 ?
+                                <div>
+                                    <h2 className="center-text">Your first project</h2>
+                                    <p>Welcome in your first project on Project-Together! Because we want to prevent you from getting stuck, we list the most important things you have to know.</p>
+                                    <button className="button button-primary no-button float-right center" onClick={event => this.setState({welcome2: true, welcome1: false})}>Get started</button>
+                                </div>
+                                : ""}
+                            {this.state.welcome2 ?
+                                <div>
+                                    <h2 className="center-text">Project pages</h2>
+                                    <img src="/images/welcome2.jpg" className="img2" />
+                                    <p>On top of every page, you can see the navbar for the project (see picture above). The pages depend on the selected add-ons for the project. So it's possible you don't see all the pages like on the picture above.</p>
+                                    <button className="button button-primary no-button float-left center" onClick={event => this.setState({welcome2: false, welcome1: true})}>Back</button>
+                                    <button className="button button-primary no-button float-right center" onClick={event => this.setState({welcome2: false, welcome3: true})}>Next</button>
+                                </div>
+                                : ""}
+                            {this.state.welcome3 ?
+                                <div>
+                                    <h2 className="center-text">Members and roles</h2>
+                                    <div className="center-text">
+                                    </div>
+                                    <p>On the overview page, you can see all the members of the project with there roles. There are 4 types of roles:</p>
+                                    <ul>
+                                        <li>
+                                            <b>Watcher:</b> Member has access, but can just observe</li>
+                                        <li><b>Member:</b> Normal access</li>
+                                        <li><b>Responsable:</b> Has admin access (can modify content, ...)</li>
+                                        <li><b>Leader:</b> Has admin access and can change the project settings</li>
+                                    </ul>
+                                    <button className="button button-primary no-button float-left center" onClick={event => this.setState({welcome3: false, welcome2: true})}>Back</button>
+                                    <button className="button button-primary no-button float-right center"onClick={event => this.setState({welcome3: false, welcome4: true})}>Next</button>
+                                </div>
+                                : ""}
+                            {this.state.welcome4 ?
+                                <div>
+                                    <h2 className="center-text">Actions</h2>
+                                    <div className="center-text">
+                                        <img src="/images/welcome3.jpg" className="img3" />
+                                    </div>
+                                    <p>With most pages you can create new elements by clicking on the cross at the top right of each page. This is not always, but with most it is.</p>
+                                    <button className="button button-primary no-button float-left center" onClick={event => this.setState({welcome4: false, welcome3: true})}>Back</button>
+                                    <button className="button button-primary no-button float-right center" onClick={event => this.firstProjectIsDone()}>Done</button>
+                                </div>
+                                : ""}
+                        </div>
+                    </div>
+                </PopPop>
             </div>
         );
     }

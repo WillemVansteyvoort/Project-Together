@@ -84,6 +84,7 @@ export default class PopupNewProject extends Component {
 
             created: false,
             created_timer: 0,
+            url: '',
         };
         //bind
 
@@ -245,7 +246,9 @@ export default class PopupNewProject extends Component {
                 selectedMembers: this.state.selectedMembers,
                 tags: this.state.tags
             }).then(response => {
+                window.location.href = response.data + "/project";
                 this.setState({
+                    url: response.data,
                     isLoading: false,
                     title: "",
                     description: "",

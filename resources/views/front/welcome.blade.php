@@ -22,15 +22,15 @@
         @endif
         <div class="welcome">
             <div class="row">
-                <div class="seven columns">
+                <div class="twelve columns">
                     <h2>Welcome to Project-Together</h2>
                     <p>
-                        Hi, <b>{{{ Auth::user()->name  }}} {{Auth::user()->lastname}}</b> <br />We are very happen that your company   has chosen for us. Because you are the owner of <b>{{{ Auth::user()->company->name  }}}</b>, you have to now some things so that you can help your members and yourself.
+                        Hi, <b>{{{ Auth::user()->name  }}} {{Auth::user()->lastname}}</b> <br />We are very happen that your company   has chosen for us. Because you are the owner of <b>{{{ Auth::user()->company->name  }}}</b>, you have to know some things so that you can help your members and yourself.
                     </p>
                     <h4>Your company link</h4>
-                    <p>You and your colleagues can access the company by the follow url:</p>
-                    <span class="tag tag-primary">Https://</span>
-                    <input type="text" value="project-together.com/{{{ Auth::user()->company->url  }}}">
+                    <p>You and your members can access the company by the follow url:</p>
+                    <span class="tag tag-primary">https://</span>
+                    <input type="text" value="project-together.com/{{{ Auth::user()->company->url  }}}/login">
                     <h4>Invite others</h4>
                     <p>
                         You can easily invite your colleagues to the company by sending them an email. You can do that <a href="{{route('app_company', Auth::user()->company->url)}}">here</a>.
@@ -39,9 +39,7 @@
                     <p>
                        If you want to change the company plan, name industry or even the company url, ou can go to <a href="{{route('front_settings')}}">this page</a>.
                     </p>
-                </div>
-                <div class="five columns">
-                    <img src="https://www.techsmith.com/blog/wp-content/uploads/2017/11/508-compliance-video-play-button-855-855x570.jpg" width="90%" height="315">
+                    <button class="button button-small button-second uppercase no-button"><a href="/chirokalfort/dashboard">Go to Chiro Kalfort</a></button>
                 </div>
             </div>
         </div>

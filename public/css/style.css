@@ -213,6 +213,14 @@ h3 {
   color: #32CD32;
 }
 
+.no-button {
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+  color: white;
+  border: 0px solid #5680e9 !important;
+}
+
 h5 {
   font-family: "Open Sans", sans-serif;
   font-size: 20px;

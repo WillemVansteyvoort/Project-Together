@@ -125,7 +125,8 @@ Route::get('/api/countries', 'Application\AccountController@getCountries');
 
 Route::group(['middleware' => ['auth']], function () {
     Route::post('/api/user/welcome', 'Application\DashboardController@welcome');
-Route::post('/api/user/activity', 'UpdateActivity@update');
+    Route::post('/api/user/firstProject', 'Application\ProjectController@DoneFirstProject');
+    Route::post('/api/user/activity', 'UpdateActivity@update');
 Route::get('/api//user/logs', 'Application\AccountController@getLogs');
 Route::get('/api/menu/online', 'Application\MenuController@online');
 Route::get('/api/menu/notifications', 'Application\MenuController@notifications');
@@ -159,7 +160,6 @@ Route::post('/api/check/email', 'Application\UserController@checkEmail');
 Route::post('/api/user/new', 'Application\UserController@createUser');
 Route::post('/api/user/edit', 'Application\UserController@editUser');
 Route::post('/api/user/delete', 'Application\UserController@deleteUser');
-});
 
 //invite
 Route::post('/api/invite/new', 'Application\InviteController@createInvite');
@@ -258,3 +258,4 @@ Route::get('/api/project/overview/tasks/widget', 'Application\Project\TaskContro
 
 Route::post('/twostep', 'Application\TwoStepController@login');
 
+});

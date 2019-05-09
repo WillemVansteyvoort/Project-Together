@@ -166,6 +166,8 @@ class ProjectController extends SlugifyController
                 broadcast(new Notifications($noti,$user))->toOthers();
             }
         }
+
+        return $project->url;
     }
 
     public function addUser(Request $request) {
@@ -377,6 +379,11 @@ class ProjectController extends SlugifyController
         $project_all = Project::where('url', '=', $project)->first();
         $name = $project_all->name;
         return view('application.project.index', compact('company', 'project', 'name'));
+    }
 
+    public function DoneFirstProject()  {
+        $user = Auth::user();
+        $user->firstProject = true;
+        $user->save();
     }
 }
