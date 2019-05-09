@@ -49,6 +49,7 @@
                 'user_notifications' => Auth::user()->notifications,
                 'notifications' => Auth::user()->mails->notifications,
                 'overview' => Auth::user()->mails->overview,
+                'welcome' => Auth::user()->welcome,
             ],
 
             'company' => [

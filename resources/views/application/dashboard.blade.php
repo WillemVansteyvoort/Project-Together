@@ -1,5 +1,5 @@
 @extends('application.layouts.app')
-@section('title', '- blog')
+@section('title', '- Dashboard')
 @section('content')
     <section class="header-banner">
         <div class="header-banner--text">
@@ -19,10 +19,10 @@
                 <section class="sidebar">
                     <div class="clear line-small"></div>
                     @if(!Auth::user()->verified && Auth::user()->owner)
-                        <div class="alert alert-red">This account has not been verified. You only have 2 days access to your company. <br/> <a>Send a new verification e-mail</a></div>
+                        <div class="alert alert-red">@lang('This account has not been verified. You only have 2 days access to your company.') <br/> <a>Send a new verification e-mail</a></div>
                     @endif
                     <div class="sidebar-projects">
-                        <h5>Recent Projects</h5>
+                        <h5>@lang('Recent Projects')</h5>
                         @if(Auth::user()->projects->count() > 0)
                         @foreach(Auth::user()->limitProjects  as $project)
                             <div class="sidebar-project">
@@ -33,13 +33,13 @@
                         @endforeach
                         @else
                             <div class="sidebar-project">
-                            <span class="sidebar-project--title">There are no projects in the moment</span>
+                            <span class="sidebar-project--title">@lang('There are no projects in the moment')</span>
                             <div class="clear"></div>
                     </div>
                         @endif
                     </div>
                     <div class="sidebar-events">
-                        <h5>Upcoming events</h5>
+                        <h5>@lang('Upcoming events')</h5>
                     @if(Auth::user()->events->count() > 0)
                                 @foreach(Auth::user()->limitEvents  as $event)
                                 <article class="sidebar-event">

@@ -16,6 +16,10 @@
         </div>
     </section>
     <section class="dark about">
+        <div class="show-mobile">
+            <li class="button button-small button-second uppercase"><a  href=" {{{Auth::user()->company->url}}}/dashboard">Go to {{{Auth::user()->company->name}}}</a></li>
+        </div>
+
         @if(session('verify_overdate'))
             <div class="alert alert-red">This verification url has been expired. <a class="float-right">Send a new verification e-mail</a></div>
         @endif
@@ -25,7 +29,8 @@
             @endif
 
             @if(!Auth::user()->verified && !session('verify_overdate'))
-                <div class="alert alert-red">This account has not been verified. You only have 2 days access to your company. <a class="float-right">Send a new verification e-mail</a></div>
+                <div class="alert alert-red">This account has not been verified. You only have 2 days access to your company. <a class="float-right">Send a new verification e-mail</a>                <div class="clear"></div>
+                </div>
             @endif
         <div class="row">
             <div class="five columns">

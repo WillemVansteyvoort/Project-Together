@@ -124,6 +124,7 @@ Route::get('/api/industries', 'IndustryController@tojson');
 Route::get('/api/countries', 'Application\AccountController@getCountries');
 
 Route::group(['middleware' => ['auth']], function () {
+    Route::post('/api/user/welcome', 'Application\DashboardController@welcome');
 Route::post('/api/user/activity', 'UpdateActivity@update');
 Route::get('/api//user/logs', 'Application\AccountController@getLogs');
 Route::get('/api/menu/online', 'Application\MenuController@online');

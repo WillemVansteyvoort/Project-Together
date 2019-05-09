@@ -21,10 +21,10 @@
                 <ul class="header-menu-left">
                     <li><a class="header-name" href="{{route('front_home')}}">{{ config('app.name') }}</a></li>
                     <li><a href="{{route('front_about')}}">@lang('About us')</a></li>
-                    <li><a href="">@lang('Products')</a></li>
+                    {{--<li><a href="">@lang('Products')</a></li>--}}
                     <li><a href="">@lang('Our options')</a></li>
-                    <li><a href="blog.html">Blog</a></li>
-                    <li><a href="support.html">Support</a></li>
+                    <li><a href="{{route('front_blog')}}">Blog</a></li>
+                    <li><a href="{{route('front_support')}}">Support</a></li>
 
                     @if( App::getLocale() == "nl")
                         <a  href="{{route('lang_set', "en")}}">
@@ -52,14 +52,14 @@
             <div class="header-text">
                 <h1 class="header-title">Organize your projects the best way
                 </h1>
-                <p class="header-beginText">Organize your projects for your organisation or your team the best possible way with WorkTogether. WorkTogether is the first team-manager that is totally free to use. </p>
-                <input class="hidden-mobile" type="text" placeholder="Give your email to start ...">
-                <a href="" class="button button-primary button-large hidden-mobile animation-up">
-                    Get started
+                <p class="header-beginText">@lang("Organize your projects for your company or your team the best possible way with Project-Together. Project-Together is a tool where you can manage projects of your company. Project-Together is the first projectmanager that's free.")</p>
+                <input class="hidden-mobile" type="text" placeholder="@lang("Give your email to start ...")">
+                <a href="{{route('front_signup')}}" class="button button-primary button-large hidden-mobile animation-up">
+                    @lang("Get started")
                 </a>
                 <div class="show-mobile">
-                    <li class="button button-small button-second"><a href="">Log in</a></li>
-                    <li class="button button-small button-primary"><a href="">Sign Up</a></li>
+                    <li class="button button-small button-second"><a href="{{route('front_login')}}">Log in</a></li>
+                    <li class="button button-small button-primary"><a href="{{route('front_signup')}}">Sign Up</a></li>
                 </div>
             </div>
         </section>
@@ -68,9 +68,9 @@
                 <div class="four columns">
                     <div class="product">
                         <div class="product-image">
-                            <h4>Communicate</h4>
+                            <h4>@lang("Communicate")</h4>
                             <i class="fas fa-comments"></i>
-                            <p>Communicate easily individual with a teammate or in group.</p>
+                            <p>@lang("Communicate efficiently with your colleagues")</p>
                         </div>
                     </div>
 
@@ -78,18 +78,18 @@
                 <div class="four columns">
                     <div class="product">
                         <div class="product-image">
-                            <h4>Set Tasks</h4>
+                            <h4>@lang("Tasks")</h4>
                             <i class="fas fa-tasks"></i>
-                            <p>Set tasks for your team within a period that they must have done it.</p>
+                            <p>@lang("Set tasks easily for certain amount of time")</p>
                         </div>
                     </div>
                 </div>
                 <div class="four columns">
                     <div class="product">
                         <div class="product-image">
-                            <h4>Share Files</h4>
-                            <i class="fas fa-file"></i>
-                            <p>Upload files and share them with your teammates.</p>
+                            <h4>@lang("Organized")</h4>
+                            <i class="fas fa-sitemap"></i>
+                            <p>@lang("Everything you need in one place")</p>
                         </div>
                     </div>
                 </div>
@@ -103,14 +103,12 @@
                         <div class="price-table--body">
                             <h4>Free</h4>
                             <ul>
-                                <li>2GB file space</li>
-                                <li>Up to 25 users</li>
-                                <li>4 projects</li>
-                                <li>Unlimited (sub)tasks</li>
+                                <li>Up to 25 members</li>
+                                <li>10 projects</li>
                                 <li>24/7 support</li>
                                 <li>Includes all add-ons*</li>
                             </ul>
-                            <a href="" class="button button-primary button-medium">
+                            <a href="{{route('front_signup')}}" class="button button-primary button-medium">
                                 Get started
                             </a>
                         </div>
@@ -123,15 +121,13 @@
                             <h4 id="line-through">4€ / Mo</h4>
                             <h6>Free</h6>
                             <ul>
-                                <li>5GB file space</li>
                                 <li>Up to 120 users</li>
                                 <li>Unlimited projects</li>
-                                <li>Unlimited (sub) tasks</li>
                                 <li>24/7 support</li>
                                 <li id="bold">Receive as first updates</li>
                                 <li>Includes all add-ons*</li>
                             </ul>
-                            <a href="" class="button button-primary button-medium">
+                            <a href="{{route('front_signup')}}" class="button button-primary button-medium">
                                 Get started
                             </a>
                         </div>
@@ -145,8 +141,8 @@
             <div class="row">
                 <div class="two columns">
                     <div class="add-ons--body tablinks active" onclick="openCity(event, 'channels')">
-                        <i  class="fas fa-comments"></i>
-                        <h4>Channels</h4>
+                        <i class="fas fa-comments"></i>
+                        <h4>Forum</h4>
                     </div>
 
                 </div>
@@ -172,13 +168,13 @@
                 <div class="two columns">
                     <div class="add-ons--body tablinks" onclick="openCity(event, 'agenda')">
                         <i class="fas fa-calendar"></i>
-                        <h4>Agenda</h4>
+                        <h4>Calendar</h4>
                     </div>
                 </div>
                 <div class="two columns">
                     <div class="add-ons--body tablinks" onclick="openCity(event, 'moods')" >
-                        <i class="fas fa-moon"></i>
-                        <h4>Moods</h4>
+                        <i class="fas fa-poll-h"> </i>
+                        <h4>Polls</h4>
                     </div>
                 </div>
             </div>

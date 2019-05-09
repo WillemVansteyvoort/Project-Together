@@ -5,15 +5,33 @@
         <div class="header-menu">
             <ul class="header-menu-left">
                 <li><a class="header-name" href="{{route('front_home')}}">{{ config('app.name') }}</a></li>
-                <li><a href="{{route('front_about')}}">About us</a></li>
-                <li><a href="">Products</a></li>
-                <li><a href="">Our Options</a></li>
+                <li><a href="{{route('front_about')}}">@lang('About us')</a></li>
+                {{--<li><a href="">@lang('Products')</a></li>--}}
+                <li><a href="">@lang('Our options')</a></li>
                 <li><a href="{{route('front_blog')}}">Blog</a></li>
                 <li><a href="{{route('front_support')}}">Support</a></li>
+
+                @if( App::getLocale() == "nl")
+                    <a  href="{{route('lang_set', "en")}}">
+                        <img src="https://cdn.countryflags.com/thumbs/united-kingdom/flag-waving-250.png" width="35px" class="float-right" style="margin-top: 5px; margin-right: 8px"/>
+                    </a>
+                @else
+                    <a  href="{{route('lang_set', "nl")}}">
+                        <img src="https://cdn.countryflags.com/thumbs/netherlands/flag-waving-250.png" width="35px" class="float-right" style="margin-top: 5px; margin-right: 8px"/>
+                    </a>
+                @endif
             </ul>
             <ul class="header-menu-right hidden-mobile">
-                <li class="button button-small button-second"><a href="">Log in</a></li>
-                <li class="button button-small button-primary"><a href="">Sign Up</a></li>
+                @if(Auth::check() && Auth::user()->owner)
+                    <li class="button button-small button-second uppercase"><a href="{{route('front_company')}}">@lang('Manage', ["company" => Auth::user()->company->name]) </a></li>
+                    <li class="button button-small button-primary"><a href="{{route('app_logout')}}">@lang('Logout')</a></li>
+                @elseif(Auth::check())
+                    <li class="button button-small button-second uppercase"><a href="{{route('app_dashboard', Auth::user()->company->url)}}">GO TO {{{Auth::user()->company->name}}}</a></li>
+                    <li class="button button-small button-primary"><a href="{{route('app_logout')}}">Logout</a></li>
+                @else
+                    <li class="button button-small button-second"><a href="{{route('front_login')}}">Log in</a></li>
+                    <li class="button button-small button-primary"><a href="{{route('front_signup')}}">Sign Up</a></li>
+                @endif
             </ul>
         </div>
     </section>
