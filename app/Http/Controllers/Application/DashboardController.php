@@ -65,6 +65,11 @@ class DashboardController extends Controller
         return $notifcations;
     }
 
+    public function welcome(Request $request) {
+        $user = Auth::user();
+        $user->welcome = true;
+        $user->save();
+    }
     public function message() {
         return Auth::user()->company->message;
     }

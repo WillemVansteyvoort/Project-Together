@@ -40,6 +40,7 @@ class User extends Authenticatable
         'company_id',
         'two_step',
         'notifications',
+        'welcome'
     ];
 
 

@@ -4,6 +4,7 @@ import { Tabs, Tab, TabPanel, TabList } from 'react-web-tabs';
 import { Progress } from 'react-sweet-progress';
 import "react-sweet-progress/lib/style.css";
 const Timestamp = require('react-timestamp');
+import PopPop from 'react-poppop';
 import NotificationsToday from './notifcations/today';
 import NotificationsYesterday from './notifcations/yesterday';
 import NotificationsOlder from './notifcations/older';
@@ -24,11 +25,21 @@ export default class TabsDashboard extends Component {
             perPage: 7,
             message: '',
             tasks: [],
+
+
+            //welcome
+            welcome: window.Laravel.user.welcome,
+            welcomeOpen: false,
+            welcome1: false,
+            welcome2: false,
+            welcome3: false
         };
         //bind
         this.notificationsToday = this.notificationsToday.bind(this);
         this.notificationsYesterday = this.notificationsYesterday.bind(this);
         this.handleClick = this.handleClick.bind(this);
+        this.welcome = this.welcome.bind(this);
+        this.welcomeIsDone = this.welcomeIsDone.bind(this);
     }
 
 
@@ -39,12 +50,32 @@ export default class TabsDashboard extends Component {
     }
 
     componentWillMount() {
+        this.welcome();
         this.notificationsOlder();
         this.notificationsToday();
         this.notificationsYesterday();
         this.activities();
         this.message();
         this.tasks();
+    }
+
+    welcome () {
+        if(!this.state.welcome) {
+            this.setState({welcome1: true, welcomeOpen: true})
+        }
+    }
+
+    welcomeIsDone() {
+        this.setState({
+            welcome: false,
+            welcomeOpen: false,
+            welcome1: false,
+            welcome2: false,
+            welcome3: false
+        });
+        axios.post('/api/user/welcome', {
+        }).then(response => {
+        });
     }
 
     activities() {
@@ -108,7 +139,7 @@ export default class TabsDashboard extends Component {
     }
     render() {
         const { activities, currentPage, todosPerPage } = this.state;
-
+        const {welcomeOpen} = this.state;
         // Logic for displaying current todos
         const indexOfLastTodo = currentPage * todosPerPage;
         const indexOfFirstTodo = indexOfLastTodo - todosPerPage;
@@ -216,6 +247,7 @@ export default class TabsDashboard extends Component {
                                 <div className="six columns">
                                     <div className="dashboard-tasks">
                                         <h5>Your tasks</h5>
+                                        {this.state.tasks.length === 0 ? <div className="alert alert-blue center-text">You have no tasks for the moment</div> : ""}
                                         <table className="u-full-width">
                                             <tbody>
                                             {this.state.tasks.map((task, i) => (
@@ -233,7 +265,7 @@ export default class TabsDashboard extends Component {
                                     <div className="dashboard-message">
                                         <h5>Message from the company</h5>
                                         <ReactMarkdown source={this.state.message} />
-                                        {this.state.message.length > 0 ? "" : "This is a reserved place where administrators can post announcements. Administrators can change this text on the \"company\" page and then click on the button."}
+                                        {this.state.message.length > 0 ? "" : "This is a reserved place where administrators can post announcements. Administrators can change this text on the \"company\" page and then click on the button"}
                                     </div>
                                 </div>
                             </div>
@@ -292,6 +324,47 @@ export default class TabsDashboard extends Component {
                         </div>
                     </TabPanel>
                 </Tabs>
+                <PopPop
+                    open={welcomeOpen}
+                    closeOnEsc={true}
+                    onClose={() => this.toggleShowEdit(false)}
+                    closeOnOverlay={true}>
+                    <div className="popup">
+                        <div className="popup-titleBar">
+                             Welcome
+                        </div>
+                        <button className="popup-btn--close">✕</button>
+                        <div className="popup-content popup-welcome">
+                            {this.state.welcome1 ?
+                                <div>
+                                    <h2 className="center-text">Welcome <b>{window.Laravel.user.name}!</b></h2>
+                                    <p>First, we want to thank you for choosing Project-Together. We will do everything to keep you satisfied. But before you can start, we will first go over a few things so that everything is clear to you.</p>
+                                    <button className="button button-primary no-button float-right center" onClick={event => this.setState({welcome2: true, welcome1: false})}>Get started</button>
+                                </div>
+                                : ""}
+                            {this.state.welcome2 ?
+                                <div>
+                                    <h2 className="center-text">Company login</h2>
+                                    <img src="../images/welcome1.jpg" className="img1" />
+                                    <p>Every company has a personal area where all his members can login. This means that you can't login at the homepage of Project-Together. You can <a href="login">login here.</a> We send you also an email where you can find the specific address to login.</p>
+                                    <button className="button button-primary no-button float-left center" onClick={event => this.setState({welcome2: false, welcome1: true})}>Back</button>
+                                    <button className="button button-primary no-button float-right center" onClick={event => this.setState({welcome2: false, welcome3: true})}>Next</button>
+                                </div>
+                                : ""}
+                            {this.state.welcome3 ?
+                                <div>
+                                    <h2 className="center-text">Dashboard</h2>
+                                    <div className="center-text">
+                                        <i className="fas fa-tachometer-alt"> </i>
+                                    </div>
+                                    <p>You are currently on your dashboard. This is the central location of your account. Here you can quickly see which tasks you have to do, upcoming events, message from the company, your notifications and activities.</p>
+                                    <button className="button button-primary no-button float-left center" onClick={event => this.setState({welcome3: false, welcome2: true})}>Back</button>
+                                    <button className="button button-primary no-button float-right center" onClick={event => this.welcomeIsDone()}>Done</button>
+                                </div>
+                                : ""}
+                        </div>
+                    </div>
+                </PopPop>
             </div>
         );
     }
