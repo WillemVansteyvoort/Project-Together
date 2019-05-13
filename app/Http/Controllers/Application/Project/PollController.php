@@ -79,6 +79,51 @@ class PollController extends Controller
         ]);
     }
 
+    public function editPoll(Request $request) {
+       $poll = Poll::where('id', $request->edit_id)->with('options', 'votes')->first();
+
+       $options = $request->edit_options;
+       if(sizeof($options) > 0) {
+           $poll->options()->delete();
+           $poll->votes()->delete();
+
+           foreach ($options as $option) {
+               PollOption::create([
+                   'content' => $option,
+                   'user_id' => Auth::user()->id,
+                   'poll_id' => $poll->id,
+               ]);
+           }
+       }
+
+        $poll->title = $request->edit_title;
+        $poll->content = $request->edit_content;
+        $poll->multiple = $request->edit_multiple;
+        $poll->change = $request->edit_change;
+        $poll->end_date = $request->edit_end_date;
+        $poll->save();
+
+        Activity::create([
+            'project_id' => $poll->project_id,
+            'company_id' => Auth::user()->company_id,
+            'user_id' => Auth::user()->id,
+            'type' => 23,
+            'content' => 0,
+        ]);
+
+    }
+
+    public function deletePoll(Request $request) {
+        Poll::destroy($request->edit_id);
+        Activity::create([
+            'project_id' => $poll->project_id,
+            'company_id' => Auth::user()->company_id,
+            'user_id' => Auth::user()->id,
+            'type' => 22,
+            'content' => 0,
+        ]);
+    }
+
     public function delete(Request $request) {
         $poll = Poll::findOrFail($request->poll_id);
 
