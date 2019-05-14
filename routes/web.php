@@ -33,6 +33,14 @@ Route::group(['middleware' => ['lang']], function () {
         return view('application.account');
     });
 
+    Route::get('/options', function () {
+        return view('front.options');
+    })->name('front_options');;
+
+    Route::get('/docs', function () {
+        return view('front.docs');
+    })->name('front_docs');;
+
 
     Route::post('/posts', 'HomeController@create');
 
@@ -243,6 +251,8 @@ Route::post('/api/project/polls/items', 'Application\Project\PollController@geti
 Route::post('/api/project/polls/vote', 'Application\Project\PollController@vote');
 Route::post('/api/project/polls/create', 'Application\Project\PollController@create');
 Route::post('/api/project/polls/delete', 'Application\Project\PollController@delete');
+Route::post('/api/project/polls/edit', 'Application\Project\PollController@editPoll');
+Route::post('/api/project/polls/deletePoll', 'Application\Project\PollController@deletePoll');
 
 //tasks
 Route::post('/api/project/tasks/lists', 'Application\Project\TaskController@getLists');

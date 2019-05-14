@@ -397,6 +397,8 @@ export default class Calendar extends Component {
                                         <span className={d.getDate() === dag.id && d.getMonth() === dag.month ? "gray calendar-current" : "gray"}>{dag.id}</span>
                                         {this.state.allEvents.map((event, i) => (
                                             <div key={i}  onClick={e => this.getDay(event.from)}>
+                                                {/*{console.log(new Date(new Date().getFullYear(),new Date().getMonth() , new Date().getDate()))}*/}
+                                                {/*{console.log(new Date(new Date(event.from).getFullYear(), new Date(event.from).getMonth(), new Date(event.from).getDate()))}*/}
                                                 {(event.from === dag.year + "-" + (dag.month) + "-" + dag.id && event.color === "green") && i <= 3 ?
                                                     <div  className="calendar-event calendar-event-green">
                                                         {event.title}

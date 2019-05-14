@@ -4,6 +4,7 @@ import PieChart from 'react-minimal-pie-chart';
 import { Tabs, Tab, TabPanel, TabList } from 'react-web-tabs';
 import { Progress } from 'react-sweet-progress';
 const Timestamp = require('react-timestamp');
+import ReactNotification from "react-notifications-component";
 import "react-sweet-progress/lib/style.css";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import PopPop from 'react-poppop';
@@ -50,6 +51,8 @@ export default class ProjectBoard extends Component {
         this.editCard = this.editCard.bind(this);
         this.deleteCard = this.deleteCard.bind(this);
         this.openItem = this.openItem.bind(this);
+        this.addNotification = this.addNotification.bind(this);
+        this.notificationDOMRef = React.createRef();
     }
 
     getItems() {
@@ -69,6 +72,20 @@ export default class ProjectBoard extends Component {
                 this.setState({
                     users: response.data,})
         );
+    }
+
+    addNotification() {
+        this.notificationDOMRef.current.addNotification({
+            title: "Awesomeness",
+            message: "Awesome Notifications!",
+            type: "nothing",
+            insert: "top",
+            container: "top-right",
+            animationIn: ["animated", "fadeIn"],
+            animationOut: ["animated", "fadeOut"],
+            dismiss: { duration: 800000 },
+            dismissable: { click: true }
+        });
     }
 
     createCard() {
@@ -269,6 +286,10 @@ export default class ProjectBoard extends Component {
                         <i className="fas fa-plus"> </i>
                     </button> : ""}
                 <main className="project-board">
+                     <ReactNotification ref={this.notificationDOMRef} />
+        <button onClick={this.addNotification} className="btn btn-primary">
+          Add Awesome Notification
+        </button>
                     {this.state.loading ?
                         <div className="project-loading">
                             <div className="loader">Loading...</div>

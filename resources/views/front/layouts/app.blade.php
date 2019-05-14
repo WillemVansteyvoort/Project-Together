@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="{{ asset('css/skeleton.css') }}">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('css/queries.css') }}">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <script>
         window.Laravel = <?php echo json_encode([
             'csrfToken' => csrf_token(),

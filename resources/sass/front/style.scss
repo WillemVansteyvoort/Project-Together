@@ -560,6 +560,7 @@ a:hover {
 
 }
 .support-item {
+  padding-top: 35px;
   i {
     font-size: 100px;
   }
@@ -592,7 +593,54 @@ a:hover {
 }
 .fixed-progress-bar {
   width: 100%;
+
 }
+/**** DOCS PAGE ****/
+.doc {
+  padding: 80px 140px;
+  font-family: "Open Sans", sans-serif;
+
+  &-sidebar {
+    font-family: "Open Sans", sans-serif;
+    background-color: white;
+    box-shadow: 1px 1px 2px #fff inset, -1px -1px 2px #fff inset;
+    a {
+      color: black;
+      &:hover {
+        color: white;
+      }
+    }
+    li {
+      transition: 0.3s ease-in-out;
+      list-style-type: none;
+      padding: 12px;
+
+      &:hover {
+        background-color: $color-primary;
+        color: white;
+      }
+    }
+    li:hover {
+      color: white !important;
+    }
+  }
+  &-content {
+    background-color: white;
+    padding: 16px;
+    box-shadow: 1px 1px 2px #fff inset, -1px -1px 2px #fff inset;
+    h3 {
+      font-family: "Open Sans", sans-serif;
+      text-align: left;
+      font-size: 28px;
+      text-transform: uppercase;
+      font-weight: 400;
+    }
+    li {
+      margin: 0;
+    }
+  }
+}
+
 /**** SECTION login ****/
 .tag {
 
@@ -1018,6 +1066,21 @@ input[type="submit"] {
       color: black;
     }
   }
+}
+.options{
+  h3 {
+    margin-top: 12px;
+    text-align: left;
+  }
+.icon {
+  color: #2d3e50;
+  text-align: center;
+  font-size: 108px;
+  margin-top: 74px;
+  &-box {
+    position: relative;
+  }
+}
 }
 .delete-logo {
   background-color: transparent !important;

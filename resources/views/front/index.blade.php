@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="{{ asset('css/skeleton.css') }}">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('css/queries.css') }}">
+    
 </head>
 <body>
     <div class="container">
@@ -22,7 +23,7 @@
                     <li><a class="header-name" href="{{route('front_home')}}">{{ config('app.name') }}</a></li>
                     <li><a href="{{route('front_about')}}">@lang('About us')</a></li>
                     {{--<li><a href="">@lang('Products')</a></li>--}}
-                    <li><a href="">@lang('Our options')</a></li>
+                    <li><a href="{{route('front_options')}}">@lang('Our options')</a></li>
                     <li><a href="{{route('front_blog')}}">Blog</a></li>
                     <li><a href="{{route('front_support')}}">Support</a></li>
 

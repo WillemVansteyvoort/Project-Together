@@ -7,7 +7,7 @@
                 <li><a class="header-name" href="{{route('front_home')}}">{{ config('app.name') }}</a></li>
                 <li><a href="{{route('front_about')}}">@lang('About us')</a></li>
                 {{--<li><a href="">@lang('Products')</a></li>--}}
-                <li><a href="">@lang('Our options')</a></li>
+                <li><a href="{{route('front_options')}}">@lang('Our options')</a></li>
                 <li><a href="{{route('front_blog')}}">Blog</a></li>
                 <li><a href="{{route('front_support')}}">Support</a></li>
 
@@ -52,19 +52,19 @@
             <div class="three columns">
                 <div class="support-item">
                     <i class="fas fa-question-circle"></i>
-                    <h6><a href="">See our Q&A section</a></h6>
+                    <h6><a href="">Q&A section</a></h6>
                 </div>
             </div>
             <div class="three columns">
                 <div class="support-item">
-                    <i class="fas fa-phone-square"></i>
-                    <h6><a href="">04/474.45.51.82</a></h6>
+                    <i class="fas fa-book"></i>
+                    <h6><a href="{{route('front_docs')}}">Documentation</a></h6>
                 </div>
             </div>
             <div class="three columns">
                 <div class="support-item">
                     <i class="fas fa-th-large"></i>
-                    <h6><a href="blog.html">Check our blog</a></h6>
+                    <h6><a href="blog.html">Our blog</a></h6>
                 </div>
             </div>
         </div>

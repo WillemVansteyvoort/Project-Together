@@ -7,11 +7,11 @@
                 <li><a class="header-name" href="{{route('front_home')}}">{{ config('app.name') }}</a></li>
                 <li><a href="{{route('front_about')}}">@lang('About us')</a></li>
                 {{--<li><a href="">@lang('Products')</a></li>--}}
-                <li><a href="">@lang('Our options')</a></li>
+                <li><a href="{{route('front_options')}}">@lang('Our options')</a></li>
                 <li><a href="{{route('front_blog')}}">Blog</a></li>
                 <li><a href="{{route('front_support')}}">Support</a></li>
 
-                @if( App::getLocale() == "nl")
+            @if( App::getLocale() == "nl")
                     <a  href="{{route('lang_set', "en")}}">
                         <img src="https://cdn.countryflags.com/thumbs/united-kingdom/flag-waving-250.png" width="35px" class="float-right" style="margin-top: 5px; margin-right: 8px"/>
                     </a>
