@@ -18,6 +18,7 @@
     <script>
         window.Laravel = <?php echo json_encode([
             'csrfToken' => csrf_token(),
+            'lang' => App::getLocale(),
             'user' => [
                 'id' => Auth::user()->id,
                 'name' => Auth::user()->name,
@@ -78,6 +79,7 @@
                 'change_online'=> Auth::user()->rights->change_online,
 
             ],
+
         ]);
         ?>
     </script>

@@ -17,6 +17,17 @@
     <link rel="stylesheet" href="{{ asset('css/skeleton.css') }}">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('css/queries.css') }}">
+    <script>
+        window.Laravel = <?php echo json_encode([
+            'csrfToken' => csrf_token(),
+            'facebook' => [
+                'provider' => '',
+                'provider_id' => '',
+            ],
+            'lang' => App::getLocale(),
+        ]);
+        ?>
+    </script>
 </head>
 <body>
 <div class="container">

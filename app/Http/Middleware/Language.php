@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Support\Facades\App;
-
+use Illuminate\Support\Facades\Session;
 class Language
 
 {
@@ -17,7 +17,14 @@ class Language
      */
     public function handle($request, Closure $next)
     {
-        App::setLocale(session()->get('lang'));
+        if(!Session::has('lang')){
+            $locale = substr($request->server('HTTP_ACCEPT_LANGUAGE'), 0, 2);
+            session()->put('lang', $locale);
+        } else {
+            App::setLocale(session()->get('lang'));
+        }
+
         return $next($request);
     }
+
 }

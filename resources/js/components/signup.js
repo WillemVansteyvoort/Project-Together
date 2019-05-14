@@ -5,7 +5,11 @@ import { Progress } from 'react-sweet-progress';
 import { Wizard, Steps, Step } from 'react-albus';
 import ReactPasswordStrength from '@rodrigowpl/react-password-strength'
 import { ProgressBar } from 'reprogressbars';
+import LocalizedStrings from 'localized-strings';
+import en from './lang/en.json';
+import nl from './lang/nl.json';
 
+let strings = new LocalizedStrings({en,nl});
 export default class SignupForm extends Component {
 
     constructor(props) {
@@ -106,6 +110,7 @@ export default class SignupForm extends Component {
 
     //step 1
     buttonStep1() {
+        strings.setLanguage(window.Laravel.lang);
         if(this.state.name_errors || this.state.lastname_errors || this.state.email_errors || this.state.name.length <= 2 || this.state.lastname.length <= 2 || this.state.email.length <= 6 || this.state.password.length <= 8) {
             this.setState({button: true});
         } else  {
@@ -342,16 +347,14 @@ export default class SignupForm extends Component {
                             id="step 1"
                             render={({ next }) => (
                                 <div>
-                                    <h4 className="register-right--title">Sign Up to Work-Together</h4>
+                                    <h4 className="register-right--title">{strings.getString("Sign Up to Project-Together")}</h4>
                                     <p>
-                                        Get now all your projects organized with Work-Together. Sign Up now with Social
-                                        Media or make a
-                                        manual acount. We will see you inside!
+                                        {strings.getString("Get now all your projects organized with Project-Together Sign Up now with Social Media or make a manual acount We will see you inside")}
                                     </p>
-                                    <label>First name *</label>
+                                    <label>{strings.getString("First name")} *</label>
                                     <div id="red">{this.state.name_message}</div>
                                     <input className={this.state.name_errors ? "border-red" : ""} type="text" value={this.state.name} name="name" onBlur={this.checkName} onChange={e => this.setState({ name: e.target.value })} placeholder="Project-Together" required/>
-                                    <label>Last name *</label>
+                                    <label>{strings.getString("Surname")} *</label>
                                     <div id="red">{this.state.lastname_message}</div>
                                     <input className={this.state.lastname_errors ? "border-red" : ""} type="text" value={this.state.lastname} name="name" onBlur={this.checkLastName} onChange={e => this.setState({ lastname: e.target.value })} placeholder="Project-Together" required/>
                                     <label>E-mail *</label>
@@ -360,7 +363,7 @@ export default class SignupForm extends Component {
                                         <div id="red">{this.state.email_message}</div>
                                         <input type="text" value={this.state.email} className={!this.state.emailCheck || this.state.email_errors ? "border-red" : ""}  onBlur={this.checkEmail} name="email" placeholder="jochem@project-Together.com" id="email" onChange={e => this.setState({ email: e.target.value })} required />
                                     </div>
-                                    <label>Password *</label>
+                                    <label>{strings.getString("Password")} *</label>
                                     <div id="red">{this.state.password_message}</div>
                                     <input className={this.state.password_errors  ? "border-red" : ""} value={this.state.password} type="password"  placeholder="********" required onBlur={this.checkPassword} onChange={e => this.setState({ password: e.target.value, passwordManager: true })} />
                                     <div className={this.state.passwordManager ? "view" : "passwordChecker"}>
@@ -370,7 +373,7 @@ export default class SignupForm extends Component {
                                     </div>
                                     <div className="register-right--buttons">
                                         <div className={this.state.errors ? "hidden" : ""} >
-                                            <button disabled={this.state.button} className="button button-primary register-button" onClick={next}>Next</button>
+                                            <button disabled={this.state.button} className="button button-primary register-button" onClick={next}>{strings.Next}</button>
                                         </div>
                                     </div>
                                 </div>
@@ -380,25 +383,22 @@ export default class SignupForm extends Component {
                             id="step 2"
                             render={({ next, previous }) => (
                                 <div>
-                                    <h4 className="register-right--title"><span className="register-step">Step 2/5</span>Time
-                                        for the next one ...</h4>
-                                    <p>Now we have all we need for your personal account, we want to now if you're a company
-                                        or another group. Select also your plan for your account, you can change it later if
-                                        you want.</p>
-                                    <label>Company Industry</label>
+                                    <h4 className="register-right--title"><span className="register-step">{strings.Step} 2/5</span>{strings.getString("Time for the next one")}</h4>
+                                    <p>{strings.getString("signup-step2")}</p>
+                                    <label>{strings.getString("Company industry")}</label>
                                     <select  onChange={e => this.setState({ company_industry: e.target.value })}>
                                         {this.state.industries.map(industry => (
                                             <option value={industry.id}>{industry.name}</option>
                                         ))}
                                     </select>
-                                    <label>Company plan</label>
+                                    <label>{strings.getString("Company plan")}</label>
                                     <select onChange={e => this.setState({ company_type: e.target.value })}>
                                         <option value="1">Standard (free)</option>
                                         <option  value="2">Pro (free)</option>
                                     </select>
                                     <div className="register-right--buttons">
-                                        <button  className="button button-primary register-button" onClick={previous}>Previous</button>
-                                        <button  className="button button-primary register-button" onClick={next}>Next</button>
+                                        <button  className="button button-primary register-button" onClick={previous}>{strings.Previous}</button>
+                                        <button  className="button button-primary register-button" onClick={next}>{strings.Next}</button>
                                     </div>
                                 </div>
                             )}
@@ -409,24 +409,23 @@ export default class SignupForm extends Component {
                                 <div>
                                     <h4 className="register-right--title">
                                         <div className="register-step">Step 3/4</div>
-                                        You're doing well!
+                                        {strings.getString("You're doing well")}!
                                     </h4>
-                                    <p>We see that you're a <b>company.</b> Before we can finish the setup of you're
-                                        account, we have to know the name of the company and his industry.
+                                    <p>{strings.getString("signup-step3")}
                                     </p>
-                                    <label>Company name</label>
+                                    <label>{strings.getString("Company name")}</label>
                                     <div onBlur={this.handleSubmit}>
                                         <div id="red">{this.validateCompanyName()}</div>
                                         <div id="red">{this.state.company_message}</div>
                                         <input  value={this.state.company_name} className={!this.state.companyCheck || this.state.company_errors ? "border-red" : ""} type="text" onBlur={this.checkCompany} placeholder="Project-Together" onChange={e => this.setState({ company_name: e.target.value })}/>
                                     </div>
 
-                                    <label>Describe your function</label>
+                                    <label>{strings.getString("Describe your function")}</label>
                                     <div id="red">{this.state.user_function_message}</div>
                                     <input value={this.state.user_function} className={this.state.user_function_errors  ? "border-red" : ""} type="text"   onBlur={this.checkFunction} onChange={e => this.setState({ user_function: e.target.value })} placeholder="Owner" />
                                     <div className="register-right--buttons">
-                                        <button  className="button button-primary register-button" onClick={previous}>Previous</button>
-                                        <button disabled={this.state.button3} className="button button-primary register-button" onClick={next}>Next</button>
+                                        <button  className="button button-primary register-button" onClick={previous}>{strings.Previous}</button>
+                                        <button disabled={this.state.button3} className="button button-primary register-button" onClick={next}>{strings.Next}</button>
                                     </div>
                                 </div>
                             )}
@@ -456,12 +455,12 @@ export default class SignupForm extends Component {
                                     </div>
                                     <h5>Terms of Services (Required)</h5>
                                     <div>
-                                        <input  type="checkbox" onClick={this.checkTerms} id="scales" checked={this.state.termsOfService}  name="feature" value="scales"/> I have read and I accept the <a href="">Terms Of
+                                        <input  type="checkbox" onClick={this.checkTerms} id="scales" checked={this.state.termsOfService}  name="feature" value="scales"/> I have read and I accept the <a href="" target="_blank">Terms Of
                                         Service.</a>
                                     </div>
                                     <h5>Privacy Policy (Required)</h5>
                                     <div>
-                                        <input type="checkbox" id="scales" name="feature" onChange={this.checkPrivacy} checked={this.state.privacyPolicy} value="scales"/> I have read and I accept the <a>Privacy Policy.</a>
+                                        <input type="checkbox" id="scales" name="feature" onChange={this.checkPrivacy} checked={this.state.privacyPolicy} value="scales"/> I have read and I accept the <a target="_blank" href="documents/privacy-policy.pdf">Privacy Policy.</a>
                                     </div>
                                     <div className="register-right--buttons">
                                         <button  className="button button-primary register-button" onClick={previous}>Previous</button>

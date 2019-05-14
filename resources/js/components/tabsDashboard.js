@@ -10,6 +10,13 @@ import NotificationsYesterday from './notifcations/yesterday';
 import NotificationsOlder from './notifcations/older';
 import FileUploader from './others/fileUploader';
 const ReactMarkdown = require('react-markdown');
+import LocalizedStrings from 'localized-strings';
+import en from './lang/en.json';
+import nl from './lang/nl.json';
+
+let strings = new LocalizedStrings({en,nl});
+
+
 export default class TabsDashboard extends Component {
 
     constructor(props) {
@@ -60,6 +67,7 @@ export default class TabsDashboard extends Component {
     }
 
     welcome () {
+        strings.setLanguage(window.Laravel.lang);
         if(!this.state.welcome) {
             this.setState({welcome1: true, welcomeOpen: true})
         }
@@ -234,7 +242,7 @@ export default class TabsDashboard extends Component {
                     <TabPanel tabId="one">
                         <div className="dashboard-tab--content">
                             <div className="dashboard-welcome">
-                                <h1>Welcome to Project Together!</h1>
+                                <h1>{strings.getString("Welcome to Project Together")}</h1>
                                 <div className="dashboard-welcome--content">
                                     <p>
                                         It seems that you are new at Project Together. Thanks for chosen for us! Now you're company is setup, you can start to invite your staff members to work together with you. After that you can create your first project.
