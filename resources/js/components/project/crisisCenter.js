@@ -306,10 +306,10 @@ export default class ProjectCrisisCenter extends Component {
                         <h5>Make a crisis item</h5>
                         <p>You can create a new item by clicking on the "plus" icon at the top on the right. A popup will appear where you must enter the title, description and the priority of the item.
                         </p>
-                        <p className="center-text"><img src="/images/help/icons.jpg" width="150px" /></p>
+                        <p className="center-text"><img src="/images/help/icons.JPG" width="150px" /></p>
                         <h5>Item as solved</h5>
                         <p>If you want to designate a crisis item as "resolved", click the "in progress" button on the far right. The item will now be moved to the solved items. Only the creator, the leaders and the responsables can solve an item.</p>
-                        <p className="center-text"><img src="/images/help/crisisItem.jpg"  /></p>
+                        <p className="center-text"><img src="/images/help/crisisItem.JPG"  /></p>
                         <h5>Modify an item</h5>
                         <p>The owner of a item, the leaders or the responsables can modify items. Click on the item you want to modify. When you clicked the popup will collaps. On the bottom at he right you find the "pencil" icon where you can modify the crisis item.</p>
                         <h5>Delete an item</h5>

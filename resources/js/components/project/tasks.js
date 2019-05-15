@@ -354,16 +354,16 @@ export default class ProjectTasks extends Component {
                         <p>With the add-on tasks you can create tasks for a project member. You can assign one to a single member or to everyone.</p>
                         <h5>Make a list</h5>
                         <p>Before you can create tasks, you have to make a task list. You can do this very easily by clicking on the "plus" icon next to the "help" icon.</p>
-                        <p className="center-text"><img src="/images/help/icons.jpg" width="150px" /></p>
+                        <p className="center-text"><img src="/images/help/icons.JPG" width="150px" /></p>
                         <h5>Make a task</h5>
                         <p>Choose the list where you want to make a task and click on it. Now you will see a list of the current tasks in that list or nothing.</p>
-                        <img src="/images/help/taskList.jpg" width="100%"/>
+                        <img src="/images/help/taskList.JPG" width="100%"/>
                         <p>At the bottom you click on the button "Add task". Then a popup will appear where you must enter the data for the task: Name, description and the end date.</p>
                         <h5>Completed task</h5>
                         <p>If you want to see a task as completed, click on the bullet to the far left of the task. To set a task "not as done", do the same.</p>
                         <h5>Timer</h5>
                         <p>When you are working on a task you can let a timer run. You can do this by clicking on the "play" icon at the far right of the task. When you're done working on the task, click on the "pause" icon.</p>
-                        <p className="center-text"><img src="/images/help/taskTimer.jpg" className="text-center center" width="150px"/></p>
+                        <p className="center-text"><img src="/images/help/taskTimer.JPG" className="text-center center" width="150px"/></p>
                         <h5>Modify a task</h5>
                         <p>The owner of a task, the leaders or the responsables can modify tasks. You can do this by clicking on the "pencil" icon on the right. If you want to delete a task, click on the "trash" icon on the right. </p>
 

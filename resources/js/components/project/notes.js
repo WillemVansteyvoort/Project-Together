@@ -192,10 +192,10 @@ export default class ProjectNotes extends Component {
                         <p>With notes you can easily remember small things by creating a note on the pin board.</p>
                         <h5>Make a note</h5>
                         <p>You can create a new note by clicking on the "plus" icon at the top on the right. A popup will appear where you must enter a title and description. You also have the choice to make the note private. This means that only you can see that.</p>
-                        <p className="center-text"><img src="/images/help/icons.jpg" width="150px" /></p>
+                        <p className="center-text"><img src="/images/help/icons.JPG" width="150px" /></p>
                         <h5>Modify a note</h5>
                         <p>The owner of a note, the leaders or the responsables can delete notes. You can't modify a note. You have to delete the note and make a new one.</p>
-                        <p className="center-text"><img src="/images/help/note.jpg" width="300px" /></p>
+                        <p className="center-text"><img src="/images/help/note.JPG" width="300px" /></p>
 
                         <p><b>See more on the <a href="/docs">documentation</a> page.</b></p>
 

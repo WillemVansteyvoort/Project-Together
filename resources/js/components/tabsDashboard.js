@@ -355,7 +355,7 @@ export default class TabsDashboard extends Component {
                             {this.state.welcome2 ?
                                 <div>
                                     <h2 className="center-text">Company login</h2>
-                                    <img src="../images/welcome1.jpg" className="img1" />
+                                    <img src="../images/welcome1.JPG" className="img1" />
                                     <p>Every company has a personal area where all his members can login. This means that you can't login at the homepage of Project-Together. You can <a href="login">login here.</a> We send you also an email where you can find the specific address to login.</p>
                                     <button className="button button-primary no-button float-left center" onClick={event => this.setState({welcome2: false, welcome1: true})}>Back</button>
                                     <button className="button button-primary no-button float-right center" onClick={event => this.setState({welcome2: false, welcome3: true})}>Next</button>
@@ -376,7 +376,7 @@ export default class TabsDashboard extends Component {
                                 <div>
                                     <h2 className="center-text">Account</h2>
                                     <p>If you want change some information or complete your profile, click on your name on the right above the page.</p>
-                                    <p className="center-text"><img src="../images/account.gif"  /></p>
+                                    <p className="center-text"><img src="../images/account.GIF"  /></p>
                                     <button className="button button-primary no-button float-left center" onClick={event => this.setState({welcome4: false, welcome3: true})}>Back</button>
                                     {(window.Laravel.user.admin || window.Laravel.rights.create_projects) ? <button className="button button-primary no-button float-right center" onClick={event => this.setState({welcome4: false, welcome5: true})}>Next</button>
                                         : <button className="button button-primary no-button float-right center" onClick={event => this.welcomeIsDone()}>Done</button>}
@@ -386,7 +386,7 @@ export default class TabsDashboard extends Component {
                                 <div>
                                     <h2 className="center-text">New project</h2>
                                     <p>You have permissions to create new projects. You can do that by clicking on the "new project" button wich is located on the navigation.</p>
-                                    <p className="center-text"><img src="../images/project.gif" className="img6" /></p>
+                                    <p className="center-text"><img src="../images/project.GIF" className="img6" /></p>
                                     <button className="button button-primary no-button float-left center" onClick={event => this.setState({welcome5: false, welcome4: true})}>Back</button>
                                     <button className="button button-primary no-button float-right center" onClick={event => this.welcomeIsDone()}>Done</button>
                                 </div>

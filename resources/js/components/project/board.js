@@ -292,7 +292,7 @@ export default class ProjectBoard extends Component {
                         <p>On the board you can place items in columns. So that you and your project partners can organize some tasks in columns. You have three standard columns: todo, in progress and done. Pro members can modify these columns and can create an extra column.</p>
                         <h5>Make an item</h5>
                         <p>You can create a new item by clicking on the "plus" icon at the top on the right. A popup will appear where you must enter the name and description. You also have the choice to map an item to a project partner.</p>
-                        <p className="center-text"><img src="/images/help/icons.jpg" width="150px" /></p>
+                        <p className="center-text"><img src="/images/help/icons.JPG" width="150px" /></p>
                         <p>You can also fill in the expected time of an item. This means how long you think the item will last. At the end you can select a color for your item.</p>
                         <h5>Item to other column</h5>
                         <p>If you want to move an item to another column, you have to keep pressing on the item and drag it to the column you want.</p>
@@ -301,7 +301,7 @@ export default class ProjectBoard extends Component {
                         <p><b>See more on the <a href="/docs">documentation</a> page.</b></p>
                         <h5>Delete an item</h5>
                         <p>The owner of a item, the leaders or the responsables can delete items. Click on the item and at the bottom of the popup you will see the button "delete". When you click on this button the item will be deleted.</p>
-                        <p className="center-text"><img src="/images/help/boardDelete.jpg" width="150px" /></p>
+                        <p className="center-text"><img src="/images/help/boardDelete.JPG" width="150px" /></p>
                     </div>
                 )}
                  </Popup>

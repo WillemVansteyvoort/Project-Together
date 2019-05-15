@@ -505,16 +505,16 @@ export default class ProjectForum extends Component {
                         <p>"Public medium (such as a newspaper column) or place used for debates in which anyone can participate. In Roman times it meant a public place at the center of a market or town where open discussions on judicial, political, and other issues were held."</p>
                         <h5>Make a thread</h5>
                         <p>A thread is the start post for a debate. The thread contains contains the point of the discussion. You can make a thread by clicking on the button "create thread"  on the left.</p>
-                        <p className="center-text"><img src="/images/help/forumThread.jpg" width="250px" /></p>
+                        <p className="center-text"><img src="/images/help/forumThread.JPG" width="250px" /></p>
                         <p>A popup with two tabs will appear: general and tags. On the "general" tab you have to fill in a title and the content of the message. On the "tags" tab you can add tags to the thread.</p>
                         <h5>Sort based on tags</h5>
-                        <p className="center-text"><img src="/images/help/forumTags.jpg" width="250px" /></p>
+                        <p className="center-text"><img src="/images/help/forumTags.JPG" width="250px" /></p>
                         <p>If you want, you can sort the results based on the tags of the threads. All what you have to do is to click on the prefered tag on the left. The results will now be showed on the right.</p>
                         <h5>Reply on a thread</h5>
                         <p>When opening a thread (by clicking on the title), you can reply to it. You can click on the button "Reply to this thread" or scroll down to the end of the page.</p>
                         <h5>Modify a reply/thread</h5>
                         <p>The owner of a reply or owner of the thread, the leaders or the responsables can modify and delete replies. Go to the reply or thread you want to modify or delete. If you want to modify, click on the "pencil" icon on the right. If you want to delete, click on the "trash" icon on the right.</p>
-                        <p className="center-text"><img src="/images/help/forumModify.jpg" width="100px" /></p>
+                        <p className="center-text"><img src="/images/help/forumModify.JPG" width="100px" /></p>
                         <p><b>See more on the <a href="/docs">documentation</a> page.</b></p>
                     </div>
                 )}

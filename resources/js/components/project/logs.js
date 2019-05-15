@@ -135,7 +135,7 @@ export default class ProjectLogs extends Component {
                         <p>The Add-on logs ensures that project users can keep a log of the things that they have done.</p>
                         <h5>Make a log</h5>
                         <p>You can create a new log by clicking on the "plus" icon at the top on the right. A popup will appear where you must enter the content of a log.</p>
-                        <p className="center-text"><img src="/images/help/icons.jpg" width="150px" /></p>
+                        <p className="center-text"><img src="/images/help/icons.JPG" width="150px" /></p>
                         <h5>See logs</h5>
                         <p>To see logs of a project member, click on his avatar on the left. On the right the logs of the user will apears.</p>
                         <h5>Delete logs</h5>
