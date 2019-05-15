@@ -265,7 +265,5 @@ Route::post('/api/project/tasks/edit', 'Application\Project\TaskController@editT
 Route::post('/api/project/tasks/list/create', 'Application\Project\TaskController@createList');
 Route::post('/api/project/overview/tasks/get', 'Application\Project\TaskController@getModule');
 Route::get('/api/project/overview/tasks/widget', 'Application\Project\TaskController@widget');
-
-Route::post('/twostep', 'Application\TwoStepController@login');
-
 });
+Route::post('/twostep', 'Application\TwoStepController@login');

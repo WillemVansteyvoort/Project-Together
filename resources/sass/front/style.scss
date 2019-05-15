@@ -1106,6 +1106,9 @@ input[type="submit"] {
   background-color: white;
   padding: 18px 18px 18px 18px;
 
+  input[type=checkbox] {
+    display: inline-block !important;
+  }
   a {
     padding-top: 5px;
     color: $color-primary;

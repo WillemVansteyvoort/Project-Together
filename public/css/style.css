@@ -1463,6 +1463,10 @@ input[type=submit] {
   padding: 18px 18px 18px 18px;
 }
 
+.invite-new-form input[type=checkbox] {
+  display: inline-block !important;
+}
+
 .invite-new-form a {
   padding-top: 5px;
   color: #5680e9;
