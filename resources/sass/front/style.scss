@@ -644,9 +644,9 @@ a:hover {
     }
   }
 }
-input[type=checkbox]{
-  display: none;
-}
+//input[type=checkbox]{
+//  display: none;
+//}
 input[type=checkbox]:checked + #nav-mobile--menu{
   display: block;
 }
