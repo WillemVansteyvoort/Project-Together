@@ -33,7 +33,7 @@
                         @endforeach
                         @else
                             <div class="sidebar-project">
-                            <span class="sidebar-project--title">@lang('There are no projects in the moment')</span>
+                            <span class="sidebar-project--title center-text">@lang('There are no projects in the moment')</span>
                             <div class="clear"></div>
                     </div>
                         @endif
@@ -53,7 +53,12 @@
                                     </div>
                                 </article>
                                 @endforeach
-                            @endif
+                            @else
+                            <div class="sidebar-project">
+                                <span class="sidebar-project--title center-text">@lang('There are no upcoming events in the moment')</span>
+                                <div class="clear"></div>
+
+                        @endif
                     </div>
                 </section>
             </div>

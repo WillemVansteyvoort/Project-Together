@@ -99,6 +99,7 @@ class UserController extends SlugifyController
             'company_settings' => $request->right_companySettings,
             'upload_avatar' => $request->right_avatar,
             'change_online' => $request->right_online,
+            'right_data' => $request->right_data,
         ]);
         //others
         Two_step::create([
@@ -162,6 +163,7 @@ class UserController extends SlugifyController
         $user->rights->company_settings = $request->right_companySettings;
         $user->rights->upload_avatar = $request->right_avatar;
         $user->rights->change_online = $request->right_online;
+        $user->rights->right_data = $request->right_data;
         $user->rights->save();
 
         //returning new users

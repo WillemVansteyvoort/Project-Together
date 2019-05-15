@@ -69,7 +69,7 @@ export default class PopupNewProject extends Component {
             presences: false,
             board: false,
             polls: false,
-            activities: true,
+            activities: false,
             logs: false,
             crisisCenter: false,
             private: false,

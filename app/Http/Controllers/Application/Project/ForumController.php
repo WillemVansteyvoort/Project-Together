@@ -11,6 +11,9 @@ use App\Project;
 use Illuminate\Support\Facades\DB;
 use App\Post;
 use Illuminate\Support\Facades\Auth;
+use App\Notification;
+use App\Events\Notifications;
+use App\User;
 class ForumController extends Controller
 {
     public function getReplies(Request $request) {
@@ -62,6 +65,7 @@ class ForumController extends Controller
             'content' => 0,
         ]);
 
+
         return Reply::with('post', 'user')->find($reply->id);
 
 
@@ -88,6 +92,18 @@ class ForumController extends Controller
             'type' => 4,
             'content' => 0,
         ]);
+
+        //send notification to thread creator
+            $user = User::findOrFail($post->user_id);
+            $noti =  Notification::create([
+                'user_id' => $post->user_id,
+                'title' => 'New reply on your thread',
+                'type' => 'fas fa-reply',
+                'content' => Auth::user()->name . " " . Auth::user()->lastname . " has replied to your thread: " . $post->title,
+            ]);
+            broadcast(new Notifications($noti,$user))->toOthers();
+
+
     }
 
     public function getPostwithTags() {

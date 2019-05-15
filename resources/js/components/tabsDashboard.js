@@ -250,7 +250,6 @@ export default class TabsDashboard extends Component {
                                         It seems that you are new at Project Together. Thanks for chosen for us! Now you're company is setup, you can start to invite your staff members to work together with you. After that you can create your first project.
                                         If you need help check out our documentation.
                                     </p>
-                                    <a href="" className="button button-second"><i className="fas fa-plus"> </i> Create your first project</a>
                                 </div>
                             </div>
                             <div className="row">

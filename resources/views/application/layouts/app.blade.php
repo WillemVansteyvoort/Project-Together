@@ -77,7 +77,7 @@
                 'create_projects' => Auth::user()->rights->create_projects,
                 'company_settings'=> Auth::user()->rights->company_settings,
                 'change_online'=> Auth::user()->rights->change_online,
-
+                'right_data' => Auth::user()->rights->right_data,
             ],
 
         ]);

@@ -16,6 +16,9 @@ class DatabaseSeeder extends Seeder
         DB::table('plans')->insert(
             ['name' => 'Standard', 'users' => 25, 'projects' => 10]
         );
+        DB::table('plans')->insert(
+            ['name' => 'Pro', 'users' => 100, 'projects' => 50]
+        );
 
 
         //cities

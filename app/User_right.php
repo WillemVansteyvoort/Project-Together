@@ -15,6 +15,7 @@ class User_right extends Model
         'company_settings',
         'upload_avatar',
         'change_online',
+        'right_data',
 
 
     ];

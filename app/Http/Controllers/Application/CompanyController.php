@@ -10,6 +10,9 @@ use Auth;
 use App\User_invite;
 use App\Group;
 use App\Task;
+use App\Notification;
+use App\Events\Notifications;
+
 class CompanyController extends Controller {
 
     public function index($company) {
@@ -68,6 +71,16 @@ class CompanyController extends Controller {
     public function saveSettings(Request $request) {
         $company = Auth::user()->company;
         $company->message = $request->message;
+
+        foreach ($company->users as $user) {
+            $noti =  Notification::create([
+                'user_id' => $user->id,
+                'title' => 'Company message is changed',
+                'type' => 'fas fa-building',
+                'content' => Auth::user()->name . " " . Auth::user()->lastname . " has changed the company message on your dashboard",
+            ]);
+            broadcast(new Notifications($noti,$user))->toOthers();
+        }
         $company->save();
     }
 

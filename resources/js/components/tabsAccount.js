@@ -519,29 +519,29 @@ export default class TabsAccount extends Component {
                                            <div className="six columns">
                                                <label for="">First name</label>
                                                <div id="red">{this.state.name_message}</div>
-                                               <input type="text"   className={this.state.errors_name ? "border-red" : ""}   value={this.state.user_name}  className={this.state.errors_name ? "border-red" : ""}  onChange={e => this.setState({ user_name: e.target.value })}  />
+                                               <input type="text"   className={this.state.errors_name ? "border-red" : ""}  disabled={!window.Laravel.rights.right_data}  value={this.state.user_name}  className={this.state.errors_name ? "border-red" : ""}  onChange={e => this.setState({ user_name: e.target.value })}  />
                                                <label htmlFor="">E-mail</label>
                                                <div id="red">{this.state.email_message}</div>
-                                               <input type="text"  className={this.state.errors_email ? "border-red" : ""}  disabled={!window.Laravel.user.admin} value={this.state.user_email}   onChange={e => this.setState({user_email: e.target.value})}  />
+                                               <input type="text"  className={this.state.errors_email ? "border-red" : ""} disabled={!window.Laravel.rights.right_data}   disabled={!window.Laravel.user.admin} value={this.state.user_email}   onChange={e => this.setState({user_email: e.target.value})}  />
                                                <label htmlFor="">City</label>
-                                               <input type="text" value={this.state.user_city}   onChange={e => this.setState({ user_city: e.target.value })}  />
+                                               <input type="text" value={this.state.user_city}   disabled={!window.Laravel.rights.right_data}  onChange={e => this.setState({ user_city: e.target.value })}  />
                                                <label htmlFor="">Street</label>
-                                               <input type="text" value={this.state.user_street}   onChange={e => this.setState({ user_street: e.target.value })}  />
+                                               <input type="text" value={this.state.user_street}  disabled={!window.Laravel.rights.right_data}  onChange={e => this.setState({ user_street: e.target.value })}  />
                                                <label htmlFor="">Function</label>
-                                               <input type="text" value={this.state.user_function}   onChange={e => this.setState({ user_function: e.target.value })} required />
+                                               <input type="text" value={this.state.user_function}   disabled={!window.Laravel.rights.right_data}  onChange={e => this.setState({ user_function: e.target.value })} required />
                                            </div>
                                            <div className="six columns">
                                                <label htmlFor="">Last name</label>
                                                <div id="red">{this.state.lastname_message}</div>
-                                               <input type="text" className={this.state.errors_lastname ? "border-red" : ""} value={this.state.user_lastname}   onChange={e => this.setState({ user_lastname: e.target.value })}  />
+                                               <input type="text" className={this.state.errors_lastname ? "border-red" : ""} disabled={!window.Laravel.rights.right_data}  value={this.state.user_lastname}   onChange={e => this.setState({ user_lastname: e.target.value })}  />
                                                <label htmlFor="">Birthdate</label>
-                                               <input type="date" value={this.state.user_date}   onChange={e => this.setState({ user_date: e.target.value })}  />
+                                               <input type="date" value={this.state.user_date}   disabled={!window.Laravel.rights.right_data}  onChange={e => this.setState({ user_date: e.target.value })}  />
                                                <label htmlFor="">Phone</label>
-                                               <input type="text" value={this.state.user_phone}   onChange={e => this.setState({ user_phone: e.target.value })}  />
+                                               <input type="text" value={this.state.user_phone}  disabled={!window.Laravel.rights.right_data}  onChange={e => this.setState({ user_phone: e.target.value })}  />
                                                <label htmlFor="">Zipcode</label>
-                                               <input type="text" value={this.state.user_zipcode}   onChange={e => this.setState({ user_zipcode: e.target.value })}  />
+                                               <input type="text" value={this.state.user_zipcode}   disabled={!window.Laravel.rights.right_data}  onChange={e => this.setState({ user_zipcode: e.target.value })}  />
                                                <label htmlFor="">Country</label>
-                                               <select  onChange={e => this.setState({ user_country_id: e.target.value })}>
+                                               <select disabled={!window.Laravel.rights.right_data}   onChange={e => this.setState({ user_country_id: e.target.value })}>
                                                    <option value={this.state.user_country_id} selected="selected">{window.Laravel.user.country}</option>
                                                    {this.state.countries.map((country,i) => (
                                                        <option   value={country.id} key={i} >{country.name}</option>

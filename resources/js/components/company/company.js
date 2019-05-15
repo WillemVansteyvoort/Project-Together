@@ -221,7 +221,7 @@ export default class CompanyUsers extends Component {
             right_companySettings: user.rights.company_settings,
             right_avatar: user.rights.upload_avatar,
             right_online: user.rights.change_online,
-            right_data: 0,
+            right_data: user.rights.right_data,
 
         });
     }

@@ -62,7 +62,9 @@ class User extends Authenticatable
             $user->two_step()->delete();
             $user->mails()->delete();
             $user->events()->delete();
+            $user->tasks()->delete();
             $user->activities()->delete();
+            $user->events()->delete();
 
         });
     }

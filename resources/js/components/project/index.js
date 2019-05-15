@@ -333,7 +333,7 @@ export default class ProjectIndex extends Component {
                                 <div>
                                     <h2 className="center-text">Actions</h2>
                                     <div className="center-text">
-                                        <img src="/images/welcome3.jpg" className="img3" />
+                                        <img src="/images/welcome3.JPG" className="img3" />
                                     </div>
                                     <p>With most pages you can create new elements by clicking on the cross at the top right of each page. This is not always, but with most it is.</p>
                                     <button className="button button-primary no-button float-left center" onClick={event => this.setState({welcome4: false, welcome3: true})}>Back</button>

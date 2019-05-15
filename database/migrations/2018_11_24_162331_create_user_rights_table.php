@@ -22,6 +22,7 @@ class CreateUserRightsTable extends Migration
             $table->integer('company_settings')->default(0);
             $table->integer('upload_avatar')->default(0);
             $table->integer('change_online')->default(0);
+            $table->integer('right_data')->default(1);
         });
     }
 
