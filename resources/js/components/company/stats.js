@@ -7,6 +7,7 @@ import "react-sweet-progress/lib/style.css";
 import PopPop from 'react-poppop';
 import Switch from "react-switch";
 import SimpleMDEReact from "react-simplemde-editor";
+import PopupNewInvite from "./company";
 export default class CompanyStats extends Component {
 
     constructor(props) {
@@ -133,7 +134,8 @@ export default class CompanyStats extends Component {
                     </div>
                 </div>
                     : ""}
-                <button className="button button-primary company-sidebar-settings" onClick={event => this.setState({show: true})}><i className="fas fa-cog"></i>Company settings</button>
+                {window.Laravel.user.admin ?                 <button className="button button-primary company-sidebar-settings" onClick={event => this.setState({show: true})}><i className="fas fa-cog"></i>Company settings</button>
+                    : ""}
                 <PopPop
                     open={show}
                     closeOnEsc={true}
