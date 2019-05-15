@@ -15,7 +15,7 @@
             </ul>
         </div>
     </section>
-    <section class="dark about">
+    <section class="dark about company-layout">
         @if(session('success'))
             <div class="alert-green alert">{{session('success')}}</div>
         @endif

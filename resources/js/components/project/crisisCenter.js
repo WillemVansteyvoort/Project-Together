@@ -12,6 +12,7 @@ import Switch from "react-switch";
 import Notification from "../notification";
 import {Accordion, AccordionItem, AccordionItemBody, AccordionItemTitle} from "react-accessible-accordion";
 import {ProgressBar} from "reprogressbars";
+import Popup from 'reactjs-popup'
 export default class ProjectCrisisCenter extends Component {
 
     constructor(props) {
@@ -295,6 +296,28 @@ export default class ProjectCrisisCenter extends Component {
         const {showEdit} = this.state;
         return (
             <span>
+                <Popup trigger={<button className="project-header-plus no-button no-padding ">
+                    <i className="fas fa-question"> </i>
+                </button>} position="top left">
+                {close => (
+                    <div className="popup-sidebar">
+                        <h2>Crisis center</h2>
+                        <p>The crisis center is meant for important faults or bugs that have to be solved immediately.</p>
+                        <h5>Make a crisis item</h5>
+                        <p>You can create a new item by clicking on the "plus" icon at the top on the right. A popup will appear where you must enter the title, description and the priority of the item.
+                        </p>
+                        <p className="center-text"><img src="/images/help/icons.jpg" width="150px" /></p>
+                        <h5>Item as solved</h5>
+                        <p>If you want to designate a crisis item as "resolved", click the "in progress" button on the far right. The item will now be moved to the solved items. Only the creator, the leaders and the responsables can solve an item.</p>
+                        <p className="center-text"><img src="/images/help/crisisItem.jpg"  /></p>
+                        <h5>Modify an item</h5>
+                        <p>The owner of a item, the leaders or the responsables can modify items. Click on the item you want to modify. When you clicked the popup will collaps. On the bottom at he right you find the "pencil" icon where you can modify the crisis item.</p>
+                        <h5>Delete an item</h5>
+                        <p>The owner of a item, the leaders or the responsables can delete items. Click on the item you want to modify. When you clicked the popup will collaps. On the bottom at he right you find the "trash" icon where you can delete the crisis item.</p>
+                        <p><b>See more on the <a href="/docs">documentation</a> page.</b></p>
+                    </div>
+                )}
+                 </Popup>
                 {!window.Laravel.data.ended && window.Laravel.data.role !== 0   ?
                  <button className="project-header-plus no-button test" onClick={() => this.toggleShow(true)}>
                     <i className="fas fa-plus"> </i>

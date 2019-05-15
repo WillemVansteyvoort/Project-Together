@@ -10,6 +10,8 @@ import PopPop from 'react-poppop';
 
 import Switch from "react-switch";
 import Notification from "../notification";
+import Popup from 'reactjs-popup'
+
 var months = new Array(11);
 months[0] = "JAN";
 months[1] = "FEB";
@@ -181,6 +183,25 @@ export default class ProjectNotes extends Component {
                  <div id="success" className={this.state.created ? "" : "hidden"}>
                     <Notification  type="success" title="successfully" message="The new note is successfully been created"/>
                 </div>
+                <Popup trigger={<button className="project-header-plus no-button no-padding ">
+                    <i className="fas fa-question"> </i>
+                </button>} position="top left">
+                {close => (
+                    <div className="popup-sidebar">
+                        <h2>Notes</h2>
+                        <p>With notes you can easily remember small things by creating a note on the pin board.</p>
+                        <h5>Make a note</h5>
+                        <p>You can create a new note by clicking on the "plus" icon at the top on the right. A popup will appear where you must enter a title and description. You also have the choice to make the note private. This means that only you can see that.</p>
+                        <p className="center-text"><img src="/images/help/icons.jpg" width="150px" /></p>
+                        <h5>Modify a note</h5>
+                        <p>The owner of a note, the leaders or the responsables can delete notes. You can't modify a note. You have to delete the note and make a new one.</p>
+                        <p className="center-text"><img src="/images/help/note.jpg" width="300px" /></p>
+
+                        <p><b>See more on the <a href="/docs">documentation</a> page.</b></p>
+
+                    </div>
+                )}
+                 </Popup>
                 {!window.Laravel.data.ended && window.Laravel.data.role !== 0 ? <button className="project-header-plus no-button test" onClick={() => this.toggleShow(true)}>
                     <i className="fas fa-plus"> </i>
                 </button> : ""}

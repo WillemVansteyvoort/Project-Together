@@ -159,6 +159,10 @@ a:hover {
     padding: 0 15px;
   }
 
+  &-mobileButton {
+    margin-top: -20px;
+  }
+
   &-basic {
     background-image: url("/../images/about.jpg");
     background-position: bottom;
@@ -640,6 +644,50 @@ a:hover {
     }
   }
 }
+input[type=checkbox]{
+  display: none;
+}
+input[type=checkbox]:checked + #nav-mobile--menu{
+  display: block;
+}
+.show-menu {
+  display: none;
+  color: white;
+  padding-right: 0.2rem;
+
+
+  i {
+    font-size: 30px;
+    padding-left: 10px;
+  }
+
+  .button {
+    font-size: 20px !important;
+    margin-top: 20px !important;
+  }
+
+}
+#nav-mobile--menu {
+  padding-top: 4rem;
+  display: none;
+  color: white;
+  width: 20rem;
+  z-index: 10;
+  background-color: #2D3E50;
+
+  h5 {
+    text-transform: capitalize;
+  }
+}
+.navigation-mobile li {
+  list-style-type: none;
+  padding-top: -5px;
+  display: block;
+  padding-left: 10px;
+  a {
+    color: white;
+  }
+}
 
 /**** SECTION login ****/
 .tag {
@@ -1089,6 +1137,15 @@ input[type="submit"] {
   color: $color-primary !important;
 }
 @media screen and (max-width : 760px) {
+  .doc {
+    padding: 0;
+    &-sidebar {
+      margin-top: 12px;
+    }
+  }
+  .company-layout {
+    padding: 0 20px !important;
+  }
   .login-company {
     &-content {
       section {

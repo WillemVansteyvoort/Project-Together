@@ -161,8 +161,8 @@ Route::post('/api/account/update/profile', 'Application\AccountController@update
 Route::post('/api/account/password/change', 'Application\AccountController@updatePassword');
 Route::post('/api/account/avatar/change', 'Application\AccountController@changeAvatar');
 Route::post('/api/account/settings/change', 'Application\AccountController@updateSettings');
-Route::get('/api/account/stats/', 'Application\AccountController@getStats');
-
+Route::get('/api/account/stats', 'Application\AccountController@getStats');
+Route::post('/api/account/checkEmail', 'Application\AccountController@checkEmail');
 //user
 Route::post('/api/check/email', 'Application\UserController@checkEmail');
 Route::post('/api/user/new', 'Application\UserController@createUser');

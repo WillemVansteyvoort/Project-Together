@@ -50,6 +50,7 @@
                         @endif
                 </ul>
             </div>
+
             <div class="header-text">
                 <h1 class="header-title">Organize your projects the best way
                 </h1>
@@ -58,10 +59,11 @@
                 <a href="{{route('front_signup')}}" class="button button-primary button-large hidden-mobile animation-up">
                     @lang("Get started")
                 </a>
-                <div class="show-mobile">
+                <div class="show-mobile header-mobileButton">
                     <li class="button button-small button-second"><a href="{{route('front_login')}}">Log in</a></li>
                     <li class="button button-small button-primary"><a href="{{route('front_signup')}}">Sign Up</a></li>
                 </div>
+                <div> </div>
             </div>
         </section>
         <section class="products">

@@ -339,6 +339,7 @@ export default class PopupNewUser extends Component {
                 right_online: false,
                 right_data: false,
             });
+            location.reload();
         }
 
     }

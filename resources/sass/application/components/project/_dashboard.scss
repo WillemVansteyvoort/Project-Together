@@ -114,7 +114,7 @@
     }
 
     .alert {
-      margin-left: 90px;
+      margin-left: 80px;
     }
 
     &-date {
@@ -289,6 +289,27 @@
       margin-bottom: 20px;
     }
     &-info {
+      .start {
+        margin-left: 0 !important;
+      }
+
+      .end {
+        margin-right: 0 !important;
+      }
+    }
+  }
+}
+
+
+@media screen and (max-width : 1400px) {
+  .dashboard-project {
+    &-tasks, &-members {
+      margin-bottom: 20px;
+    }
+    &-info {
+      .alert {
+        margin-left: 20px !important;
+      }
       .start {
         margin-left: 0 !important;
       }

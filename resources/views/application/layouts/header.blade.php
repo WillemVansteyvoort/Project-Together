@@ -80,8 +80,8 @@
             </div>
         </div>
         <div class="profile">
-            <ul>
-                <li><a class="dropbtn" onclick="showNotifications('profile')"> {{Auth::user()->name}} <img src="{{{ Auth::user()->avatar  }}}" /></a></li>
+            <ul  onclick="showNotifications('profile')">
+                <li><a class="dropbtn" onclick="showNotifications('profile')"> {{Auth::user()->name}} <img  onclick="showNotifications('profile')" src="{{{ Auth::user()->avatar  }}}" /></a></li>
             </ul>
             <div id="profile" class="profile-content tab-content" >
                 <div class="profile-user" onclick="window.location.href='{{{Auth::user()->username}}}/profile/'">

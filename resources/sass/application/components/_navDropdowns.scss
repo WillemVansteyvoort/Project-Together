@@ -290,10 +290,15 @@
 @media screen and (max-width : 760px) {
   .notifications, .people, .help {
     &-content {
-      right: 0;
-      left: 0;
-      top: 30%;
+
+      right: 2%;
+      left: 2%;
+      max-height: 300px;
+      overflow: auto;
+      top: 16%;
       position: fixed;
+      min-width: auto;
+
     }
   }
 }

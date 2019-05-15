@@ -456,7 +456,7 @@ export default class ProjectOverview extends Component {
                                     </div>
                                     <div className="clear"></div>
                                     {task.user_id === 0 ? <span className="dashboard-project-tasks-priority">Anyone</span> :  <div className="dashboard-project-tasks-user float-left">
-                                        <img src="http://127.0.0.1:8000/images/founder.jpg"/>
+                                        <img src={task.user.avatar}/>
                                     </div>}
                                     <div className="dashboard-project-tasks-item-date float-right">
                                         {task.end_date === null ? <span><span className="float-right">No deadline</span><i className="fas fa-clock float-right"> </i></span> : <span><span className="float-right"><Timestamp className="time" time={task.end_date} precision={1} utc={false} autoUpdate={60}/></span><i className="fas fa-clock float-right"> </i></span>}
@@ -464,7 +464,7 @@ export default class ProjectOverview extends Component {
                                 </div>
                                 ))}
                         </div>
-                    <h5>Project members {!window.Laravel.data.ended && (window.Laravel.data.role === 3 || window.Laravel.data.role === 2) ?<span className="button button-primary new-user" onClick={e => this.setState({showAdd: true})}><i className="fas fa-user-plus"> </i></span>: ""}</h5>
+                    <h5>Project members {!window.Laravel.data.ended && (window.Laravel.data.role === 3 || window.Laravel.data.role === 2) ?<button className="no-button button button-primary new-user" onClick={e => this.setState({showAdd: true})}><i className="fas fa-user-plus"> </i></button>: ""}</h5>
                         <div className="dashboard-project-members">
                             {this.state.users.map((user, i)=> (
                                 <div key={i}>
@@ -581,7 +581,7 @@ export default class ProjectOverview extends Component {
                      closeOnOverlay={true}>
                     <div className="popup">
                         <div className="popup-titleBar">
-                            Make a new Project
+                            Modify project
                             <a className="popup-btn--close"  onClick={() => this.toggleShow(false)}>✕</a>
                         </div>
                         <div className="popup-content">
@@ -695,7 +695,6 @@ export default class ProjectOverview extends Component {
                                                             checked={!!this.state.project_activities}
                                                             className="react-switch popup-addons--switch"
                                                             id="normal-switch"
-                                                            onChange={e => this.setState({ project_activities: !this.state.project_activities })}
                                                         />
                                                      </div>
                                                 </div>

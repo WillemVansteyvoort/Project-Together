@@ -8,6 +8,8 @@ import "react-sweet-progress/lib/style.css";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import PopPop from 'react-poppop';
 import { Checkbox } from 'pretty-checkbox-react';
+import Popup from 'reactjs-popup'
+
 const check = (
     <svg viewBox="0 0 20 20">
         <path d="M7.629,14.566c0.125,0.125,0.291,0.188,0.456,0.188c0.164,0,0.329-0.062,0.456-0.188l8.219-8.221c0.252-0.252,0.252-0.659,0-0.911c-0.252-0.252-0.659-0.252-0.911,0l-7.764,7.763L4.152,9.267c-0.252-0.251-0.66-0.251-0.911,0c-0.252,0.252-0.252,0.66,0,0.911L7.629,14.566z" style={{ stroke: 'white', fill: 'white' }}></path>
@@ -31,6 +33,7 @@ export default class ProjectTasks extends Component {
             shortTasks: [],
             timer: 0,
             startTimer: false,
+            startTimerId: 0,
             timerList: 0,
             timerTask: 0,
 
@@ -96,9 +99,10 @@ export default class ProjectTasks extends Component {
         });
     }
 
-    initTimer(i, j) {
+    initTimer(i, j, id) {
         this.setState({
             startTimer: true,
+            startTimerId: id,
             timerList: i,
             timerTask: j,
             timer:   this.state.lists[this.state.timerList].tasks[this.state.timerTask].timer
@@ -227,12 +231,9 @@ export default class ProjectTasks extends Component {
             edit_user: this.state.edit_user,
             edit_end: this.state.edit_end,
         }).then(response => {
-            let lists = this.state.lists;
-            lists[this.state.edit_i].tasks[this.state.edit_j] = response.data;
-
 
             this.setState({
-                lists: lists,
+                lists: response.data.lists,
                 edit_id: '',
                 edit_list: '',
                 edit_title: '',
@@ -285,7 +286,7 @@ export default class ProjectTasks extends Component {
                                                         <div className="float-right actions">
                                                             {task.end_date !== null ? <span className="end"><Timestamp time={task.end_date} precision={2} utc={false} autoUpdate={60}   /></span> : ""}
                                                             <span className="time">{task.timer}"</span>
-                                                            {this.state.startTimer ? <a onClick={e => this.stopTimer(task.id, i, j)}><i className="fas fa-pause"> </i></a> : <a onClick={e => this.initTimer(i, j)}><i className="fas fa-play"> </i></a>}
+                                                            {this.state.startTimer ? <a onClick={e => this.stopTimer(task.id, i, j)}><i className="fas fa-pause"> </i></a> : <a onClick={e => this.initTimer(i, j, task.id)}><i className="fas fa-play"> </i></a>}
                                                         </div>
                                                         <div className="clear"> </div>
                                                     </article>
@@ -312,7 +313,7 @@ export default class ProjectTasks extends Component {
                                                 <div className="float-right actions">
                                                     {task.end_date !== null ? <span className="end">{new Date(task.end_date) > new Date() ? <Timestamp time={task.end_date} precision={2} utc={false} autoUpdate={60}   /> : <span id="red">Too late</span>}</span> : ""}
                                                     <span className="time">{task.timer}"</span>
-                                                    {this.state.startTimer ? <a onClick={e => this.stopTimer(task.id, i, j)}><i className="fas fa-pause"> </i></a> : <a onClick={e => this.initTimer(i, j)}><i className="fas fa-play"> </i></a>}
+                                                    {this.state.startTimer && this.state.startTimerId === task.id  ? <a onClick={e => this.stopTimer(task.id, i, j)}><i className="fas fa-pause"> </i></a> : <a onClick={e => this.initTimer(i, j, task.id)}><i className="fas fa-play"> </i></a>}
                                                     {!window.Laravel.data.ended &&  window.Laravel.data.role !== 0 && (task.user_id === window.Laravel.user.id || window.Laravel.data.role === 2 ||  window.Laravel.data.role === 3 || task.user_id === 0 )?
                                                         <span>
                                                     <i className="fas fa-edit" onClick={event => this.setState({showEdit: true, edit_id: task.id, edit_title: task.title, edit_desc: task.desc, edit_user: task.user_id, edit_end: task.end_date, edit_i: i, edit_j: j})}> </i>
@@ -344,6 +345,33 @@ export default class ProjectTasks extends Component {
         return (
 
             <span>
+                 <Popup trigger={<button className="project-header-plus no-button no-padding ">
+                     <i className="fas fa-question"> </i>
+                 </button>} position="top left">
+                {close => (
+                    <div className="popup-sidebar">
+                        <h2>Tasks</h2>
+                        <p>With the add-on tasks you can create tasks for a project member. You can assign one to a single member or to everyone.</p>
+                        <h5>Make a list</h5>
+                        <p>Before you can create tasks, you have to make a task list. You can do this very easily by clicking on the "plus" icon next to the "help" icon.</p>
+                        <p className="center-text"><img src="/images/help/icons.jpg" width="150px" /></p>
+                        <h5>Make a task</h5>
+                        <p>Choose the list where you want to make a task and click on it. Now you will see a list of the current tasks in that list or nothing.</p>
+                        <img src="/images/help/taskList.jpg" width="100%"/>
+                        <p>At the bottom you click on the button "Add task". Then a popup will appear where you must enter the data for the task: Name, description and the end date.</p>
+                        <h5>Completed task</h5>
+                        <p>If you want to see a task as completed, click on the bullet to the far left of the task. To set a task "not as done", do the same.</p>
+                        <h5>Timer</h5>
+                        <p>When you are working on a task you can let a timer run. You can do this by clicking on the "play" icon at the far right of the task. When you're done working on the task, click on the "pause" icon.</p>
+                        <p className="center-text"><img src="/images/help/taskTimer.jpg" className="text-center center" width="150px"/></p>
+                        <h5>Modify a task</h5>
+                        <p>The owner of a task, the leaders or the responsables can modify tasks. You can do this by clicking on the "pencil" icon on the right. If you want to delete a task, click on the "trash" icon on the right. </p>
+
+                        <p><b>See more on the <a href="/docs">documentation</a> page.</b></p>
+                    </div>
+                )}
+                 </Popup>
+
                  {!window.Laravel.data.ended &&  window.Laravel.data.role !== 0  ?
                 <button className="project-header-plus no-button test" onClick={() => this.toggleShow(true)}>
                     <i className="fas fa-plus"> </i>
@@ -446,7 +474,7 @@ export default class ProjectTasks extends Component {
                                     <div className="six columns">
                                         <label>Task for</label>
                                         <select onChange={event => this.setState({edit_user: event.target.value})}>
-                                            <option>Anyone</option>
+                                            <option value="0" onChange={event => this.setState({edit_user: 0})}>Anyone</option>
                                             {this.state.users.map((user, j)=> (
                                                 <option key={user.id} value={user.id}>{user.name} {user.lastname}</option>
                                             ))}

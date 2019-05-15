@@ -6,6 +6,7 @@ import { Progress } from 'react-sweet-progress';
 const Timestamp = require('react-timestamp');
 import "react-sweet-progress/lib/style.css";
 import PopPop from 'react-poppop';
+import Popup from 'reactjs-popup'
 import SimpleMDEReact from "react-simplemde-editor";
 const ReactMarkdown = require('react-markdown');
 import Notification from "../notification";
@@ -122,6 +123,9 @@ export default class ProjectForum extends Component {
 
     componentDidMount() {
     }
+
+
+
 
     toggleShow(show) {
         this.setState({show});
@@ -466,7 +470,7 @@ export default class ProjectForum extends Component {
                                                         <div className="clear"></div>
                                                     </div>
                                                     <div className="item-body">
-                                                        <h5><a  onClick={() => this.getPostById( reply.post.id)}>{reply.post.title}</a></h5>
+                                                        <h5><a href="#" onClick={() => this.getPostById( reply.post.id)}>{reply.post.title}</a></h5>
                                                         {reply.content === null ? <ReactMarkdown source={reply.post.content} /> : <ReactMarkdown source={reply.content} />}
                                                         {reply.post.tags.map((tag, i) => (
                                                             <span className="tag tag-primary" key={i}>{tag.name}</span>
@@ -489,128 +493,155 @@ export default class ProjectForum extends Component {
         const {show3} = this.state;
 
         return (
-            <main className="project-main">
-                {this.state.loading ?
-                    <div className="project-loading">
-                        <div className="loader">Loading...</div>
+            <span>
+                <Popup trigger={<button className="project-header-plus no-button no-padding ">
+                    <i className="fas fa-question"> </i>
+                </button>} position="top left">
+                {close => (
+                    <div className="popup-sidebar">
+                        <h2>Forum</h2>
+                        <p>With the add-on forum, you can discuss with your project partners.</p>
+                        <h5>what's a forum?</h5>
+                        <p>"Public medium (such as a newspaper column) or place used for debates in which anyone can participate. In Roman times it meant a public place at the center of a market or town where open discussions on judicial, political, and other issues were held."</p>
+                        <h5>Make a thread</h5>
+                        <p>A thread is the start post for a debate. The thread contains contains the point of the discussion. You can make a thread by clicking on the button "create thread"  on the left.</p>
+                        <p className="center-text"><img src="/images/help/forumThread.jpg" width="250px" /></p>
+                        <p>A popup with two tabs will appear: general and tags. On the "general" tab you have to fill in a title and the content of the message. On the "tags" tab you can add tags to the thread.</p>
+                        <h5>Sort based on tags</h5>
+                        <p className="center-text"><img src="/images/help/forumTags.jpg" width="250px" /></p>
+                        <p>If you want, you can sort the results based on the tags of the threads. All what you have to do is to click on the prefered tag on the left. The results will now be showed on the right.</p>
+                        <h5>Reply on a thread</h5>
+                        <p>When opening a thread (by clicking on the title), you can reply to it. You can click on the button "Reply to this thread" or scroll down to the end of the page.</p>
+                        <h5>Modify a reply/thread</h5>
+                        <p>The owner of a reply or owner of the thread, the leaders or the responsables can modify and delete replies. Go to the reply or thread you want to modify or delete. If you want to modify, click on the "pencil" icon on the right. If you want to delete, click on the "trash" icon on the right.</p>
+                        <p className="center-text"><img src="/images/help/forumModify.jpg" width="100px" /></p>
+                        <p><b>See more on the <a href="/docs">documentation</a> page.</b></p>
                     </div>
-                    : this.forum() }
-                <PopPop
-                    open={show}
-                    closeOnEsc={true}
-                    onClose={() => this.toggleShow(false)}
-                    closeOnOverlay={true}>
-                    <div className="popup">
-                        <div className="popup-titleBar">
-                            Make a new thread
-                            <button className="popup-btn--close"  onClick={() => this.toggleShow(false)}>✕</button>
+                )}
+                 </Popup>
+                <main className="project-main">
+                    {this.state.loading ?
+                        <div className="project-loading">
+                            <div className="loader">Loading...</div>
                         </div>
-                        <div className="popup-content">
-                                <Tabs
-                                    defaultTab="one"
-                                    onChange={(tabId) => { tabId}}
-                                >
-                                    <TabList>
-                                        <Tab tabFor="one" className="popup-tab">General</Tab>
-                                        <Tab tabFor="two" className="popup-tab">Tags</Tab>
-                                    </TabList>
-                                    <TabPanel tabId="one">
-                                        <div className="row">
-                                            <div className="twelve columns">
-                                                <label>Subject</label>
-                                                <div id="red">{this.state.error_title}</div>
-                                                <input type="text" value={this.state.post_title} onChange={e => this.setState({ post_title: e.target.value  })} />
-                                            </div>
-                                        </div>
-                                        <div className="row">
-                                            <div className="twelve columns">
-                                                <div id="red">{this.state.error_content}</div>
-                                                <SimpleMDEReact
-                                                    className={""}
-                                                    label="Message"
-                                                    value={this.state.message}
-                                                    onChange={this.handleChange1}
-                                                />
-                                            </div>
-                                        </div>
-                                    </TabPanel>
-                                    <TabPanel tabId="two">
-                                        <div className="popup-tags">
-                                            <h5>Tags</h5>
-                                            {this.state.post_tags.length <= 0 ? <div id="red">No tags selected</div> :
-                                                <div>
-                                                    {this.state.post_tags.map((tag, i) => (
-                                                        <span className="tag tag-second" key={i}>{tag} <i onClick={e =>this.removeTag({tag})} className="fas fa-minus-circle"> </i></span>
-                                                    ))}
+                        : this.forum() }
+                    <PopPop
+                        open={show}
+                        closeOnEsc={true}
+                        onClose={() => this.toggleShow(false)}
+                        closeOnOverlay={true}>
+                        <div className="popup">
+                            <div className="popup-titleBar">
+                                Make a new thread
+                                <button className="popup-btn--close"  onClick={() => this.toggleShow(false)}>✕</button>
+                            </div>
+                            <div className="popup-content">
+                                    <Tabs
+                                        defaultTab="one"
+                                        onChange={(tabId) => { tabId}}
+                                    >
+                                        <TabList>
+                                            <Tab tabFor="one" className="popup-tab">General</Tab>
+                                            <Tab tabFor="two" className="popup-tab">Tags</Tab>
+                                        </TabList>
+                                        <TabPanel tabId="one">
+                                            <div className="row">
+                                                <div className="twelve columns">
+                                                    <label>Subject</label>
+                                                    <div id="red">{this.state.error_title}</div>
+                                                    <input type="text" value={this.state.post_title} onChange={e => this.setState({ post_title: e.target.value  })} />
                                                 </div>
-                                            }
-                                            <form>
-                                                <input type="text" value={this.state.current_tag} className="float-left" onChange={e => this.setState({ current_tag: e.target.value.toLowerCase()})} placeholder="Party, 2019, ..." required={true}/>
-                                                <input type="submit" onClick={this.addTag} className="float-right" value="Add new tag" />
-                                            </form>
-                                        </div>
-                                    </TabPanel>
-                                </Tabs>
-                                <button className="button-primary button no-button" onClick={this.makePost}>Make thread</button>
-                        </div>
-                    </div>
-                </PopPop>
-                <PopPop
-                    open={show2}
-                    closeOnEsc={true}
-                    onClose={() => this.toggleShow2(false)}
-                    closeOnOverlay={true}>
-                    <div className="popup">
-                        <div className="popup-titleBar">
-                            Edit your reply
-                            <button className="popup-btn--close"  onClick={() => this.toggleShow2(false)}>✕</button>
-                        </div>
-                        <div className="popup-content">
-                            <div className="row">
-                                <div className="twelve columns">
-                                    <div id="red">{this.state.error_replyContent}</div>
-                                    <SimpleMDEReact
-                                        className={""}
-                                        label="Message"
-                                        value={this.state.reply.content}
-                                        onChange={this.handleChange3}
-                                    />
-                                </div>
+                                            </div>
+                                            <div className="row">
+                                                <div className="twelve columns">
+                                                    <div id="red">{this.state.error_content}</div>
+                                                    <SimpleMDEReact
+                                                        className={""}
+                                                        label="Message"
+                                                        value={this.state.message}
+                                                        onChange={this.handleChange1}
+                                                    />
+                                                </div>
+                                            </div>
+                                        </TabPanel>
+                                        <TabPanel tabId="two">
+                                            <div className="popup-tags">
+                                                <h5>Tags</h5>
+                                                {this.state.post_tags.length <= 0 ? <div id="red">No tags selected</div> :
+                                                    <div>
+                                                        {this.state.post_tags.map((tag, i) => (
+                                                            <span className="tag tag-second" key={i}>{tag} <i onClick={e =>this.removeTag({tag})} className="fas fa-minus-circle"> </i></span>
+                                                        ))}
+                                                    </div>
+                                                }
+                                                <form>
+                                                    <input type="text" value={this.state.current_tag} className="float-left" onChange={e => this.setState({ current_tag: e.target.value.toLowerCase()})} placeholder="Party, 2019, ..." required={true}/>
+                                                    <input type="submit" onClick={this.addTag} className="float-right" value="Add new tag" />
+                                                </form>
+                                            </div>
+                                        </TabPanel>
+                                    </Tabs>
+                                    <button className="button-primary button no-button" onClick={this.makePost}>Make thread</button>
                             </div>
-                            <button className="button-primary button no-button" onClick={this.editReply}>Change reply</button>
                         </div>
-                    </div>
-                </PopPop>
-                <PopPop
-                    open={show3}
-                    closeOnEsc={true}
-                    onClose={() => this.toggleShow3(false)}
-                    closeOnOverlay={true}>
-                    <div className="popup">
-                        <div className="popup-titleBar">
-                            Edit your Thread
-                            <button className="popup-btn--close"  onClick={() => this.toggleShow3(false)}>✕</button>
-                        </div>
-                        <div className="popup-content">
-                            <label>Title</label>
-                            <div id="red">{this.state.error_firstTitle}</div>
-                            <input type="text" value={this.state.first_title}  onChange={event => this.setState({first_title: event.target.value})}/>
-                            <div className="row">
-                                <div className="twelve columns">
-                                    <div id="red">{this.state.error_firstContent}</div>
-                                    <SimpleMDEReact
-                                        className={""}
-                                        label="Message"
-                                        value={this.state.first_content}
-                                        onChange={this.handleChange4}
-                                    />
-                                </div>
+                    </PopPop>
+                    <PopPop
+                        open={show2}
+                        closeOnEsc={true}
+                        onClose={() => this.toggleShow2(false)}
+                        closeOnOverlay={true}>
+                        <div className="popup">
+                            <div className="popup-titleBar">
+                                Edit your reply
+                                <button className="popup-btn--close"  onClick={() => this.toggleShow2(false)}>✕</button>
                             </div>
-                            <button className="button-primary button no-button" onClick={this.editFirst}>Change post</button>
+                            <div className="popup-content">
+                                <div className="row">
+                                    <div className="twelve columns">
+                                        <div id="red">{this.state.error_replyContent}</div>
+                                        <SimpleMDEReact
+                                            className={""}
+                                            label="Message"
+                                            value={this.state.reply.content}
+                                            onChange={this.handleChange3}
+                                        />
+                                    </div>
+                                </div>
+                                <button className="button-primary button no-button" onClick={this.editReply}>Change reply</button>
+                            </div>
                         </div>
-                    </div>
-                </PopPop>
-            </main>
+                    </PopPop>
+                    <PopPop
+                        open={show3}
+                        closeOnEsc={true}
+                        onClose={() => this.toggleShow3(false)}
+                        closeOnOverlay={true}>
+                        <div className="popup">
+                            <div className="popup-titleBar">
+                                Edit your Thread
+                                <button className="popup-btn--close"  onClick={() => this.toggleShow3(false)}>✕</button>
+                            </div>
+                            <div className="popup-content">
+                                <label>Title</label>
+                                <div id="red">{this.state.error_firstTitle}</div>
+                                <input type="text" value={this.state.first_title}  onChange={event => this.setState({first_title: event.target.value})}/>
+                                <div className="row">
+                                    <div className="twelve columns">
+                                        <div id="red">{this.state.error_firstContent}</div>
+                                        <SimpleMDEReact
+                                            className={""}
+                                            label="Message"
+                                            value={this.state.first_content}
+                                            onChange={this.handleChange4}
+                                        />
+                                    </div>
+                                </div>
+                                <button className="button-primary button no-button" onClick={this.editFirst}>Change post</button>
+                            </div>
+                        </div>
+                    </PopPop>
+                </main>
+            </span>
 
         );
     }

@@ -27,6 +27,15 @@ class AccountController extends Controller
         return $countries;
     }
 
+    public function checkEmail(Request $request) {
+
+        $exists = "no";
+        if (User::where([['email', '=', $request->user_email], ['company_id', '=', Auth::user()->company_id]])->count() > 0 && (Auth::user()->email !== $request->user_email)) {
+            $exists = "yes";
+        }
+
+        return $exists;
+    }
     public function updateProfile(Request $request) {
 
         $user = Auth::user();

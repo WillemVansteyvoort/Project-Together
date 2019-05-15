@@ -39,7 +39,9 @@ export default class TabsDashboard extends Component {
             welcomeOpen: false,
             welcome1: false,
             welcome2: false,
-            welcome3: false
+            welcome3: false,
+            welcome4: false,
+            welcome5: false,
         };
         //bind
         this.notificationsToday = this.notificationsToday.bind(this);
@@ -367,6 +369,25 @@ export default class TabsDashboard extends Component {
                                     </div>
                                     <p>You are currently on your dashboard. This is the central location of your account. Here you can quickly see which tasks you have to do, upcoming events, message from the company, your notifications and activities.</p>
                                     <button className="button button-primary no-button float-left center" onClick={event => this.setState({welcome3: false, welcome2: true})}>Back</button>
+                                    <button className="button button-primary no-button float-right center" onClick={event => this.setState({welcome3: false, welcome4: true})}>Next</button>
+                                </div>
+                                : ""}
+                            {this.state.welcome4 ?
+                                <div>
+                                    <h2 className="center-text">Account</h2>
+                                    <p>If you want change some information or complete your profile, click on your name on the right above the page.</p>
+                                    <p className="center-text"><img src="../images/account.gif"  /></p>
+                                    <button className="button button-primary no-button float-left center" onClick={event => this.setState({welcome4: false, welcome3: true})}>Back</button>
+                                    {(window.Laravel.user.admin || window.Laravel.rights.create_projects) ? <button className="button button-primary no-button float-right center" onClick={event => this.setState({welcome4: false, welcome5: true})}>Next</button>
+                                        : <button className="button button-primary no-button float-right center" onClick={event => this.welcomeIsDone()}>Done</button>}
+                                </div>
+                                : ""}
+                            {this.state.welcome5 && (window.Laravel.user.admin || window.Laravel.rights.create_projects) ?
+                                <div>
+                                    <h2 className="center-text">New project</h2>
+                                    <p>You have permissions to create new projects. You can do that by clicking on the "new project" button wich is located on the navigation.</p>
+                                    <p className="center-text"><img src="../images/project.gif" className="img6" /></p>
+                                    <button className="button button-primary no-button float-left center" onClick={event => this.setState({welcome5: false, welcome4: true})}>Back</button>
                                     <button className="button button-primary no-button float-right center" onClick={event => this.welcomeIsDone()}>Done</button>
                                 </div>
                                 : ""}

@@ -40,7 +40,8 @@ export default class PopupNewUser extends Component {
         );
     }
 
-    makeGroup() {
+    makeGroup(e) {
+        e.preventDefault();
         axios.post('/api/group/new', {
             leader: this.state.leader,
             name: this.state.name,
@@ -54,6 +55,7 @@ export default class PopupNewUser extends Component {
                 description: '',
             });
         });
+        location.reload();
     }
 
     componentWillMount() {
@@ -92,23 +94,25 @@ export default class PopupNewUser extends Component {
                         </div>
                         <div className="popup-content">
                             {this.state.created ?<div className="alert alert-green center-text">The group is succesfully created</div> : ""}
-                            <div className="row">
+                            <form onSubmit={event => this.makeGroup(event)}>
+                                <div className="row">
                                     <div className="six columns">
                                         <label>Group name</label>
-                                        <input type="text" value={this.state.name}  onChange={e => this.setState({ name: e.target.value })}  />
+                                        <input type="text" required={true} value={this.state.name}  onChange={e => this.setState({ name: e.target.value })}  />
                                     </div>
                                     <div className="six columns">
                                         <label>Group leader</label>
                                         <select  onChange={e => this.setState({ leader: e.target.value })} >
                                             {this.state.users.map(user => (
                                                 <option onChange={e => this.setState({ leader: user.id })} key={user.id} value={user.id}>{user.name}</option>
-                                                ))}
+                                            ))}
                                         </select>
                                     </div>
                                 </div>
                                 <label>Group description</label>
                                 <textarea  onChange={e => this.setState({ description: e.target.value })} >{this.state.description}</textarea>
-                                <button className="button-primary button no-button" onClick={this.makeGroup}>Make group</button>
+                                <button className="button-primary button no-button">Make group</button>
+                            </form>
                         </div>
                     </div>
                 </PopPop>

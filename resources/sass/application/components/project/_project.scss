@@ -52,6 +52,7 @@
       width: 55px;
       height: 55px;
       position: relative;
+      margin-right: 14px;
       top: -30px;
       float: right;
       right: 20%;
@@ -143,7 +144,26 @@
 }
 
 @media screen and (max-width : 760px) {
+  .popup-full {
+    top: -90px;
+    height: 400px !important;
+  }
   .project-main {
     margin: 20px 4%;
+  }
+ .project-header-nav {
+   right: 20%;
+   left: 12px;
+ }
+  .project {
+    &-header {
+      &-title {
+        position: static;
+        top: 0;
+        right: 0;
+        left: 0;
+      text-align: center;
+      }
+    }
   }
 }

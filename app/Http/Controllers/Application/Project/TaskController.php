@@ -138,7 +138,12 @@ class TaskController extends Controller
             'content' => 0,
         ]);
 
-        return $task;
+        $project = Project::where('id', '=', $task->project_id)->first();
+        $tasks = Task::where([['project_id', $project->id], ['end_date', '>', Carbon::today()]])->get();
+        return response()->json([
+            'lists' => $project->taskLists,
+            'tasks' => $tasks
+        ]);
     }
 
     public function widget() {

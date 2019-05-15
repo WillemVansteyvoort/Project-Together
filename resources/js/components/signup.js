@@ -111,7 +111,7 @@ export default class SignupForm extends Component {
     //step 1
     buttonStep1() {
         strings.setLanguage(window.Laravel.lang);
-        if(this.state.name_errors || this.state.lastname_errors || this.state.email_errors || this.state.name.length <= 2 || this.state.lastname.length <= 2 || this.state.email.length <= 6 || this.state.password.length <= 8) {
+        if(this.state.name_errors || this.state.lastname_errors || this.state.email_errors || this.state.name.length < 2 || this.state.lastname.length < 4 || this.state.email.length < 6 || this.state.password.length < 8) {
             this.setState({button: true});
         } else  {
             this.setState({button: false});
@@ -120,7 +120,8 @@ export default class SignupForm extends Component {
 
     checkName(e) {
         e.preventDefault();
-        if(this.state.name.length <= 2) {
+        this.setState({ name: e.target.value });
+        if(this.state.name.length < 2) {
             this.setState({name_errors: true});
             this.setState({name_message: "Name must have at least 2 characters"});
         } else {
@@ -131,7 +132,8 @@ export default class SignupForm extends Component {
 
     checkLastName(e) {
         e.preventDefault();
-        if(this.state.lastname.length <= 4) {
+        this.setState({ lastname: e.target.value });
+        if(this.state.lastname.length < 4) {
             this.setState({lastname_errors: true});
             this.setState({lastname_message: "Name must have at least 4 characters"});
         } else {
@@ -142,6 +144,7 @@ export default class SignupForm extends Component {
 
     checkEmail(e) {
         e.preventDefault();
+        this.setState({ email: e.target.value });
         if ((this.state.email.length < 6) || (this.state.email.split('').filter(x => x === '@').length !== 1) || this.state.email.indexOf('.') === -1) {
             this.setState({email_message: "Please enter a valid email"});
             this.setState({email_errors: true});
@@ -153,7 +156,8 @@ export default class SignupForm extends Component {
 
     checkPassword(e) {
         e.preventDefault();
-        if(this.state.password.length <= 8) {
+        this.setState({ password: e.target.value, passwordManager: true });
+        if(this.state.password.length < 8) {
             this.setState({password_message: "Password must have at least 8 characters"});
             this.setState({password_errors: true});
         } else {
@@ -165,7 +169,7 @@ export default class SignupForm extends Component {
 
     //step 3
     buttonStep3() {
-        if((this.state.user_function_errors) || (!this.state.companyCheck) || (this.state.company_errors) || (this.state.user_function.length <= 3) || (this.state.company_name <= 5)) {
+        if((this.state.user_function_errors) || (!this.state.companyCheck) || (this.state.company_errors) || (this.state.user_function.length < 2) || (this.state.company_name < 5)) {
             this.setState({button3: true});
         } else  {
             this.setState({button3: false});
@@ -174,7 +178,8 @@ export default class SignupForm extends Component {
 
     checkCompany(e) {
         e.preventDefault();
-        if(this.state.company_name.length <= 5) {
+        this.setState({ company_name: e.target.value })
+        if(this.state.company_name.length < 5) {
             this.setState({company_message: "Name must have at least 5 characters"});
             this.setState({company_errors: true});
         } else {
@@ -185,9 +190,9 @@ export default class SignupForm extends Component {
 
     checkFunction(e) {
         e.preventDefault();
-
-        if(this.state.user_function.length <= 3) {
-            this.setState({user_function_message: "Function can't be empty"});
+        this.setState({ user_function: e.target.value });
+        if(this.state.user_function.length < 2) {
+            this.setState({user_function_message: "Function must have at least 2 characters"});
             this.setState({user_function_errors: true});
         } else {
             this.setState({user_function_errors: false});
@@ -353,19 +358,19 @@ export default class SignupForm extends Component {
                                     </p>
                                     <label>{strings.getString("First name")} *</label>
                                     <div id="red">{this.state.name_message}</div>
-                                    <input className={this.state.name_errors ? "border-red" : ""} type="text" value={this.state.name} name="name" onBlur={this.checkName} onChange={e => this.setState({ name: e.target.value })} placeholder="Project-Together" required/>
+                                    <input className={this.state.name_errors ? "border-red" : ""} autocomplete="off" type="text" value={this.state.name} name="name" onBlur={this.checkName} onChange={e => this.checkName(e)} placeholder="Project-Together" required/>
                                     <label>{strings.getString("Surname")} *</label>
                                     <div id="red">{this.state.lastname_message}</div>
-                                    <input className={this.state.lastname_errors ? "border-red" : ""} type="text" value={this.state.lastname} name="name" onBlur={this.checkLastName} onChange={e => this.setState({ lastname: e.target.value })} placeholder="Project-Together" required/>
+                                    <input className={this.state.lastname_errors ? "border-red" : ""}  autocomplete="off" type="text" value={this.state.lastname} onBlur={this.checkLastName} name="name"  onChange={e => this.checkLastName(e)} placeholder="Project-Together" required/>
                                     <label>E-mail *</label>
                                     <div onBlur={this.handleSubmit}>
                                         <div id="red">{this.validateEmail()}</div>
                                         <div id="red">{this.state.email_message}</div>
-                                        <input type="text" value={this.state.email} className={!this.state.emailCheck || this.state.email_errors ? "border-red" : ""}  onBlur={this.checkEmail} name="email" placeholder="jochem@project-Together.com" id="email" onChange={e => this.setState({ email: e.target.value })} required />
+                                        <input type="text" value={this.state.email} autocomplete="off" onBlur={this.checkEmail} className={!this.state.emailCheck || this.state.email_errors ? "border-red" : ""}  name="email" placeholder="jochem@project-Together.com" id="email" onChange={e => this.checkEmail(e)} required />
                                     </div>
                                     <label>{strings.getString("Password")} *</label>
                                     <div id="red">{this.state.password_message}</div>
-                                    <input className={this.state.password_errors  ? "border-red" : ""} value={this.state.password} type="password"  placeholder="********" required onBlur={this.checkPassword} onChange={e => this.setState({ password: e.target.value, passwordManager: true })} />
+                                    <input className={this.state.password_errors  ? "border-red" : ""} onBlur={this.checkPassword} autocomplete="off" value={this.state.password} type="password"  placeholder="********" required o onChange={e => this.checkPassword(e)} />
                                     <div className={this.state.passwordManager ? "view" : "passwordChecker"}>
                                         <ReactPasswordStrength
                                             passwordValue={this.state.password}
@@ -417,12 +422,12 @@ export default class SignupForm extends Component {
                                     <div onBlur={this.handleSubmit}>
                                         <div id="red">{this.validateCompanyName()}</div>
                                         <div id="red">{this.state.company_message}</div>
-                                        <input  value={this.state.company_name} className={!this.state.companyCheck || this.state.company_errors ? "border-red" : ""} type="text" onBlur={this.checkCompany} placeholder="Project-Together" onChange={e => this.setState({ company_name: e.target.value })}/>
+                                        <input  value={this.state.company_name} className={!this.state.companyCheck || this.state.company_errors ? "border-red" : ""} type="text" onBlur={this.checkCompany} onChange={event => this.checkCompany(event)} placeholder="Project-Together" />
                                     </div>
 
                                     <label>{strings.getString("Describe your function")}</label>
                                     <div id="red">{this.state.user_function_message}</div>
-                                    <input value={this.state.user_function} className={this.state.user_function_errors  ? "border-red" : ""} type="text"   onBlur={this.checkFunction} onChange={e => this.setState({ user_function: e.target.value })} placeholder="Owner" />
+                                    <input value={this.state.user_function} className={this.state.user_function_errors  ? "border-red" : ""} type="text"  onChange={e => this.checkFunction(e)} onBlur={this.checkFunction} placeholder="Owner" />
                                     <div className="register-right--buttons">
                                         <button  className="button button-primary register-button" onClick={previous}>{strings.Previous}</button>
                                         <button disabled={this.state.button3} className="button button-primary register-button" onClick={next}>{strings.Next}</button>
@@ -447,11 +452,7 @@ export default class SignupForm extends Component {
                                         from my personal profile
                                     </div>
                                     <div>
-                                        <input type="checkbox" id="scales" name="feature" onChange={this.checkSafety} checked={this.state.safety} value="scales"/> I want to get an email when someone login on my
-                                        account
-                                    </div>
-                                    <div>
-                                        <input type="checkbox" id="scales" name="feature" onChange={this.checkDocumentation} checked={this.state.documentation} value="scales"/> I want to receive the documentation PDF by e-mail
+                                        <input type="checkbox" id="scales" name="feature" onChange={this.checkSafety} checked={this.state.safety} value="scales"/> I want to get an email when someone login on a new device
                                     </div>
                                     <h5>Terms of Services (Required)</h5>
                                     <div>

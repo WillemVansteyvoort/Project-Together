@@ -31,7 +31,6 @@ class RegisterCompanyController extends SlugifyController
         if (User::where([['email', '=', $request->email], ['owner', '=', 1]])->count() > 0) {
             $validateUser = false;
         }
-
         $validateCompany = true;
         if (Company::where([['name', '=', $request->company_name]])->count() > 0) {
             $validateCompany = false;
@@ -39,7 +38,10 @@ class RegisterCompanyController extends SlugifyController
         if(Company::where([['url', '=', strtolower(str_replace('', '', $request->company_name))]])->count() > 0) {
             $validateCompany = false;
         }
-
+        $slugify = $this->slugify($request->company_name, false);
+        if(Company::where([['url', '=', $slugify]])->count() > 0) {
+            $validateCompany = false;
+        }
             return response()->json([
             'emailCheck' => $validateUser,
             'companyCheck' => $validateCompany
@@ -86,6 +88,8 @@ class RegisterCompanyController extends SlugifyController
         ]);
         User_email::create([
            'user_id' => $user->id,
+            'news' => $request->newsletter,
+            'sessions' => $request->safety
         ]);
         $url = strtolower(str_replace(' ', '', $request->company_name));
         $slugify = $this->slugify($url, false);

@@ -49,9 +49,9 @@
         </form>
         <div class="show-mobile">
             <div class="register-socialmedia">
-                <button class="register-socialmedia--facebook"> <i class="fa fa-facebook"></i>Sign Up with Facebook</button>
-                <button class="register-socialmedia--twitter"> <i class="fa fa-twitter"></i>Sign Up with Twitter</button>
-                <button class="register-socialmedia--google"> <i class="fa fa-google"></i>Sign Up with Google</button>
+                <button onclick="location.href='auth/facebook';" class="register-socialmedia--facebook"> <i class="fa fa-facebook"></i>Sign Up with Facebook</button>
+                <button  onclick="location.href='auth/twitter';" class="register-socialmedia--twitter"> <i class="fa fa-twitter"></i>Sign Up with Twitter</button>
+                <button onclick="location.href='auth/google';" class="register-socialmedia--google"> <i class="fa fa-google"></i>Sign Up with Google</button>
             </div>
         </div>
     </div>

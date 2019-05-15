@@ -9,6 +9,7 @@ class User_email extends Model
     public $timestamps = false;
 
     protected $fillable = [
+        'news',
         'user_id',
         'invites',
         'sessions',

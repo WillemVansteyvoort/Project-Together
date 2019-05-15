@@ -15,7 +15,7 @@
             </ul>
         </div>
     </section>
-    <section class="dark about">
+    <section class="dark about company-layout">
         <div class="show-mobile">
             <li class="button button-small button-second uppercase"><a  href=" {{{Auth::user()->company->url}}}/dashboard">Go to {{{Auth::user()->company->name}}}</a></li>
         </div>

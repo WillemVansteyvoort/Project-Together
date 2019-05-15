@@ -291,3 +291,10 @@
   border-bottom: 3px solid $color-primary;
 }
 
+@media screen and (max-width : 760px) {
+  .dashboard {
+    &-welcome {
+      margin: 20px 20px;
+    }
+  }
+}

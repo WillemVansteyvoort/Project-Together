@@ -16,8 +16,9 @@ class CreateUserEmailsTable extends Migration
         Schema::create('user_emails', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id');
+            $table->integer('news')->default(0);
             $table->integer('invites')->default(1);
-            $table->integer('sessions')->default(1);
+            $table->integer('sessions')->default(0);
             $table->integer('notifications')->default(0);
             $table->integer('overview')->default(0);
 

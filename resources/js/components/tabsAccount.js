@@ -104,6 +104,7 @@ export default class TabsAccount extends Component {
         this.twoStepActive = this.twoStepActive.bind(this);
         this.updatePassword = this.updatePassword.bind(this);
         this.sendVerify = this.sendVerify.bind(this);
+        this.checkEmail = this.checkEmail.bind(this);
         this.verify = this.verify.bind(this);
         this.updatePhone = this.updatePhone.bind(this);
         this.updateOverview = this.updateOverview.bind(this);
@@ -138,6 +139,19 @@ export default class TabsAccount extends Component {
 
     componentWillUnmount() {
         clearInterval(this.interval);
+    }
+
+    //checks
+    checkEmail(e) {
+        e.preventDefault();
+        this.setState({ user_email: e.target.value });
+        if ((this.state.user_email.length < 6) || (this.state.user_email.split('').filter(x => x === '@').length !== 1) || this.state.user_email.indexOf('.') === -1) {
+            this.setState({email_message: "Please enter a valid email"});
+            this.setState({errors_email: true});
+        } else {
+            this.setState({errors_email: false});
+            this.setState({email_message: ""});
+        }
     }
 
     //notifcaties
@@ -183,7 +197,7 @@ export default class TabsAccount extends Component {
     }
 
     getStats() {
-        axios.get('/api/account/stats/').then((
+        axios.get('/api/account/stats').then((
             response
             ) => {
           this.setState({
@@ -200,28 +214,41 @@ export default class TabsAccount extends Component {
     }
 
     verifyAccount(e) {
+        e.preventDefault();
+        let errorEmail = false;
+        axios.post('/api/account/checkEmail', {
+            user_email: this.state.user_email,
+        }).then(response => {
+           if(response.data === "yes") {
+               errorEmail = true;
+               this.setState({email_message: "This email already exists in the company"});
+               this.setState({errors_email: true});
+           }
+        });
 
-        let error = false;
         if ((this.state.user_email.length < 6) || (this.state.user_email.split('').filter(x => x === '@').length !== 1) || this.state.user_email.indexOf('.') === -1) {
             this.setState({email_message: "Please enter a valid email"});
             this.setState({errors_email: true});
-            error = true;
+            errorEmail = true;
         }
+
+        let errorFirstName = false;
         if(this.state.user_name.length <= 2) {
             this.setState({name_message: "Please enter a valid name"});
             this.setState({errors_name: true});
-            error = true;
+            errorFirstName = true;
         }
 
+        let errorSecondName = false;
         if(this.state.user_lastname.length <= 4) {
             this.setState({lastname_message: "Please enter a valid name"});
             this.setState({errors_lastname: true});
-            error = true;
+            errorSecondName = true;
         }
 
-        if(!error) {
+        if(!errorEmail && !errorFirstName && !errorSecondName) {
             this.setState({errors_email: false, errors_name: false, errors_lastname: false, lastname_message: '', email_message: '', name_message: ''});
-            this.updateAccount();
+            this.updateAccount(e);
 
         }
 
@@ -229,6 +256,7 @@ export default class TabsAccount extends Component {
     }
 
     updateAccount(e) {
+        e.preventDefault();
             axios.post('/api/account/update/profile', {
                 user_name: this.state.user_name,
                 user_lastname: this.state.user_lastname,
@@ -483,7 +511,7 @@ export default class TabsAccount extends Component {
                                <div className="account-content">
                                    <TabPanel tabId="vertical-tab-one">
                                        <h4 id="success">Change your profile</h4>
-                                       <form>
+                                       <form onSubmit={event => this.verifyAccount(event)}>
                                            <div id="success" className={this.state.profile ? "" : "hidden"}>
                                                <Notification  type="success" title="successfully" message="Your account was successfully been changed"/>
                                            </div>
@@ -491,10 +519,10 @@ export default class TabsAccount extends Component {
                                            <div className="six columns">
                                                <label for="">First name</label>
                                                <div id="red">{this.state.name_message}</div>
-                                               <input type="text"   className={this.state.errors_name ? "border-red" : ""}  value={this.state.user_name}  className={this.state.errors_name ? "border-red" : ""}  onChange={e => this.setState({ user_name: e.target.value })} required />
+                                               <input type="text"   className={this.state.errors_name ? "border-red" : ""}   value={this.state.user_name}  className={this.state.errors_name ? "border-red" : ""}  onChange={e => this.setState({ user_name: e.target.value })}  />
                                                <label htmlFor="">E-mail</label>
                                                <div id="red">{this.state.email_message}</div>
-                                               <input type="text"  className={this.state.errors_email ? "border-red" : ""}  value={this.state.user_email}   onChange={e => this.setState({user_email : e.target.value })}  />
+                                               <input type="text"  className={this.state.errors_email ? "border-red" : ""}  disabled={!window.Laravel.user.admin} value={this.state.user_email}   onChange={e => this.setState({user_email: e.target.value})}  />
                                                <label htmlFor="">City</label>
                                                <input type="text" value={this.state.user_city}   onChange={e => this.setState({ user_city: e.target.value })}  />
                                                <label htmlFor="">Street</label>
@@ -547,7 +575,7 @@ export default class TabsAccount extends Component {
                                        </div>
                                        <h5>Biografy</h5>
                                        <textarea placeholder="Hello I am ..." onChange={e => this.setState({ user_biografy: e.target.value })}>{this.state.user_biografy}</textarea>
-                                           <a onClick={this.updateAccount}  className="button button-primary">Update account</a>
+                                           <button  className="button button-primary no-button">Update account</button>
                                        </form>
                                    </TabPanel>
                                    <TabPanel tabId="vertical-tab-two">

@@ -546,7 +546,7 @@ export default class CompanyUsers extends Component {
                                             <div className="six columns">
                                                 <label>First name</label>
                                                 <div id="red">{this.state.firstName_check}</div>
-                                                <input type="text" className={this.state.firstName_check.length > 0 ? "border-red" : ""} onBlur={this.checkName} value={this.state.selected_user.name} onChange={e => this.setState({ user_name: e.target.value })} />
+                                                <input type="text" className={this.state.firstName_check.length > 0 ? "border-red" : ""} onBlur={this.checkName} value={this.state.user_name} onChange={e => this.setState({ user_name: e.target.value })} />
                                             </div>
                                             <div className="six columns">
                                                 <label>Last name</label>
@@ -570,7 +570,7 @@ export default class CompanyUsers extends Component {
                                         <div className="row">
                                             <div className="six columns">
                                                 <label>Username</label>
-                                                <input type="text" value={this.state.user_username} className={this.state.email_check  && this.state.email_message.length > 0 ? "border-red" : ""}  onChange={e => this.setState({ user_username: e.target.value })}/>
+                                                <input type="text" value={this.state.user_username}   onChange={e => this.setState({ user_username: e.target.value })}/>
 
                                             </div>
                                             <div className="six columns">

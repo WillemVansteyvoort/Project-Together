@@ -612,7 +612,6 @@ export default class PopupNewProject extends Component {
                                                             checked={this.state.activities}
                                                             className="react-switch popup-addons--switch"
                                                             id="normal-switch"
-                                                            onChange={e => this.setState({ activities: !this.state.activities })}
                                                         />
                                                      </div>
                                                 </div>

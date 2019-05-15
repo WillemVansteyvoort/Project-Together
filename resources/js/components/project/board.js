@@ -11,6 +11,7 @@ import PopPop from 'react-poppop';
 import Switch from "react-switch";
 import Notification from "../notification";
 import Board from 'react-trello-for-timeline'
+import Popup from 'reactjs-popup'
 var test = "test";
 export default class ProjectBoard extends Component {
 
@@ -282,14 +283,32 @@ export default class ProjectBoard extends Component {
 
         return (
             <span>
+                <Popup trigger={<button className="project-header-plus no-button no-padding ">
+                    <i className="fas fa-question"> </i>
+                </button>} position="top left">
+                {close => (
+                    <div className="popup-sidebar">
+                        <h2>Board</h2>
+                        <p>On the board you can place items in columns. So that you and your project partners can organize some tasks in columns. You have three standard columns: todo, in progress and done. Pro members can modify these columns and can create an extra column.</p>
+                        <h5>Make an item</h5>
+                        <p>You can create a new item by clicking on the "plus" icon at the top on the right. A popup will appear where you must enter the name and description. You also have the choice to map an item to a project partner.</p>
+                        <p className="center-text"><img src="/images/help/icons.jpg" width="150px" /></p>
+                        <p>You can also fill in the expected time of an item. This means how long you think the item will last. At the end you can select a color for your item.</p>
+                        <h5>Item to other column</h5>
+                        <p>If you want to move an item to another column, you have to keep pressing on the item and drag it to the column you want.</p>
+                        <h5>Modify an item</h5>
+                        <p>The owner of a item, the leaders or the responsables can modify items. Click on the item you want to edit. When clicking a popup will appear where you can modify the item. </p>
+                        <p><b>See more on the <a href="/docs">documentation</a> page.</b></p>
+                        <h5>Delete an item</h5>
+                        <p>The owner of a item, the leaders or the responsables can delete items. Click on the item and at the bottom of the popup you will see the button "delete". When you click on this button the item will be deleted.</p>
+                        <p className="center-text"><img src="/images/help/boardDelete.jpg" width="150px" /></p>
+                    </div>
+                )}
+                 </Popup>
                 {!window.Laravel.data.ended && window.Laravel.data.role !== 0  ?  <button className="project-header-plus no-button test" onClick={() => this.toggleShow(true)}>
                         <i className="fas fa-plus"> </i>
                     </button> : ""}
                 <main className="project-board">
-                     <ReactNotification ref={this.notificationDOMRef} />
-        <button onClick={this.addNotification} className="btn btn-primary">
-          Add Awesome Notification
-        </button>
                     {this.state.loading ?
                         <div className="project-loading">
                             <div className="loader">Loading...</div>
@@ -308,16 +327,16 @@ export default class ProjectBoard extends Component {
                                     </div>
                                 </div>
                             ))}
-                            {/*<div className="three columns">*/}
-                                {/*{Object.keys(tasks).length === 4 ?*/}
-                                    {/*""*/}
-                                    {/*:*/}
-                                    {/*<div className="project-board-column">*/}
-                                        {/*<i className="fas fa-plus button-primary button"> </i>*/}
-                                        {/*<h5>Add new column</h5>*/}
-                                    {/*</div>*/}
-                                {/*}*/}
-                            {/*</div>*/}
+                            <div className="three columns">
+                                {Object.keys(tasks).length === 4 ?
+                                    ""
+                                    :
+                                    <div className="project-board-column">
+                                        <i className="fas fa-plus button-primary button"> </i>
+                                        <h5>Add new column (Comming)</h5>
+                                    </div>
+                                }
+                            </div>
                         </div>
                     }
             </main>

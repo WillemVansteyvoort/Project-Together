@@ -310,6 +310,8 @@ export default class PopupNewInvite extends Component {
                 });
             });
             this.getGroups;
+            location.reload();
+
         }
 
     }
