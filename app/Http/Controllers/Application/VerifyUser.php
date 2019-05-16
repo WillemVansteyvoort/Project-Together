@@ -8,6 +8,7 @@ use Auth;
 use Carbon\Carbon;
 use App\User;
 use App\User_verify;
+use App\Mail\Registered;
 use Illuminate\Support\Facades\Mail;
 class VerifyUser extends Controller
 {
@@ -39,8 +40,14 @@ class VerifyUser extends Controller
 
             }
         }
-
-
     }
 
+    public function verifyEmail() {
+        $verify = User_verify::create([
+            'token' => str_random(60),
+            'user_id' => Auth::user()->id,
+        ]);
+        Mail::to(Auth::user()->email)->send(new Registered(Auth::user(), $verify));
+        return redirect()->back();
+    }
 }

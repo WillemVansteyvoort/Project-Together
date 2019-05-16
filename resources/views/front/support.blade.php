@@ -46,7 +46,7 @@
             <div class="three columns">
                 <div class="support-item">
                     <i class="fas fa-envelope"></i>
-                    <h6><a href="">support@worktogether.com</a></h6>
+                    <h6><a href="mailto:support@worktogether.com">support@worktogether.com</a></h6>
                 </div>
             </div>
             <div class="three columns">
@@ -64,7 +64,7 @@
             <div class="three columns">
                 <div class="support-item">
                     <i class="fas fa-th-large"></i>
-                    <h6><a href="blog.html">Our blog</a></h6>
+                    <h6><a href="{{route('front_blog')}}">Our blog</a></h6>
                 </div>
             </div>
         </div>
@@ -80,15 +80,19 @@
             </div>
             <div class="six columns">
                 <div class="form-form">
-                    <form>
+                    @if(session('success'))
+                        <div class="alert alert-green center-text">Your form has been sent successfully. We will reply as soon as possible.</div>
+                    @endif
+                    <form method="post" action="{{route('front_sendForm')}}">
+                        {{ csrf_field() }}
                         <div class="row">
                             <div class="six columns">
                                 <label for="email">Your email</label>
-                                <input class="u-full-width" type="email" placeholder="test@mailbox.com" id="email">
+                                <input class="u-full-width" type="email" placeholder="test@mailbox.com" id="email" required name="email">
                             </div>
                             <div class="six columns">
                                 <label for="reason">Reason for contacting</label>
-                                <select class="u-full-width" id="reason">
+                                <select class="u-full-width" id="reason" name="reason" required>
                                     <option></option>
                                     <option value="Option 1">I have question about billing </option>
                                     <option value="Option 2">I have a question about a feature</option>
@@ -103,18 +107,16 @@
                         <div class="row">
                             <div class="six columns">
                                 <label for="phone">Your phone</label>
-                                <input class="u-full-width" type="email" placeholder="04/74.45.51.52" id="phone">
+                                <input class="u-full-width" type="tel" placeholder="04/74.45.51.52" id="phone" name="phone">
                             </div>
                             <div class="six columns">
                                 <label for="company">Your company</label>
-                                <input class="u-full-width" type="email" placeholder="WorkTogether" id="company">
+                                <input class="u-full-width" type="email" placeholder="WorkTogether" id="company" name="company">
                             </div>
                         </div>
                         <label for="message">Your message</label>
-                        <textarea class="u-full-width" placeholder="Hello, I have a question about ..." id="message"></textarea>
-                        <a href="" class="button button-primary button-medium">
-                            Send it
-                        </a>
+                        <textarea class="u-full-width" placeholder="Hello, I have a question about ..." id="message" name="message" required minlength="100"></textarea>
+                        <input type="submit" value="Send it" href="" class="button button-primary button-medium" />
                     </form>
                 </div>
             </div>

@@ -107,7 +107,7 @@ export default class ProjectIndex extends Component {
                 this.setState({page: 'Board'})
                 break;
             case "/" + this.state.company + "/" + this.state.project + "/project/crisiscenter" :
-                this.setState({page: 'Crisis Center'})
+                this.setState({page: 'CrisisCenter'})
                 break;
             case "/" + this.state.company + "/" + this.state.project + "/project/logs" :
                 this.setState({page: 'Logs'})
@@ -203,8 +203,11 @@ export default class ProjectIndex extends Component {
     }
     error (){
                 return (
-                    <h4>Not found</h4>
-                )
+                        <div>
+                            <ProjectOverview/>
+                        </div>
+                    )
+
 }
 
     render() {
@@ -219,11 +222,11 @@ export default class ProjectIndex extends Component {
                                 <h5>{this.state.name}</h5>
                             </div>
                             <div className="project-header-nav">
-                                <div className="project-header-nav--item active">
+                                <div  className={this.state.page === "overview" ? "project-header-nav--item active" : "project-header-nav--item"}>
                                     <button onClick={() => this.init()} className="no-button"><Link to={"/" + this.state.company + "/" + this.state.project + "/project"} >Overview</Link></button>
                                 </div>
                                 {this.state.tasks ?
-                                    <div className="project-header-nav--item">
+                                    <div  className={this.state.page === "Tasks" ? "project-header-nav--item active" : "project-header-nav--item"}>
                                         <button onClick={() => this.init()} className="no-button"><Link to={"/" + this.state.company + "/" + this.state.project + "/project/tasks"}> Tasks</Link></button>
                                     </div>
                                     : ""}
@@ -233,32 +236,32 @@ export default class ProjectIndex extends Component {
                                     </div>
                                     : ""}
                                 {this.state.notes ?
-                                    <div className="project-header-nav--item">
+                                    <div  className={this.state.page === "Notes" ? "project-header-nav--item active" : "project-header-nav--item"}>
                                         <button onClick={() => this.init()} className="no-button"><Link to={"/" + this.state.company + "/" + this.state.project + "/project/notes"}> Notes</Link></button>
                                     </div>
                                     : ""}
                                 {this.state.forum ?
-                                    <div className="project-header-nav--item">
+                                    <div  className={this.state.page === "Forum" ? "project-header-nav--item active" : "project-header-nav--item"}>
                                         <button onClick={() => this.init()} className="no-button"><Link to={"/" + this.state.company + "/" + this.state.project + "/project/forum"}> Forum</Link></button>
                                     </div>
                                     : ""}
                                 {this.state.board ?
-                                    <div className="project-header-nav--item">
+                                    <div  className={this.state.page === "Board" ? "project-header-nav--item active" : "project-header-nav--item"}>
                                         <button onClick={() => this.init()} className="no-button"><Link to={"/" + this.state.company + "/" + this.state.project + "/project/board"}> Board</Link></button>
                                     </div>
                                     : ""}
                                 {this.state.polls ?
-                                    <div className="project-header-nav--item">
+                                    <div  className={this.state.page === "Polls" ? "project-header-nav--item active" : "project-header-nav--item"}>
                                         <button onClick={() => this.init()} className="no-button"><Link to={"/" + this.state.company + "/" + this.state.project + "/project/polls"}> Polls</Link></button>
                                     </div>
                                     : ""}
                                 {this.state.logs ?
-                                    <div className="project-header-nav--item">
+                                    <div  className={this.state.page === "Logs" ? "project-header-nav--item active" : "project-header-nav--item"}>
                                         <button onClick={() => this.init()} className="no-button"><Link to={"/" + this.state.company + "/" + this.state.project + "/project/logs"}> Logs</Link></button>
                                     </div>
                                     : ""}
                                 {this.state.crisisCenter ?
-                                    <div className="project-header-nav--item">
+                                    <div className={this.state.page === "CrisisCenter" ? "project-header-nav--item active" : "project-header-nav--item"}>
                                         <button className="no-button"><Link to={"/" + this.state.company + "/" + this.state.project + "/project/crisiscenter"}> Crisis center</Link></button>
                                     </div>
                                     : ""}

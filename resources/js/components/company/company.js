@@ -25,9 +25,10 @@ export default class CompanyUsers extends Component {
         this.state = {
             users : [],
             invites: [],
+            group: '',
+            groupId: 0,
             groups: [],
             selectedGroups: [],
-            test: 'ghgh',
             isLoading: true,
             show: false,
 
@@ -92,6 +93,7 @@ export default class CompanyUsers extends Component {
         this.deleteUser = this.deleteUser.bind(this);
         this.deleteGroupUser = this.deleteGroupUser.bind(this);
         this.updateUser = this.updateUser.bind(this);
+        this.addUserGroup = this.addUserGroup.bind(this);
     }
 
     addGroup(e) {
@@ -100,6 +102,17 @@ export default class CompanyUsers extends Component {
             selectedGroups: [...e.target.value]
         })
         // e.target.value
+    }
+    addUserGroup(e) {
+        e.preventDefault();
+        console.log(this.state.groupId)
+        const index = this.state.groups.findIndex(value => value.name === this.state.group);
+
+        this.state.groups.splice(index, 1);
+
+        this.setState({
+            selectedGroups: [...this.state.selectedGroups, this.state.group]
+        })
     }
 
     openPopupbox(e) {
@@ -537,6 +550,7 @@ export default class CompanyUsers extends Component {
                                     <TabList>
                                         <Tab tabFor="one" className="popup-tab">General</Tab>
                                         <Tab tabFor="two" className="popup-tab">Advanced</Tab>
+                                        <Tab tabFor="five" className="popup-tab">Groups</Tab>
                                         <Tab tabFor="three" className="popup-tab">Settings</Tab>
                                         <Tab tabFor="four" className="popup-tab popup-tab--rights">Rights</Tab>
 
@@ -710,6 +724,26 @@ export default class CompanyUsers extends Component {
                                                 </div>
                                             </div>
                                             <button className="no-button popup-rights--more" href="#" onClick={e => this.setState({ rights_showmore: !this.state.rights_showmore })}>...</button>
+                                        </div>
+                                    </TabPanel>
+                                    <TabPanel tabId="five">
+                                        <div className="popup-groups">
+                                            <h5>Groups</h5>
+                                            {this.state.selectedGroups.length <= 0 ? <div id="red">No groups selected</div> : ""}
+                                            {this.state.selectedGroups.map((selectGroup, i) => (
+                                                <li key={i} className="groups-dark">{selectGroup}</li>
+                                            ))}
+                                        </div>
+                                        <div className="popup-addGroup">
+                                            <form onSubmit={this.addUserGroup}>
+                                                <select required={true} className="popup-addGroup--input"  onClick={e => this.setState({ group: e.target.value })}>
+                                                    <option key="0"> </option>
+                                                    {this.state.groups.map(group => (
+                                                        <option   key={group.id} onClick={e => this.setState({ groupId: group.id })} value={group.name}>{group.name}</option>
+                                                    ))}
+                                                </select>
+                                                <input type="submit" value="Add group" />
+                                            </form>
                                         </div>
                                     </TabPanel>
                                 </Tabs>

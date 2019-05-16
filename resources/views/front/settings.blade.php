@@ -20,7 +20,7 @@
             <div class="alert-green alert">{{session('success')}}</div>
         @endif
         @if(!Auth::user()->verified && !session('verify_overdate'))
-                <div class="alert alert-red">This account has not been verified. You only have 2 days access to your company. <a class="float-right">Send a new verification e-mail</a></div>
+                <div class="alert alert-red">This account has not been verified. You only have 2 days access to your company. <a  href="{{route('app_verify')}}" class="float-right">Send a new verification e-mail</a></div>
         @endif
         {!!Form::open(['method' => 'post', 'action' => 'CompanyController@update', 'files' => true])  !!}
         <div lang="row">

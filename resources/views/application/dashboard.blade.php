@@ -19,7 +19,7 @@
                 <section class="sidebar">
                     <div class="clear line-small"></div>
                     @if(!Auth::user()->verified && Auth::user()->owner)
-                        <div class="alert alert-red">@lang('This account has not been verified. You only have 2 days access to your company.') <br/> <a>Send a new verification e-mail</a></div>
+                        <div class="alert alert-red">@lang('This account has not been verified. You only have 2 days access to your company.') <br/> <a href="{{route('app_verify')}}">Send a new verification e-mail</a></div>
                     @endif
                     <div class="sidebar-projects">
                         <h5>@lang('Recent Projects')</h5>

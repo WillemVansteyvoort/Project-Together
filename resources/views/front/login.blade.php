@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="{{ asset('css/normalize.css') }}">
     <link rel="stylesheet" href="{{ asset('css/skeleton.css') }}">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" href="{{ asset('css/queries.css') }}">
 </head>
 <body>

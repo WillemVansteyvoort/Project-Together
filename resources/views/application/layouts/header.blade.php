@@ -60,14 +60,14 @@
                 <h6 class="help-title">@lang('Get Help')</h6>
                 <article class="help-alert">
                     <div class="help-alert--text">
-                        <b><a href="" class="help-alert--title float-left">@lang('See our documentation')</a></b>
+                        <b><a href="{{route('front_docs')}}" class="help-alert--title float-left">@lang('See our documentation')</a></b>
                         <p>@lang('You can always consult our documentation where all the functions are explained.')</p>
                     </div>
                 </article>
                 <div class="clear"></div>
                 <article class="help-alert">
                     <div class="help-alert--text">
-                        <b><a href="" class="help-alert--title">@lang('The FAQ page')</a></b>
+                        <b><a href="{{route('front_docs')}}" class="help-alert--title">@lang('The FAQ page')</a></b>
                         <p>@lang('On the FAQ page you can check Frequently Asked Questions from other members')</p>
                     </div>
                 </article>

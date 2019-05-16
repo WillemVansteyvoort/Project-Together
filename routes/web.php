@@ -80,6 +80,7 @@ Route::group(['middleware' => ['lang']], function () {
 /////********************** ONLY AUTHENTICATED ********************** /////
     Route::group(['middleware' => ['auth']], function () {
         Route::get('/logout', 'Auth\LogoutController@index')->name('app_logout');
+        Route::get('/verify', 'Application\VerifyUser@verifyEmail')->name('app_verify');
         Route::get('/no-access', function () {
             return view('front.no-access');
         });
@@ -266,4 +267,6 @@ Route::post('/api/project/tasks/list/create', 'Application\Project\TaskControlle
 Route::post('/api/project/overview/tasks/get', 'Application\Project\TaskController@getModule');
 Route::get('/api/project/overview/tasks/widget', 'Application\Project\TaskController@widget');
 });
+
 Route::post('/twostep', 'Application\TwoStepController@login');
+Route::post('/contact', 'ContactFormController@create')->name('front_sendForm');

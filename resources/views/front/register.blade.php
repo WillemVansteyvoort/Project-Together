@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="{{ asset('css/skeleton.css') }}">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('css/queries.css') }}">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <script>
         window.Laravel = <?php echo json_encode([
             'csrfToken' => csrf_token(),
@@ -34,8 +35,8 @@
     <div class="register-left">
         <div class="register-socialmedia">
             <button onclick="location.href='auth/facebook';"  class="register-socialmedia--facebook"> <i class="fa fa-facebook"></i>Sign Up with Facebook</button>
-            <button onclick="location.href='auth/twitter';"  class="register-socialmedia--twitter"> <i class="fa fa-twitter"></i>Sign Up with Twitter</button>
-            <button onclick="location.href='auth/google';" class="register-socialmedia--google"> <i class="fa fa-google"></i>Sign Up with Google</button>
+            <button   class="register-socialmedia--twitter"> <i class="fa fa-twitter"></i>Sign Up with Twitter</button>
+            <button  class="register-socialmedia--google"> <i class="fa fa-google"></i>Sign Up with Google</button>
         </div>
     </div>
     <div class="login-right">

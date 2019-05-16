@@ -1,5 +1,5 @@
 @extends('application.layouts.app')
-@section('title', '- blog')
+@section('title', '- Company')
 @section('content')
     <section class="header-banner">
         <div class="header-banner--text">
