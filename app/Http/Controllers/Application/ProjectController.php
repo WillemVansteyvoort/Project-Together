@@ -155,7 +155,7 @@ class ProjectController extends SlugifyController
                     'content' => 'You have just created the project ' . $project->name . ' very successful.',
                 ]);
                 broadcast(new Notifications($noti,$user))->toOthers();
-            } else {
+            } else if($user->company_id == Auth::user()->id) {
                 $user = User::findOrFail($user);
                 $noti =  Notification::create([
                     'user_id' => $user->id,

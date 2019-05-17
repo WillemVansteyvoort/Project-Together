@@ -82,7 +82,7 @@
                         <p>
                             When creating a project you can choose tasks. This add-on allows you to create tasks. You can assign a task to an employee or colleague. Tasks can also have an end date when the task must be completed. Finally, you can also set a task as active in which a timer starts to run. With tasks you can divide the work among your employees or colleagues.
                         </p>
-                        <p>If you want to know more about all functionalities of the tasks, you can vistit our <a>documentation page</a>.</p>
+                        <p>If you want to know more about all functionalities of the tasks, you can visit our <a href="/docs">documentation page</a>.</p>
                     </div>
                 </div>
             </div>
@@ -93,8 +93,10 @@
                     <div class="about-text">
                         <h3>Forum</h3>
                         <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus eu porta velit. Maecenas consequat auctor nunc, eu iaculis odio posuere in. Nullam non neque eget neque euismod molestie. Integer gravida dui eu arcu ullamcorper, eu maximus enim dapibus. Nulla molestie pharetra euismod. Donec finibus pellentesque urna quis viverra. Morbi ultricies cursus lectus ac volutpat. Praesent fermentum dapibus semper. Donec vel enim dolor. Nullam quis gravida orci. Ut fringilla varius erat non scelerisque. Ut sollicitudin nulla quis auctor accumsan. Morbi sagittis ligula erat, id vehicula magna pharetra eu. Donec finibus volutpat dolor. Donec eget enim finibus, aliquam urna eu, tempor justo. Nam quis pulvinar massa.
+                            When you create a project you can choose forum as add-on. A forum is a public medium or place used for debates in which anyone can participate. When you want to start a debate or discussion you can easily can make a thread were all of your project members can reply on and say there opinion. You have also the option to select tasks so that you can sort on them.
                         </p>
+                        <p>If you want to know more about all functionalities of the forum, you can visit our <a href="/docs">documentation page</a>.</p>
+
                     </div>
                 </div>
                 <div class="four columns  center-text icon-box">
@@ -111,8 +113,10 @@
                     <div class="about-text">
                         <h3>Notes</h3>
                         <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus eu porta velit. Maecenas consequat auctor nunc, eu iaculis odio posuere in. Nullam non neque eget neque euismod molestie. Integer gravida dui eu arcu ullamcorper, eu maximus enim dapibus. Nulla molestie pharetra euismod. Donec finibus pellentesque urna quis viverra. Morbi ultricies cursus lectus ac volutpat. Praesent fermentum dapibus semper. Donec vel enim dolor. Nullam quis gravida orci. Ut fringilla varius erat non scelerisque. Ut sollicitudin nulla quis auctor accumsan. Morbi sagittis ligula erat, id vehicula magna pharetra eu. Donec finibus volutpat dolor. Donec eget enim finibus, aliquam urna eu, tempor justo. Nam quis pulvinar massa.
+                            You have the option to have notes in your project. This add-on is the online notice-board so that you don't have to use your fridge. You can make a note for everyone in the project or just for yourself.
                         </p>
+                        <p>If you want to know everything about notes, you can visit our <a href="/docs">documentation page</a>.</p>
+
                     </div>
                 </div>
             </div>
@@ -123,8 +127,9 @@
                     <div class="about-text">
                         <h3>Polls</h3>
                         <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus eu porta velit. Maecenas consequat auctor nunc, eu iaculis odio posuere in. Nullam non neque eget neque euismod molestie. Integer gravida dui eu arcu ullamcorper, eu maximus enim dapibus. Nulla molestie pharetra euismod. Donec finibus pellentesque urna quis viverra. Morbi ultricies cursus lectus ac volutpat. Praesent fermentum dapibus semper. Donec vel enim dolor. Nullam quis gravida orci. Ut fringilla varius erat non scelerisque. Ut sollicitudin nulla quis auctor accumsan. Morbi sagittis ligula erat, id vehicula magna pharetra eu. Donec finibus volutpat dolor. Donec eget enim finibus, aliquam urna eu, tempor justo. Nam quis pulvinar massa.
+                            Your struggling with a chose to make? No problem! You can make a poll in your project so that you can ask them there opinion about your chose. You can set multiple voting or just one time.
                         </p>
+                        <p>If you want to know everything about notes, you can visit our <a href="/docs">documentation page</a>.</p>
                     </div>
                 </div>
                 <div class="four columns  center-text icon-box">
