@@ -84,7 +84,7 @@
         <h3>Meet our team</h3>
         <div class="row">
             <div class="four columns">
-                <img src="images/DSCN3583.jpg" class="founder-image" />
+                <img src="images/DSCN3583.JPG" class="founder-image" />
             </div>
             <div class="eight columns">
                 <div class="founder-body">
