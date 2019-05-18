@@ -15,6 +15,21 @@
     <link rel="stylesheet" href="{{ asset('css/skeleton.css') }}">
     <link rel="stylesheet" href="{{ asset('css/application.css') }}">
     <link rel="stylesheet" href="{{ asset('css/queries.css') }}">
+        <script>
+            (adsbygoogle = window.adsbygoogle || []).push({
+                google_ad_client: "ca-pub-5110123090511920",
+                enable_page_level_ads: true
+            });
+        </script>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-81238797-2"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'UA-81238797-2');
+        </script>
     <script>
         window.Laravel = <?php echo json_encode([
             'csrfToken' => csrf_token(),

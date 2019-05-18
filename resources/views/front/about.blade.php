@@ -43,10 +43,11 @@
         <h3>About us</h3>
         <div class="about-text">
             <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus eu porta velit. Maecenas consequat auctor nunc, eu iaculis odio posuere in. Nullam non neque eget neque euismod molestie. Integer gravida dui eu arcu ullamcorper, eu maximus enim dapibus. Nulla molestie pharetra euismod. Donec finibus pellentesque urna quis viverra. Morbi ultricies cursus lectus ac volutpat. Praesent fermentum dapibus semper. Donec vel enim dolor. Nullam quis gravida orci. Ut fringilla varius erat non scelerisque. Ut sollicitudin nulla quis auctor accumsan. Morbi sagittis ligula erat, id vehicula magna pharetra eu. Donec finibus volutpat dolor. Donec eget enim finibus, aliquam urna eu, tempor justo. Nam quis pulvinar massa.
+                Project-Together started development in 2018. The first version was published in the summer of 2019. Originally, Project-Together was an end work for an IT  direction in the secondary school called <a href="http://busleydenatheneum.be/campussen/%E2%8C%82-campus-zandpoort">Busleyden Atheneum Campus Zandpoort</a> that's located in Malines, Belgium.
             </p>
             <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus eu porta velit. Maecenas consequat auctor nunc, eu iaculis odio posuere in. Nullam non neque eget neque euismod molestie. Integer gravida dui eu arcu ullamcorper, eu maximus enim dapibus. Nulla molestie pharetra euismod. Donec finibus pellentesque urna quis viverra. Morbi ultricies cursus lectus ac volutpat. Praesent fermentum dapibus semper
+                Project-Together is designed to help companies and groups organize their projects. We offer them various options to easily collaborate in a well-organized manner.
+                Our most important asset is to give the little man a chance by offering a free version that has the same functionality as the pro version. Project-Together is the first project management tool that can be used for free.
             </p>
         </div>
     </section>
@@ -80,18 +81,19 @@
         </div>
     </section>
     <section class="founder dark">
-        <h3>The founder who made it happen</h3>
+        <h3>Meet our team</h3>
         <div class="row">
             <div class="four columns">
-                <img src="images/founder.jpg" class="founder-image" />
+                <img src="images/DSCN3583.jpg" class="founder-image" />
             </div>
             <div class="eight columns">
                 <div class="founder-body">
                     <h5>Willem Vansteyvoort</h5>
+                    <p>Hello, my name is Willem Vansteyvoort.</p>
                     <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus eu porta velit. Maecenas consequat auctor nunc, eu iaculis odio posuere in. Nullam non neque eget neque euismod molestie. Integer gravida dui eu arcu ullamcorper, eu maximus enim dapibus. Nulla molestie pharetra euismod. Donec finibus pellentesque urna quis viverra. Morbi ultricies cursus lectus ac volutpat. Praesent fermentum dapibus semper. Donec vel enim dolor. Nullam quis gravida orci. Ut fringilla varius erat non scelerisque. Ut sollicitudin nulla quis auctor accumsan. Morbi sagittis ligula erat, id vehicula magna pharetra eu.
+                        I was born on January 1 in 2001. That means that I am 18 years old.  I live in the province of Antwerp in Belgium. In September I will study Applied Informatics at Howest in Bruges. I'm the Project-Together developer, which was my end work in secondary school. If you want to contact me, you can do that via email.
                     </p>
-                    <i class="fas fa-link"></i> <a href="http://www.willemcreations.be">ikbeneenwebsite.be</a>
+                    <i class="fas fa-envelope"></i> <a href="mailto:willem@project-together.com">willem@project-together.com</a>
                 </div>
             </div>
         </div>

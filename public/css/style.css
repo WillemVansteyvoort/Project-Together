@@ -829,6 +829,10 @@ i {
   font-family: "Open Sans", sans-serif;
 }
 
+.about-text {
+  padding: 0 40px;
+}
+
 .values {
   padding: 120px 200px;
   font-family: "Open Sans", sans-serif;
@@ -842,6 +846,7 @@ i {
 
 .value i {
   font-size: 100px;
+  color: white;
 }
 
 .value p {
@@ -854,8 +859,10 @@ i {
 }
 
 .founder-image {
+  margin-top: 25px;
   border-radius: 50%;
-  width: 300px;
+  width: 250px;
+  height: 250px;
 }
 
 .founder-body {
