@@ -211,9 +211,9 @@ export default class TabsDashboard extends Component {
 
         const renderPageNumbers = pageNumbers.map(number => {
             return (
-                <div className="pagination"  key={number} id={number} onClick={this.handleClick}>
+                <a href="#" className="pagination"  key={number} id={number} onClick={this.handleClick}>
                     {number}
-                </div>
+                </a>
             );
         });
             return (
@@ -226,15 +226,15 @@ export default class TabsDashboard extends Component {
                             <div className="dashboard-tabs">
                                 <div className="row">
                                     <div className="four columns">
-                                        <Tab className="dashboard-tab" tabFor="one">Overview</Tab>
+                                        <Tab className="dashboard-tab" tabFor="one">{strings.getString("Overview")}</Tab>
 
                                     </div>
                                     <div className="four columns">
-                                        <Tab className="dashboard-tab" tabFor="two">Notifications</Tab>
+                                        <Tab className="dashboard-tab" tabFor="two">{strings.getString("Notifications")}</Tab>
 
                                     </div>
                                     <div className="four columns">
-                                        <Tab className="dashboard-tab" tabFor="three">Activities</Tab>
+                                        <Tab className="dashboard-tab" tabFor="three">{strings.getString("Activities")}</Tab>
 
                                     </div>
                                 </div>
@@ -247,15 +247,16 @@ export default class TabsDashboard extends Component {
                                 <h1>{strings.getString("Welcome to Project Together")}</h1>
                                 <div className="dashboard-welcome--content">
                                     <p>
-                                        It seems that you are new at Project Together. Thanks for chosen for us! Now you're company is setup, you can start to invite your staff members to work together with you. After that you can create your first project.
-                                        If you need help check out our documentation.
+                                        {strings.getString("dashboard welcome message")}
                                     </p>
+                                    <a href="/docs" className="button no-button button-second"><i
+                                        className="fas fa-book"> </i> {strings.getString("Documentation")}</a>
                                 </div>
                             </div>
                             <div className="row">
                                 <div className="six columns">
                                     <div className="dashboard-tasks">
-                                        <h5>Your tasks</h5>
+                                        <h5>{strings.getString("Your tasks")}</h5>
                                         {this.state.tasks.length === 0 ? <div className="alert alert-blue center-text">You have no tasks for the moment</div> : ""}
                                         <table className="u-full-width">
                                             <tbody>
@@ -272,7 +273,7 @@ export default class TabsDashboard extends Component {
                                 </div>
                                 <div className="six columns">
                                     <div className="dashboard-message">
-                                        <h5>Message from the company</h5>
+                                        <h5>{strings.getString("Message from the company")}</h5>
                                         <ReactMarkdown source={this.state.message} />
                                         {this.state.message.length > 0 ? "" : "This is a reserved place where administrators can post announcements. Administrators can change this text on the \"company\" page and then click on the button"}
                                     </div>
@@ -283,19 +284,19 @@ export default class TabsDashboard extends Component {
                                     <div className="four columns">
                                         <div className="dashboard-news--item">
                                             <img className="dashboard-news--image"  src="/images/calender.png"/>
-                                            <h6 className="dashboard-news--title"><a href="">Be organized with Calender</a></h6>
+                                            <h6 className="dashboard-news--title"><a href="./calendar">{strings.getString("Be organized with Calender")}</a></h6>
                                         </div>
                                     </div>
                                     <div className="four columns">
                                         <div className="dashboard-news--item">
                                             <img className="dashboard-news--image"  src="/images/note.jpg"/>
-                                            <h6 className="dashboard-news--title"><a href="">New Update: make your notes</a></h6>
+                                            <h6 className="dashboard-news--title"><a href="./projects">{strings.getString("Notes in a project")}</a></h6>
                                         </div>
                                     </div>
                                     <div className="four columns">
                                         <div className="dashboard-news--item">
                                             <img className="dashboard-news--image"  src="/images/work.jpg"/>
-                                            <h6 className="dashboard-news--title"><a href="">Project Together version: 1.0</a></h6>
+                                            <h6 className="dashboard-news--title"><a href="./account">{strings.getString("Secure your account")}</a></h6>
                                         </div>
                                     </div>
                                 </div>
@@ -324,10 +325,13 @@ export default class TabsDashboard extends Component {
                     <TabPanel tabId="three">
                         <div className="dashboard-tab--content">
                             <div className="dashboard-activities">
-                                <h4>All activities</h4>
+                                {this.state.activities.length === 0 ?  <div className="alert alert-blue center-text">{strings.getString("You don't have any activities")}</div> : ""}
+                                {this.state.activities.length !== 0 ?
                                 <div className="dashboard-activities-line">
                                     {renderActivities}
                                 </div>
+                                    : ""}
+                                <br />
                                 {renderPageNumbers}
                             </div>
                         </div>

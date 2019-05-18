@@ -33,6 +33,9 @@
             @else
                 <button class="opacity-0 button-second button no-button" style="opacity: 0"><i class="fas fa-plus"> </i> </button>
             @endif
+            @if(Auth::user()->owner)
+                <a href="{{@route('front_company')}}" class=" button-danger button button-red no-button"><i class="fas fa-cogs"> </i> @lang('Manage company')</a>
+            @endIf
         </ul>
 
     </div>

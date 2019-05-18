@@ -5,13 +5,13 @@
         <div class="header-menu">
             <ul class="header-menu-left">
                 <li><a class="header-name" href="{{route('front_home')}}">{{ config('app.name') }}</a></li>
-                <li><a href="{{route('front_company')}}">Your company</a></li>
-                <li><a href="{{route('front_settings')}}">Settings</a></li>
+                <li><a href="{{route('front_company')}}">@lang('Your company')</a></li>
+                <li><a href="{{route('front_settings')}}">@lang('Settings')</a></li>
                 <li><a href="{{route('app_account', Auth::user()->company->url)}}">Account</a></li>
-                <li><a href="{{route('app_logout')}}">Logout</a></li>
+                <li><a href="{{route('app_logout')}}">@lang('Logout')</a></li>
             </ul>
             <ul class="header-menu-right hidden-mobile">
-                <li class="button button-small button-second uppercase"><a  href="/{{{Auth::user()->company->url}}}/dashboard">Go to {{{Auth::user()->company->name}}}</a></li>
+                <li class="button button-small button-second uppercase"><a  href=" {{{Auth::user()->company->url}}}/dashboard">@lang('Go to') {{{Auth::user()->company->name}}}</a></li>
             </ul>
         </div>
     </section>
@@ -25,37 +25,37 @@
         {!!Form::open(['method' => 'post', 'action' => 'CompanyController@update', 'files' => true])  !!}
         <div lang="row">
             <div class="six columns">
-                {!! Form::label('name', 'Company name'); !!}
+                {!! Form::label('name', __('Company name')); !!}
                 @if ($errors->has('name'))
                     <div id="red">{{$errors->first('name')}}</div>
                 @endif
                 {!! Form::text('name', Auth::user()->company->name,['class' => 'u-full-width']); !!}
             </div>
             <div class="six columns">
-                {!! Form::label('Industry', 'Industry'); !!}
+                {!! Form::label('Industry', __('Industry')); !!}
                 {!! Form::select('industry',$industries, Auth::user()->company->industry->id, ['class' => 'u-full-width']) !!}
             </div>
         </div>
         <div lang="row">
             <div class="six columns">
 
-                {!! Form::label('desc', 'Company description'); !!}
+                {!! Form::label('desc', __('Company description')); !!}
                 {!! Form::textarea('desc',Auth::user()->company->content,['class'=>'u-full-width', 'rows' => 2, 'cols' => 40]) !!}
             </div>
             <div class="six columns">
-                {!! Form::label('url', 'Company url'); !!}
+                {!! Form::label('url', __('Project-Together url')); !!}
                 {!! Form::text('url', Auth::user()->company->url,['class' => 'u-full-width', 'disabled' => true]); !!}
             </div>
         </div>
         <div class="row">
             <div class="twelve columns">
-                {!! Form::label('logo', 'Company Logo'); !!}
+                {!! Form::label('logo', __('Company Logo')); !!}
                 @if ($errors->has('logo'))
                     <div id="red">{{$errors->first('logo')}}</div>
                 @endif
                 <div class="float-right">
                     {!! Form::file('logo',['class' => 'u-full-width']) !!}
-                    {!! Form::submit('Update company',['class' => 'float-right']) !!}
+                    {!! Form::submit(__('Save settings'),['class' => 'float-right']) !!}
                     {!! Form::close() !!}
                 </div>
                 <div class="float-left">
@@ -66,7 +66,7 @@
                         {!! Form::submit('Remove logo', ['class' => 'delete-logo']) !!}
                         {!! Form::close() !!}
                     @else
-                        <p>No logo found</p>
+                        <p>@lang('No logo found')</p>
                     @endif
                 </div>
             </div>

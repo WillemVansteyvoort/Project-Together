@@ -9,6 +9,11 @@ import ReactPasswordStrength from '@rodrigowpl/react-password-strength';
 import { ProgressBar } from 'reprogressbars';
 import Switch from "react-switch";
 import Select from 'react-select';
+import LocalizedStrings from 'localized-strings';
+import en from '../lang/en.json';
+import nl from '../lang/nl.json';
+
+let strings = new LocalizedStrings({en,nl});
 import Notification from '../notification';
 var roles  = [
     {
@@ -272,6 +277,7 @@ export default class PopupNewProject extends Component {
     }
 
     componentWillMount() {
+        strings.setLanguage(window.Laravel.lang);
         this.getGroups();
         this.getUsers();
         this.removeGroup();
@@ -404,7 +410,7 @@ export default class PopupNewProject extends Component {
         const { selectedOption } = this.state;
         return (
             <span>
-                <li><button onClick={() => this.toggleShow(true)} className="button-second button no-button"><i className="fas fa-plus"> </i> New project</button></li>
+                <li><button onClick={() => this.toggleShow(true)} className="button-second button no-button"><i className="fas fa-plus"> </i> {strings.getString("New project")}</button></li>
                 <div className={this.state.error_own ? "" : "hidden"}>
                     <Notification  type="error" title="Attention" message="You have removed yourself from the list."/>
                 </div>

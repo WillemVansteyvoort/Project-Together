@@ -6,13 +6,13 @@
             <label for="show-menu" class="show-menu left"><i class="fas fa-times"></i></label>
             <ul>
                 <h5>{{{ Auth::user()->company->name }}}</h5>
-                <li><a class="" href="{{route('app_dashboard', Auth::user()->company->url)}}">Dashboard</a></li>
-                <li><a href="about.html">Projects</a></li>
-                <li><a href="">Calender</a></li>
+                <li><a class="" href="{{route('app_dashboard', Auth::user()->company->url)}}">@lang('Dashboard')</a></li>
+                <li><a href="{{route('app_projects', Auth::user()->company->url)}}">@lang('Projects')</a></li>
+                <li><a href="{{route('app_calendar', Auth::user()->company->url)}}">@lang('Calendar')</a></li>
                 @if(Auth::user()->admin || Auth::user()->rights->create_members || Auth::user()->rights->create_groups || Auth::user()->rights->company_settings)
-                    <li><a href="{{route('app_company', Auth::user()->company->url)}}">Company</a></li>
+                    <li><a href="{{route('app_company', Auth::user()->company->url)}}">@lang('Company')</a></li>
                 @endif
-                <li ><a style="opacity: 0" href="" class="button button-second"><i class="fas fa-plus"> </i> New project</a></li>
+                <li ><a  style="opacity: 0;" href="" class="button button-second"><i class="fas fa-plus"> </i> New project</a></li>
             </ul>
         </div>
     </div>
@@ -24,12 +24,10 @@
         </div>
         <ul>
             <li><a class="header-name"  onclick="showNotifications('mode')"><i class="fas fa-home dropbtn icon"> </i> <i class="fas fa-sort-down down"></i></a></li>
-            <li><a class="" href="{{route('app_dashboard', Auth::user()->company->url)}}">Dashboard</a></li>
-            <li><a href="{{route('app_projects', Auth::user()->company->url)}}">Projects</a></li>
-            <li><a href="{{route('app_calendar', Auth::user()->company->url)}}">Calendar</a></li>
-            @if(Auth::user()->admin || Auth::user()->rights->create_members || Auth::user()->rights->create_groups || Auth::user()->rights->company_settings)
-                <li><a href="{{route('app_company', Auth::user()->company->url)}}">Company</a></li>
-            @endif
+            <li><a class="" href="{{route('app_dashboard', Auth::user()->company->url)}}">@lang('Dashboard')</a></li>
+            <li><a href="{{route('app_projects', Auth::user()->company->url)}}">@lang('Projects')</a></li>
+            <li><a href="{{route('app_calendar', Auth::user()->company->url)}}">@lang('Calendar')</a></li>
+            <li><a href="{{route('app_company', Auth::user()->company->url)}}">@lang('Company')</a></li>
             <li ><a  style="opacity: 0" href="" class="button button-second"><i class="fas fa-plus"> </i> New project</a></li>
 
         </ul>
@@ -41,7 +39,7 @@
                 <li><i onclick="showNotifications('people')" class="fas fa-bars dropbtn"> </i>
             </ul>
             <div id="people" class="people-content tab-content">
-                <h6 class="people-title">Online members</h6>
+                <h6 class="people-title">@lang('Online members')</h6>
                 <div id="menu-online"></div>
             </div>
         </div>
@@ -56,49 +54,49 @@
                 <li><i onclick="showNotifications('help')" class="fas fa-question dropbtn"> </i>
             </ul>
             <div id="help" class="help-content tab-content" >
-                <h6 class="help-title">Get Help</h6>
+                <h6 class="help-title">@lang('Get Help')</h6>
                 <article class="help-alert">
                     <div class="help-alert--text">
-                        <b><a href="" class="help-alert--title float-left">See our documentation<a></b>
-                        <p>Someone has login to your account from <i>Safari webbrowser.</i></p>
+                        <b><a href="{{route('front_docs')}}" class="help-alert--title float-left">@lang('See our documentation')</a></b>
+                        <p>@lang('You can always consult our documentation where all the functions are explained.')</p>
                     </div>
                 </article>
                 <div class="clear"></div>
                 <article class="help-alert">
                     <div class="help-alert--text">
-                        <b><a href="" class="help-alert--title">Check the FAQ</a></b>
-                        <p>Thanks for joining us! If you have questions about the working, read our  <span class="notifications-alert--see" ><a href="">documentation.</a></span></p>
+                        <b><a href="{{route('front_docs')}}" class="help-alert--title">@lang('The FAQ page')</a></b>
+                        <p>@lang('On the FAQ page you can check Frequently Asked Questions from other members')</p>
                     </div>
                 </article>
                 <article class="help-alert">
                     <div class="help-alert--text">
-                        <b><a href="" class="help-alert--title">Ask a question</a></b>
-                        <p>Thanks for joining us! If you have questions about the working, read our  <span class="notifications-alert--see" ><a href="">documentation.</a></span></p>
+                        <b><a href="{{route('front_support')}}" class="help-alert--title">@lang('Ask a question')</a></b>
+                        <p>@lang('If your question is still not answered, you can ask us your question.')</p>
                     </div>
                 </article>
             </div>
         </div>
         <div class="profile">
-            <ul>
-                <li><a class="dropbtn" onclick="showNotifications('profile')"> {{Auth::user()->name}} <img src="{{{ Auth::user()->avatar  }}}" /></a></li>
+            <ul  onclick="showNotifications('profile')">
+                <li><a class="dropbtn" onclick="showNotifications('profile')"> {{Auth::user()->name}} <img  onclick="showNotifications('profile')" src="{{{ Auth::user()->avatar  }}}" /></a></li>
             </ul>
             <div id="profile" class="profile-content tab-content" >
-                <div class="profile-user">
+                <div class="profile-user" onclick="window.location.href='{{{Auth::user()->username}}}/profile/'">
                     <img class="profile-user--avatar" src="{{{ Auth::user()->avatar  }}}" />
                     <h4 class="profile-user--name">{{{ Auth::user()->name  . "  ". Auth::user()->lastname}}}</h4>
                 </div>
                 <div class="clear line-small"></div>
                 <div class="profile-links">
                     <ul>
-                        <li><a href="{{route('app_account', Auth::user()->company->url)}}"> Change my acccount</a></li>
-                        <li><a href=""> Settings</a></li>
-                        <li><a href=""> View sessions</a></li>
-                        <li><a href=""> Two Step Authentication</a></li>
-                        <li><a href=""> Statistics</a></li>
+                        <li><a href="{{route('app_account', Auth::user()->company->url)}}"> @lang('Change my acccount')</a></li>
+                        <li><a href="{{route('app_account', Auth::user()->company->url)}}"> @lang('Settings')</a></li>
+                        <li><a href="{{route('app_account', Auth::user()->company->url)}}"> @lang('View sessions')</a></li>
+                        <li><a href="{{route('app_account', Auth::user()->company->url)}}"> @lang('Two Step Authentication')</a></li>
+                        <li><a href="{{route('app_account', Auth::user()->company->url)}}"> @lang('Statistics')</a></li>
                     </ul>
                     <ul>
                         <div class="clear line-small"> </div>
-                        <li> <i class="float-left fas fa-sign-out-alt"> </i> <a href="{{route('app_logout')}}">Logout</a></li>
+                        <li> <i class="float-left fas fa-sign-out-alt"> </i> <a href="{{route('app_logout')}}">@lang('Logout')</a></li>
                     </ul>
                 </div>
             </div>

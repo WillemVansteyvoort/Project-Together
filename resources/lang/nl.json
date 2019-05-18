@@ -33,5 +33,20 @@
   "Settings" : "Instellingen",
   "View sessions" : "Bekijk sessies",
   "Two Step Authentication" : "Twee stap authenticatie",
-  "Statistics" : "Statistieken"
+  "Statistics" : "Statistieken",
+  "Your company" : "Jouw bedrijf",
+  "Company plan" : "Bedrijfsplan",
+  "Total users": "Totaal gebruikers",
+  "Total projects" : "Totaal projecten",
+  "Created": "Gemaakt op",
+  "Go to" : "Ga naar",
+  "Company name": "Bedrijfsnaam",
+  "Company description" : "Beschrijving bedrijf",
+  "Industry" : "Industrie",
+  "Company url" : "Website bedrijf",
+  "Company logo" : "Bedrijfslogo",
+  "No logo found" : "Geen logo gevonden",
+  "Save settings" : "Instellingen opslagen",
+  "Manage company" : "Beheer bedrijf"
+
 }

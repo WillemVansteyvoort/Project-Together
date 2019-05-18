@@ -8,6 +8,11 @@ import newProject from './popups/newProject'
 import {ProgressBar} from "reprogressbars";
 import PulseLoader from "./company/company";
 import {Accordion, AccordionItem, AccordionItemTitle, AccordionItemBody,} from 'react-accessible-accordion';
+import LocalizedStrings from 'localized-strings';
+import en from './lang/en.json';
+import nl from './lang/nl.json';
+
+let strings = new LocalizedStrings({en,nl});
 export default class Projects extends Component {
 
     constructor(props) {
@@ -18,7 +23,7 @@ export default class Projects extends Component {
             currentProject: null,
             openProjects: [],
             closedProjects: [],
-
+            loading: true,
         };
 
         this.changeOverlay = this.changeOverlay.bind(this);
@@ -27,6 +32,11 @@ export default class Projects extends Component {
 
     componentWillMount() {
         this.getProjects();
+        this.initLang();
+    }
+
+    initLang () {
+        strings.setLanguage(window.Laravel.lang);
     }
 
     changeOverlay(index) {
@@ -40,11 +50,12 @@ export default class Projects extends Component {
                 this.setState({
                     projects: response.data,
                     openProjects:  response.data.filter(function (project) {
-                        return (new Date(project.end_date) >= new Date() || project.end_date === null && project.status === 0);
+                        return ((new Date(project.end_date) >= new Date() || project.end_date === null) && project.status !== 2);
                     }),
                     closedProjects: response.data.filter(function (project) {
                         return ((new Date(project.end_date) < new Date() && project.end_date !== null) || project.status === 2);
                     }),
+                    loading: false,
                 })
         );
     }
@@ -65,7 +76,7 @@ export default class Projects extends Component {
                           </div>
                           :
                           <div className="projects-overview">
-                              <h4>Your projects  <Popup trigger={<i className="fas fa-question info"> </i>} position="top left">
+                              <h4>{strings.getString("Your projects")}  <Popup trigger={<i className="fas fa-question info"> </i>} position="top left">
                                   {close => (
                                       <div className="popup-sidebar">
                                           <h2>Projects</h2>
@@ -78,16 +89,16 @@ export default class Projects extends Component {
                                   onChange={(tabId) => { }}
                               >
                                   <TabList>
-                                      <Tab tabFor="one" className="projects-tab">Active projects </Tab>
-                                      <Tab tabFor="two" className="projects-tab">Archive</Tab>
+                                      <Tab tabFor="one" className="projects-tab">{strings.getString("Active projects")} </Tab>
+                                      <Tab tabFor="two" className="projects-tab">{strings.getString("Archived projects")}</Tab>
                                   </TabList>
                                   <TabPanel tabId="one">
                                       <table className="u-full-width">
                                           <thead>
                                           <tr id="no-bg">
-                                              <th>Name</th>
-                                              <th>Started on</th>
-                                              <th>ends in</th>
+                                              <th>{strings.getString("Name")}</th>
+                                              <th>{strings.getString("Started on")}</th>
+                                              <th>{strings.getString("Ends on")}</th>
                                               <th>Status</th>
                                           </tr>
                                           </thead>
@@ -100,17 +111,17 @@ export default class Projects extends Component {
                                                   <td><span className="tag tag-green">Open</span></td>
                                               </tr>
                                           ))}
-                                          {this.state.openProjects.length === 0 ? <tr><td>No open projects found</td></tr> : ""}
+                                          {this.state.openProjects.length === 0 && !this.state.loading ? <tr><td>{strings.getString("No projects were found")}</td></tr> : ""}
                                           </tbody>
                                       </table>
                                   </TabPanel>
                                   <TabPanel tabId="two">
                                       <table className="u-full-width">
                                           <thead>
-                                          <tr>
-                                              <th>Name</th>
-                                              <th>Started on</th>
-                                              <th>Finished on</th>
+                                          <tr  id="no-bg">
+                                              <th>{strings.getString("Name")}</th>
+                                              <th>{strings.getString("Started on")}</th>
+                                              <th>{strings.getString("Ended on")}</th>
                                               <th>Status</th>
                                               <th></th>
                                           </tr>
@@ -121,10 +132,10 @@ export default class Projects extends Component {
                                                   <td>{project.name}</td>
                                                   <td><Timestamp time={project.created_at} precision={2} utc={false} autoUpdate={60}   /></td>
                                                   <td><Timestamp time={new Date(project.end_date)} precision={2} utc={false} autoUpdate={60}  /></td>
-                                                  <td><span className="tag tag-red">Closed</span></td>
+                                                  <td><span className="tag tag-red">{strings.getString("Closed")}</span></td>
                                               </tr>
                                           ))}
-                                          {this.state.closedProjects.length === 0 ? <tr><td>No closed projects found</td></tr> : ""}
+                                          {this.state.closedProjects.length === 0 && !this.state.loading ? <tr><td>{strings.getString("No closed projects were found")}</td></tr> : ""}
                                           </tbody>
                                       </table>
                                   </TabPanel>
