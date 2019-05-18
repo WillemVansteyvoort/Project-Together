@@ -158,8 +158,8 @@
                 </div>
                 <div class="two columns">
                     <div class="add-ons--body tablinks" onclick="openCity(event, 'forum')">
-                        <i  class="fab fa-wpforms"></i>
-                        <h4>Forum</h4>
+                        <i class="fab fa-centercode icon"> </i>
+                        <h4>Crisis Center</h4>
                     </div>
                 </div>
                 <div class="two columns">
@@ -195,24 +195,26 @@
                     </div>
                     <div class="eight columns">
                         <div class="add-ons--activeText">
-                            <h4>Stay connected with Channels</h4>
-                            <p>Vestibulum sed magna est. Phasellus odio ex, lacinia a libero sit amet, luctus tincidunt purus. Morbi non suscipit lorem, a dignissim velit. Aliquam ullamcorper hendrerit lectus ac interdum. In ac fringilla nunc. Pellentesque non eros volutpat, volutpat lacus id, egestas lorem. Quisque at ultricies ante, a vestibulum odio. Sed quam ipsum, molestie quis malesuada eget, pulvinar id ligula. Proin vehicula mi justo, sit amet elementum velit eleifend tristique.
+                            <h4>Discuss with project partners</h4>
+                            <p>When you create a project you can choose forum as add-on. A forum is a public medium or place used for debates in which anyone can participate. When you want to start a debate or discussion you can easily can make a thread were all of your project members can reply on and say there opinion. You have also the option to select tasks so that you can sort on them.
                             </p>
-                            <a href="">Go for it!</a>
+                            <a href="{{route('front_signup')}}">Go for it!</a>
                         </div>
                     </div>
                 </div>
             </div>
             <div id="forum" class="row add-ons--active tabcontent" >
                 <div class="four columns add-ons--activeImage">
-                    <i class="fab fa-wpforms"></i>
+                    <i class="fab fa-centercode icon"> </i>
                 </div>
                 <div class="eight columns">
                     <div class="add-ons--activeText">
-                        <h4>Discuss with each other</h4>
-                        <p>Vestibulum sed magna est. Phasellus odio ex, lacinia a libero sit amet, luctus tincidunt purus. Morbi non suscipit lorem, a dignissim velit. Aliquam ullamcorper hendrerit lectus ac interdum. In ac fringilla nunc. Pellentesque non eros volutpat, volutpat lacus id, egestas lorem. Quisque at ultricies ante, a vestibulum odio. Sed quam ipsum, molestie quis malesuada eget, pulvinar id ligula. Proin vehicula mi justo, sit amet elementum velit eleifend tristique.
+                        <h4>Be aware of bugs and errors</h4>
+                        <p>When you add the add-on Crisis Center to your project, you have a place where you can collect all important faults or bugs that have to be solved immediately. When creating a new item you have to choose a priority. There are three types of priorities: low, medium and high. The Crisis Center is therefore intended to identify errors and bugs.
+
+
                         </p>
-                        <a href="">Go for it!</a>
+                        <a href="{{route('front_signup')}}">Go for it!</a>
                     </div>
                 </div>
             </div>
@@ -224,9 +226,9 @@
                     <div class="eight columns">
                         <div class="add-ons--activeText">
                             <h4>Set tasks that need to be done</h4>
-                            <p>Vestibulum sed magna est. Phasellus odio ex, lacinia a libero sit amet, luctus tincidunt purus. Morbi non suscipit lorem, a dignissim velit. Aliquam ullamcorper hendrerit lectus ac interdum. In ac fringilla nunc. Pellentesque non eros volutpat, volutpat lacus id, egestas lorem. Quisque at ultricies ante, a vestibulum odio. Sed quam ipsum, molestie quis malesuada eget, pulvinar id ligula. Proin vehicula mi justo, sit amet elementum velit eleifend tristique.
+                            <p>When creating a project you can choose tasks. This add-on allows you to create tasks. You can assign a task to an employee or colleague. Tasks can also have an end date when the task must be completed. Finally, you can also set a task as active in which a timer starts to run. With tasks you can divide the work among your employees or colleagues.
                             </p>
-                            <a href="">Go for it!</a>
+                            <a href="{{route('front_signup')}}">Go for it!</a>
                         </div>
                     </div>
                 </div>
@@ -239,9 +241,9 @@
                     <div class="eight columns">
                         <div class="add-ons--activeText">
                             <h4>Don't forget anything with notes</h4>
-                            <p>Vestibulum sed magna est. Phasellus odio ex, lacinia a libero sit amet, luctus tincidunt purus. Morbi non suscipit lorem, a dignissim velit. Aliquam ullamcorper hendrerit lectus ac interdum. In ac fringilla nunc. Pellentesque non eros volutpat, volutpat lacus id, egestas lorem. Quisque at ultricies ante, a vestibulum odio. Sed quam ipsum, molestie quis malesuada eget, pulvinar id ligula. Proin vehicula mi justo, sit amet elementum velit eleifend tristique.
+                            <p>You have the option to have notes in your project. This add-on is the online notice-board so that you don't have to use your fridge. You can make a note for everyone in the project or just for yourself.
                             </p>
-                            <a href="">Go for it!</a>
+                            <a href="{{route('front_signup')}}">Go for it!</a>
                         </div>
                     </div>
                 </div>
@@ -254,9 +256,9 @@
                     <div class="eight columns">
                         <div class="add-ons--activeText">
                             <h4>Save your group meetings</h4>
-                            <p>Vestibulum sed magna est. Phasellus odio ex, lacinia a libero sit amet, luctus tincidunt purus. Morbi non suscipit lorem, a dignissim velit. Aliquam ullamcorper hendrerit lectus ac interdum. In ac fringilla nunc. Pellentesque non eros volutpat, volutpat lacus id, egestas lorem. Quisque at ultricies ante, a vestibulum odio. Sed quam ipsum, molestie quis malesuada eget, pulvinar id ligula. Proin vehicula mi justo, sit amet elementum velit eleifend tristique.
+                            <p>Project-Together has a simple calendar that's only for your company. You and you're colleagues or employees can view events or add new events. An event can be labeled as public or as private. If it's private, you can only see the event. With this calendar you can share all events with everyone in an organized way.
                             </p>
-                            <a href="">Go for it!</a>
+                            <a href="{{route('front_signup')}}">Go for it!</a>
                         </div>
                     </div>
                 </div>
@@ -264,17 +266,49 @@
             <div id="moods" class="add-ons--active tabcontent">
                 <div class="row">
                     <div class="four columns add-ons--activeImage">
-                        <i class="fas fa-moon"></i>
+                        <i class="fas fa-poll-h"> </i>
                     </div>
                     <div class="eight columns">
                         <div class="add-ons--activeText">
-                            <h4>See the moods of your colleagues</h4>
-                            <p>Vestibulum sed magna est. Phasellus odio ex, lacinia a libero sit amet, luctus tincidunt purus. Morbi non suscipit lorem, a dignissim velit. Aliquam ullamcorper hendrerit lectus ac interdum. In ac fringilla nunc. Pellentesque non eros volutpat, volutpat lacus id, egestas lorem. Quisque at ultricies ante, a vestibulum odio. Sed quam ipsum, molestie quis malesuada eget, pulvinar id ligula. Proin vehicula mi justo, sit amet elementum velit eleifend tristique.
+                            <h4>Ask a question</h4>
+                            <p>Your struggling with a chose to make? No problem! You can make a poll in your project so that you can ask them there opinion about your chose. You can set multiple voting or just one time.
                             </p>
-                            <a href="">Go for it!</a>
+                            <a href="{{route('front_signup')}}">Go for it!</a>
                         </div>
                     </div>
                 </div>
+            </div>
+        </section>
+        <section class="slideshow">
+            <h3 class="slideshow-title">A view of Project-Together</h3>
+            <div class="slideshow-show">
+                <div class="w3-display-container mySlides">
+                    <img src="images/slide/dashboard.JPG" style="width:100%">
+                </div>
+                <div class="w3-display-container mySlides">
+                    <img src="images/slide/newProject.JPG" style="width:100%">
+                </div>
+
+                <div class="w3-display-container mySlides">
+                    <img src="images/slide/overview.JPG" style="width:100%">
+                </div>
+
+                <div class="w3-display-container mySlides">
+                    <img src="images/slide/tasks.JPG" style="width:100%">
+                </div>
+
+                <div class="w3-display-container mySlides">
+                    <img src="images/slide/forum.JPG" style="width:100%">
+                </div>
+
+                <div class="w3-display-container mySlides">
+                    <img src="images/slide/notes.JPG" style="width:100%">
+
+                </div>
+
+                <button class="slideshow-left center-vertical button no-button button-primary" onclick="plusDivs(-1)"><i class="fas fa-arrow-left"></i></button>
+                <button class="slideshow-right button no-button button-primary" onclick="plusDivs(1)"><i class="fas fa-arrow-right"></i></button>
+
             </div>
         </section>
         <section class="quotes hidden-mobile">
@@ -286,8 +320,8 @@
                             <i class="fas fa-quote-right"></i>
                         </div>
                         <div class="quote-text">
-                            With Work Together, I and my team are much better organized. It is easy to use and we can easily communicate with each other. Highly recommended!
-                            <span class="quote-author">Tom Boon CEO by IT Solutions</span>
+                            With Project-Together, I and my team are much better organized. It is easy to use and we can easily communicate with each other. Highly recommended!
+                            <span class="quote-author">Tom Boon</span>
                         </div>
 
                     </div>
@@ -299,8 +333,8 @@
                             <i class="fas fa-quote-right"></i>
                         </div>
                         <div class="quote-text">
-                            I was searching on the internet for a teamwork-platform but they were all so expensive. When I found out about WorkTogether I was in the clouds!
-                            <span class="quote-author">Claudia from Colruyt</span>
+                            I was searching on the internet for a teamwork-platform but they were all so expensive. When I found out about Project-Together I was in the clouds!
+                            <span class="quote-author">Claudia</span>
                         </div>
                     </div>
                 </div>
