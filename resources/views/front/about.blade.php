@@ -43,11 +43,11 @@
         <h3>About us</h3>
         <div class="about-text">
             <p>
-                Project-Together started development in 2018. The first version was published in the summer of 2019. Originally, Project-Together was an end work for an IT  direction in the secondary school called <a href="http://busleydenatheneum.be/campussen/%E2%8C%82-campus-zandpoort">Busleyden Atheneum Campus Zandpoort</a> that's located in Malines, Belgium.
+                The development of Project-Together was started in 2018. The first version was published in the summer of 2019. Originally, Project-Together was a final task for an IT course in the secondary school called <a href="http://busleydenatheneum.be/campussen/%E2%8C%82-campus-zandpoort">Busleyden Atheneum Campus Zandpoort</a> that's located in Malines, Belgium.
             </p>
             <p>
-                Project-Together is designed to help companies and groups organize their projects. We offer them various options to easily collaborate in a well-organized manner.
-                Our most important asset is to give the little man a chance by offering a free version that has the same functionality as the pro version. Project-Together is the first project management tool that can be used for free.
+                Project-Together is designed to help companies and groups organize their projects. We offer various options to easily collaborate in a well-organized manner.
+                Our most important asset is to provide small companies with a free version with the same functionalities as the pro version. Project-Together is the first free project management tool.
             </p>
         </div>
     </section>
@@ -63,19 +63,19 @@
             <div class="three columns">
                 <div class="value">
                     <i class="fas fa-hands-helping"></i>
-                    <p>We want our products easy to use so that we can be friends</p>
+                    <p>We want our products to stay easy to use</p>
                 </div>
             </div>
             <div class="three columns">
                 <div class="value">
                     <i class="fas fa-clock"></i>
-                    <p>We want to be buzzy and bring new features to our costumers</p>
+                    <p>We want to stay busy and bring new features to our costumers</p>
                 </div>
             </div>
             <div class="three columns">
                 <div class="value">
                     <i class="fas fa-lock"></i>
-                    <p>We want our products so safe as possible so that you don't have to worry</p>
+                    <p>We want our products te as safe as possible</p>
                 </div>
             </div>
         </div>
@@ -91,7 +91,7 @@
                     <h5>Willem Vansteyvoort</h5>
                     <p>Hello, my name is Willem Vansteyvoort.</p>
                     <p>
-                        I was born on January 1 in 2001. That means that I am 18 years old.  I live in the province of Antwerp in Belgium. In September I will study Applied Informatics at Howest in Bruges. I'm the Project-Together developer, which was my end work in secondary school. If you want to contact me, you can do that via email.
+                        I was born on January 1 in 2001 so I'm 18 years old.  I live in the province of Antwerp in Belgium. In September I will study Applied Informatics at Howest in Bruges. I'm the Project-Together developer, which was my final task in secondary school. If you want to contact me, you can e-mail me.
                     </p>
                     <i class="fas fa-envelope"></i> <a href="mailto:willem@project-together.com">willem@project-together.com</a>
                 </div>

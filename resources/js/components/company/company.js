@@ -16,7 +16,11 @@ import PopPop from 'react-poppop';
 import {Accordion, AccordionItem, AccordionItemTitle, AccordionItemBody,} from 'react-accessible-accordion';
 import {PopupboxManager, PopupboxContainer} from 'react-popupbox';
 import Notification from '../notification';
+import LocalizedStrings from 'localized-strings';
+import en from '../lang/en.json';
+import nl from '../lang/nl.json';
 
+let strings = new LocalizedStrings({en,nl});
 export default class CompanyUsers extends Component {
 
 
@@ -122,6 +126,7 @@ export default class CompanyUsers extends Component {
 
     }
     componentWillMount() {
+        strings.setLanguage(window.Laravel.lang);
         this.getUsers();
 
     }
@@ -142,6 +147,7 @@ export default class CompanyUsers extends Component {
                     users: response.data.users,
                     invites: response.data.invites,
                     groups: response.data.groups,
+                    user_countries: response.data.countries,
                     isLoading: false,
                 });
         }
@@ -405,9 +411,9 @@ export default class CompanyUsers extends Component {
                     <Notification  type="success" title="successfully" message="The member is succesfully updated"/>
                 </div>
                 <TabList>
-                    <Tab tabFor="one" className="company-tab">Active members <span className="tag tag-primary">{this.state.users.length}</span> </Tab>
-                    {window.Laravel.user.admin || window.Laravel.rights.create_members ? <Tab tabFor="two" className="company-tab">Invited members <span className="tag tag-primary">{this.state.invites.length}</span></Tab> : ""}
-                    <Tab tabFor="three" className="company-tab">Groups</Tab>
+                    <Tab tabFor="one" className="company-tab">{strings.getString("Active members")} <span className="tag tag-primary">{this.state.users.length}</span> </Tab>
+                    {window.Laravel.user.admin || window.Laravel.rights.create_members ? <Tab tabFor="two" className="company-tab">{strings.getString("Invited members")} <span className="tag tag-primary">{this.state.invites.length}</span></Tab> : ""}
+                    <Tab tabFor="three" className="company-tab">{strings.getString("Groups")}</Tab>
 
                 </TabList>
                 <TabPanel tabId="one">
@@ -416,10 +422,10 @@ export default class CompanyUsers extends Component {
                         <table className="u-full-width">
                             <thead>
                             <tr>
-                                <th>Name</th>
-                                <th>Last name</th>
+                                <th>{strings.getString("Name")}</th>
+                                <th>{strings.getString("Surname")}</th>
                                 <th>E-mail</th>
-                                <th>Last activity</th>
+                                <th>{strings.getString("Last activity")}</th>
                                 <th></th>
                             </tr>
                             </thead>
@@ -454,10 +460,10 @@ export default class CompanyUsers extends Component {
                             <ProgressBar isLoading={this.state.isLoading}  className="fixed-progress-bar"  color="black" />
                             <thead>
                             <tr>
-                                <th>Name</th>
-                                <th>Last name</th>
+                                <th>{strings.getString("Name")}</th>
+                                <th>{strings.getString("Surname")}</th>
                                 <th>Email</th>
-                                <th>Invite sends on</th>
+                                <th>{strings.getString("Invitation sent on")}</th>
                                 <th> </th>
                             </tr>
                             </thead>
@@ -467,7 +473,7 @@ export default class CompanyUsers extends Component {
                                              color={'#5680e9'}
                                              loading={this.state.isLoading}
                                 />
-                                {this.state.invites.length === 0 ? <p>There are no invites found.</p> : ''}
+                                {this.state.invites.length === 0 ? <p>{strings.getString("No invitations were found")}</p> : ''}
                                 {this.state.invites.map((invite, i) => (
                                     <tr key={i}>
                                         <td>{invite.name}</td>
@@ -499,8 +505,8 @@ export default class CompanyUsers extends Component {
                                                 <ProgressBar isLoading={this.state.isLoading}  className="fixed-progress-bar"  color="black" />
                                                 <thead>
                                                 <tr>
-                                                    <th>Name</th>
-                                                    <th>Last name</th>
+                                                    <th>{strings.getString("Name")}</th>
+                                                    <th>{strings.getString("Surname")}</th>
                                                     <th>Email</th>
                                                     <th></th>
                                                 </tr>
@@ -538,7 +544,7 @@ export default class CompanyUsers extends Component {
                     closeOnOverlay={true}>
                     <div className="popup">
                         <div className="popup-titleBar">
-                            Modify a member
+                            {strings.getString("Modify a member")}
                             <button className="popup-btn--close"  onClick={() => this.toggleShow(false)}>✕</button>
                         </div>
                         {this.state.selected_user !== null ?
@@ -548,22 +554,22 @@ export default class CompanyUsers extends Component {
                                     onChange={(tabId) => { tabId}}
                                 >
                                     <TabList>
-                                        <Tab tabFor="one" className="popup-tab">General</Tab>
-                                        <Tab tabFor="two" className="popup-tab">Advanced</Tab>
-                                        <Tab tabFor="five" className="popup-tab">Groups</Tab>
-                                        <Tab tabFor="three" className="popup-tab">Settings</Tab>
-                                        <Tab tabFor="four" className="popup-tab popup-tab--rights">Rights</Tab>
+                                        <Tab tabFor="one" className="popup-tab">{strings.getString("General")}</Tab>
+                                        <Tab tabFor="two" className="popup-tab">{strings.getString("Advanced")}</Tab>
+                                        <Tab tabFor="five" className="popup-tab">{strings.getString("Groups")}</Tab>
+                                        <Tab tabFor="three" className="popup-tab">{strings.getString("Settings")}</Tab>
+                                        <Tab tabFor="four" className="popup-tab popup-tab--rights">{strings.getString("Rights")}</Tab>
 
                                     </TabList>
                                     <TabPanel tabId="one">
                                         <div className="row">
                                             <div className="six columns">
-                                                <label>First name</label>
+                                                <label>{strings.getString("First name")}</label>
                                                 <div id="red">{this.state.firstName_check}</div>
                                                 <input type="text" className={this.state.firstName_check.length > 0 ? "border-red" : ""} onBlur={this.checkName} value={this.state.user_name} onChange={e => this.setState({ user_name: e.target.value })} />
                                             </div>
                                             <div className="six columns">
-                                                <label>Last name</label>
+                                                <label>{strings.getString("Surname")}</label>
                                                 <div id="red">{this.state.lastName_check}</div>
                                                 <input type="text" className={this.state.lastName_check.length > 0 ? "border-red" : ""} onBlur={this.checkLastName} value={this.state.user_lastname} onChange={e => this.setState({ user_lastname: e.target.value })}/>
                                             </div>
@@ -575,7 +581,7 @@ export default class CompanyUsers extends Component {
                                                 <input type="text" onBlur={this.checkEmail} className={this.state.email_message.length > 0 ? "border-red" : ""} value={this.state.user_email} onChange={e => this.setState({ user_email: e.target.value })}/>
                                             </div>
                                             <div className="six columns">
-                                                <label>Function</label>
+                                                <label>{strings.getString("Function")}</label>
                                                 <input type="text" value={this.state.user_function} onChange={e => this.setState({ user_function: e.target.value })} />
                                             </div>
                                         </div>
@@ -583,40 +589,40 @@ export default class CompanyUsers extends Component {
                                     <TabPanel tabId="two">
                                         <div className="row">
                                             <div className="six columns">
-                                                <label>Username</label>
+                                                <label>{strings.getString("Username")}</label>
                                                 <input type="text" value={this.state.user_username}   onChange={e => this.setState({ user_username: e.target.value })}/>
 
                                             </div>
                                             <div className="six columns">
-                                                <label>Birthdate</label>
+                                                <label>{strings.getString("Birthdate")}</label>
                                                 <input type="date" value={this.state.user_date} className="u-full-width" onChange={e => this.setState({ user_date: e.target.value })} />
                                             </div>
                                         </div>
                                         <div className="row">
                                             <div className="six columns">
-                                                <label>City</label>
+                                                <label>{strings.getString("City")}</label>
                                                 <input type="text" onChange={e => this.setState({ user_city: e.target.value })} value={this.state.user_city} />
 
                                             </div>
                                             <div className="six columns">
-                                                <label>Phone</label>
+                                                <label>{strings.getString("Phone")}</label>
                                                 <input type="text" value={this.state.user_phone} onChange={e => this.setState({ user_phone: e.target.value })} />
                                             </div>
                                         </div>
                                         <div className="row">
                                             <div className="six columns">
-                                                <label>Street</label>
+                                                <label>{strings.getString("Street")}</label>
                                                 <input type="text" value={this.state.user_street} onChange={e => this.setState({ user_street: e.target.value })} />
 
                                             </div>
                                             <div className="six columns">
-                                                <label>Zipcode</label>
+                                                <label>{strings.getString("Zipcode")}</label>
                                                 <input type="text" value={this.state.user_zipcode} onChange={e => this.setState({ user_zipcode: e.target.value })} />
                                             </div>
                                         </div>
                                         <div className="row">
                                             <div className="six columns">
-                                                <label>Country</label>
+                                                <label>{strings.getString("Country")}</label>
                                                 <select  onChange={e => this.setState({ user_country_id: e.target.value })}>
                                                     <option value={this.state.user_country_id} key={0}>{this.state.user_country}</option>
                                                     {this.state.user_countries.map(country => (
@@ -628,19 +634,19 @@ export default class CompanyUsers extends Component {
                                     </TabPanel>
                                     <TabPanel tabId="three">
                                         <div className="popup-settings">
-                                            <h5>General</h5>
+                                            <h5>{strings.getString("General")}</h5>
                                             <div>
-                                                <input type="checkbox" id="scales" name="feature" onChange={e => this.setState({ user_twostep: !this.state.user_twostep })} checked={this.state.user_twostep} value="scales" />Activate two step authentication by this member
+                                                <input type="checkbox" id="scales" name="feature" onChange={e => this.setState({ user_twostep: !this.state.user_twostep })} checked={this.state.user_twostep} value="scales" />{strings.getString("Activate two step authentication by this member")}
                                             </div>
                                             <div>
-                                                <input type="checkbox" id="scales" name="feature" onChange={e => this.setState({ user_hideInformation: !this.state.user_hideInformation })} checked={this.state.user_hideInformation} value="scales" />Hide the member's information on their profile
+                                                <input type="checkbox" id="scales" name="feature" onChange={e => this.setState({ user_hideInformation: !this.state.user_hideInformation })} checked={this.state.user_hideInformation} value="scales" />{strings.getString("Hide the member's information on their profile")}
                                             </div>
                                             <div>
-                                                <input type="checkbox" id="scales" name="feature" onChange={e => this.setState({ user_online: !this.state.user_online })} checked={!this.state.user_online} value="scales"/>The online status of the member will be hidden
+                                                <input type="checkbox" id="scales" name="feature" onChange={e => this.setState({ user_online: !this.state.user_online })} checked={!this.state.user_online} value="scales"/>{strings.getString("The online status of the member will be hidden")}
                                             </div>
-                                            <h5>E-mail notifications</h5>
+                                            <h5>E-mail {strings.getString("notifications")}</h5>
                                             <div>
-                                                <input type="checkbox" id="scales" name="feature" onChange={this.checkNewsletter} checked={this.state.newsletter} value="scales" />Member will receive e-mails when he will invited to a new project
+                                                <input type="checkbox" id="scales" name="feature" onChange={this.checkNewsletter} checked={this.state.newsletter} value="scales" />{strings.getString("Member will receive e-mails when he will invited to a new project")}
                                             </div>
                                             <div>
                                                 <input type="checkbox" id="scales" name="feature" onChange={this.checkNewsletter} checked={this.state.newsletter} value="scales" />Member will receive every <input type="number"  min="1" max="30"/> days a overview of the company
@@ -656,7 +662,7 @@ export default class CompanyUsers extends Component {
                                                     className="react-switch popup-rights--switch"
                                                     onChange={e => this.setState({ right_admin: !this.state.right_admin, right_createMembers: 1,  right_createGroups: 1, right_createProject: 1, right_companySettings: 1, right_avatar: 1, right_online: 1, right_data: 1})}
                                                     id="normal-switch"
-                                                /><b>This member is an administration</b>
+                                                /><b>{strings.getString("This member is an administration")}</b>
                                             </div>
                                             <div>
                                                 <Switch
@@ -665,7 +671,7 @@ export default class CompanyUsers extends Component {
                                                     className="react-switch popup-rights--switch"
                                                     onChange={e => this.setState({ right_createMembers: !this.state.right_createMembers })}
                                                     id="normal-switch"
-                                                />Member can create new members and invite them
+                                                />{strings.getString("Member can create new members and invite them")}
                                             </div>
                                             <div>
                                                 <Switch
@@ -674,7 +680,7 @@ export default class CompanyUsers extends Component {
                                                     className="react-switch popup-rights--switch"
                                                     onChange={e => this.setState({ right_createGroups: !this.state.right_createGroups })}
                                                     id="normal-switch"
-                                                />Member can create new groups
+                                                />{strings.getString("Member can create new groups")}
                                             </div>
                                             <div>
                                                 <Switch
@@ -683,7 +689,7 @@ export default class CompanyUsers extends Component {
                                                     className="react-switch popup-rights--switch"
                                                     id="normal-switch"
                                                     onChange={e => this.setState({ right_createProject: !this.state.right_createProject })}
-                                                />Member can create new projects
+                                                />{strings.getString("Member can create new projects")}
                                             </div>
                                             <div className={this.state.rights_showmore ? "" : "hidden"}>
                                                 <div>
@@ -693,7 +699,7 @@ export default class CompanyUsers extends Component {
                                                         className="react-switch popup-rights--switch"
                                                         id="normal-switch"
                                                         onChange={e => this.setState({ right_companySettings: !this.state.right_companySettings })}
-                                                    />Member can modify the company settings
+                                                    />{strings.getString("Member can modify the company settings")}
                                                 </div>
                                                 <div>
                                                     <Switch
@@ -702,7 +708,7 @@ export default class CompanyUsers extends Component {
                                                         onChange={e => this.setState({ right_avatar: !this.state.right_avatar })}
                                                         className="react-switch popup-rights--switch"
                                                         id="normal-switch"
-                                                    />Member can upload an avatar
+                                                    />{strings.getString("Member can upload an avatar")}
                                                 </div>
                                                 <div>
                                                     <Switch
@@ -711,7 +717,7 @@ export default class CompanyUsers extends Component {
                                                         onChange={e => this.setState({ right_online: !this.state.right_online })}
                                                         className="react-switch popup-rights--switch"
                                                         id="normal-switch"
-                                                    />Member can modify the online status
+                                                    />{strings.getString("Member can modify his online status")}
                                                 </div>
                                                 <div>
                                                     <Switch
@@ -720,7 +726,7 @@ export default class CompanyUsers extends Component {
                                                         onChange={e => this.setState({ right_data: !this.state.right_data })}
                                                         className="react-switch popup-rights--switch"
                                                         id="normal-switch"
-                                                    />Member can modify his personal data (email, first name, last name, street, ...)
+                                                    />{strings.getString("rightsPersonalData")}
                                                 </div>
                                             </div>
                                             <button className="no-button popup-rights--more" href="#" onClick={e => this.setState({ rights_showmore: !this.state.rights_showmore })}>...</button>
@@ -728,8 +734,8 @@ export default class CompanyUsers extends Component {
                                     </TabPanel>
                                     <TabPanel tabId="five">
                                         <div className="popup-groups">
-                                            <h5>Groups</h5>
-                                            {this.state.selectedGroups.length <= 0 ? <div id="red">No groups selected</div> : ""}
+                                            <h5>{strings.getString("Groups")}</h5>
+                                            {this.state.selectedGroups.length <= 0 ? <div id="red">{strings.getString("No groups selected")}</div> : ""}
                                             {this.state.selectedGroups.map((selectGroup, i) => (
                                                 <li key={i} className="groups-dark">{selectGroup}</li>
                                             ))}
@@ -742,12 +748,13 @@ export default class CompanyUsers extends Component {
                                                         <option   key={group.id} onClick={e => this.setState({ groupId: group.id })} value={group.name}>{group.name}</option>
                                                     ))}
                                                 </select>
-                                                <input type="submit" value="Add group" />
+                                                <input type="submit" value={strings.getString("Add group")} />
                                             </form>
                                         </div>
                                     </TabPanel>
                                 </Tabs>
-                                <button className="button-primary button no-button" onClick={this.updateUser}>Save changes</button>
+                                <button className="button-primary button no-button" onClick={this.updateUser}><i
+                                    className="fas fa-save"> </i> {strings.getString("Save changes")}</button>
                             </div>
                             : ''}
                         <div className={this.state.isLoading ? "popup-loading" : "hidden"}>

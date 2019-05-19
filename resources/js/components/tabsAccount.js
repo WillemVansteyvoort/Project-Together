@@ -758,6 +758,13 @@ export default class TabsAccount extends Component {
                                            </p>
                                        </div>
                                    </TabPanel>
+                                   <TabPanel tabId="vertical-tab-eight">
+                                           <h4>Download your data</h4>
+                                       <p>According to GDPR you have the right to retrieve all your data that we have from you. There is currently no automatic process for this. You can always complete a request on our form.</p>
+                                       <a className="button no-button button-primary" href="/support">Request my data</a>
+                                       <h4>Delete my account</h4>
+                                       <a className="button no-button button-red" href="/support">Delete my account</a>
+                                   </TabPanel>
                                </div>
                            </div>
                        </div>

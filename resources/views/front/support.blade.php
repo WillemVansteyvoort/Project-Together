@@ -36,12 +36,12 @@
         </div>
     </section>
     <div class="header-basic">
-        <h1 class="header-basic--title">Worktogether support</h1>
+        <h1 class="header-basic--title">Project-Together support</h1>
     </div>
 
     <section class="dark support-items">
         <h3>We help you with a big smile</h3>
-        <p>It's very important for us that our costumers are happy. We have a lot resources for them when they have a problem that they can ask them to us and that we can help them with a very big smile. Before you ask a question in the form, please see in our blog and Q&A if that question is already answered. Not found? Don't hezitate and contact us.</p>
+        <p>Costumer satisfaction is very important for our company. We have a lot of resources to solve problems with a big smile. Before asking a question, please check the Q&A section to see if you can find the answer there. Not found? Do not hesitate to contact us.</p>
         <div class="row">
             <div class="three columns">
                 <div class="support-item">
@@ -70,11 +70,11 @@
         </div>
     </section>
     <section class="form">
-        <h3 id="white">Not found your answer?</h3>
+        <h3 id="white">Haven't found your answer?</h3>
         <div class="row">
             <div class="six columns">
                 <div class="form-title">
-                    Ask them here!
+                    Ask here!
                 </div>
                 <i><i class="fas fa-clock"></i>We answer in less then 2 hours</i>
             </div>
@@ -106,7 +106,7 @@
                         </div>
                         <div class="row">
                             <div class="six columns">
-                                <label for="phone">Your phone</label>
+                                <label for="phone">Your phone number</label>
                                 <input class="u-full-width" type="tel" placeholder="04/74.45.51.52" id="phone" name="phone">
                             </div>
                             <div class="six columns">
@@ -116,7 +116,7 @@
                         </div>
                         <label for="message">Your message</label>
                         <textarea class="u-full-width" placeholder="Hello, I have a question about ..." id="message" name="message" required minlength="100"></textarea>
-                        <input type="submit" value="Send it" href="" class="button button-primary button-medium" />
+                        <input type="submit" value="Send" href="" class="button button-primary button-medium" />
                     </form>
                 </div>
             </div>

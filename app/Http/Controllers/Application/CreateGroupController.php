@@ -30,4 +30,6 @@ class CreateGroupController extends CompanyController
         $groups = Group::where('company_id', Auth::user()->company_id)->with(['users'], ['owner'])->get();
         return $groups->toJson(JSON_PRETTY_PRINT);
     }
+
+    public function checkGroup(R)
 }

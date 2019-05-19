@@ -424,7 +424,7 @@ export default class PopupNewProject extends Component {
                     closeOnOverlay={true}>
                     <div className="popup">
                         <div className="popup-titleBar">
-                            Make a new Project  <Popup trigger={<i className="fas fa-question white float-right"> </i>} position="top right">
+                            {strings.getString("Make a new Project")}  <Popup trigger={<i className="fas fa-question white float-right"> </i>} position="top right">
                                   {close => (
                                       <div className="popup-sidebar">
                                           <h2>New project</h2>
@@ -453,10 +453,10 @@ export default class PopupNewProject extends Component {
                                 onChange={(tabId) => { tabId}}
                             >
                                 <TabList>
-                                    <Tab tabFor="one" className="popup-tab">General</Tab>
-                                    <Tab tabFor="two" className="popup-tab">Members</Tab>
+                                    <Tab tabFor="one" className="popup-tab">{strings.getString("General")}</Tab>
+                                    <Tab tabFor="two" className="popup-tab">{strings.getString("Members")}</Tab>
                                     <Tab tabFor="three" className="popup-tab">Add-ons</Tab>
-                                    <Tab tabFor="five" className="popup-tab popup-tab--rights">Advanced</Tab>
+                                    <Tab tabFor="five" className="popup-tab popup-tab--rights">{strings.getString("Advanced")}</Tab>
                                 </TabList>
                                 <div className={this.state.updated ? "alert alert-green center-text" : "hidden"}>{this.state.updated_message}
                                     <a className="float-right"  onClick={() => this.setState({ updated: false })}>✕</a>
@@ -466,21 +466,21 @@ export default class PopupNewProject extends Component {
                                     <TabPanel tabId="one">
                                         <div className="row">
                                             <div className="twelve columns">
-                                                <label>Project name</label>
+                                                <label>{strings.getString("Project name")}</label>
                                                 <div id="red">{this.state.error_title}</div>
                                                 <input type="text" className={this.state.error_title.length > 0 ? "border-red u-full-width" : "u-full-width"} value={this.state.title} onChange={e => this.setState({ title: e.target.value })} onBlur={e => this.checkName()} />
                                             </div>
                                         </div>
                                           <div className="row">
                                             <div className="twelve columns">
-                                                <label>Project description</label>
+                                                <label>{strings.getString("Project description")}</label>
                                                 <div id="red">{this.state.error_description}</div>
                                                 <textarea value={this.state.description} className={this.state.error_description.length > 0 ? "border-red u-full-width" : "u-full-width"} onChange={e => this.setState({ description: e.target.value  })}> </textarea>
                                             </div>
                                         </div>
                                         <div className="row">
                                             <div className="twelve columns">
-                                                <label>End date</label>
+                                                <label>{strings.getString("End date")}</label>
                                                 <div id="red">{this.state.error_date}</div>
                                                 <input type="date" value={this.state.end_date} onChange={e => this.setState({ end_date: e.target.value  })} className={this.state.error_date.length > 0 ? "border-red u-full-width" : "u-full-width"}/>
                                             </div>
@@ -488,7 +488,7 @@ export default class PopupNewProject extends Component {
                                     </TabPanel>
                                     <TabPanel tabId="two">
                                         <div className="popup-groups">
-                                            <h5>Members</h5>
+                                            <h5>{strings.getString("Members")}</h5>
                                             {this.state.selectedMembers.length <= 0 ? <div className="alert alert-red">No users or groups have been selected</div> : ""}
                                             {this.state.selectedMembers.map((selected, i) => (
                                                 <span key={i}>
@@ -504,7 +504,7 @@ export default class PopupNewProject extends Component {
                                                 <div className="popup-members">
                                                     <form onSubmit={this.addItem}>
                                                          <Select
-                                                             placeholder={"Choose a member or group"}
+                                                             placeholder={strings.getString("Choose a member or group")}
                                                              onChange={this.handleMember}
                                                              className="popup-members-list"
                                                              required = {true}
@@ -521,7 +521,7 @@ export default class PopupNewProject extends Component {
                                                          />
                                                      <Select
                                                          value={this.state.selectedRoll}
-                                                         placeholder={"Choose a role"}
+                                                         placeholder={strings.getString("Choose a role")}
                                                          onChange={this.handleRoll}
                                                          options={roles}
                                                          className="popup-members-roll"
@@ -536,7 +536,7 @@ export default class PopupNewProject extends Component {
                                                          })}
                                                      />
                                                        <div className="popup-members-add">
-                                                        <input type="submit" value="Add member" />
+                                                        <input type="submit" value={strings.getString("Add member")} />
                                                     </div>
                                                     </form>
 
@@ -651,14 +651,14 @@ export default class PopupNewProject extends Component {
                                     </TabPanel>
                                     <TabPanel tabId="five">
 
-                                        <h5>Other settings</h5>
+                                        <h5>{strings.getString("Other settings")}</h5>
                                         <div>
                                             <input type="checkbox" id="scales" name="feature" value="scales" onChange={e => this.setState({ private: !this.state.private})} checked={this.state.private} />
                                             Make this project public: this means that everyone can see the forum, tasks and so on
                                             </div>
                                         <div className="popup-tags">
                                             <h5>Tags</h5>
-                                            {this.state.tags.length <= 0 ? <div id="red">No tags selected</div> :
+                                            {this.state.tags.length <= 0 ? <div id="red">{strings.getString("No tags selected")}</div> :
                                                 <div>
                                                     {this.state.tags.map((tag, i) => (
                                                         <span key={i} className="tag tag-second">{tag} <i onClick={e =>this.removeTag({tag})} className="fas fa-minus-circle"> </i></span>
@@ -667,13 +667,14 @@ export default class PopupNewProject extends Component {
                                             }
                                             <form>
                                                 <input type="text" value={this.state.current_tag} className="float-left" onChange={e => this.setState({ current_tag: e.target.value})} placeholder="Party, 2019, ..." required={true}/>
-                                                <input type="submit" onClick={this.addTag} className="float-right" value="Add new tag" />
+                                                <input type="submit" onClick={this.addTag} className="float-right" value={strings.getString("Add new tag")} />
                                             </form>
                                         </div>
                                     </TabPanel>
                                 </div>
                             </Tabs>
-                            <button className="button-primary button no-button" onClick={this.createProject}>Create project</button>
+                            <button className="button-primary button no-button" onClick={this.createProject}><i
+                                className="fas fa-plus"> </i>  {strings.getString("Create project")}</button>
                         </div>
                         <div className={this.state.isLoading ? "popup-loading" : "hidden"}>
                             <h5>We are busy creating the project. Have a little patience. ...</h5>

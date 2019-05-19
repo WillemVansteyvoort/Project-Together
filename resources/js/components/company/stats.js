@@ -8,6 +8,11 @@ import PopPop from 'react-poppop';
 import Switch from "react-switch";
 import SimpleMDEReact from "react-simplemde-editor";
 import PopupNewInvite from "./company";
+import LocalizedStrings from 'localized-strings';
+import en from '../lang/en.json';
+import nl from '../lang/nl.json';
+
+let strings = new LocalizedStrings({en,nl});
 export default class CompanyStats extends Component {
 
     constructor(props) {
@@ -61,6 +66,7 @@ export default class CompanyStats extends Component {
     }
 
     componentWillMount() {
+        strings.setLanguage(window.Laravel.lang);
         this.stats();
         this.message();
     }
@@ -77,7 +83,7 @@ export default class CompanyStats extends Component {
         const {show} = this.state;
         return (
             <div className="company-sidebar">
-                <h5>Total users</h5>
+                <h5>{strings.getString("Total members")}</h5>
                 <Progress
                     percent={window.Laravel.company.users/window.Laravel.plan.users * 100}
                     theme={
@@ -95,7 +101,7 @@ export default class CompanyStats extends Component {
                         }
                     }
                 />
-                <h5>Total Projects</h5>
+                <h5>{strings.getString("Total projects")}</h5>
                 <Progress
                     percent={window.Laravel.company.projects/window.Laravel.plan.projects * 100}
                     theme={
@@ -114,27 +120,29 @@ export default class CompanyStats extends Component {
                     }
                 />
                 {this.state.tasksDone > 0 || this.state.tasksBuzzy ?
-                <div className="company-chart">
-                    <h5>Tasks</h5>
-                    <div className="row">
-                        <div className="six columns">
-                            <PieChart
-                                data={[
-                                    { title: 'One', value: this.state.tasksDone, color: '#5680e9' },
-                                    { title: 'Two', value: this.state.tasksBuzzy, color: '#5ab9ea' },
-                                ]}
-                            />
-                        </div>
-                        <div className="six columns">
-                            <div className="company-chart--content">
-                                <span className="company-square company-square--primary">Done tasks</span>
-                                <span className="company-square company-square--second">Open tasks</span>
+                    <span>
+                        <h5>{strings.getString("Tasks")}</h5>
+                        <div className="company-chart">
+                            <div className="row">
+                                <div className="six columns">
+                                    <PieChart
+                                        data={[
+                                            { title: 'One', value: this.state.tasksDone, color: '#5680e9' },
+                                            { title: 'Two', value: this.state.tasksBuzzy, color: '#5ab9ea' },
+                                        ]}
+                                    />
+                                </div>
+                                <div className="six columns">
+                                    <div className="company-chart--content">
+                                        <span className="company-square company-square--primary">{strings.getString("Done tasks")}</span>
+                                        <span className="company-square company-square--second">{strings.getString("Open tasks")}</span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
+                    </span>
                     : ""}
-                {window.Laravel.user.admin ?                 <button className="button button-primary company-sidebar-settings" onClick={event => this.setState({show: true})}><i className="fas fa-cog"></i>Company settings</button>
+                {window.Laravel.user.admin ?                 <button className="button button-primary company-sidebar-settings" onClick={event => this.setState({show: true})}><i className="fas fa-cog"></i>{strings.getString("Company settings")}</button>
                     : ""}
                 <PopPop
                     open={show}
@@ -143,19 +151,20 @@ export default class CompanyStats extends Component {
                     closeOnOverlay={true}>
                     <div className="popup">
                         <div className="popup-titleBar">
-                            Company settings
+                            {strings.getString("Company settings")}
                             <button className="popup-btn--close"  onClick={() => this.toggleShow(false)}>✕</button>
                         </div>
                         <div className="popup-content">
                             <div className="row">
                                 <SimpleMDEReact
                                     className={"editor"}
-                                    label="Message from the company"
+                                    label={strings.getString("Message from the company")}
                                     value={this.state.message}
                                     onChange={this.handleChange2}
                                 />
                             </div>
-                            <button className="no-button button-primary button" onClick={this.saveSettings}>Save settings</button>
+                            <button className="no-button button-primary button" onClick={this.saveSettings}><i
+                                className="fas fa-save"></i> {strings.getString("Save settings")}</button>
                         </div>
                     </div>
                 </PopPop>

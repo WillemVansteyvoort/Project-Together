@@ -12,7 +12,7 @@ use App\Group;
 use App\Task;
 use App\Notification;
 use App\Events\Notifications;
-
+use App\Country;
 class CompanyController extends Controller {
 
     public function index($company) {
@@ -46,10 +46,12 @@ class CompanyController extends Controller {
             ['company_id', '=', Auth::user()->company_id],
         ])->get();
         $groups = Group::where('company_id', Auth::user()->company_id)->with(['users'], ['owner'])->get();
+        $countries = Country::all();
         return response()->json([
             'users' => $users,
             'invites' => $invites,
             'groups' => $groups,
+            'countries' => $countries
         ]);
     }
 

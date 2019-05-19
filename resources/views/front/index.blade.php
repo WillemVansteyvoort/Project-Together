@@ -38,7 +38,7 @@
             <div class="header-text">
                 <h1 class="header-title">Organize your projects the best way
                 </h1>
-                <p class="header-beginText">@lang("Organize your projects for your company or your team the best possible way with Project-Together. Project-Together is a tool where you can manage projects of your company. Project-Together is the first projectmanager that's free.")</p>
+                <p class="header-beginText">@lang("Organize your projects for your company or your team the best possible way with Project-Together. Project-Together is a tool that can help you manage your company's projects. Project-Together is the first free project manager.")</p>
                 <input class="hidden-mobile" type="text" placeholder="@lang("Give your email to start ...")">
                 <a href="{{route('front_signup')}}" class="button button-primary button-large hidden-mobile animation-up">
                     @lang("Get started")
@@ -74,7 +74,7 @@
                 <div class="four columns">
                     <div class="product">
                         <div class="product-image">
-                            <h4>@lang("Organized")</h4>
+                            <h4>@lang("Organize")</h4>
                             <i class="fas fa-sitemap"></i>
                             <p>@lang("Everything you need in one place")</p>
                         </div>
@@ -111,7 +111,7 @@
                                 <li>Up to 120 users</li>
                                 <li>Unlimited projects</li>
                                 <li>24/7 support</li>
-                                <li id="bold">Receive as first updates</li>
+                                <li id="bold">Receive updates first</li>
                                 <li>Includes all add-ons*</li>
                             </ul>
                             <a href="{{route('front_signup')}}" class="button button-primary button-medium">
@@ -173,7 +173,7 @@
                     <div class="eight columns">
                         <div class="add-ons--activeText">
                             <h4>Discuss with project partners</h4>
-                            <p>When you create a project you can choose forum as add-on. A forum is a public medium or place used for debates in which anyone can participate. When you want to start a debate or discussion you can easily can make a thread were all of your project members can reply on and say there opinion. You have also the option to select tasks so that you can sort on them.
+                            <p>When you create a project you can choose forum as add-on. A forum is a public medium or place used for debates in which anyone can participate. When you want to start a debate or discussion you can easily make a thread were all of your project members can reply to and say theire opinion. You also have the option to select tags to sort on.
                             </p>
                             <a href="{{route('front_signup')}}">Go for it!</a>
                         </div>
@@ -297,7 +297,7 @@
                             <i class="fas fa-quote-right"></i>
                         </div>
                         <div class="quote-text">
-                            With Project-Together, I and my team are much better organized. It is easy to use and we can easily communicate with each other. Highly recommended!
+                            With Project-Together, me and my team are much better organized. It is easy to use and we can easily communicate with each other. Highly recommended!
                             <span class="quote-author">Tom Boon</span>
                         </div>
 
