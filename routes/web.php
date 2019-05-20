@@ -178,6 +178,8 @@ Route::post('/api/invite/delete', 'Application\InviteController@deleteInvite');
 //group
 Route::post('/api/group/new', 'Application\CreateGroupController@create');
 Route::post('/api/group/user/delete', 'Application\CreateGroupController@deleteGroupUser');
+Route::post('/api/group/check', 'Application\CreateGroupController@checkGroup');
+Route::post('/api/group/delete', 'Application\CreateGroupController@deleteGroup');
 
 //two step authentication
 Route::post('/api/twostep/change', 'Application\TwoStepController@change');

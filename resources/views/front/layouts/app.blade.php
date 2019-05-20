@@ -32,7 +32,27 @@
 
         gtag('config', 'UA-140387815-1');
     </script>
-
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.js"></script>
+    <script>
+        window.addEventListener("load", function(){
+            window.cookieconsent.initialise({
+                "palette": {
+                    "popup": {
+                        "background": "#ffffff",
+                        "text": "#000000"
+                    },
+                    "button": {
+                        "background": "#5680e9"
+                    }
+                },
+                "theme": "classic",
+                "content": {
+                    "link": "Learn more",
+                    "href": "https://project-together.com/documents/privacy-policy.pdf"
+                }
+            })});
+    </script>
 
 </head>
 <body>
