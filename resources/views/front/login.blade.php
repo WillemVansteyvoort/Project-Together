@@ -25,25 +25,24 @@
         <div class="login-socialmedia">
             <button onclick="window.location.href='auth/facebook'" class="login-socialmedia--facebook"> <i class="fa fa-facebook"></i>Login with Facebook</button>
             <button class="login-socialmedia--twitter"> <i class="fa fa-twitter"></i>Login with Twitter</button>
-            <button onclick="window.location.href='auth/google'" class="login-socialmedia--google"> <i class="fa fa-google"></i>Login with Google</button>
+            <button  class="login-socialmedia--google"> <i class="fa fa-google"></i>Login with Google</button>
         </div>
     </div>
     <div class="login-right">
         <div class="login-right--alreadyAccount">
-            <p>Not yet an account? <a class="button button-primary" href="{{route('front_signup')}}">Sign Up</a></p>
+            <p>@lang("Not yet an account?") <a class="button button-primary" href="{{route('front_signup')}}">@lang("Sign up")</a></p>
         </div>
         <div class="center-vertical">
             {!! Form::open(['action' => 'Auth\LoginController@store', 'class' => 'login-right--formlogin']) !!}
-             <h4 class="login-right--title">Login to Work-Together</h4>
+             <h4 class="login-right--title">@lang("Login to Project-Together")</h4>
             <div id="red">{{session('fault')}}</div>
-            {!! Form::label('email', 'E-Mail Address'); !!}
+            {!! Form::label('email', __('E-Mail Address')); !!}
             {!! Form::text('email', null,['placeholder' => 'example@Project-Together.com']); !!}
-            {!! Form::label('password', 'Password'); !!}
+            {!! Form::label('password', __('Password')); !!}
             {!! Form::password('password', ['placeholder' => '***********']); !!}
 
-            <label>{!!Form::checkbox('remember', '1'); !!} Remember me</label>
-            <p><a href="">Forgot your password or email?</a></p>
-            {!!  Form::submit('Login', ['class' => 'float-right']); !!}
+            <label>{!!Form::checkbox('remember', '1'); !!} @lang("Remember me")</label>
+            {!!  Form::submit(__('Login'), ['class' => 'float-right']); !!}
             {!! Form::close() !!}
         </div>
         <div class="show-mobile">

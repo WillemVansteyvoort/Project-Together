@@ -804,6 +804,7 @@ input[type=checkbox]:checked + #nav-mobile--menu{
     &-facebook-big {
      i {
        font-size: 60px !important;
+       color: white;
      }
     }
 
@@ -830,6 +831,9 @@ input[type=checkbox]:checked + #nav-mobile--menu{
       position: relative;
       background-color: #3B5998;
       border: 1px solid #3B5998;
+      i {
+        color: white;
+      }
     }
     &--twitter {
       margin: 0 auto;
@@ -837,6 +841,9 @@ input[type=checkbox]:checked + #nav-mobile--menu{
       background-color: #1DA1F2;
       border: 1px solid #1DA1F2;
       padding: 14px;
+      i {
+        color: white;
+      }
     }
     &--google {
       margin: 0 auto;

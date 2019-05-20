@@ -41,7 +41,7 @@
     </div>
     <div class="login-right">
         <div class="register-right--alreadyAccount">
-            <p>Already have an account? <a class="button button-primary" href="{{route('front_login')}}">Log In</a></p>
+            <p>@lang("Already have an account?") <a class="button button-primary" href="{{route('front_login')}}">@lang("Login")</a></p>
         </div>
         <form>
             <div id="signup-form">

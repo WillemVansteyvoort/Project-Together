@@ -28,8 +28,8 @@
                     <li class="button button-small button-second uppercase"><a href="{{route('app_dashboard', Auth::user()->company->url)}}">GO TO {{{Auth::user()->company->name}}}</a></li>
                     <li class="button button-small button-primary"><a href="{{route('app_logout')}}">Logout</a></li>
                 @else
-                    <li class="button button-small button-second"><a href="{{route('front_login')}}">Log in</a></li>
-                    <li class="button button-small button-primary"><a href="{{route('front_signup')}}">Sign Up</a></li>
+                    <li class="button button-small button-second"><a href="{{route('front_login')}}">@lang("Login")</a></li>
+                    <li class="button button-small button-primary"><a href="{{route('front_signup')}}">@lang("Sign Up")</a></li>
                 @endif
             </ul>
         </div>
