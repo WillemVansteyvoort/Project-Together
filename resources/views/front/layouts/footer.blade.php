@@ -15,17 +15,16 @@
         <div class="three columns">
             <h5>Support</h5>
             <ul>
-                <li><a href="{{route('front_docs')}}">Documentation</a></li>
+                <li><a href="{{route('front_docs')}}">@lang("Documentation")</a></li>
                 <li><a href="{{route('front_support')}}">Q&A's</a></li>
-                <li><a href="{{route('front_support')}}">Contact us</a></li>
+                <li><a href="{{route('front_support')}}">@lang("Contact us")</a></li>
             </ul>
         </div>
         <div class="three columns">
             <h5>Products</h5>
             <ul>
-                <li><a href="{{route('front_home')}}">Information</a></li>
-                <li><a href="">Pricing</a></li>
-                <li><a href="{{route('front_options')}}">Our Options</a></li>
+                <li><a href="">@lang("Pricing")</a></li>
+                <li><a href="{{route('front_options')}}">@lang("Our options")</a></li>
             </ul>
         </div>
         <div class="three columns">

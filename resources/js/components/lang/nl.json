@@ -96,6 +96,16 @@
   "Other settings" : "Andere instellingen",
   "Add new tag" : "Tag toevoegen",
   "No tags selected" : "Er zijn geen tags geselecteerd",
-  "Make a new Project" : "Maak een nieuw project"
-
+  "Make a new Project" : "Maak een nieuw project",
+  "Your settings" : "Uw instellingen",
+  "Edit your profile" : "Wijzig uw profiel",
+  "Change your settings" : "Wijzig uw instellingen",
+  "Upload avatar" : "Upload een avatar",
+  "Two step authentication" : "Twee stapsverificatie",
+  "Change password" : "Wachtwoord wijzigen",
+  "My sessions": "Mijn sessies",
+  "Account security" : "Account veiligheid",
+  "Website content" : "Website inhoud",
+  "My statistics": "Mijn statistieken",
+  "Download your data": "Download uw gegevens"
 }

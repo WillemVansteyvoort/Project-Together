@@ -614,7 +614,6 @@ export default class PopupNewProject extends Component {
                                                     <h5><i className="fas fa-calendar-day"> </i> Activities</h5>
                                                      <div>
                                                         <Switch
-                                                            // onChange={this.handleChange}
                                                             checked={this.state.activities}
                                                             className="react-switch popup-addons--switch"
                                                             id="normal-switch"

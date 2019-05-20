@@ -32,6 +32,7 @@ export default class CompanyUsers extends Component {
             group: '',
             groupId: 0,
             groups: [],
+            groups2: [],
             selectedGroups: [],
             isLoading: true,
             show: false,
@@ -98,6 +99,8 @@ export default class CompanyUsers extends Component {
         this.deleteGroupUser = this.deleteGroupUser.bind(this);
         this.updateUser = this.updateUser.bind(this);
         this.addUserGroup = this.addUserGroup.bind(this);
+        this.deleteSelectGroup = this.deleteSelectGroup.bind(this);
+        this.deleteGroup = this.deleteGroup.bind(this);
     }
 
     addGroup(e) {
@@ -109,10 +112,9 @@ export default class CompanyUsers extends Component {
     }
     addUserGroup(e) {
         e.preventDefault();
-        console.log(this.state.groupId)
-        const index = this.state.groups.findIndex(value => value.name === this.state.group);
+        const index = this.state.groups2.findIndex(value => value === this.state.group);
 
-        this.state.groups.splice(index, 1);
+        this.state.groups2.splice(index, 1);
 
         this.setState({
             selectedGroups: [...this.state.selectedGroups, this.state.group]
@@ -147,6 +149,7 @@ export default class CompanyUsers extends Component {
                     users: response.data.users,
                     invites: response.data.invites,
                     groups: response.data.groups,
+                    groups2: response.data.groups,
                     user_countries: response.data.countries,
                     isLoading: false,
                 });
@@ -182,6 +185,20 @@ export default class CompanyUsers extends Component {
         }
     }
 
+
+    deleteGroup(id) {
+        if (confirm('Are you sure you want to delete this group?')) {
+            axios.post('/api/group/delete', {
+               id: id
+            }).then(response => {
+                let groups = this.state.groups;
+                const index = groups.findIndex(value => value.id === id);
+                groups.splice(index, 1);
+                this.setState({groups: groups})
+            });
+        }
+    }
+
     //groups
 
     deleteGroupUser(group, user) {
@@ -196,6 +213,15 @@ export default class CompanyUsers extends Component {
             });
         }
 
+    }
+
+    deleteSelectGroup(index) {
+        let groupName = this.state.selectedGroups[index];
+        this.state.selectedGroups.splice(index, 1);
+
+        let groups = this.state.groups2;
+        groups.push(groupName);
+        this.setState({groups2: groups})
     }
 
     toggleShow(showUser) {
@@ -226,12 +252,10 @@ export default class CompanyUsers extends Component {
             user_twitter: user.twitter,
             user_facebook: user.facebook,
             user_google: user.google,
-
             //settings
             user_twostep: user.two_step.active,
             user_online: user.online,
             user_hideInformation: user.hide_data,
-
             rights_showmore: false,
             right_admin: user.admin,
             right_createMembers: user.rights.create_members,
@@ -241,8 +265,24 @@ export default class CompanyUsers extends Component {
             right_avatar: user.rights.upload_avatar,
             right_online: user.rights.change_online,
             right_data: user.rights.right_data,
-
         });
+
+        let currentGroups = this.state.groups2;
+        let newGroups = [];
+        currentGroups.forEach(function (element) {
+            newGroups.push(element.name);
+        })
+
+
+        let groups = user.groups;
+        let selectedGroups =  [];
+        groups.forEach(function(element) {
+            selectedGroups.push(element.name);
+            const index = currentGroups.findIndex(value => value === element.name);
+            currentGroups.splice(index, 1);
+        });
+
+        this.setState({groups2: newGroups, selectedGroups: selectedGroups})
     }
 
     //user checks
@@ -354,7 +394,9 @@ export default class CompanyUsers extends Component {
                 this.setState({
                     updated: true,
                     showUser: false,
-                    users: response.data,
+                    users: response.data.users,
+                    groups: response.data.groups,
+                    selectedGroups: [],
                     user_name: '',
                     user_lastname: '',
                     user_username: '',
@@ -405,7 +447,6 @@ export default class CompanyUsers extends Component {
         return (
             <Tabs
                 defaultTab="one"
-                onChange={(tabId) => { console.log(tabId) }}
             >
                 <div id="success" className={this.state.created ? "" : "hidden"}>
                     <Notification  type="success" title="successfully" message="The member is succesfully updated"/>
@@ -524,6 +565,11 @@ export default class CompanyUsers extends Component {
                                                 ))}
                                                 </tbody>
                                             </table>
+                                            {group.name !== "Administrator" && (window.Laravel.user.admin || window.Laravel.rights.create_groups)  ?
+                                                <div>
+                                                    <button className="no-button button button-red" onClick={event => this.deleteGroup(group.id)}><i className="fas fa-trash-alt"> </i> Delete group</button>
+                                                </div>
+                                                : ""}
                                         </div>
                                         :
                                         <div className="center-text alert alert-red">
@@ -737,15 +783,15 @@ export default class CompanyUsers extends Component {
                                             <h5>{strings.getString("Groups")}</h5>
                                             {this.state.selectedGroups.length <= 0 ? <div id="red">{strings.getString("No groups selected")}</div> : ""}
                                             {this.state.selectedGroups.map((selectGroup, i) => (
-                                                <li key={i} className="groups-dark">{selectGroup}</li>
+                                                <li key={i} className="groups-dark">{selectGroup} <i className="fas fa-minus-circle float-right" onClick={event => this.deleteSelectGroup(i)}> </i></li>
                                             ))}
                                         </div>
                                         <div className="popup-addGroup">
                                             <form onSubmit={this.addUserGroup}>
                                                 <select required={true} className="popup-addGroup--input"  onClick={e => this.setState({ group: e.target.value })}>
                                                     <option key="0"> </option>
-                                                    {this.state.groups.map(group => (
-                                                        <option   key={group.id} onClick={e => this.setState({ groupId: group.id })} value={group.name}>{group.name}</option>
+                                                    {this.state.groups2.map((group, i) => (
+                                                        <option   key={i}  value={group}>{group}</option>
                                                     ))}
                                                 </select>
                                                 <input type="submit" value={strings.getString("Add group")} />

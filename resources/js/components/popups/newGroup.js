@@ -19,8 +19,8 @@ export default class PopupNewUser extends Component {
             leader: 1,
             name: '',
             description: '',
-
-
+            errors: false,
+            error_message: '',
 
 
 
@@ -28,6 +28,7 @@ export default class PopupNewUser extends Component {
         //bind
         this.getUsers = this.getUsers.bind(this);
         this.makeGroup = this.makeGroup.bind(this);
+        this.checkGroup = this.checkGroup.bind(this);
     }
 
 
@@ -40,22 +41,47 @@ export default class PopupNewUser extends Component {
         );
     }
 
+
+    checkGroup() {
+        axios.post('/api/group/check', {
+            name: this.state.name,
+        }).then(response => {
+            if(response.data.exist) {
+                this.setState({errors: true, error_message: 'You already have a group with this name'})
+            } else {
+                this.setState({errors: false, error_message: ''})
+
+            }
+        });
+    }
+
     makeGroup(e) {
         e.preventDefault();
-        axios.post('/api/group/new', {
-            leader: this.state.leader,
+        axios.post('/api/group/check', {
             name: this.state.name,
-            description: this.state.description,
         }).then(response => {
-            this.setState({
-                isLoading: false,
-                created: true,
-                leader: 1,
-                name: '',
-                description: '',
-            });
+            if(response.data.exist) {
+                this.setState({errors: true, error_message: 'You already have a group with this name'})
+            } else {
+                this.setState({errors: false, error_message: ''})
+                axios.post('/api/group/new', {
+                    leader: this.state.leader,
+                    name: this.state.name,
+                    description: this.state.description,
+                }).then(response => {
+                    this.setState({
+                        isLoading: false,
+                        created: true,
+                        leader: 1,
+                        name: '',
+                        description: '',
+                    });
+                    location.reload();
+                });
+
+            }
         });
-        location.reload();
+
     }
 
     componentWillMount() {
@@ -98,6 +124,7 @@ export default class PopupNewUser extends Component {
                                 <div className="row">
                                     <div className="six columns">
                                         <label>Group name</label>
+                                        <div id="red">{this.state.error_message}</div>
                                         <input type="text" required={true} value={this.state.name}  onChange={e => this.setState({ name: e.target.value })}  />
                                     </div>
                                     <div className="six columns">

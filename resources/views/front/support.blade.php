@@ -13,11 +13,11 @@
 
                 @if( App::getLocale() == "nl")
                     <a  href="{{route('lang_set', "en")}}">
-                        <img src="https://cdn.countryflags.com/thumbs/united-kingdom/flag-waving-250.png" width="35px" class="float-right" style="margin-top: 5px; margin-right: 8px"/>
+                        <img src="images/flag-en.png" width="35px" class="float-right" style="margin-top: 5px; margin-right: 8px"/>
                     </a>
                 @else
                     <a  href="{{route('lang_set', "nl")}}">
-                        <img src="https://cdn.countryflags.com/thumbs/netherlands/flag-waving-250.png" width="35px" class="float-right" style="margin-top: 5px; margin-right: 8px"/>
+                        <img src="images/flag-nl.png" width="35px" class="float-right" style="margin-top: 5px; margin-right: 8px"/>
                     </a>
                 @endif
             </ul>
@@ -40,13 +40,13 @@
     </div>
 
     <section class="dark support-items">
-        <h3>We help you with a big smile</h3>
-        <p>Costumer satisfaction is very important for our company. We have a lot of resources to solve problems with a big smile. Before asking a question, please check the Q&A section to see if you can find the answer there. Not found? Do not hesitate to contact us.</p>
+        <h3>@lang("We help you with a big smile")</h3>
+        <p>@lang("Costumer satisfaction is very important for our company. We have a lot of resources to solve problems with a big smile. Before asking a question, please check the Q&A section to see if you can find the answer there. Not found? Do not hesitate to contact us.")</p>
         <div class="row">
             <div class="three columns">
                 <div class="support-item">
                     <i class="fas fa-envelope"></i>
-                    <h6><a href="mailto:support@worktogether.com">support@worktogether.com</a></h6>
+                    <h6><a href="mailto:support@project-together.com">support@project-together.com</a></h6>
                 </div>
             </div>
             <div class="three columns">
@@ -58,25 +58,25 @@
             <div class="three columns">
                 <div class="support-item">
                     <i class="fas fa-book"></i>
-                    <h6><a href="{{route('front_docs')}}">Documentation</a></h6>
+                    <h6><a href="{{route('front_docs')}}">@lang("Documentation")</a></h6>
                 </div>
             </div>
             <div class="three columns">
                 <div class="support-item">
                     <i class="fas fa-th-large"></i>
-                    <h6><a href="{{route('front_blog')}}">Our blog</a></h6>
+                    <h6><a href="{{route('front_blog')}}">@lang("Our blog")</a></h6>
                 </div>
             </div>
         </div>
     </section>
     <section class="form">
-        <h3 id="white">Haven't found your answer?</h3>
+        <h3 id="white">@lang("Haven't found your answer?")</h3>
         <div class="row">
             <div class="six columns">
                 <div class="form-title">
                     Ask here!
                 </div>
-                <i><i class="fas fa-clock"></i>We answer in less then 2 hours</i>
+                <i><i class="fas fa-clock"></i>@lang("We answer in less then 12 hours")</i>
             </div>
             <div class="six columns">
                 <div class="form-form">
@@ -87,18 +87,19 @@
                         {{ csrf_field() }}
                         <div class="row">
                             <div class="six columns">
-                                <label for="email">Your email</label>
+                                <label for="email">@lang("Your email")</label>
                                 <input class="u-full-width" type="email" placeholder="test@mailbox.com" id="email" required name="email">
                             </div>
                             <div class="six columns">
-                                <label for="reason">Reason for contacting</label>
+                                <label for="reason">@lang("Reason for contacting")</label>
                                 <select class="u-full-width" id="reason" name="reason" required>
                                     <option></option>
-                                    <option value="Option 1">I have question about billing </option>
-                                    <option value="Option 2">I have a question about a feature</option>
-                                    <option value="Option 2">I have a idea for a new feature</option>
-                                    <option value="Option 2">I found a bug</option>
-                                    <option value="Option 2">Other</option>
+                                    <option value="Option 1">@lang("I have question about billing")</option>
+                                    <option value="Option 2">@lang("I have a question about a feature")</option>
+                                    <option value="Option 3">@lang("I have a idea for a new feature")</option>
+                                    <option value="Option 4">@lang("I have a request for my data")</option>
+                                    <option value="Option 5">@lang("I found a error or bug")</option>
+                                    <option value="Option 6">@lang("Other")</option>
 
 
                                 </select>
@@ -106,17 +107,17 @@
                         </div>
                         <div class="row">
                             <div class="six columns">
-                                <label for="phone">Your phone number</label>
+                                <label for="phone">@lang("Your phone number")</label>
                                 <input class="u-full-width" type="tel" placeholder="04/74.45.51.52" id="phone" name="phone">
                             </div>
                             <div class="six columns">
-                                <label for="company">Your company</label>
-                                <input class="u-full-width" type="email" placeholder="WorkTogether" id="company" name="company">
+                                <label for="company">@lang("Your company")</label>
+                                <input class="u-full-width" type="email" placeholder="Project-Together" id="company" name="company">
                             </div>
                         </div>
-                        <label for="message">Your message</label>
+                        <label for="message">@lang("Your message")</label>
                         <textarea class="u-full-width" placeholder="Hello, I have a question about ..." id="message" name="message" required minlength="100"></textarea>
-                        <input type="submit" value="Send" href="" class="button button-primary button-medium" />
+                        <input type="submit" value=@lang("Send") href="" class="button button-primary button-medium" />
                     </form>
                 </div>
             </div>

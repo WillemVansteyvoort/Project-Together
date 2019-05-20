@@ -764,7 +764,7 @@ export default class ProjectOverview extends Component {
                     <div className="popup">
                         <div className="popup-titleBar">
                             Change {this.state.user_name}
-                            <button className="popup-btn--close"  onClick={() => this.toggleShow(false)}>✕</button>
+                            <button className="popup-btn--close"  onClick={() => this.toggleShowUser(false)}>✕</button>
                         </div>
                         <div className="popup-content">
                             <div className="row">

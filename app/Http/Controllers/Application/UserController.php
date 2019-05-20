@@ -166,13 +166,31 @@ class UserController extends SlugifyController
         $user->rights->right_data = $request->right_data;
         $user->rights->save();
 
+        $user->groups()->detach();
+        //new groups for user
+        if(sizeof($request->selectedGroups) > 0) {
+            foreach ($request->selectedGroups as $name) {
+                $group = Group::where([
+                    ['name', '=',$name],
+                    ['company_id', '=', Auth::user()->company_id],
+                ])->first();
+
+                $user->groups()->attach($group->id);
+            }
+        }
+
+
         //returning new users
         $users = User::where([
             ['company_id', '=', Auth::user()->company_id],
         ])->with('city','city.country', 'two_step' ,'rights', 'two_step', 'groups')->get();
 
+        $groups = Group::where('company_id', Auth::user()->company_id)->with(['users'], ['owner'])->get();
+        return response()->json([
+            'users' => $users,
+            'groups' => $groups,
+        ]);
 
-        return $users->toJson(JSON_PRETTY_PRINT);
     }
 
     public function deleteUser(Request $request) {

@@ -13,11 +13,11 @@
 
                     @if( App::getLocale() == "nl")
                         <a  href="{{route('lang_set', "en")}}">
-                            <img src="https://cdn.countryflags.com/thumbs/united-kingdom/flag-waving-250.png" width="35px" class="float-right" style="margin-top: 5px; margin-right: 8px"/>
+                            <img src="images/flag-en.png" width="35px" class="float-right" style="margin-top: 5px; margin-right: 8px"/>
                         </a>
                     @else
                         <a  href="{{route('lang_set', "nl")}}">
-                            <img src="https://cdn.countryflags.com/thumbs/netherlands/flag-waving-250.png" width="35px" class="float-right" style="margin-top: 5px; margin-right: 8px"/>
+                            <img src="images/flag-nl.png" width="35px" class="float-right" style="margin-top: 5px; margin-right: 8px"/>
                         </a>
                     @endif
                 </ul>
@@ -96,7 +96,7 @@
                                 <li>Includes all add-ons*</li>
                             </ul>
                             <a href="{{route('front_signup')}}" class="button button-primary button-medium">
-                                Get started
+                                @lang("Get started")
                             </a>
                         </div>
                     </div>
@@ -115,7 +115,7 @@
                                 <li>Includes all add-ons*</li>
                             </ul>
                             <a href="{{route('front_signup')}}" class="button button-primary button-medium">
-                                Get started
+                                @lang("Get started")
                             </a>
                         </div>
                     </div>
@@ -124,7 +124,7 @@
         </section>
 
         <section class="add-ons">
-            <h3 class="products-title">You choose, we make it happen</h3>
+            <h3 class="products-title">@lang("You choose, we make it happen")</h3>
             <div class="row">
                 <div class="two columns">
                     <div class="add-ons--body tablinks active" onclick="openCity(event, 'channels')">
@@ -142,7 +142,7 @@
                 <div class="two columns">
                     <div class="add-ons--body tablinks" onclick="openCity(event, 'tasks')" >
                         <i class="fas fa-tasks"></i>
-                        <h4>Tasks</h4>
+                        <h4>@lang("Tasks")</h4>
                     </div>
                 </div>
                 <div class="two columns">
@@ -155,7 +155,7 @@
                 <div class="two columns">
                     <div class="add-ons--body tablinks" onclick="openCity(event, 'agenda')">
                         <i class="fas fa-calendar"></i>
-                        <h4>Calendar</h4>
+                        <h4>@lang("Calendar")</h4>
                     </div>
                 </div>
                 <div class="two columns">
@@ -172,10 +172,10 @@
                     </div>
                     <div class="eight columns">
                         <div class="add-ons--activeText">
-                            <h4>Discuss with project partners</h4>
-                            <p>When you create a project you can choose forum as add-on. A forum is a public medium or place used for debates in which anyone can participate. When you want to start a debate or discussion you can easily make a thread were all of your project members can reply to and say theire opinion. You also have the option to select tags to sort on.
+                            <h4>@lang("Discuss with project partners")</h4>
+                            <p>@lang("When you create a project you can choose forum as add-on. A forum is a public medium or place used for debates in which anyone can participate. When you want to start a debate or discussion you can easily make a thread where all of your project members can reply and say theire opinion. You also have the option to select tags to sort on.")
                             </p>
-                            <a href="{{route('front_signup')}}">Go for it!</a>
+                            <a href="{{route('front_signup')}}">@lang("Go for it!")</a>
                         </div>
                     </div>
                 </div>
@@ -186,12 +186,12 @@
                 </div>
                 <div class="eight columns">
                     <div class="add-ons--activeText">
-                        <h4>Be aware of bugs and errors</h4>
-                        <p>When you add the add-on Crisis Center to your project, you have a place where you can collect all important faults or bugs that have to be solved immediately. When creating a new item you have to choose a priority. There are three types of priorities: low, medium and high. The Crisis Center is therefore intended to identify errors and bugs.
+                        <h4>@lang("Be aware of bugs and errors")</h4>
+                        <p>@lang("When you add the add-on Crisis Center to your project, you have a place where you can collect all important errors or bugs that have to be solved immediately. When creating a new item you have to choose a priority. There are three types of priorities: low, medium and high.")
 
 
                         </p>
-                        <a href="{{route('front_signup')}}">Go for it!</a>
+                        <a href="{{route('front_signup')}}">@lang("Go for it!")</a>
                     </div>
                 </div>
             </div>
@@ -202,10 +202,10 @@
                     </div>
                     <div class="eight columns">
                         <div class="add-ons--activeText">
-                            <h4>Set tasks that need to be done</h4>
-                            <p>When creating a project you can choose tasks. This add-on allows you to create tasks. You can assign a task to an employee or colleague. Tasks can also have an end date when the task must be completed. Finally, you can also set a task as active in which a timer starts to run. With tasks you can divide the work among your employees or colleagues.
+                            <h4>@lang("Set tasks that need to be done")</h4>
+                            <p> @lang("This add-on allows you to create tasks in a project. You can assign a task to an employee or colleague. Tasks can also have an end date when the task must be completed. Finally, you can also set a task on active which means a timer starts to run. With tasks you can divide the work among your employees or colleagues.")
                             </p>
-                            <a href="{{route('front_signup')}}">Go for it!</a>
+                            <a href="{{route('front_signup')}}">@lang("Go for it!")</a>
                         </div>
                     </div>
                 </div>
@@ -217,10 +217,10 @@
                     </div>
                     <div class="eight columns">
                         <div class="add-ons--activeText">
-                            <h4>Don't forget anything with notes</h4>
-                            <p>You have the option to have notes in your project. This add-on is the online notice-board so that you don't have to use your fridge. You can make a note for everyone in the project or just for yourself.
+                            <h4>@lang("Don't forget anything with notes")</h4>
+                            <p>@lang("You have the option to have notes in your project. This add-on is an online notice-board so that you don't have to use your fridge. You can make a note for everyone in the project or just for yourself.")
                             </p>
-                            <a href="{{route('front_signup')}}">Go for it!</a>
+                            <a href="{{route('front_signup')}}">@lang("Go for it!")</a>
                         </div>
                     </div>
                 </div>
@@ -232,10 +232,10 @@
                     </div>
                     <div class="eight columns">
                         <div class="add-ons--activeText">
-                            <h4>Save your group meetings</h4>
-                            <p>Project-Together has a simple calendar that's only for your company. You and you're colleagues or employees can view events or add new events. An event can be labeled as public or as private. If it's private, you can only see the event. With this calendar you can share all events with everyone in an organized way.
+                            <h4>@lang("Save your group meetings")</h4>
+                            <p> @lang("Project-Together has a simple calendar that's only for your company. You and your colleagues or employees can view or add events. An event can be labeled public or as private. If it's private, only you can see the event. With this calendar you can share all events with everyone in an organized way.")
                             </p>
-                            <a href="{{route('front_signup')}}">Go for it!</a>
+                            <a href="{{route('front_signup')}}">@lang("Go for it!")</a>
                         </div>
                     </div>
                 </div>
@@ -247,17 +247,17 @@
                     </div>
                     <div class="eight columns">
                         <div class="add-ons--activeText">
-                            <h4>Ask a question</h4>
-                            <p>Your struggling with a chose to make? No problem! You can make a poll in your project so that you can ask them there opinion about your chose. You can set multiple voting or just one time.
+                            <h4>@lang("Ask a question")</h4>
+                            <p>@lang("Are you struggling with a choice to make? No problem! You can make a poll in your project to ask an opinion. You can let members vote multiple times or just once.")
                             </p>
-                            <a href="{{route('front_signup')}}">Go for it!</a>
+                            <a href="{{route('front_signup')}}">@lang("Go for it!")</a>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
         <section class="slideshow">
-            <h3 class="slideshow-title">A view of Project-Together</h3>
+            <h3 class="slideshow-title">@lang("A view of Project-Together")</h3>
             <div class="slideshow-show">
                 <div class="w3-display-container mySlides">
                     <img src="images/slide/dashboard.JPG" style="width:100%">
@@ -289,7 +289,7 @@
             </div>
         </section>
         <section class="quotes hidden-mobile">
-            <h3 id="white">What our costumers say about us</h3>
+            <h3 id="white">@lang("What our customers say about us")</h3>
             <div class="row">
                 <div class="six columns">
                     <div class="quote">

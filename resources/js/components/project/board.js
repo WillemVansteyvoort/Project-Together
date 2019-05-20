@@ -403,7 +403,7 @@ export default class ProjectBoard extends Component {
                         <div className="popup-titleBar">
                             Edit this card
                         </div>
-                            <button className="popup-btn--close"  onClick={() => this.toggleShow(false)}>✕</button>
+                            <button className="popup-btn--close"  onClick={() => this.toggleShowEdit(false)}>✕</button>
                             <div className="popup-content">
                                 <div className="row">
                                     <div className="twelve columns">

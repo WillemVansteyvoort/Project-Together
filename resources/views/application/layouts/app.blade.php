@@ -114,6 +114,9 @@
 <div class="container">
     @include('application.layouts.header')
     @yield('content')
+    <footer class="center-text">
+        <p>© 2019 Project-Together, all rights reserved.</p>
+    </footer>
 </div>
 </body>
 <script async="async" type="text/javascript" src="{{ asset('js/header.js') }}"></script>

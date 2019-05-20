@@ -130,7 +130,7 @@ export default class TabsDashboard extends Component {
     }
 
     notificationsYesterday() {
-        axios.get('/api/notifcations/yesterday/').then((
+        axios.get('/api/notifcations/yesterday').then((
             response
             ) =>
                 this.setState({

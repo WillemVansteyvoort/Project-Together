@@ -12,11 +12,11 @@
                 <li><a href="{{route('front_support')}}">Support</a></li>
                 @if( App::getLocale() == "nl")
                     <a  href="{{route('lang_set', "en")}}">
-                        <img src="https://cdn.countryflags.com/thumbs/united-kingdom/flag-waving-250.png" width="35px" class="float-right" style="margin-top: 5px; margin-right: 8px"/>
+                        <img src="images/flag-en.png" width="35px" class="float-right" style="margin-top: 5px; margin-right: 8px"/>
                     </a>
                 @else
                     <a  href="{{route('lang_set', "nl")}}">
-                        <img src="https://cdn.countryflags.com/thumbs/netherlands/flag-waving-250.png" width="35px" class="float-right" style="margin-top: 5px; margin-right: 8px"/>
+                        <img src="images/flag-nl.png" width="35px" class="float-right" style="margin-top: 5px; margin-right: 8px"/>
                     </a>
                 @endif
             </ul>

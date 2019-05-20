@@ -11,7 +11,7 @@ class CreateGroupController extends CompanyController
 {
     public function create(Request $request) {
         $group = Group::create([
-            'name' => $request->name,
+            'name' => strtolower($request->name),
             'company_id' => Auth::user()->company_id,
             'description' => $request->description,
             'user_id' => $request->leader,
@@ -31,5 +31,19 @@ class CreateGroupController extends CompanyController
         return $groups->toJson(JSON_PRETTY_PRINT);
     }
 
-    public function checkGroup(R)
+    public function checkGroup(Request $request) {
+        $exists = false;
+        if(Group::where([['company_id', Auth::user()->company_id], ['name', '=', strtolower($request->name)]])->count() > 0) {
+           $exists =true;
+        }
+        return response()->json([
+            'exist' => $exists,
+        ]);
+    }
+
+    public function deleteGroup(Request $request) {
+        $group = Group::findOrFail($request->id);
+        $group->users()->detach();
+        $group->delete();
+    }
 }

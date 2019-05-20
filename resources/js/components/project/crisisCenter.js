@@ -406,7 +406,7 @@ export default class ProjectCrisisCenter extends Component {
                     <div className="popup">
                         <div className="popup-titleBar">
                             Edit an item
-                            <button className="popup-btn--close"  onClick={() => this.toggleShow(false)}>✕</button>
+                            <button className="popup-btn--close"  onClick={() => this.toggleEdit(false)}>✕</button>
                         </div>
                         <div className="popup-content">
                             <div className="row">

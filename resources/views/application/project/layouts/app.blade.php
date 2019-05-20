@@ -109,6 +109,7 @@
 <div class="container">
     @include('application.project.layouts.header')
     @yield('content')
+    @yield('content')
 </div>
 </body>
 <script async="async" type="text/javascript" src="{{ asset('js/header.js') }}"></script>

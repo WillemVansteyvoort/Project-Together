@@ -8,6 +8,11 @@ const Timestamp = require('react-timestamp');
 import 'react-notifications/lib/notifications.css';
 import Notification from './notification';
 import FileUploader from './others/fileUploader';
+import LocalizedStrings from 'localized-strings';
+import en from './lang/en.json';
+import nl from './lang/nl.json';
+
+let strings = new LocalizedStrings({en,nl});
 export default class TabsAccount extends Component {
 
     constructor(props) {
@@ -123,6 +128,7 @@ export default class TabsAccount extends Component {
 
 
     componentWillMount() {
+        strings.setLanguage(window.Laravel.lang);
         this.getCountries();
         this.getLogs();
         this.getStats();
@@ -492,18 +498,18 @@ export default class TabsAccount extends Component {
                            <div className="three columns">
                                <div className="account-menu">
                                    <TabList>
-                                       <h5>Your settings</h5>
-                                       <Tab tabFor="vertical-tab-one" className="account-tab"><i className="fas fa-user"> </i> Adjust your profile</Tab>
-                                       <Tab tabFor="vertical-tab-two"  className="account-tab"><i className="fas fa-cog"> </i>Change your settings</Tab>
-                                       <Tab tabFor="vertical-tab-three"  className="account-tab"><i className="fas fa-camera"> </i>Upload avatar</Tab>
-                                       <h5>Account security</h5>
-                                       <Tab tabFor="vertical-tab-four" className="account-tab"><i className="fas fa-user"> </i> Two step authentication</Tab>
-                                       <Tab tabFor="vertical-tab-five"  className="account-tab"><i className="fas fa-life-ring"> </i>Change password</Tab>
-                                       <Tab tabFor="vertical-tab-six"  className="account-tab"><i className="fas fa-tags"></i>My sessions</Tab>
+                                       <h5>{strings.getString("Your settings")}</h5>
+                                       <Tab tabFor="vertical-tab-one" className="account-tab"><i className="fas fa-user"> </i>{strings.getString("Edit your profile")}</Tab>
+                                       <Tab tabFor="vertical-tab-two"  className="account-tab"><i className="fas fa-cog"> </i>{strings.getString("Change your settings")}</Tab>
+                                       <Tab tabFor="vertical-tab-three"  className="account-tab"><i className="fas fa-camera"> </i>{strings.getString("Upload avatar")}</Tab>
+                                       <h5>{strings.getString("Account security")}</h5>
+                                       <Tab tabFor="vertical-tab-four" className="account-tab"><i className="fas fa-user"> </i>{strings.getString("Two step authentication")}</Tab>
+                                       <Tab tabFor="vertical-tab-five"  className="account-tab"><i className="fas fa-life-ring"> </i>{strings.getString("Change password")}</Tab>
+                                       <Tab tabFor="vertical-tab-six"  className="account-tab"><i className="fas fa-tags"></i>{strings.getString("My sessions")}</Tab>
 
-                                       <h5>Website content</h5>
-                                       <Tab tabFor="vertical-tab-seven" className="account-tab"><i className="fas fa-signal"> </i> My statistics</Tab>
-                                       <Tab tabFor="vertical-tab-eight"  className="account-tab"><i className="fas fa-download"> </i>Download your data</Tab>
+                                       <h5>{strings.getString("Website content")}</h5>
+                                       <Tab tabFor="vertical-tab-seven" className="account-tab"><i className="fas fa-signal"> </i> {strings.getString("My statistics")}</Tab>
+                                       <Tab tabFor="vertical-tab-eight"  className="account-tab"><i className="fas fa-download"> </i>{strings.getString("Download your data")}</Tab>
                                    </TabList>
                                </div>
                            </div>

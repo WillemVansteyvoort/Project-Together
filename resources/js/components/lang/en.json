@@ -95,6 +95,17 @@
   "Other settings" : "Other settings",
   "Add new tag" : "Add new tag",
   "No tags selected" : "No tags selected",
-  "Make a new Project" : "Make a new Project"
+  "Make a new Project" : "Make a new Project",
+  "Your settings" : "Your settings",
+  "Edit your profile" : "Edit your profile",
+  "Change your settings" : "Change your settings",
+  "Upload avatar" : "Upload avatar",
+  "Two step authentication" : "Two step authentication",
+  "Change password" : "Change password",
+  "My sessions": "My sessions",
+  "Account security" : "Account security",
+  "Website content" : "Website content",
+  "My statistics": "My statistics",
+  "Download your data": "Download your data"
 
 }
