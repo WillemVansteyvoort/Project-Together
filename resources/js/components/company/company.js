@@ -44,7 +44,9 @@ export default class CompanyUsers extends Component {
             user_name: '',
             user_lastname: '',
             user_username: '',
+            user_oldUsername: '',
             user_email: '',
+            user_oldEmail: '',
             user_avatar: '',
             user_street: '',
             user_phone: '',
@@ -76,10 +78,12 @@ export default class CompanyUsers extends Component {
             right_data: false,
 
             //field check
-            email_check: true,
+            email_check: false,
+            username_check: false,
             email_message: '',
             firstName_check: '',
             lastName_check: '',
+            username_message: '',
             password_check: '',
             passwordRetype_check: '',
             //success
@@ -101,6 +105,7 @@ export default class CompanyUsers extends Component {
         this.addUserGroup = this.addUserGroup.bind(this);
         this.deleteSelectGroup = this.deleteSelectGroup.bind(this);
         this.deleteGroup = this.deleteGroup.bind(this);
+        this.checkUsername = this.checkUsername.bind(this);
     }
 
     addGroup(e) {
@@ -237,7 +242,9 @@ export default class CompanyUsers extends Component {
             user_id: user.id,
             user_lastname: user.lastname,
             user_username: user.username,
+            user_oldUsername: user.username,
             user_email: user.email,
+            user_oldEmail: user.email,
             user_avatar: user.avatar,
             user_street: user.street,
             user_phone: user.phone,
@@ -293,6 +300,7 @@ export default class CompanyUsers extends Component {
         } else {
             axios.post('/api/check/email', {
                 user_email: this.state.user_email,
+                user_oldEmail: this.state.user_oldEmail
             }).then(response => {
                 this.setState({
                     email_check: response.data.email_check,
@@ -310,6 +318,29 @@ export default class CompanyUsers extends Component {
             });
         }
     }
+    checkUsername(e) {
+        e.preventDefault();
+            axios.post('/api/check/username', {
+                user_username: this.state.user_username,
+                user_oldUsername: this.state.user_oldUsername
+            }).then(response => {
+                this.setState({
+                    username_check: response.data.username_check,
+                });
+
+                if (this.state.username_check) {
+                    this.setState({
+                        username_message: "There is already a member with this username",
+                    });
+                } else {
+                    this.setState({
+                        username_message: "",
+
+                    });
+                }
+            });
+    }
+
     checkName(e) {
         e.preventDefault();
         if(this.state.user_name.length < 2) {
@@ -329,29 +360,27 @@ export default class CompanyUsers extends Component {
     }
 
     updateUser() {
-        let errors = false;
+        let errorsEmail = false;
         if ((this.state.user_email.length < 6) || (this.state.user_email.split('').filter(x => x === '@').length !== 1) || this.state.user_email.indexOf('.') === -1) {
             this.setState({email_message: "Please enter a valid email"});
-            errors = true;
+            errorsEmail = true;
         } else if (!this.state.email_check) {
             this.setState({email_message: ""});
         }
 
         if (this.state.user_name.length < 2) {
             this.setState({firstName_check: "Name must have at least 2 characters"});
-            errors = true;
         } else {
             this.setState({firstName_check: ""});
         }
 
         if (this.state.user_lastname.length < 4) {
             this.setState({lastName_check: "Name must have at least 4 characters"});
-            errors = true;
         } else {
             this.setState({lastName_check: ""});
         }
 
-        if (true) {
+        if (this.state.user_name.length >=2 && !errorsEmail && this.state.user_lastname.length >= 4 && !this.state.email_check && !this.state.username_check) {
             axios.post('/api/user/edit', {
                 user_id: this.state.user_id,
                 user_name: this.state.user_name,
@@ -635,8 +664,9 @@ export default class CompanyUsers extends Component {
                                     <TabPanel tabId="two">
                                         <div className="row">
                                             <div className="six columns">
+                                                <div id="red">{this.state.username_message}</div>
                                                 <label>{strings.getString("Username")}</label>
-                                                <input type="text" value={this.state.user_username}   onChange={e => this.setState({ user_username: e.target.value })}/>
+                                                <input type="text" value={this.state.user_username} onBlur={this.checkUsername}  onChange={e => this.setState({ user_username: e.target.value })}/>
 
                                             </div>
                                             <div className="six columns">

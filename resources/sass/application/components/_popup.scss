@@ -20,6 +20,9 @@
     padding: 20px 24px 30px;
   }
 
+  &-dark  {
+    background-color: #F2F2F2 !important;
+  }
   &-tab {
     border: none;
     background-color: #F8F8F8;
@@ -90,6 +93,85 @@
     }
     i {
       margin-top: 6px;
+    }
+  }
+
+  .popcalendar {
+    border: 1px solid white;
+    box-shadow: 0 0.1rem 0.1rem rgba(0, 0, 0, 0.05);
+    border-radius: 3px/6px;
+  }
+
+
+  &-events {
+    margin-bottom: 25px;
+    border: 1px solid white;
+    box-shadow: 0 0.1rem 0.1rem rgba(0, 0, 0, 0.05);
+    border-radius: 3px/6px;
+    height: 160px;
+    &-date {
+      height: 160px;
+      background-color: #2D3E50;
+      font-family: "Raleway", sans-serif;
+      text-align: center;
+      color: white;
+      .day {
+        display: block;
+        font-size: 30px;
+      }
+    }
+    &-content {
+      height: 160px;
+      overflow: auto;
+      .title {
+        background-color: #2D3E50;
+        padding: 12px;
+        color: white;
+        font-weight: bold;
+      }
+
+      p {
+        padding: 12px;
+      }
+    }
+  }
+
+
+  .calendar-item {
+    &-date {
+      background-color: #2D3E50;
+      font-family: "Raleway", sans-serif;
+      text-align: center;
+      color: white;
+
+      .day {
+        display: block;
+        font-size: 30px;
+      }
+
+      .month {
+
+      }
+    }
+    &-content {
+      width: 100%;
+      padding: 0;
+      margin: 0;
+      .title {
+        margin: 0;
+        color: white;
+        padding: 8px;
+        width: 100%;
+        font-weight: bold;
+        background-color: #2D3E50;
+      }
+      .text {
+        padding: 12px;
+        p {
+          padding: 12px;
+          margin: 0;
+        }
+      }
     }
   }
 

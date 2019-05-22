@@ -165,6 +165,7 @@ Route::post('/api/account/settings/change', 'Application\AccountController@updat
 Route::get('/api/account/stats', 'Application\AccountController@getStats');
 Route::post('/api/account/checkEmail', 'Application\AccountController@checkEmail');
 //user
+Route::post('/api/check/username', 'Application\UserController@checkUsername');
 Route::post('/api/check/email', 'Application\UserController@checkEmail');
 Route::post('/api/user/new', 'Application\UserController@createUser');
 Route::post('/api/user/edit', 'Application\UserController@editUser');
@@ -266,6 +267,8 @@ Route::post('/api/project/tasks/create', 'Application\Project\TaskController@cre
 Route::post('/api/project/tasks/delete', 'Application\Project\TaskController@deleteTask');
 Route::post('/api/project/tasks/edit', 'Application\Project\TaskController@editTask');
 Route::post('/api/project/tasks/list/create', 'Application\Project\TaskController@createList');
+Route::post('/api/project/tasks/list/edit', 'Application\Project\TaskController@editList');
+Route::post('/api/project/tasks/list/delete', 'Application\Project\TaskController@deleteList');
 Route::post('/api/project/overview/tasks/get', 'Application\Project\TaskController@getModule');
 Route::get('/api/project/overview/tasks/widget', 'Application\Project\TaskController@widget');
 });

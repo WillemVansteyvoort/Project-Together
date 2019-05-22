@@ -59,6 +59,12 @@ export default class ProjectTasks extends Component {
             edit_user: '',
             edit_end: '',
 
+            //edit a list
+            showEditList: false,
+            editList_name: '',
+            editList_id: 0,
+            editList_i: 0,
+
         };
         this.getLists = this.getLists.bind(this);
         this.asDone = this.asDone.bind(this);
@@ -69,6 +75,8 @@ export default class ProjectTasks extends Component {
         this.makeList = this.makeList.bind(this);
         this.deleteTask = this.deleteTask.bind(this);
         this.editTask = this.editTask.bind(this);
+        this.editList = this.editList.bind(this);
+        this.deleteList = this.deleteList.bind(this);
     }
 
     getUsers() {
@@ -187,6 +195,34 @@ export default class ProjectTasks extends Component {
         });
     }
 
+    editList(e) {
+        e.preventDefault();
+        axios.post('/api/project/tasks/list/edit', {
+            list_id: this.state.editList_id,
+            list_name: this.state.editList_name,
+        }).then(response => {
+            this.state.lists[this.state.editList_i].name = this.state.editList_name;
+            this.setState({
+                showEditList: false
+            })
+        });
+    }
+
+    deleteList(e) {
+        e.preventDefault();
+        axios.post('/api/project/tasks/list/delete', {
+            list_id: this.state.editList_id,
+        }).then(response => {
+            let lists = this.state.lists;
+            lists.splice(this.state.editList_i, 1);
+
+            this.setState({
+                showEditList: false,
+                lists: lists
+            })
+        });
+    }
+
     makeTask(e) {
         e.preventDefault();
         axios.post('/api/project/tasks/create', {
@@ -266,6 +302,9 @@ export default class ProjectTasks extends Component {
         this.setState({showTask});
     }
 
+    toggleShowEditList(showEditList) {
+        this.setState({showEditList});
+    }
 
     tasks() {
 
@@ -301,6 +340,7 @@ export default class ProjectTasks extends Component {
                                 <AccordionItem key={i}>
                                     <AccordionItemTitle>
                                         <i className="far fa-minus-square"> </i> {list.name}
+                                        <i className="fas fa-edit float-right project-tasks-deleteList" onClick={event => this.setState({editList_name: list.name, editList_id: list.id, showEditList: true, editList_i: i})}> </i>
                                     </AccordionItemTitle>
                                     <AccordionItemBody>
                                         {list.tasks.map((task, j)=> (
@@ -341,6 +381,7 @@ export default class ProjectTasks extends Component {
         const {showTask} = this.state;
         const {show} = this.state;
         const {showEdit} = this.state;
+        const {showEditList} = this.state;
 
         return (
 
@@ -435,7 +476,7 @@ export default class ProjectTasks extends Component {
                                     <div className="six columns">
                                         <label>Task for</label>
                                         <select onChange={event => this.setState({task_user: event.target.value})}>
-                                            <option>Anyone</option>
+                                            <option value="0">Anyone</option>
                                             {this.state.users.map((user, j)=> (
                                                 <option key={user.id} value={user.id}>{user.name} {user.lastname}</option>
                                             ))}
@@ -460,7 +501,7 @@ export default class ProjectTasks extends Component {
                     closeOnOverlay={true}>
                     <div className="popup">
                         <div className="popup-titleBar">
-                            Make a new task
+                            Edit a new task
                             <button className="popup-btn--close"  onClick={() => this.toggleShowEdit(false)}>✕</button>
                         </div>
                         <div className="popup-content">
@@ -487,6 +528,31 @@ export default class ProjectTasks extends Component {
                                 </div>
                             </div>
                             <button className="button-primary button no-button float-right">Edit task</button>
+                            </form>
+                            </div>
+                    </div>
+                </PopPop>
+
+                <PopPop
+                    open={showEditList}
+                    closeOnEsc={true}
+                    onClose={() => this.toggleShowEditList(false)}
+                    closeOnOverlay={true}>
+                   <div className="popup">
+                        <div className="popup-titleBar">
+                            Edit a list
+                            <button className="popup-btn--close"  onClick={() => this.toggleShowEditList(false)}>✕</button>
+                        </div>
+                        <div className="popup-content">
+                            <form onSubmit={event => this.editList(event)}>
+                                <div className="twelve columns">
+                                <label>Name</label>
+                                <input value={this.state.editList_name} onChange={event => this.setState({editList_name: event.target.value})} type="text" required={true} />
+
+                            </div>
+                            <button className="button-primary button no-button float-left" type="submit">Edit list</button>
+                                <button className="button-red button no-button float-right" onClick={event => this.deleteList(event)}>Delete list</button>
+
                             </form>
                             </div>
                     </div>

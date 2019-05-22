@@ -69,6 +69,7 @@ export default class TabsAccount extends Component {
 
             //messages
             email_message: '',
+            email_checked: true,
             name_message: '',
             lastname_message: '',
 
@@ -124,6 +125,7 @@ export default class TabsAccount extends Component {
         this.onChange = this.onChange.bind(this);
         this.fileUpload = this.fileUpload.bind(this);
         this.getStats = this.getStats.bind(this);
+        this.checkCompanyEmail = this.checkCompanyEmail.bind(this);
     }
 
 
@@ -219,23 +221,24 @@ export default class TabsAccount extends Component {
         );
     }
 
-    verifyAccount(e) {
+    checkCompanyEmail(e) {
         e.preventDefault();
-        let errorEmail = false;
         axios.post('/api/account/checkEmail', {
             user_email: this.state.user_email,
         }).then(response => {
-           if(response.data === "yes") {
-               errorEmail = true;
-               this.setState({email_message: "This email already exists in the company"});
-               this.setState({errors_email: true});
-           }
+            this.setState({email_checked: true})
+            if(response.data === "yes") {
+                this.setState({email_message: "This email already exists in the company"});
+                this.setState({errors_email: true});
+            }
         });
+    }
 
+    verifyAccount(e) {
+        e.preventDefault();
         if ((this.state.user_email.length < 6) || (this.state.user_email.split('').filter(x => x === '@').length !== 1) || this.state.user_email.indexOf('.') === -1) {
             this.setState({email_message: "Please enter a valid email"});
             this.setState({errors_email: true});
-            errorEmail = true;
         }
 
         let errorFirstName = false;
@@ -252,7 +255,7 @@ export default class TabsAccount extends Component {
             errorSecondName = true;
         }
 
-        if(!errorEmail && !errorFirstName && !errorSecondName) {
+        if(this.state.email_checked && (!this.state.errors_email) && (!errorFirstName) && (!errorSecondName)) {
             this.setState({errors_email: false, errors_name: false, errors_lastname: false, lastname_message: '', email_message: '', name_message: ''});
             this.updateAccount(e);
 
@@ -528,7 +531,7 @@ export default class TabsAccount extends Component {
                                                <input type="text"   className={this.state.errors_name ? "border-red" : ""}  disabled={!window.Laravel.rights.right_data}  value={this.state.user_name}  className={this.state.errors_name ? "border-red" : ""}  onChange={e => this.setState({ user_name: e.target.value })}  />
                                                <label htmlFor="">E-mail</label>
                                                <div id="red">{this.state.email_message}</div>
-                                               <input type="text"  className={this.state.errors_email ? "border-red" : ""} disabled={!window.Laravel.rights.right_data}   disabled={!window.Laravel.user.admin} value={this.state.user_email}   onChange={e => this.setState({user_email: e.target.value})}  />
+                                               <input type="text"  className={this.state.errors_email ? "border-red" : ""} onChange={event => this.setState({user_email: event.target.value})} disabled={!window.Laravel.rights.right_data && !window.Laravel.user.admin}  value={this.state.user_email}  onBlur={this.checkCompanyEmail}  />
                                                <label htmlFor="">City</label>
                                                <input type="text" value={this.state.user_city}   disabled={!window.Laravel.rights.right_data}  onChange={e => this.setState({ user_city: e.target.value })}  />
                                                <label htmlFor="">Street</label>
