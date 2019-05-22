@@ -145,9 +145,9 @@ class ProjectController extends SlugifyController
             ]);
 
         //broadcast a notification
-        foreach ($userIds as $user) {
-            if(Auth::user()->id == $user) {
-                $user = User::findOrFail($user);
+        foreach ($userIds as $id) {
+            $user = User::findOrFail($id);
+            if(Auth::user()->id == $id) {
                 $noti =  Notification::create([
                     'user_id' => $user->id,
                     'title' => 'Project created',
@@ -155,8 +155,7 @@ class ProjectController extends SlugifyController
                     'content' => 'You have just created the project ' . $project->name . ' very successful.',
                 ]);
                 broadcast(new Notifications($noti,$user))->toOthers();
-            } else if($user->company_id == Auth::user()->id) {
-                $user = User::findOrFail($user);
+            } else if($user->company_id == Auth::user()->company_id) {
                 $noti =  Notification::create([
                     'user_id' => $user->id,
                     'title' => 'Added to new project',
