@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers\Application;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Others\SlugifyController;
@@ -19,11 +18,8 @@ use Illuminate\Support\Facades\Auth;
 class ProjectController extends SlugifyController
 {
     public function index() {
-
         return view('application.projects');
-
     }
-
     public function create(Request $request) {
         $url = strtolower(str_replace(' ', '', $request->title));
         $slugify = $this->slugify($url, true);
@@ -46,23 +42,18 @@ class ProjectController extends SlugifyController
             'crisiscenter' => $request->crisisCenter,
             'logs' => $request->logs,
         ]);
-
         //connect project to creator
 //        Auth::user()->projects()->attach($project, ['role' => 1]);
-
         //tags to project
         $tags = $request->tags;
         foreach ($tags as $tag) {
-
             Tag::create([
-               'name' => $tag,
-               'taggable_id' => $project->id,
+                'name' => $tag,
+                'taggable_id' => $project->id,
                 'taggable_type' => 'App\Project',
                 'project_id' => $project->id,
-
             ]);
         }
-
         //connect other member to project
         $userIds = array(1);
         foreach ($request->selectedMembers as $item) {
@@ -81,19 +72,15 @@ class ProjectController extends SlugifyController
                 case "leader":
                     $roll = 3;
                     break;
-
             }
             // broadcast
             if($item['type'] === "user") {
                 $user = User::findOrFail($item['unique']);
-
                 if (!in_array($user->id, $userIds)) {
                     $userIds[(count($userIds)+1)] = $user->id;
                 }
-
                 if(!$user->projects->contains($project->id)) {
                     $user->projects()->attach($project, ['role' => $roll]);
-
                 }
             } else {
                 $group = Group::findOrFail($item['unique']);
@@ -107,11 +94,10 @@ class ProjectController extends SlugifyController
                 }
             }
         }
-
         //make rows if board is selected
         if($project->board) {
             $firstColumn = Column::create([
-               'name' => 'Todo',
+                'name' => 'Todo',
                 'project_id' => $project->id,
                 'position' => 0,
             ]);
@@ -126,24 +112,22 @@ class ProjectController extends SlugifyController
                 'position' => 2,
             ]);
             BoardItem::create([
-               'name' => "I'm a card",
-               'description' => "Hello, i'm an example card for testing :)",
+                'name' => "I'm a card",
+                'description' => "Hello, i'm an example card for testing :)",
                 'user_id' => 0,
                 'column_id' => $firstColumn->id,
                 'project_id' => $project->id,
                 'color' => 'red',
             ]);
         }
-
         //make activity
         Activity::create([
-           'project_id' => $project->id,
-           'company_id' => $project->company_id,
-           'user_id' => Auth::user()->id,
+            'project_id' => $project->id,
+            'company_id' => $project->company_id,
+            'user_id' => Auth::user()->id,
             'type' => 0,
             'content' => 0,
-            ]);
-
+        ]);
         //broadcast a notification
         foreach ($userIds as $id) {
             $user = User::findOrFail($id);
@@ -165,15 +149,12 @@ class ProjectController extends SlugifyController
                 broadcast(new Notifications($noti,$user))->toOthers();
             }
         }
-
         return $project->url;
     }
-
     public function addUser(Request $request) {
         $project = Project::where('url', '=', $request->project)->first();
         $user = User::findorFail($request->user_id);
         $user->projects()->attach($project, ['role' => $request->role_id]);
-
         $noti =  Notification::create([
             'user_id' => $user->id,
             'title' => 'Added to new project',
@@ -181,7 +162,6 @@ class ProjectController extends SlugifyController
             'content' => 'You are just added to a new project called ' . $project->name . ' by ' . Auth::user()->name . '. Go now to your projects to check it out.',
         ]);
         broadcast(new Notifications($noti,$user))->toOthers();
-
         Activity::create([
             'project_id' => $project->id,
             'company_id' => Auth::user()->company_id,
@@ -189,9 +169,7 @@ class ProjectController extends SlugifyController
             'type' => 31,
             'content' => $user->name . " " . $user->lastname,
         ]);
-
     }
-
     public function checkName(Request $request) {
         if($request->project) {
             $project = Project::where('url', '=', $request->project)->first();
@@ -211,16 +189,11 @@ class ProjectController extends SlugifyController
                 return 0;
             }
         }
-
     }
-
     public function checkNameNew(Request $request) {
-
     }
-
     public function edit(Request $request) {
         $project = Project::where('url', '=', $request->project)->first();
-
         $oldUrl = $project->url;
         //general info
         $project->name = $request->project_title;
@@ -238,19 +211,17 @@ class ProjectController extends SlugifyController
         $project->crisiscenter = $request->project_crisisCenter;
         $project->logs = $request->project_logs;
         $project->save();
-
         //tags
         $tags = $project->tags;
         Tag::where('project_id', $project->id)->delete();
         foreach ($request->project_tags as $tag) {
-                Tag::create([
-                    'name' => $tag,
-                    'taggable_id' => $project->id,
-                    'taggable_type' => 'App\Project',
-                    'project_id' => $project->id,
-                ]);
-            }
-
+            Tag::create([
+                'name' => $tag,
+                'taggable_id' => $project->id,
+                'taggable_type' => 'App\Project',
+                'project_id' => $project->id,
+            ]);
+        }
         //add-ons
         if($request->project_board && Column::where([["project_id", '=', $project->id]])->count() == 0) {
             $firstColumn = Column::create([
@@ -277,7 +248,6 @@ class ProjectController extends SlugifyController
                 'color' => 'red',
             ]);
         }
-
         Activity::create([
             'project_id' => $project->id,
             'company_id' => Auth::user()->company_id,
@@ -285,22 +255,18 @@ class ProjectController extends SlugifyController
             'type' => 34,
             'content' => '',
         ]);
-
         return response()->json([
             'reload' => true,
             'url' => $project->url,
         ]);
     }
-
     public function getProjects() {
         return Auth::user()->projects;
     }
-
     public function getUsers(Request $request) {
         $project = Project::where('url', '=', $request->project)->first();
         return $project->users;
     }
-
     public function data($company, $project) {
         $project_all = Project::where('url', '=', $project)->first();
         $name = $project_all->name;
@@ -311,21 +277,15 @@ class ProjectController extends SlugifyController
         if($end_date <= Carbon::now() && $end_date != null || $project_all->status === 2) {
             $ended = true;
         }
-
-
         $users = $project_all->users;
-
         $role = 0;
         foreach ($users as $user) {
             if($user->id == Auth::user()->id) {
                 $role = $user->pivot->role;
             }
         }
-
         return view('application.project.index', compact('company', 'project', 'name', 'ended', 'role'));
-
     }
-
     public function ended($company, $project) {
         $project_all = Project::where('url', '=', $project)->first();
         $name = $project_all->name;
@@ -336,12 +296,10 @@ class ProjectController extends SlugifyController
         $role = 1;
         return view('application.project.end', compact('company', 'project', 'name', 'members', 'desc', 'ended', 'role'));
     }
-
     public function close(Request $request) {
         $project_all = Project::where('url', '=', $request->project)->first();
         $project_all->status = 2;
         $project_all->save();
-
         Activity::create([
             'project_id' => $project_all->id,
             'company_id' => Auth::user()->company_id,
@@ -349,9 +307,7 @@ class ProjectController extends SlugifyController
             'type' => 35,
             'content' => '',
         ]);
-
     }
-
     public function reopen(Request $request) {
         $project_all = Project::where('url', '=', $request->project)->first();
         $project_all->end_date = null;
@@ -362,7 +318,6 @@ class ProjectController extends SlugifyController
         $project = $request->project;
         $ended = 0;
         $role = 0;
-
         Activity::create([
             'project_id' => $project_all->id,
             'company_id' => Auth::user()->company_id,
@@ -370,16 +325,13 @@ class ProjectController extends SlugifyController
             'type' => 36,
             'content' => '',
         ]);
-
         return view('application.project.index', compact('company', 'project', 'name', 'ended', 'role'));
     }
-
     public function guest($company, $project) {
         $project_all = Project::where('url', '=', $project)->first();
         $name = $project_all->name;
         return view('application.project.index', compact('company', 'project', 'name'));
     }
-
     public function DoneFirstProject()  {
         $user = Auth::user();
         $user->firstProject = true;

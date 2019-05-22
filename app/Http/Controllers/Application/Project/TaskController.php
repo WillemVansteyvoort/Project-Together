@@ -102,6 +102,18 @@ class TaskController extends Controller
        return $project->taskLists;
     }
 
+    public function editList(Request $request) {
+        $list = Tlist::findOrFail($request->list_id);
+        $list->name = $request->list_name;
+        $list->save();
+    }
+
+    public function deleteList(Request $request) {
+        $list = Tlist::findOrFail($request->list_id);
+        $list->tasks()->delete();
+        $list->delete();
+    }
+
     public function getModule(Request $request) {
         $project = Project::where('url', '=', $request->project)->first();
         $tasks = Task::where([['project_id', $project->id], ['user_id', 0], ['status', 0]])->orWhere([['project_id', $project->id], ['user_id', Auth::user()->id], ['status', 0]])->limit(2)->get();

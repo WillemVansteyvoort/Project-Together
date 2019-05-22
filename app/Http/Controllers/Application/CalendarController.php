@@ -27,6 +27,17 @@ class CalendarController extends Controller
            'until_hour' => $request->untilTime,
             'color' => $request->color,
         ]);
+        $allEvents = Event::where([
+            ['company_id', '=', Auth::user()->company_id],
+            ['private', false],
+        ])->orWhere([
+            ['company_id', '=', Auth::user()->company_id],
+            ['private', false],
+            ['user_id', auth::user()->id],
+        ]) ->with('user')->get();
+        return response()->json([
+            'all' => $allEvents,
+        ]);
     }
 
     public function receive(Request $request) {

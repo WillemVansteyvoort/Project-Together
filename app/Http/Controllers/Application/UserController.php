@@ -24,7 +24,7 @@ class UserController extends SlugifyController
     public function checkEmail(Request $request) {
 
         $email_check = false;
-        if (User::where([['email', '=', $request->user_email], ['company_id', '=', Auth::user()->company_id]])->count() > 0) {
+        if (User::where([['email', '=', $request->user_email], ['company_id', '=', Auth::user()->company_id]])->count() > 0 && $request->user_email != $request->user_oldEmail) {
             $email_check = true;
         }
 
@@ -32,6 +32,20 @@ class UserController extends SlugifyController
             'email_check' => $email_check,
         ]);
     }
+
+
+    public function checkUsername(Request $request) {
+
+        $usernameCheck = false;
+        if (User::where([['username', '=', $request->user_username], ['company_id', '=', Auth::user()->company_id]])->count() > 0 && $request->user_username != $request->user_oldUsername) {
+            $usernameCheck = true;
+        }
+
+        return response()->json([
+            'username_check' => $usernameCheck,
+        ]);
+    }
+
 
     public function createUser(Request $request) {
 
