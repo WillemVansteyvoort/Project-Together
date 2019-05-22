@@ -105,6 +105,9 @@ class User extends Authenticatable
     public function events() {
         return $this->hasMany('App\Event');
     }
+    public function tasks() {
+        return $this->hasMany('App\Task');
+    }
     public function activities() {
         return $this->hasMany('App\Activity');
     }
