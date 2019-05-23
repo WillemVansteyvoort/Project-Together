@@ -39,7 +39,7 @@
                     <p>
                        If you want to change the company plan, name industry or even the company url, ou can go to <a href="{{route('front_settings')}}">this page</a>.
                     </p>
-                    <button class="button button-small button-second uppercase no-button"><a href="/{{{Auth::user()->company->url}}}/dashboard">Go to {{{Auth::user()->company->name}}}</a></button>
+                    <button class="button button-small button-second uppercase no-button"><a href="/chirokalfort/dashboard">Go to Chiro Kalfort</a></button>
                 </div>
             </div>
         </div>
