@@ -14,7 +14,11 @@ class OverviewController extends Controller
 {
     public function getInfo(Request $request) {
         $project = Project::where('url', '=', $request->project)->with('users', 'tags')->first();
-        return $project;
+        $companyUsers = Auth::user()->company->users;
+        return response()->json([
+            'project' => $project,
+            'companyUsers' => $companyUsers
+        ]);
     }
 
     public function deleteUser(Request $request) {

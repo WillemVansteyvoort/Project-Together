@@ -123,16 +123,16 @@ export default class ProjectIndex extends Component {
             project: window.Laravel.data.project,
         }).then(response => {
             this.setState({
-                end_date: response.data.end_date,
-                tasks: response.data.tasks,
-                notes: response.data.notes,
-                forum: response.data.forum,
-                presences: response.data.presences,
-                board: response.data.board,
-                polls: response.data.polls,
-                activities: response.data.activities,
-                logs: response.data.logs,
-                crisisCenter: response.data.crisiscenter,
+                end_date: response.data.project.end_date,
+                tasks: response.data.project.tasks,
+                notes: response.data.project.notes,
+                forum: response.data.project.forum,
+                presences: response.data.project.presences,
+                board: response.data.project.board,
+                polls: response.data.project.polls,
+                activities: response.data.project.activities,
+                logs: response.data.project.logs,
+                crisisCenter: response.data.project.crisiscenter,
             });
         });
     }
