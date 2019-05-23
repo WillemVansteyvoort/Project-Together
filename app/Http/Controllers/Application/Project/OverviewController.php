@@ -14,6 +14,7 @@ class OverviewController extends Controller
 {
     public function getInfo(Request $request) {
         $project = Project::where('url', '=', $request->project)->with('users', 'tags')->first();
+        $companyUsers = Auth::user()->company->users;
         return $project;
     }
 
