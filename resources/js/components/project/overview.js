@@ -134,7 +134,6 @@ export default class ProjectOverview extends Component {
     }
 
     componentWillMount() {
-        this.getCompanyUsers();
         this.getProjectInfo();
         this.getTasks();
         this.getCrisisItems();
@@ -173,6 +172,7 @@ export default class ProjectOverview extends Component {
     }
 
     getProjectInfo() {
+        this.getCompanyUsers();
         axios.post('/api/project/overview/info', {
             project: window.Laravel.data.project,
         }).then(response => {
