@@ -63,10 +63,11 @@ class CompanyController extends Controller {
     public function stats() {
         $doneTasks = Task::where([['company_id', Auth::user()->company_id], ['status', true]])->count();
         $buzzyTasks = Task::where([['company_id', Auth::user()->company_id], ['status', false]])->count();
-
+        $companyLogo = Auth::user()->company->logo;
         return response()->json([
             'doneTasks' => $doneTasks,
-            'buzzyTasks' => $buzzyTasks
+            'buzzyTasks' => $buzzyTasks,
+            'logo' => $companyLogo
         ]);
     }
 

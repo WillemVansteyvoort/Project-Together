@@ -111,7 +111,7 @@ export default class SignupForm extends Component {
     //step 1
     buttonStep1() {
         strings.setLanguage(window.Laravel.lang);
-        if(this.state.name_errors || this.state.lastname_errors || this.state.email_errors || this.state.name.length < 2 || this.state.lastname.length < 4 || this.state.email.length < 6 || this.state.password.length < 8) {
+        if(this.state.name_errors || this.state.lastname_errors || this.state.email_errors || this.state.name.length < 1 || this.state.lastname.length < 2 || this.state.email.length < 6 || this.state.password.length < 8) {
             this.setState({button: true});
         } else  {
             this.setState({button: false});
@@ -121,9 +121,12 @@ export default class SignupForm extends Component {
     checkName(e) {
         e.preventDefault();
         this.setState({ name: e.target.value });
-        if(this.state.name.length < 2) {
+        if(this.state.name.length < 1) {
             this.setState({name_errors: true});
-            this.setState({name_message: "Name must have at least 2 characters"});
+            this.setState({name_message: "Name must have at least 1 characters"});
+        } else if(this.state.name.length > 35) {
+            this.setState({name_errors: true});
+            this.setState({name_message: "Name can only have 35 characters"});
         } else {
             this.setState({name_errors: false});
             this.setState({name_message: ""});
@@ -133,9 +136,12 @@ export default class SignupForm extends Component {
     checkLastName(e) {
         e.preventDefault();
         this.setState({ lastname: e.target.value });
-        if(this.state.lastname.length < 4) {
+        if(this.state.lastname.length < 2) {
             this.setState({lastname_errors: true});
-            this.setState({lastname_message: "Name must have at least 4 characters"});
+            this.setState({lastname_message: "Name must have at least 2 characters"});
+        } else if(this.state.lastname.length > 35) {
+            this.setState({lastname_errors: true});
+            this.setState({lastname_message: "Name can only have 35 characters"});
         } else {
             this.setState({lastname_errors: false});
             this.setState({lastname_message: ""});
@@ -147,6 +153,9 @@ export default class SignupForm extends Component {
         this.setState({ email: e.target.value });
         if ((this.state.email.length < 6) || (this.state.email.split('').filter(x => x === '@').length !== 1) || this.state.email.indexOf('.') === -1) {
             this.setState({email_message: "Please enter a valid email"});
+            this.setState({email_errors: true});
+        } else if(this.state.email.length > 40) {
+            this.setState({email_message: "Your mail has too many characters"});
             this.setState({email_errors: true});
         } else {
             this.setState({email_errors: false});
@@ -182,7 +191,11 @@ export default class SignupForm extends Component {
         if(this.state.company_name.length < 5) {
             this.setState({company_message: "Name must have at least 5 characters"});
             this.setState({company_errors: true});
-        } else {
+        } else if(this.state.company_name.length > 20) {
+            this.setState({company_message: "Company name can only have 20 characters"});
+            this.setState({company_errors: true});
+        }
+        else {
             this.setState({company_errors: false});
             this.setState({company_message: ""});
         }
@@ -194,7 +207,11 @@ export default class SignupForm extends Component {
         if(this.state.user_function.length < 2) {
             this.setState({user_function_message: "Function must have at least 2 characters"});
             this.setState({user_function_errors: true});
-        } else {
+        } else if(this.state.user_function.length > 15) {
+            this.setState({user_function_message: "Function can only have 15 characters"});
+            this.setState({user_function_errors: true});
+        }
+        else {
             this.setState({user_function_errors: false});
             this.setState({user_function_message: ""});
         }

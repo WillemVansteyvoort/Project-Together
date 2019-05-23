@@ -178,34 +178,34 @@ export default class ProjectOverview extends Component {
         }).then(response => {
             this.setState({
                 loading: false,
-               project: response.data,
-                created: response.data.created_at,
-                end_date: response.data.end_date,
-                description: response.data.description,
-                users: response.data.users,
-                tags: response.data.tags,
+               project: response.data.project,
+                created: response.data.project.created_at,
+                end_date: response.data.project.end_date,
+                description: response.data.project.description,
+                users: response.data.project.users,
+                tags: response.data.project.tags,
                 leaders: this.state.users.filter(function (user) {
                     return user.pivot.role === 3;
                 }),
-                project_title: response.data.name,
-                project_description: response.data.description,
-                project_end_date:response.data.end_date,
-                project_tasks: response.data.tasks,
-                project_notes: response.data.notes,
-                project_forum: response.data.forum,
-                project_presences: response.data.presences,
-                project_board: response.data.board,
-                project_polls: response.data.polls,
-                project_activities: response.data.activities,
-                project_logs: response.data.logs,
-                project_crisisCenter: response.data.crisiscenter,
-                project_private: response.data.public,
+                project_title: response.data.project.name,
+                project_description: response.data.project.description,
+                project_end_date:response.data.project.end_date,
+                project_tasks: response.data.project.tasks,
+                project_notes: response.data.project.notes,
+                project_forum: response.data.project.forum,
+                project_presences: response.data.project.presences,
+                project_board: response.data.project.board,
+                project_polls: response.data.project.polls,
+                project_activities: response.data.project.activities,
+                project_logs: response.data.project.logs,
+                project_crisisCenter: response.data.project.crisiscenter,
+                project_private: response.data.project.public,
             });
 
-            if(response.data.end_date === null) {
+            if(response.data.project.end_date === null) {
                 this.setState({project_end_date: ''})
             }
-            let tags = response.data.tags;
+            let tags = response.data.project.tags;
             let newTags = [];
             for (let i = 0; i < tags.length; i++) {
                 let name = tags[i].name;
@@ -213,7 +213,7 @@ export default class ProjectOverview extends Component {
             }
 
             let companyUsers = this.state.companyUsers;
-            let projectUsers = response.data.users;
+            let projectUsers = response.data.project.users;
             let newCompanyUsers = [];
             for (let i  = 0; i < companyUsers.length; i++) {
                 let exists = false;
@@ -495,7 +495,12 @@ export default class ProjectOverview extends Component {
                                     <h6>Leaders</h6>
                                     <div className="dashboard-project-info-responsable">
                                         {this.state.leaders.map((user, i)=> (
-                                            <img key={i} src={user.avatar}/>
+                                            <div className="img__wrap">
+                                                <img key={i}  className="img_img" src={user.avatar} alt="dsfdsf"/>
+                                                <div className="img__description_layer">
+                                                    <span className="img__description">{user.name} {user.lastname}</span>
+                                                </div>
+                                            </div>
                                         ))}
                                     </div>
                                 </div>
@@ -505,7 +510,12 @@ export default class ProjectOverview extends Component {
                                         <h6>Responsables</h6>
                                         <div className="dashboard-project-info-responsable">
                                             {this.state.responsables.map((user, i)=> (
-                                                <img key={i} src={user.avatar}/>
+                                                <div className="img__wrap">
+                                                    <img key={i}  className="img_img" src={user.avatar} alt="dsfdsf"/>
+                                                    <div className="img__description_layer">
+                                                        <span className="img__description">{user.name} {user.lastname}</span>
+                                                    </div>
+                                                </div>
                                             ))}
                                         </div>
                                     </div>: ""

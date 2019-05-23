@@ -107,7 +107,7 @@ export default class ProjectIndex extends Component {
                 this.setState({page: 'Board'})
                 break;
             case "/" + this.state.company + "/" + this.state.project + "/project/crisiscenter" :
-                this.setState({page: 'CrisisCenter'})
+                this.setState({page: 'Crisis Center'})
                 break;
             case "/" + this.state.company + "/" + this.state.project + "/project/logs" :
                 this.setState({page: 'Logs'})
@@ -123,16 +123,16 @@ export default class ProjectIndex extends Component {
             project: window.Laravel.data.project,
         }).then(response => {
             this.setState({
-                end_date: response.data.end_date,
-                tasks: response.data.tasks,
-                notes: response.data.notes,
-                forum: response.data.forum,
-                presences: response.data.presences,
-                board: response.data.board,
-                polls: response.data.polls,
-                activities: response.data.activities,
-                logs: response.data.logs,
-                crisisCenter: response.data.crisiscenter,
+                end_date: response.data.project.end_date,
+                tasks: response.data.project.tasks,
+                notes: response.data.project.notes,
+                forum: response.data.project.forum,
+                presences: response.data.project.presences,
+                board: response.data.project.board,
+                polls: response.data.project.polls,
+                activities: response.data.project.activities,
+                logs: response.data.project.logs,
+                crisisCenter: response.data.project.crisiscenter,
             });
         });
     }
@@ -261,8 +261,8 @@ export default class ProjectIndex extends Component {
                                     </div>
                                     : ""}
                                 {this.state.crisisCenter ?
-                                    <div className={this.state.page === "CrisisCenter" ? "project-header-nav--item active" : "project-header-nav--item"}>
-                                        <button className="no-button"><Link to={"/" + this.state.company + "/" + this.state.project + "/project/crisiscenter"}> Crisis center</Link></button>
+                                    <div className={this.state.page === "Crisis Center" ? "project-header-nav--item active" : "project-header-nav--item"}>
+                                        <button className="no-button" onClick={() => this.init()} ><Link to={"/" + this.state.company + "/" + this.state.project + "/project/crisiscenter"}> Crisis center</Link></button>
                                     </div>
                                     : ""}
                             </div>
@@ -297,7 +297,6 @@ export default class ProjectIndex extends Component {
                         <div className="popup-titleBar">
                             Welcome
                         </div>
-                        <button className="popup-btn--close">✕</button>
                         <div className="popup-content popup-welcome">
                             {this.state.welcome1 ?
                                 <div>

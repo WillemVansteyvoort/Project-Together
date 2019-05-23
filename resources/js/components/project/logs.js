@@ -152,8 +152,13 @@ export default class ProjectLogs extends Component {
                             <div className="three columns">
                                 <div className="project-logs-users">
                                      {this.state.users.map((user, i)=> (
-                                         <div key={i}>
-                                             <img src={user.avatar} onClick={event => this.logsByUser(user.id)}/>
+                                         <div>
+                                             <div className="img__wrap">
+                                                 <img  onClick={event => this.logsByUser(user.id)} className="img_img" src={user.avatar} alt="dsfdsf"/>
+                                                 <div className="img__description_layer ">
+                                                     <span className="img__description">{user.name} {user.lastname}</span>
+                                                 </div>
+                                             </div>
                                          </div>
                                      ))}
                                 </div>

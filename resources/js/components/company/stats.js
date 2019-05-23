@@ -25,6 +25,7 @@ export default class CompanyStats extends Component {
 
             //settings
             message: '',
+            logo: '',
 
         };
         this.handleChange = this.handleChange.bind(this);
@@ -46,7 +47,8 @@ export default class CompanyStats extends Component {
             ) =>
                 this.setState({
                     tasksDone: response.data.doneTasks,
-                    tasksBuzzy: response.data.buzzyTasks
+                    tasksBuzzy: response.data.buzzyTasks,
+                    logo: response.data.logo,
                 })
         );
     }
@@ -143,7 +145,11 @@ export default class CompanyStats extends Component {
                     </span>
                     : ""}
                 {window.Laravel.user.admin ?                 <button className="button button-primary company-sidebar-settings" onClick={event => this.setState({show: true})}><i className="fas fa-cog"></i>{strings.getString("Company settings")}</button>
+
                     : ""}
+                    <div>
+                        {this.state.logo.length > 0 ? <img src={"/logos/" + this.state.logo} width="100%" /> : ""}
+                    </div>
                 <PopPop
                     open={show}
                     closeOnEsc={true}

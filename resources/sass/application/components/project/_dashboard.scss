@@ -282,6 +282,58 @@
   }
 
 }
+/* quick reset and base styles */
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+html {
+  font-family: helvetica, arial, sans-serif;
+}
+
+/* relevant styles */
+.img__wrap {
+  position: relative;
+  display: inline-block;
+}
+
+.img__description_layer {
+  z-index: 999;
+  display: inline-block;
+  position: absolute;
+  bottom: -30px;
+  left: -5px;
+  width: 160px;
+  text-align: center;
+  margin: 0 auto;
+  height: 30Px;
+  right: 0;
+  background: rgba(36, 62, 206, 0.6);
+  color: #fff;
+  visibility: hidden;
+  opacity: 0;
+  align-items: center;
+  justify-content: center;
+
+  /* transition effect. not necessary */
+  transition: opacity .2s, visibility .2s;
+}
+
+.img__wrap:hover .img__description_layer {
+  visibility: visible;
+  opacity: 1;
+}
+
+.img__description {
+  transition: .2s;
+  transform: translateY(1em);
+}
+
+.img__wrap:hover .img__description {
+  transform: translateY(0);
+}
 
 @media screen and (max-width : 760px) {
   .dashboard-project {

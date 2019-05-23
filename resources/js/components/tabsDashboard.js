@@ -346,7 +346,6 @@ export default class TabsDashboard extends Component {
                         <div className="popup-titleBar">
                              Welcome
                         </div>
-                        <button className="popup-btn--close">✕</button>
                         <div className="popup-content popup-welcome">
                             {this.state.welcome1 ?
                                 <div>

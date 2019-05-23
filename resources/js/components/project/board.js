@@ -274,7 +274,12 @@ export default class ProjectBoard extends Component {
                             <h6 className="title"> {t.name}</h6>
                             {t.description}
                             <span className="project-board-item-content--duration">{t.duration}</span>
-                            {t.user_id !== 0 ?  <p><img src={t.user.avatar} /></p> : ""}
+                            {t.user_id !== 0 ?  <p><div className="img__wrap">
+                                <img   className="img_img" src={t.user.avatar} alt="dsfdsf"/>
+                                <div className="img__description_layer">
+                                    <span className="img__description">{t.user.name} {t.user.lastname}</span>
+                                </div>
+                            </div></p> : ""}
                         </div>
                     </div>
                 );
