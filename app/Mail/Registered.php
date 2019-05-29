@@ -31,6 +31,7 @@ class Registered extends Mailable
     public function build()
     {
         return $this->view('mails.register')
+//            ->attach(public_path('documents/documentatie.pdf'))
             ->subject('Verify your account ')
             ->with([
                 'name' => $this->user->name,

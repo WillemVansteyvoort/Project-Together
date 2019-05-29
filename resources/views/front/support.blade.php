@@ -112,7 +112,7 @@
                             </div>
                             <div class="six columns">
                                 <label for="company">@lang("Your company")</label>
-                                <input class="u-full-width" type="email" placeholder="Project-Together" id="company" name="company">
+                                <input class="u-full-width" type="text" placeholder="Project-Together" id="company" name="company">
                             </div>
                         </div>
                         <label for="message">@lang("Your message")</label>

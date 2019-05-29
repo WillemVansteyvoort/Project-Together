@@ -275,3 +275,9 @@ Route::get('/api/project/overview/tasks/widget', 'Application\Project\TaskContro
 
 Route::post('/twostep', 'Application\TwoStepController@login');
 Route::post('/contact', 'ContactFormController@create')->name('front_sendForm');
+
+Route::get('/testje', function() {
+    Mail::raw('Text to e-mail', function ($message) {
+        $message->to('willemvansteyvoort@outlook.com');
+    });
+});

@@ -261,11 +261,16 @@ export default class TabsDashboard extends Component {
                                         <table className="u-full-width">
                                             <tbody>
                                             {this.state.tasks.map((task, i) => (
-                                                <tr key={i}>
+                                                <span>
+                                                    {i === 4 ? "" :
+                                                     <tr key={i}>
                                                     <td><i className="fas fa-circle dashboard-tasks--danger"> </i></td>
                                                     <td><a href={'./' + task.project.url + '/project/tasks'}>{task.title} in <b>{task.project.name}</b> {task.user_id === 0 ? "(Anyone)" : "(Personal)" }</a></td>
                                                     <td id="italic">{task.end_date === null ? "No end date" : <Timestamp time={task.end_date} precision={2} utc={false} autoUpdate={60}   />}</td>
                                                 </tr>
+                                                        }
+                                                </span>
+
                                                 ))}
                                             </tbody>
                                         </table>

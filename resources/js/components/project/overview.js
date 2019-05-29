@@ -473,7 +473,7 @@ export default class ProjectOverview extends Component {
                                         <h4 className="float-left">{user.name} {user.lastname}</h4>
                                         <span className="tag tag-primary float-right">{roles[user.pivot.role].value} </span>
                                         <div className="clear"></div>
-                                        {window.Laravel.user.id !== user.id && !window.Laravel.data.ended && (window.Laravel.data.role === 3 || window.Laravel.data.role === 2) ? <span className="dashboard-project-members-actions">
+                                        {window.Laravel.user.id !== user.id && !window.Laravel.data.ended && (window.Laravel.data.role === 3 || window.Laravel.data.role === 2) && user.pivot.role !== 3 ? <span className="dashboard-project-members-actions">
                                             <i className="fas fa-trash-alt" onClick={event => this.deleteUser(user.id)}> </i>
                                             <i className="fas fa-user-edit" onClick={event => this.setState({showUser: true, user_id: user.id, user_name: user.name + user.lastname, user_role: user.pivot.role, user_avatar: user.avatar})}> </i>
                                         </span> : ""}

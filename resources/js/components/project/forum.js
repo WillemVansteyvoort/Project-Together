@@ -471,7 +471,7 @@ export default class ProjectForum extends Component {
                                                     </div>
                                                     <div className="item-body">
                                                         <h5><a href="#" onClick={() => this.getPostById( reply.post.id)}>{reply.post.title}</a></h5>
-                                                        {reply.content === null ? <ReactMarkdown source={reply.post.content} /> : <ReactMarkdown source={reply.content} />}
+                                                        {reply.content === null ? <ReactMarkdown source={reply.post.content.substring(0, 200) + "..."} /> : <ReactMarkdown source={reply.content.substring(0, 200) + "..."} />}
                                                         {reply.post.tags.map((tag, i) => (
                                                             <span className="tag tag-primary" key={i}>{tag.name}</span>
                                                         ))}

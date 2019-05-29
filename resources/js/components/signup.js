@@ -87,6 +87,8 @@ export default class SignupForm extends Component {
         this.checkDocumentation = this.checkDocumentation.bind(this);
         this.checkTerms = this.checkTerms.bind(this);
         this.checkPrivacy = this.checkPrivacy.bind(this);
+        this.buttonNext1 = this.buttonNext1.bind(this);
+        this.buttonNext2 = this.buttonNext2.bind(this);
     }
 
 
@@ -360,6 +362,77 @@ export default class SignupForm extends Component {
         );
     }
 
+    buttonNext1(event) {
+        if(this.state.name.length < 1) {
+            this.setState({name_errors: true});
+            this.setState({name_message: "Name must have at least 1 characters"});
+        } else if(this.state.name.length > 35) {
+            this.setState({name_errors: true});
+            this.setState({name_message: "Name can only have 35 characters"});
+        } else {
+            this.setState({name_errors: false});
+            this.setState({name_message: ""});
+        }
+        if(this.state.lastname.length < 2) {
+            this.setState({lastname_errors: true});
+            this.setState({lastname_message: "Name must have at least 2 characters"});
+        } else if(this.state.lastname.length > 35) {
+            this.setState({lastname_errors: true});
+            this.setState({lastname_message: "Name can only have 35 characters"});
+        } else {
+            this.setState({lastname_errors: false});
+            this.setState({lastname_message: ""});
+        }
+
+        if ((this.state.email.length < 6) || (this.state.email.split('').filter(x => x === '@').length !== 1) || this.state.email.indexOf('.') === -1) {
+            this.setState({email_message: "Please enter a valid email"});
+            this.setState({email_errors: true});
+        } else if(this.state.email.length > 40) {
+            this.setState({email_message: "Your mail has too many characters"});
+            this.setState({email_errors: true});
+        } else {
+            this.setState({email_errors: false});
+            this.setState({email_message: ""});
+        }
+        if(this.state.password.length < 8) {
+            this.setState({password_message: "Password must have at least 8 characters"});
+            this.setState({password_errors: true});
+        } else {
+            this.setState({password_errors: false});
+            this.setState({password_message: ""});
+        }
+    }
+
+    buttonNext2() {
+        if(this.state.company_name.length < 5) {
+            this.setState({company_message: "Name must have at least 5 characters"});
+            this.setState({company_errors: true});
+        } else if(this.state.company_name.length > 20) {
+            this.setState({company_message: "Company name can only have 20 characters"});
+            this.setState({company_errors: true});
+        }
+        else {
+            this.setState({company_errors: false});
+            this.setState({company_message: ""});
+        }
+
+        if(this.state.user_function.length < 2) {
+            this.setState({user_function_message: "Function must have at least 2 characters"});
+            this.setState({user_function_errors: true});
+        } else if(this.state.user_function.length > 15) {
+            this.setState({user_function_message: "Function can only have 15 characters"});
+            this.setState({user_function_errors: true});
+        }
+        else {
+            this.setState({user_function_errors: false});
+            this.setState({user_function_message: ""});
+        }
+    }
+
+    buttonNext3() {
+
+    }
+
     render() {
         return (
             <div>
@@ -394,8 +467,8 @@ export default class SignupForm extends Component {
                                         />
                                     </div>
                                     <div className="register-right--buttons">
-                                        <div className={this.state.errors ? "hidden" : ""} >
-                                            <button disabled={this.state.button} className="button button-primary register-button" onClick={next}>{strings.Next}</button>
+                                        <div className={this.state.errors ? "hidden" : ""}>
+                                            <button disabled={this.state.button} className="button button-primary register-button" onClick={next}><span onClick={event => this.buttonNext1(event)}>{strings.Next}</span></button>
                                         </div>
                                     </div>
                                 </div>
@@ -447,7 +520,7 @@ export default class SignupForm extends Component {
                                     <input value={this.state.user_function} className={this.state.user_function_errors  ? "border-red" : ""} type="text"  onChange={e => this.checkFunction(e)} onBlur={this.checkFunction} placeholder="Owner" />
                                     <div className="register-right--buttons">
                                         <button  className="button button-primary register-button" onClick={previous}>{strings.Previous}</button>
-                                        <button disabled={this.state.button3} className="button button-primary register-button" onClick={next}>{strings.Next}</button>
+                                        <button disabled={this.state.button3} className="button button-primary register-button" onClick={next}><span onClick={e => this.buttonNext2(e)}>{strings.Next}</span></button>
                                     </div>
                                 </div>
                             )}

@@ -65,6 +65,9 @@ export default class ProjectTasks extends Component {
             editList_id: 0,
             editList_i: 0,
 
+            //errors
+            error_date: '',
+
         };
         this.getLists = this.getLists.bind(this);
         this.asDone = this.asDone.bind(this);
@@ -225,19 +228,24 @@ export default class ProjectTasks extends Component {
 
     makeTask(e) {
         e.preventDefault();
-        axios.post('/api/project/tasks/create', {
-            project: window.Laravel.data.project,
-            task_title: this.state.task_title,
-            task_desc: this.state.task_desc,
-            task_list: this.state.task_list,
-            task_user: this.state.task_user,
-            task_end: this.state.task_end,
-        }).then(response => {
-           this.setState({
-               showTask: false,
-               lists: response.data,
-           })
-        });
+        if(new Date(this.state.task_end) <= new Date()) {
+            this.setState({error_date: "Date must be greater than current date"})
+        } else {
+            axios.post('/api/project/tasks/create', {
+                project: window.Laravel.data.project,
+                task_title: this.state.task_title,
+                task_desc: this.state.task_desc,
+                task_list: this.state.task_list,
+                task_user: this.state.task_user,
+                task_end: this.state.task_end,
+            }).then(response => {
+                this.setState({
+                    showTask: false,
+                    lists: response.data,
+                })
+            });
+        }
+
     }
 
     deleteTask(taskId, i, j) {
@@ -484,6 +492,7 @@ export default class ProjectTasks extends Component {
                                     </div>
                                     <div className="six columns">
                                         <label>End date</label>
+                                        <div id="red">{this.state.error_date}</div>
                                         <input type="datetime-local" value={this.state.task_end} onChange={event => this.setState({task_end: event.target.value})} />
                                     </div>
                                 </div>
