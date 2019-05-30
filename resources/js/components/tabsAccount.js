@@ -230,6 +230,9 @@ export default class TabsAccount extends Component {
             if(response.data === "yes") {
                 this.setState({email_message: "This email already exists in the company"});
                 this.setState({errors_email: true});
+            } else {
+                this.setState({email_message: ""});
+                this.setState({errors_email: false});
             }
         });
     }
@@ -341,17 +344,17 @@ export default class TabsAccount extends Component {
     twoStepActive() {
         return (
             <div className="account-twofactor--items">
-                <h5>Your methods</h5>
+                <h5>{strings.getString("Your methods")}</h5>
                 <div className="account-twofactor--item">
                     <p className="float-left"><i className="fas fa-envelope-open"></i>{window.Laravel.user.email}</p>
-                    <button className={(this.state.two_step_email) ? "float-right button button-green no-button" : "hidden"}>Active</button>
-                    <button className={(this.state.two_step_email) ? "hidden" : "float-right button button-red no-button"}  href="#">Inactive</button>
+                    <button className={(this.state.two_step_email) ? "float-right button button-green no-button" : "hidden"}>{strings.getString("Active")}</button>
+                    <button className={(this.state.two_step_email) ? "hidden" : "float-right button button-red no-button"}  href="#">{strings.getString("Inactive")}</button>
                     <div className="clear"></div>
                 </div>
                 <div>
                     <p className="float-left"><i className="fas fa-phone"></i>{window.Laravel.user.phone}</p>
-                    <button  onClick={() => this.setState({ two_step_popup: !this.state.two_step_popup})}  className={(this.state.two_step_phone) ? "float-right button button-green no-button" : "hidden"}>Active</button>
-                    <button onClick={() => this.setState({ two_step_popup: !this.state.two_step_popup})} className={(this.state.two_step_phone) ? "hidden" : "float-right button button-red no-button"}  href="#">Inactive</button>
+                    <button  onClick={() => this.setState({ two_step_popup: !this.state.two_step_popup})}  className={(this.state.two_step_phone) ? "float-right button button-green no-button" : "hidden"}>{strings.getString("Active")}</button>
+                    <button onClick={() => this.setState({ two_step_popup: !this.state.two_step_popup})} className={(this.state.two_step_phone) ? "hidden" : "float-right button button-red no-button"}  href="#">{strings.getString("Inactive")}</button>
                 </div>
                 <PopPop
                     open={this.state.two_step_popup}
@@ -360,19 +363,19 @@ export default class TabsAccount extends Component {
                     closeOnOverlay={true}>
                     <div className="popup popup-message">
                         <div className="popup-titleBar">
-                            Enable phone
+                            {strings.getString("Enable phone")}
                            <button className="popup-btn--close"  onClick={() =>  this.setState({ two_step_popup: !this.state.two_step_popup})}>✕</button>
                         </div>
                         <div className="popup-content">
                             {this.state.two_step_correct && this.state.two_step_message.length > 0 ? <div className="alert alert-green">{this.state.two_step_message}</div> : ""}
                             {!this.state.two_step_correct && this.state.two_step_message.length > 0 ? <div className="alert alert-green">{this.state.two_step_message}</div> : ""}
-                            <p>It's possible to receive your two step authenticaton verification code via your phone. Before you can use that, you have to verify your phone-number.</p>
+                            <p>{strings.getString("Enable phone text")}</p>
                             <div className={this.state.two_step_enable_phone ? "hidden"  : " "}>
-                                {this.state.two_step_send ? <div><label>Verification code</label> <input type="text" onChange={e => this.setState({ two_step_code: e.target.value })}   /> <button type="submit" className="button button-primary no-button" onClick={this.verify}>Verify phone</button></div>: <button className="button button-primary no-button"  onClick={this.sendVerify}>Send verification code</button>}
+                                {this.state.two_step_send ? <div><label>{strings.getString("Verification code")}</label> <input type="text" onChange={e => this.setState({ two_step_code: e.target.value })}   /> <button type="submit" className="button button-primary no-button" onClick={this.verify}>{strings.getString("Verify phone")}</button></div>: <button className="button button-primary no-button"  onClick={this.sendVerify}>{strings.getString("Send verification code")}</button>}
                             </div>
                             <div className={!this.state.two_step_enable_phone ? "hidden"  : " "}>
-                                <button  onClick={this.updatePhone} className={(this.state.two_step_phone) ? "button button-green no-button" : "hidden"}>Active</button>
-                                <button  onClick={this.updatePhone} className={(this.state.two_step_phone) ? "hidden" : "button button-red no-button"}  href="#">Inactive</button>
+                                <button  onClick={this.updatePhone} className={(this.state.two_step_phone) ? "button button-green no-button" : "hidden"}>{strings.getString("Active")}</button>
+                                <button  onClick={this.updatePhone} className={(this.state.two_step_phone) ? "hidden" : "button button-red no-button"}  href="#">{strings.getString("Inactive")}</button>
                             </div>
                         </div>
                     </div>
@@ -519,37 +522,37 @@ export default class TabsAccount extends Component {
                            <div className="nine columns">
                                <div className="account-content">
                                    <TabPanel tabId="vertical-tab-one">
-                                       <h4 id="success">Change your profile</h4>
+                                       <h4 id="success">{strings.getString("Change your profile")}</h4>
                                        <form onSubmit={event => this.verifyAccount(event)}>
                                            <div id="success" className={this.state.profile ? "" : "hidden"}>
                                                <Notification  type="success" title="successfully" message="Your account was successfully been changed"/>
                                            </div>
                                            <div className="row">
                                            <div className="six columns">
-                                               <label for="">First name</label>
+                                               <label for="">{strings.getString("First name")}</label>
                                                <div id="red">{this.state.name_message}</div>
                                                <input type="text"   className={this.state.errors_name ? "border-red" : ""}  disabled={!window.Laravel.rights.right_data}  value={this.state.user_name}  className={this.state.errors_name ? "border-red" : ""}  onChange={e => this.setState({ user_name: e.target.value })}  />
                                                <label htmlFor="">E-mail</label>
                                                <div id="red">{this.state.email_message}</div>
                                                <input type="text"  className={this.state.errors_email ? "border-red" : ""} onChange={event => this.setState({user_email: event.target.value})} disabled={!window.Laravel.rights.right_data && !window.Laravel.user.admin}  value={this.state.user_email}  onBlur={this.checkCompanyEmail}  />
-                                               <label htmlFor="">City</label>
+                                               <label htmlFor="">{strings.getString("City")}</label>
                                                <input type="text" value={this.state.user_city}   disabled={!window.Laravel.rights.right_data}  onChange={e => this.setState({ user_city: e.target.value })}  />
-                                               <label htmlFor="">Street</label>
+                                               <label htmlFor="">{strings.getString("Street")}</label>
                                                <input type="text" value={this.state.user_street}  disabled={!window.Laravel.rights.right_data}  onChange={e => this.setState({ user_street: e.target.value })}  />
-                                               <label htmlFor="">Function</label>
+                                               <label htmlFor="">{strings.getString("Function")}</label>
                                                <input type="text" value={this.state.user_function}   disabled={!window.Laravel.rights.right_data}  onChange={e => this.setState({ user_function: e.target.value })} required />
                                            </div>
                                            <div className="six columns">
-                                               <label htmlFor="">Last name</label>
+                                               <label htmlFor="">{strings.getString("Surname")}</label>
                                                <div id="red">{this.state.lastname_message}</div>
                                                <input type="text" className={this.state.errors_lastname ? "border-red" : ""} disabled={!window.Laravel.rights.right_data}  value={this.state.user_lastname}   onChange={e => this.setState({ user_lastname: e.target.value })}  />
-                                               <label htmlFor="">Birthdate</label>
+                                               <label htmlFor="">{strings.getString("Birthdate")}</label>
                                                <input type="date" value={this.state.user_date}   disabled={!window.Laravel.rights.right_data}  onChange={e => this.setState({ user_date: e.target.value })}  />
-                                               <label htmlFor="">Phone</label>
+                                               <label htmlFor="">{strings.getString("Phone")}</label>
                                                <input type="text" value={this.state.user_phone}  disabled={!window.Laravel.rights.right_data}  onChange={e => this.setState({ user_phone: e.target.value })}  />
-                                               <label htmlFor="">Zipcode</label>
+                                               <label htmlFor="">{strings.getString("Zipcode")}</label>
                                                <input type="text" value={this.state.user_zipcode}   disabled={!window.Laravel.rights.right_data}  onChange={e => this.setState({ user_zipcode: e.target.value })}  />
-                                               <label htmlFor="">Country</label>
+                                               <label htmlFor="">{strings.getString("Country")}</label>
                                                <select disabled={!window.Laravel.rights.right_data}   onChange={e => this.setState({ user_country_id: e.target.value })}>
                                                    <option value={this.state.user_country_id} selected="selected">{window.Laravel.user.country}</option>
                                                    {this.state.countries.map((country,i) => (
@@ -559,7 +562,7 @@ export default class TabsAccount extends Component {
 
                                            </div>
                                        </div>
-                                       <h5>Social Links</h5>
+                                       <h5>{strings.getString("Social links")}</h5>
                                        <div className="account-socialmedia">
                                            <div className="account-socialmedia--item">
                                                <i className="fab fa-twitter float-left"> </i>
@@ -582,9 +585,15 @@ export default class TabsAccount extends Component {
                                                <div className="clear"></div>
                                            </div>
                                        </div>
-                                       <h5>Biografy</h5>
+                                           <h5>{strings.getString("Your language")}</h5>
+                                           {window.Laravel.lang === "en" ?
+                                               <a href="/lang/nl"><img src="/images/flag-en.png" width="35px"   /></a>
+                                                   :
+                                               <a href="/lang/en"><img src="/images/flag-nl.png" width="35px"  /></a> }
+                                       <h5>{strings.getString("Biografy")}</h5>
                                        <textarea placeholder="Hello I am ..." onChange={e => this.setState({ user_biografy: e.target.value })}>{this.state.user_biografy}</textarea>
-                                           <button  className="button button-primary no-button">Update account</button>
+                                           <button  className="button button-primary no-button"><i
+                                               className="fas fa-save"> </i> Update account</button>
                                        </form>
                                    </TabPanel>
                                    <TabPanel tabId="vertical-tab-two">
@@ -594,21 +603,18 @@ export default class TabsAccount extends Component {
                                            </div>
                                            <div className="row">
                                                <div className="six columns">
-                                                   <h4>Account settings</h4>
-                                                   <h5>General settings</h5>
-                                                   {window.Laravel.rights.change_online ? <div><input type="checkbox" checked={!this.state.user_online} onChange={e => this.setState({ user_online: !this.state.user_online })}/> Hide my online status when I am active on the entire website</div> : ""}
+                                                   <h4>{strings.getString("Account settings")}</h4>
+                                                   <h5>{strings.getString("General settings")}</h5>
+                                                   {window.Laravel.rights.change_online ? <div><input type="checkbox" checked={!this.state.user_online} onChange={e => this.setState({ user_online: !this.state.user_online })}/> {strings.getString("The online status of the member will be hidden")}</div> : ""}
                                                    <div>
-                                                       <input type="checkbox" checked={this.state.user_data}  onChange={e => this.setState({ user_data: !this.state.user_data })}/> Hide sensitive data on my profile (e-mail, phone, address)
+                                                       <input type="checkbox" checked={this.state.user_data}  onChange={e => this.setState({ user_data: !this.state.user_data })}/> {strings.getString("Hide the member's information on their profile")}
                                                        </div>
                                                    <div>
-                                                       <input type="checkbox" checked={this.state.user_notifications} onChange={e => this.setState({ user_notifications: !this.state.user_notifications})}/> Receive notifications
+                                                       <input type="checkbox" checked={this.state.user_notifications} onChange={e => this.setState({ user_notifications: !this.state.user_notifications})}/> {strings.getString("Receive notifications")}
                                                    </div>
-                                                   <h5>E-mail notifications</h5>
+                                                   <h5>{strings.getString("E-mail notifications")}</h5>
                                                    <div>
-                                                       <input type="checkbox" checked={this.state.mail_invites} onChange={e => this.setState({ mail_invites: !this.state.mail_invites })}/> Get an email when I am invited to a new project
-                                                   </div>
-                                                   <div>
-                                                       <input type="checkbox" checked={this.state.mail_notifications} onChange={e => this.setState({ mail_notifications: !this.state.mail_notifications })}/> Get an email when I receive a new notification
+                                                       <input type="checkbox" checked={this.state.mail_invites} onChange={e => this.setState({ mail_invites: !this.state.mail_invites })}/> {strings.getString("Member will receive e-mails when he will invited to a new project")}
                                                    </div>
                                                    <div>
                                                        <input type="checkbox" checked={this.state.mail_sessions} onChange={e => this.setState({ mail_sessions: !this.state.mail_sessions })} /> Receive an e-mail when a new session is started
@@ -616,7 +622,8 @@ export default class TabsAccount extends Component {
                                                    <div>
                                                        <input type="checkbox" /> Receive every <input type="number"  value={this.state.mail_overview} onChange={e => this.updateOverview(e.target.value)} min="1" max="30" /> days an overview of the company
                                                    </div>
-                                                   <a onClick={this.updateSettings} href="#success" className="button button-primary">Update settings</a>
+                                                   <a onClick={this.updateSettings} href="#success" className="button button-primary"><i
+                                                       className="fas fa-save"> </i> {strings.getString("Update settings")}</a>
                                                </div>
                                                <div className="six columns">
                                                    <div className="account-settings-info">
@@ -624,10 +631,10 @@ export default class TabsAccount extends Component {
                                                            <i className="fas fa-info-circle"></i>
                                                        </div>
                                                        <ul>
-                                                           <li>- When you hide your "online status", other members can't see if your active for the moment</li>
-                                                           <li>- Your sensitive data are: e-mail, phone, street, city and zipcode</li>
-                                                           <li>- An overview e-mail is an e-mail with all the current ongoing actions in the company like: events, new messages and so on </li>
-                                                           <li>- You will always receive the overview e-mail on 00u00 local time</li>
+                                                           <li>- {strings.getString("settings1")}</li>
+                                                           <li>- {strings.getString("settings2")}</li>
+                                                           <li>- {strings.getString("settings3")}</li>
+                                                           <li>- {strings.getString("settings4")}</li>
                                                        </ul>
                                                    </div>
                                                </div>
@@ -636,7 +643,7 @@ export default class TabsAccount extends Component {
                                    </TabPanel>
                                    <TabPanel tabId="vertical-tab-three">
                                        <div className="account-avatar">
-                                           <h4>Change avatar</h4>
+                                           <h4>{strings.getString("Change avatar")}</h4>
                                            <div className="account-avatar-box">
                                                <div className="row">
                                                    <div className="six columns">
@@ -655,9 +662,9 @@ export default class TabsAccount extends Component {
                                                            :
                                                            <div className="alert alert-red center-text">You have no rights to change your avatar.</div> }
                                                            <div className="account-avatar-info">
-                                                           <li>- Your avatar will be accessible to everyone across the website</li>
-                                                           <li>- Choose an avatar that fits to the standards of your company</li>
-                                                           <li>- Your avatar must be an image: jpeg or png file</li>
+                                                           <li>- {strings.getString("Your avatar will be accessible to everyone across the website")}</li>
+                                                           <li>- {strings.getString("Choose an avatar that fits to the standards of your company")}</li>
+                                                           <li>- {strings.getString("Your avatar must be an image (JPG or PNG file)")}</li>
                                                            </div>
                                                            </div>
                                                </div>
@@ -666,15 +673,15 @@ export default class TabsAccount extends Component {
                                    </TabPanel>
                                    <TabPanel tabId="vertical-tab-four">
                                        <div className="account-twofactor">
-                                           <h4>Two step authentication</h4>
-                                           <p>Enable two step authentication to protect your account. You can choose to authenticate by email or by receiving a text message. Text message is only available for a paid plan. </p>
-                                           <button className={(this.state.two_step) ? "button button-red no-button" : "hidden"} href="#" onClick={this.changetwoStep}>Disable</button>
-                                           <button className={(this.state.two_step) ? "hidden" : "button button-green no-button"} onClick={this.changetwoStep} href="#">Enable</button>
+                                           <h4>{strings.getString("Two step authentication")}</h4>
+                                           <p>{strings.getString("twostep text")}</p>
+                                           <button className={(this.state.two_step) ? "button button-red no-button" : "hidden"} href="#" onClick={this.changetwoStep}>{strings.getString("Disable")}</button>
+                                           <button className={(this.state.two_step) ? "hidden" : "button button-green no-button"} onClick={this.changetwoStep} href="#">{strings.getString("Enable")}</button>
                                            {this.state.two_step ? this.twoStepActive() : ""}
                                        </div>
                                    </TabPanel>
                                    <TabPanel tabId="vertical-tab-five">
-                                       <h4>Change your password</h4>
+                                       <h4>{strings.getString("Change your password")}</h4>
                                        <div className="account-password">
                                            <div id="success" className={this.state.password ? "" : "hidden"}>
                                                <Notification  type="success" title="successfully" message="Your password is succesfully been updated"/>
@@ -685,13 +692,14 @@ export default class TabsAccount extends Component {
                                                        <div id="success" className={!this.state.password_errors && this.state.password_message.length > 0 ? "alert alert-green" : "hidden"}>{this.state.password_message}</div>
                                                        <div id="success" className={this.state.password_errors ? "alert alert-red" : "hidden"}>{this.state.password_message}</div>
                                                        <form>
-                                                           <label>Old password</label>
+                                                           <label>{strings.getString("Old password")}</label>
                                                            <input type="password" className="u-full-width"  onChange={e => this.setState({ password_old: e.target.value })} />
-                                                           <label>New password</label>
+                                                           <label>{strings.getString("New password")}</label>
                                                            <input type="password" className="u-full-width"  onChange={e => this.setState({ password_new: e.target.value })}/>
-                                                           <label>Re-type new password</label>
+                                                           <label>{strings.getString("Re-type new password")}</label>
                                                            <input type="password" className="u-full-width" onChange={e => this.setState({password_checkNew: e.target.value })} />
-                                                           <a href="#success" onClick={this.updatePassword} className="button button-primary">Update password</a>
+                                                           <a href="#success" onClick={this.updatePassword} className="button button-primary"><i
+                                                               className="fas fa-save"> </i> {strings.getString("Update password")}</a>
                                                        </form>
                                                    </div>
                                                </div>
@@ -701,13 +709,13 @@ export default class TabsAccount extends Component {
                                                            <i className="fas fa-shield-alt"> </i>
                                                        </div>
                                                        <ul>
-                                                           <li>- Choose a password that no one will easily guess</li>
-                                                           <li>- Create a sentence as the basis for your password</li>
-                                                           <li>- Use at least one letter, number and special character in your password</li>
-                                                           <li>- Do not share passwords</li>
-                                                           <li>- Generate similar but distinct passwords for separate accounts</li>
-                                                           <li>- Remember to update and vary passwords</li>
-                                                           <li>- Select a password management program</li>
+                                                           <li>- {strings.getString("Choose a password that no one will easily guess")}</li>
+                                                           <li>- {strings.getString("Create a sentence as the basis for your password")}</li>
+                                                           <li>- {strings.getString("Use at least one letter, number and special character in your password")}</li>
+                                                           <li>- {strings.getString("Do not share passwords")}</li>
+                                                           <li>- {strings.getString("Generate similar but distinct passwords for separate accounts")}</li>
+                                                           <li>- {strings.getString("Remember to update and vary passwords")}</li>
+                                                           <li>- {strings.getString("Select a password management program")}</li>
                                                        </ul>
                                                    </div>
                                                </div>
@@ -717,14 +725,14 @@ export default class TabsAccount extends Component {
                                    </TabPanel>
                                    <TabPanel tabId="vertical-tab-six">
                                        <div className="account-sessions">
-                                           <h4>My sessions</h4>
+                                           <h4>{strings.getString("My sessions")}</h4>
                                            <div className="account-sessions-all">
                                                <table className="u-full-width">
                                                    <thead>
                                                    <tr>
                                                        <th>User agent</th>
-                                                       <th>Login at</th>
-                                                       <th>Logout at</th>
+                                                       <th>{strings.getString("Login at")}</th>
+                                                       <th>{strings.getString("Logout at")}</th>
                                                    </tr>
                                                    </thead>
                                                    <tbody>
@@ -742,8 +750,8 @@ export default class TabsAccount extends Component {
                                    </TabPanel>
                                    <TabPanel tabId="vertical-tab-seven">
                                        <div className="account-stats">
-                                           <h4>My statistics</h4>
-                                           <h5>Your projects of company total</h5>
+                                           <h4>{strings.getString("My statistics")}</h4>
+                                           <h5>{strings.getString("Your projects of company total")}</h5>
                                            <Progress
                                                percent={this.state.userProjects/this.state.totalProjects * 100}
                                                theme={
@@ -761,18 +769,20 @@ export default class TabsAccount extends Component {
                                                    }
                                                }
                                            />
-                                           <h5>Other stats</h5>
+                                           <h5>{strings.getString("Other stats")}</h5>
                                            <p>
                                                You're a member since <b><Timestamp time={this.state.memberSince.date} precision={2} utc={false} autoUpdate={60}   /></b>. From that moment you have <b>{this.state.totalNotifications}</b> notifications and <b>{this.state.totalActivities}</b> activities in total. You have also created <b>{this.state.totalEvents}</b> events.
                                            </p>
                                        </div>
                                    </TabPanel>
                                    <TabPanel tabId="vertical-tab-eight">
-                                           <h4>Download your data</h4>
-                                       <p>According to GDPR you have the right to retrieve all your data that we have from you. There is currently no automatic process for this. You can always complete a request on our form.</p>
-                                       <a className="button no-button button-primary" href="/support">Request my data</a>
-                                       <h4>Delete my account</h4>
-                                       <a className="button no-button button-red" href="/support">Delete my account</a>
+                                           <h4>{strings.getString("Download your data")}</h4>
+                                       <p>{strings.getString("download text")}</p>
+                                       <a className="button no-button button-primary" href="/support"><i
+                                           className="fas fa-paper-plane"></i> {strings.getString("Request my data")}</a>
+                                       <h4>{strings.getString("Delete my account")}</h4>
+                                       <a className="button no-button button-red" href="/support"><i
+                                           className="fas fa-trash-alt"></i> {strings.getString("Delete my account")}</a>
                                    </TabPanel>
                                </div>
                            </div>

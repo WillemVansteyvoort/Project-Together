@@ -13,6 +13,11 @@ import Notification from "../notification";
 import {Accordion, AccordionItem, AccordionItemBody, AccordionItemTitle} from "react-accessible-accordion";
 import {ProgressBar} from "reprogressbars";
 import Popup from 'reactjs-popup'
+import LocalizedStrings from 'localized-strings';
+import en from '../lang/en.json';
+import nl from '../lang/nl.json';
+
+let strings = new LocalizedStrings({en,nl})
 export default class ProjectCrisisCenter extends Component {
 
     constructor(props) {
@@ -52,6 +57,7 @@ export default class ProjectCrisisCenter extends Component {
     }
 
     componentWillMount() {
+        strings.setLanguage(window.Laravel.lang);
         this.getItems();
     }
 
@@ -194,12 +200,12 @@ export default class ProjectCrisisCenter extends Component {
                                                     <td className="title"><b>{item.name}</b></td>
                                                     <td className="time"><Timestamp className="time" time={item.created_at} precision={1} utc={false} autoUpdate={60}/></td>
                                                     <td>
-                                                        {item.priority === 0 ? <span><i className="fas fa-circle p1"> </i> Low Priority</span>  : ""}
-                                                        {item.priority === 1 ? <span><i className="fas fa-circle p2"> </i> Medium Priority</span>  : ""}
-                                                        {item.priority === 2 ? <span><i className="fas fa-circle p3"> </i> High Priority</span>  : ""}
+                                                        {item.priority === 0 ? <span><i className="fas fa-circle p1"> </i> {strings.getString("Low priority")}</span>  : ""}
+                                                        {item.priority === 1 ? <span><i className="fas fa-circle p2"> </i> {strings.getString("Medium priority")}</span>  : ""}
+                                                        {item.priority === 2 ? <span><i className="fas fa-circle p3"> </i> {strings.getString("High priority")}</span>  : ""}
 
                                                     </td>
-                                                    <td className="float-right"><button onClick={event => this.setSolved(item)} className="button button-primary no-button">In progress</button></td>
+                                                    <td className="float-right"><button onClick={event => this.setSolved(item)} className="button button-primary no-button">{strings.getString("In progress")}</button></td>
                                                 </tr>
                                                 </tbody>
                                             </table>
@@ -207,18 +213,18 @@ export default class ProjectCrisisCenter extends Component {
                                         <AccordionItemBody>
                                             <div className="row">
                                                 <div className="six columns">
-                                                    <h5>Description</h5>
+                                                    <h5>{strings.getString("Description")}</h5>
                                                     {item.description}
                                                 </div>
                                                 <div className="six columns">
-                                                    <h5>Creator</h5>
+                                                    <h5>{strings.getString("Creator")}</h5>
                                                     <a href={"/" +  window.Laravel.company.url + "/" + item.user.username + "/profile/"}>{item.user.name} {item.user.lastname}</a>
                                                 </div>
                                             </div>
                                             {!window.Laravel.data.ended && item.user_id === window.Laravel.user.id || window.Laravel.data.role !== 0 || window.Laravel.data.role !== 1  ?
                                                 <div className="float-right">
 
-                                                <i className="fas fa-edit" onClick={e => this.setState({edit_item: item, edit_description: item.description, edit_title: item.name, edit_priority: item.priority, edit_id: item.id, showEdit: true})}> </i>
+                                                <i className="fas fa-edit" onClick={e => this.setState({edit_item: item, edit_description: item.description, edit_title: item.name, edit_id: item.id, showEdit: true})}> </i>
                                                 <i className="fas fa-trash-alt" onClick={event => this.deleteItem(item.id)}> </i>
                                             </div>
                                                 : ""}
@@ -228,7 +234,7 @@ export default class ProjectCrisisCenter extends Component {
                             </Accordion>
                             </div>
                     ))}
-                {this.state.solved_items.length > 0 ? <h5>Solved items</h5> : ""}
+                {this.state.solved_items.length > 0 ? <h5>{strings.getString("Solved items")}</h5> : ""}
                 {this.state.solved_items.map((item, i)=> (
                     <div key={i} className="item">
                         <Accordion>
@@ -241,12 +247,12 @@ export default class ProjectCrisisCenter extends Component {
                                             <td className="title"><b>{item.name}</b></td>
                                             <td className="time"><Timestamp className="time" time={item.solvedTime} precision={1} utc={false} autoUpdate={60}/></td>
                                             <td>
-                                                {item.priority === 0 ? <span><i className="fas fa-circle p1"> </i> Low Priority</span>  : ""}
-                                                {item.priority === 1 ? <span><i className="fas fa-circle p2"> </i> Medium Priority</span>  : ""}
-                                                {item.priority === 2 ? <span><i className="fas fa-circle p3"> </i> High Priority</span>  : ""}
+                                                {item.priority === 0 ? <span><i className="fas fa-circle p1"> </i> {strings.getString("Low priority")}</span>  : ""}
+                                                {item.priority === 1 ? <span><i className="fas fa-circle p2"> </i> {strings.getString("Medium priority")}</span>  : ""}
+                                                {item.priority === 2 ? <span><i className="fas fa-circle p3"> </i> {strings.getString("High priority")}</span>  : ""}
 
                                             </td>
-                                            <td className="float-right"><button onClick={event => this.setProgress(item.id, item)} className="button button-primary no-button">Solved</button></td>
+                                            <td className="float-right"><button onClick={event => this.setProgress(item.id, item)} className="button button-primary no-button">{strings.getString("Solved")}</button></td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -254,31 +260,25 @@ export default class ProjectCrisisCenter extends Component {
                                 <AccordionItemBody>
                                     <div className="row">
                                         <div className="six columns">
-                                            <h5>Description</h5>
+                                            <h5>{strings.getString("Description")}</h5>
                                             {item.description}
                                         </div>
                                         <div className="six columns">
-                                            <h5>Solved by</h5>
+                                            <h5>{strings.getString("Solved by")}</h5>
                                             <a href={"/" +  window.Laravel.company.url + "/" + item.user.username + "/profile/"}>{item.user.name} {item.user.lastname}</a>
                                         </div>
                                     </div>
                                     <div className="row">
                                         <div className="six columns">
-                                            <h5>Created</h5>
+                                            <h5>{strings.getString("Created")}</h5>
                                             <Timestamp className="time" time={item.created_at} precision={1} utc={false} autoUpdate={60}/>
                                         </div>
                                         <div className="six columns">
-                                            <h5>Solved</h5>
+                                            <h5>{strings.getString("Solved")}</h5>
                                             <Timestamp className="time" time={item.solvedTime} precision={1} utc={false} autoUpdate={60}/>
                                         </div>
                                     </div>
                                     <div className="float-right">
-                                        {!window.Laravel.data.ended && window.Laravel.data.role !== 0 && (item.user_id === window.Laravel.user.id || window.Laravel.data.role === 2 || window.Laravel.data.role === 3) ?
-                                            <span>
-                                        <i className="fas fa-edit" onClick={e => this.setState({edit_item: item, edit_description: item.description, edit_title: item.name, edit_priority: item.priority, edit_id: item.id, showEdit: true})}> </i>
-                                        <i className="fas fa-trash-alt" onClick={event => this.deleteItem(item.id)}> </i>
-                                            </span>
-                                            : ""}
                                     </div>
                                     <div className="clear"> </div>
                                 </AccordionItemBody>
@@ -328,18 +328,18 @@ export default class ProjectCrisisCenter extends Component {
                     <div className="row">
                         <div className="four columns">
                             <div className="project-crisiscenter-left">
-                                <h5><i className="fas fa-question"></i> What's crisis center?</h5>
+                                <h5><i className="fas fa-question"></i> {strings.getString("crisisCenterTitle")}</h5>
                                 <div className="info">
-                                    The crisis center is meant for important faults or bugs that have to be solved immediately.
+                                   {strings.getString("crisiscenter text")}
 
                                 </div>
-                                <h5><i className="fas fa-exclamation"></i> Priorities</h5>
+                                <h5><i className="fas fa-exclamation"></i> {strings.getString("Priorities")}</h5>
                                 <div className="info">
-                                    There are three types of priorities: low, medium and high.
+                                    {strings.getString("Priorities text")}
                                     <div className="priority">
-                                        <span className="tag tag-green">Low</span>
-                                        <span className="tag tag-yellow">Medium</span>
-                                        <span className="tag tag-red">High</span>
+                                        <span className="tag tag-green">{strings.getString("Low")}</span>
+                                        <span className="tag tag-yellow">{strings.getString("Medium")}</span>
+                                        <span className="tag tag-red">{strings.getString("High")}</span>
                                     </div>
                                 </div>
                             </div>
@@ -355,7 +355,7 @@ export default class ProjectCrisisCenter extends Component {
                                 {((this.state.progress_items.length === 0 && this.state.solved_items.length === 0) && !this.state.loading)  ?
                                     <div className="project-loading">
                                         <i className="fab fa-centercode"> </i>
-                                        <h4>Nothing to worry!</h4>
+                                        <h4>{strings.getString("Nothing to worry!")}</h4>
                                     </div>
                                     : this.crisisCenter()}
                             </div>
@@ -370,30 +370,30 @@ export default class ProjectCrisisCenter extends Component {
                      closeOnOverlay={true}>
                     <div className="popup">
                         <div className="popup-titleBar">
-                            Make a new item
+                            {strings.getString("Make a new item")}
                             <button className="popup-btn--close"  onClick={() => this.toggleShow(false)}>✕</button>
                         </div>
                         <div className="popup-content">
                             <div className="row">
                                 <div className="six columns">
-                                    <label>Title</label>
+                                    <label>{strings.getString("Title")}</label>
                                     <div id="red">{this.state.error_name}</div>
                                     <input type="text" onChange={e => this.setState({ item_title: e.target.value })} value={this.state.item_title} />
                                 </div>
                                 <div className="six columns">
-                                    <label>Priority</label>
+                                    <label>{strings.getString("Priority")}</label>
                                     <select onChange={event => this.setState({item_priority: event.target.value})}>
-                                        <option value="0">Low</option>
-                                        <option value="1">Medium</option>
-                                        <option value="2">High</option>
+                                        <option value="0">{strings.getString("Low")}</option>
+                                        <option value="1">{strings.getString("Medium")}</option>
+                                        <option value="2">{strings.getString("High")}</option>
                                     </select>
                                 </div>
                             </div>
-                            <label>Description</label>
+                            <label>{strings.getString("Description")}</label>
                             <textarea onChange={event => this.setState({item_description: event.target.value})}></textarea>
                             <div>
                             </div>
-                            <button className="button-primary button no-button" onClick={this.createItem}>Make item</button>
+                            <button className="button-primary button no-button" onClick={this.createItem}><i className="fas fa-plus"> </i> {strings.getString("Make item")}</button>
                         </div>
                     </div>
                 </PopPop>
@@ -405,30 +405,31 @@ export default class ProjectCrisisCenter extends Component {
                     closeOnOverlay={true}>
                     <div className="popup">
                         <div className="popup-titleBar">
-                            Edit an item
+                           {strings.getString("Edit an item")}
                             <button className="popup-btn--close"  onClick={() => this.toggleEdit(false)}>✕</button>
                         </div>
                         <div className="popup-content">
                             <div className="row">
                                 <div className="six columns">
-                                    <label>Title</label>
+                                    <label>{strings.getString("Title")}</label>
                                     <div id="red">{this.state.error_editName}</div>
                                     <input type="text" onChange={e => this.setState({ edit_title: e.target.value })} value={this.state.edit_title} />
                                 </div>
                                 <div className="six columns">
                                     <label>Priority</label>
                                     <select onChange={event => this.setState({edit_priority: event.target.value})}>
-                                        <option value="0">Low</option>
-                                        <option value="1">Medium</option>
-                                        <option value="2">High</option>
+                                        <option value="0">{strings.getString("Low")}</option>
+                                        <option value="1">{strings.getString("Medium")}</option>
+                                        <option value="2">{strings.getString("High")}</option>
                                     </select>
                                 </div>
                             </div>
-                            <label>Description</label>
+                            <label>{strings.getString("Description")}</label>
                             <textarea onChange={event => this.setState({edit_priority: event.target.value})} value={this.state.edit_description}> </textarea>
                             <div>
                             </div>
-                            <button className="button-primary button no-button" onClick={this.editItem}>Edit item</button>
+                            <button className="button-primary button no-button" onClick={this.editItem}><i
+                                className="fas fa-edit"> </i> {strings.getString("Edit item")}</button>
                         </div>
                     </div>
                 </PopPop>

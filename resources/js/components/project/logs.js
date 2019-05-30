@@ -12,7 +12,11 @@ import SimpleMDEReact from "react-simplemde-editor";
 import Notification from "../notification";
 import Board from 'react-trello-for-timeline'
 import Popup from 'reactjs-popup'
+import LocalizedStrings from 'localized-strings';
+import en from '../lang/en.json';
+import nl from '../lang/nl.json';
 
+let strings = new LocalizedStrings({en,nl})
 const ReactMarkdown = require('react-markdown');
 var test = "test";
 export default class ProjectLogs extends Component {
@@ -105,6 +109,7 @@ export default class ProjectLogs extends Component {
     }
 
     componentWillMount() {
+        strings.setLanguage(window.Laravel.lang);
         this.getUsers();
         this.getLogs();
     }
@@ -168,13 +173,13 @@ export default class ProjectLogs extends Component {
                                     {this.state.currentUser === null ?
                                         <div className="project-loading">
                                             <i className="fas fa-sign-in-alt"> </i>
-                                            <h4>Choose a member on the right</h4>
+                                            <h4>{strings.getString("Choose a member on the right")}</h4>
                                         </div>
                                         :
                                         <div>
                                             {this.state.logsByUser.length === 0 ?
                                                 <div className="project-loading">
-                                                    <h4>This user have no logs</h4>
+                                                    <h4>{strings.getString("This user have no logs")}</h4>
                                                 </div>
                                                 : ""}
                                             {this.state.logsByUser.map((log, i)=> (
@@ -210,7 +215,7 @@ export default class ProjectLogs extends Component {
                      closeOnOverlay={true}>
                     <div className="popup">
                         <div className="popup-titleBar">
-                            Make a new log
+                            {strings.getString("Make a new log")}
                             <button className="popup-btn--close"  onClick={() => this.toggleShow(false)}>✕</button>
                         </div>
                         <div className="popup-content">
@@ -225,7 +230,7 @@ export default class ProjectLogs extends Component {
                                     />
                                 </div>
                             </div>
-                            <button className="button-primary button no-button" onClick={this.createLog}>Make log</button>
+                            <button className="button-primary button no-button" onClick={this.createLog}><i className="fas fa-plus"> </i> {strings.getString("Make log")}</button>
                         </div>
                     </div>
                 </PopPop>

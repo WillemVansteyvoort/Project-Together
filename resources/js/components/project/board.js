@@ -12,7 +12,11 @@ import Switch from "react-switch";
 import Notification from "../notification";
 import Board from 'react-trello-for-timeline'
 import Popup from 'reactjs-popup'
-var test = "test";
+import LocalizedStrings from 'localized-strings';
+import en from '../lang/en.json';
+import nl from '../lang/nl.json';
+
+let strings = new LocalizedStrings({en,nl})
 export default class ProjectBoard extends Component {
 
     constructor(props) {
@@ -188,6 +192,7 @@ export default class ProjectBoard extends Component {
     }
 
     componentWillMount() {
+        strings.setLanguage(window.Laravel.lang);
         this.getItems();
         this.getColumns();
         this.getUsers();
@@ -338,7 +343,7 @@ export default class ProjectBoard extends Component {
                                     :
                                     <div className="project-board-column">
                                         <i className="fas fa-plus button-primary button"> </i>
-                                        <h5>Add new column (Comming)</h5>
+                                        <h5>{strings.getString("Add new column")} </h5>
                                     </div>
                                 }
                             </div>
@@ -352,31 +357,31 @@ export default class ProjectBoard extends Component {
                     closeOnOverlay={true}>
                     <div className="popup">
                         <div className="popup-titleBar">
-                            Make a new card {test}
+                            {strings.getString("Make a new card")}
                         </div>
                             <button className="popup-btn--close"  onClick={() => this.toggleShow(false)}>✕</button>
                         <div className="popup-content">
                              <div className="row">
                                 <div className="twelve columns">
-                                    <label>Name of the card</label>
+                                    <label>{strings.getString("Name of the card")}</label>
                                     <div id="red">{this.state.error_name}</div>
                                     <input type="text" onChange={e => this.setState({ card_name: e.target.value })} value={this.state.card_name}/>
                                 </div>
                             </div>
                             <div className="row">
                                 <div className="twelve columns">
-                                    <label>Description of the card</label>
+                                    <label>{strings.getString("Description of the card")}</label>
                                     <div id="red">{this.state.error_description}</div>
                                     <textarea onChange={e => this.setState({ card_description: e.target.value })} value={this.state.card_description}> </textarea>
                                 </div>
                             </div>
                             <div className="row">
                                 <div className="six columns">
-                                     <label>Expected Time</label>
+                                     <label>{strings.getString("Expected Time")}</label>
                                     <input type="text" onChange={e => this.setState({ card_expected: e.target.value })} value={this.state.card_expected}/>
                                 </div>
                                 <div className="six columns">
-                                    <label>Card for</label>
+                                    <label>{strings.getString("Card for")}</label>
                                         <select  onChange={e => this.setState({ card_user: e.target.value })} >
                                             <option onChange={e => this.setState({ card_user: 0})}  value="0">Everyone</option>
                                             {this.state.users.map(user => (
@@ -387,14 +392,15 @@ export default class ProjectBoard extends Component {
                             </div>
                              <div className="row">
                                 <div className="twelve columns">
-                                    <label>Choose card color</label>
+                                    <label>{strings.getString("Choose card color")}</label>
                                     <button onClick={e => this.setState({ card_color: 'grey'})} className="popup-event-colors popup-event-colors--grey no-button"> </button>
                                     <button onClick={e => this.setState({ card_color: 'red'})} className="popup-event-colors popup-event-colors--red no-button"> </button>
                                     <button onClick={e => this.setState({ card_color: 'blue' })} className="popup-event-colors popup-event-colors--blue no-button"> </button>
                                     <button onClick={e => this.setState({ card_color: 'green'})} className="popup-event-colors popup-event-colors--green no-button"> </button>
                                 </div>
                              </div>
-                            <button className="button-primary button no-button" onClick={this.createCard}>Make card</button>
+                            <button className="button-primary button no-button" onClick={this.createCard}><i
+                                className="fas fa-plus"> </i> {strings.getString("Make card")}</button>
                         </div>
                     </div>
                 </PopPop>
@@ -406,13 +412,13 @@ export default class ProjectBoard extends Component {
                     closeOnOverlay={true}>
                     <div className="popup">
                         <div className="popup-titleBar">
-                            Edit this card
+                            {strings.getString("Edit this card")}
                         </div>
                             <button className="popup-btn--close"  onClick={() => this.toggleShowEdit(false)}>✕</button>
                             <div className="popup-content">
                                 <div className="row">
                                     <div className="twelve columns">
-                                        <label>Name of the card</label>
+                                        <label>{strings.getString("Name of the card")}</label>
                                         <div id="red">{this.state.error_editName}</div>
                                         <input type="text" onChange={e => this.setState({ editCard_name: e.target.value })} value={this.state.editCard_name} />
                                     </div>
@@ -420,17 +426,17 @@ export default class ProjectBoard extends Component {
                                 <div className="row">
                                     <div className="twelve columns">
                                         <div id="red">{this.state.error_editDescription}</div>
-                                        <label>Description of the card</label>
+                                        <label>{strings.getString("Description of the card")}</label>
                                         <textarea onChange={e => this.setState({ editCard_description: e.target.value })} value={this.state.editCard_description}> </textarea>
                                     </div>
                                 </div>
                                 <div className="row">
                                     <div className="six columns">
-                                        <label>Expected Time</label>
+                                        <label>{strings.getString("Expected Time")}</label>
                                         <input type="text" onChange={e => this.setState({ editCard_expected: e.target.value })} value={this.state.editCard_expected}/>
                                     </div>
                                     <div className="six columns">
-                                        <label>Card for</label>
+                                        <label>{strings.getString("Card for")}</label>
                                         <select  onChange={e => this.setState({ editCard_user: e.target.value })} >
                                             <option onChange={e => this.setState({ editCard_user: 0})}  value="0">Everyone</option>
                                             {this.state.users.map(user => (
@@ -441,15 +447,17 @@ export default class ProjectBoard extends Component {
                                 </div>
                                 <div className="row">
                                     <div className="twelve columns">
-                                        <label>Choose card color</label>
+                                        <label>{strings.getString("Choose card color")}</label>
                                         <button onClick={e => this.setState({ editCard_color: 'grey'})} className="popup-event-colors popup-event-colors--grey no-button"> </button>
                                         <button onClick={e => this.setState({ editCard_color: 'red'})} className="popup-event-colors popup-event-colors--red no-button"> </button>
                                         <button onClick={e => this.setState({ editCard_color: 'blue' })} className="popup-event-colors popup-event-colors--blue no-button"> </button>
                                         <button onClick={e => this.setState({ editCard_color: 'green'})} className="popup-event-colors popup-event-colors--green no-button"> </button>
                                     </div>
                                 </div>
-                                <button className="button-primary button no-button" onClick={this.editCard}>Edit card</button>
-                                <button className="button-red button no-button" onClick={this.deleteCard}>Delete</button>
+                                <button className="button-primary button no-button" onClick={this.editCard}><i
+                                    className="fas fa-edit"></i> {strings.getString("Edit card")}</button>
+                                <button className="button-red button no-button" onClick={this.deleteCard}><i
+                                    className="fas fa-trash-alt"> </i> {strings.getString("Delete card")}</button>
                             </div>
                     </div>
                 </PopPop>

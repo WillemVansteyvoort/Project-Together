@@ -25,22 +25,28 @@ months[9] = "OCT";
 months[10] = "NOV";
 months[11] = "DEC";
 months[12] = "JAN";
+
+import LocalizedStrings from 'localized-strings';
+import en from '../lang/en.json';
+import nl from '../lang/nl.json';
+
+let strings = new LocalizedStrings({en,nl});
 var roles  = [
     {
-        value: "watcher",
-        label: "Watcher"
+        value: "guest",
+        label: "Guest"
     },
     {
-        value: "member",
-        label: "Member"
+        value: strings.getString("Member"),
+        label: strings.getString("Member")
     },
     {
-        value: "responsable",
-        label: "Responsable"
+        value: strings.getString("Responsable"),
+        label: strings.getString("Responsable")
     },
     {
-        value: "leader",
-        label: "Leader"
+        value: strings.getString("Leader"),
+        label: strings.getString("Leader")
     },
 
 ]
@@ -134,6 +140,7 @@ export default class ProjectOverview extends Component {
     }
 
     componentWillMount() {
+        strings.setLanguage(window.Laravel.lang);
         this.getProjectInfo();
         this.getTasks();
         this.getCrisisItems();
@@ -419,18 +426,18 @@ export default class ProjectOverview extends Component {
         var days = Math.floor(res / 86400);
         return (
             <div>
-                <h6>Dates</h6>
+                <h6>{strings.getString("Dates")}</h6>
                 <div className="dashboard-project-info-date start float-left">
-                    <h6>Starts</h6>
+                    <h6>{strings.getString("Starts")}</h6>
                     <span>{start_date.getDate()} {months[start_date.getMonth()]}</span>
                     <h6>{start_date.getFullYear()}</h6>
                 </div>
                 <div className="dashboard-project-info-date end float-right">
-                    <h6>Ends</h6>
+                    <h6>{strings.getString("Ends")}</h6>
                     <span>{this.state.end_date == null ? "-" : end_date.getDate() + " " + months[end_date.getMonth()]}</span>
                     <h6>{this.state.end_date == null ? "" : end_date.getFullYear()}</h6>
                 </div>
-                <div className="float-left alert alert-black">Ends {this.state.end_date == null ? "never" : "in " + days + " days"}</div>
+                <div className="float-left alert alert-black">{this.state.end_date == null ? strings.getString("Ends never") : "Ends in " + days + " days"}</div>
                 <div className="clear"></div>
             </div>
         )
@@ -441,11 +448,11 @@ export default class ProjectOverview extends Component {
             <div className="dashboard-project">
                 <div className="row">
                     <div className="four columns">
-                        <h5>Current tasks</h5>
+                        <h5>{strings.getString("Current tasks")}</h5>
                         <div className="dashboard-project-tasks">
-                            <h6 className="float-left">Task List </h6>
+                            <h6 className="float-left">{strings.getString("Task List")}</h6>
                             <div className="clear"></div>
-                            {this.state.tasks.length === 0 ? <div className="alert alert-green center-text">You have no tasks for the moment</div> : ""}
+                            {this.state.tasks.length === 0 ? <div className="alert alert-green center-text">{strings.getString("You have no tasks for the moment")}</div> : ""}
                             {this.state.tasks.map((task, i)=> (
                                 <div className="dashboard-project-tasks-item" key={i}>
                                     <div className="dashboard-project-tasks-title float-left">
@@ -455,16 +462,16 @@ export default class ProjectOverview extends Component {
                                         <i className="fas fa-check" onClick={event => this.taskAsDone(task.id, i)}> </i>
                                     </div>
                                     <div className="clear"></div>
-                                    {task.user_id === 0 ? <span className="dashboard-project-tasks-priority">Anyone</span> :  <div className="dashboard-project-tasks-user float-left">
+                                    {task.user_id === 0 ? <span className="dashboard-project-tasks-priority">{strings.getString("Anyone")}</span> :  <div className="dashboard-project-tasks-user float-left">
                                         <img src={task.user.avatar}/>
                                     </div>}
                                     <div className="dashboard-project-tasks-item-date float-right">
-                                        {task.end_date === null ? <span><span className="float-right">No deadline</span><i className="fas fa-clock float-right"> </i></span> : <span><span className="float-right"><Timestamp className="time" time={task.end_date} precision={1} utc={false} autoUpdate={60}/></span><i className="fas fa-clock float-right"> </i></span>}
+                                        {task.end_date === null ? <span><span className="float-right">{strings.getString("No deadline")}</span><i className="fas fa-clock float-right"> </i></span> : <span><span className="float-right"><Timestamp className="time" time={task.end_date} precision={1} utc={false} autoUpdate={60}/></span><i className="fas fa-clock float-right"> </i></span>}
                                     </div>
                                 </div>
                                 ))}
                         </div>
-                    <h5>Project members {!window.Laravel.data.ended && (window.Laravel.data.role === 3 || window.Laravel.data.role === 2) ?<button className="no-button button button-primary new-user" onClick={e => this.setState({showAdd: true})}><i className="fas fa-user-plus"> </i></button>: ""}</h5>
+                    <h5>{strings.getString("Project Members")} {!window.Laravel.data.ended && (window.Laravel.data.role === 3 || window.Laravel.data.role === 2) ?<button className="no-button button button-primary new-user" onClick={e => this.setState({showAdd: true})}><i className="fas fa-user-plus"> </i></button>: ""}</h5>
                         <div className="dashboard-project-members">
                             {this.state.users.map((user, i)=> (
                                 <div key={i}>
@@ -483,16 +490,16 @@ export default class ProjectOverview extends Component {
                         </div>
                     </div>
                     <div className="eight columns">
-                        <h5>Information</h5>
+                        <h5>{strings.getString("Information")}</h5>
                         <div className="dashboard-project-info">
                             {this.dates()}
-                            <h6>Description</h6>
+                            <h6>{strings.getString("Description")}</h6>
                             <p>
                                 {this.state.description}
                             </p>
                             <div className="row">
                                 <div className="six columns">
-                                    <h6>Leaders</h6>
+                                    <h6>{strings.getString("Leaders")}</h6>
                                     <div className="dashboard-project-info-responsable">
                                         {this.state.leaders.map((user, i)=> (
                                             <div className="img__wrap">
@@ -507,7 +514,7 @@ export default class ProjectOverview extends Component {
                                 {this.state.responsables.length > 0
                                     ?
                                     <div className="six columns">
-                                        <h6>Responsables</h6>
+                                        <h6>{strings.getString("Responsables")}</h6>
                                         <div className="dashboard-project-info-responsable">
                                             {this.state.responsables.map((user, i)=> (
                                                 <div className="img__wrap">
@@ -529,7 +536,7 @@ export default class ProjectOverview extends Component {
                         <div className="row">
                             {this.state.project_crisisCenter ?
                             <div className="six columns">
-                                <h5>Crisis center</h5>
+                                <h5>{strings.getString("Crisis Center")}</h5>
                                 <div className="dashboard-project-crisiscenter">
                                     <div className="row">
                                         <div className="four columns">
@@ -548,9 +555,9 @@ export default class ProjectOverview extends Component {
                             <div className="six columns">
                                 {this.state.project_forum ?
                                     <span>
-                                        <h5>Forum activity</h5>
+                                        <h5>{strings.getString("Forum activity")}</h5>
                                         <div className="dashboard-project-forum">
-                                            {this.state.replies.length === 0 ? <div className="alert alert-blue center-text">No activity to show</div> : ""}
+                                            {this.state.replies.length === 0 ? <div className="alert alert-blue center-text">{strings.getString("No activity to show")}</div> : ""}
                                                 {this.state.replies.map((reply, i)=> (
                                                     <div key={i}>
                                                         {reply.created ? <span>New post created named: <a>{reply.post.title}</a></span> : <span>New reply on <a>{reply.post.title}</a></span>}
@@ -591,7 +598,7 @@ export default class ProjectOverview extends Component {
                      closeOnOverlay={true}>
                     <div className="popup">
                         <div className="popup-titleBar">
-                            Modify project
+                            {strings.getString('Modify project')}
                             <a className="popup-btn--close"  onClick={() => this.toggleShow(false)}>✕</a>
                         </div>
                         <div className="popup-content">
@@ -600,29 +607,29 @@ export default class ProjectOverview extends Component {
                                 onChange={(tabId) => { tabId}}
                             >
                                 <TabList>
-                                    <Tab tabFor="one" className="popup-tab">General</Tab>
+                                    <Tab tabFor="one" className="popup-tab">{strings.getString('General')}</Tab>
                                     <Tab tabFor="three" className="popup-tab">Add-ons</Tab>
-                                    <Tab tabFor="five" className="popup-tab popup-tab--rights">Advanced</Tab>
+                                    <Tab tabFor="five" className="popup-tab popup-tab--rights">{strings.getString('Advanced')}</Tab>
                                 </TabList>
                                 <div>
                                     <TabPanel tabId="one">
                                         <div className="row">
                                             <div className="twelve columns">
-                                                <label>Project name</label>
+                                                <label>{strings.getString('Project name')}</label>
                                                 <div id="red">{this.state.error_title}</div>
                                                 <input type="text" className={this.state.error_title.length > 0 ? "border-red u-full-width" : "u-full-width"} value={this.state.project_title} onChange={e => this.setState({ project_title: e.target.value })} onBlur={this.checkName} />
                                             </div>
                                         </div>
                                           <div className="row">
                                             <div className="twelve columns">
-                                                <label>Project description</label>
+                                                <label>{strings.getString('Project description')}</label>
                                                 <div id="red">{this.state.error_description}</div>
                                                 <textarea value={this.state.project_description} className={this.state.error_description.length > 0 ? "border-red u-full-width" : "u-full-width"} onChange={e => this.setState({ project_description: e.target.value  })}> </textarea>
                                             </div>
                                         </div>
                                         <div className="row">
                                             <div className="twelve columns">
-                                                <label>End date</label>
+                                                <label>{strings.getString('End date')}</label>
                                                 <div id="red">{this.state.error_date}</div>
                                                 <input type="date" value={this.state.project_end_date} onChange={e => this.setState({ project_end_date: e.target.value  })} className={this.state.error_date.length > 0 ? "border-red u-full-width" : "u-full-width"}/>
                                             </div>
@@ -635,7 +642,7 @@ export default class ProjectOverview extends Component {
                                         <div className="popup-addons">
                                             <div className="row">
                                                 <div className="three columns">
-                                                    <h5><i className="fas fa-tasks"> </i>Tasks</h5>
+                                                    <h5><i className="fas fa-tasks"> </i>{strings.getString("Tasks")}</h5>
                                                     <div>
                                                         <Switch
                                                             // onChange={this.handleChange}
@@ -647,7 +654,7 @@ export default class ProjectOverview extends Component {
                                                      </div>
                                                 </div>
                                                 <div className="three columns">
-                                                    <h5><i className="fas fa-sticky-note"></i> Notes</h5>
+                                                    <h5><i className="fas fa-sticky-note"></i> {strings.getString("Notes")}</h5>
                                                      <div>
                                                         <Switch
                                                             // onChange={this.handleChange}
@@ -698,10 +705,11 @@ export default class ProjectOverview extends Component {
                                                      </div>
                                                 </div>
                                                 <div className="three columns">
-                                                    <h5><i className="fas fa-calendar-day"> </i> Activities</h5>
+                                                    <h5><i className="fas fa-calendar-day"> </i> {strings.getString("Activities")}</h5>
                                                      <div>
                                                         <Switch
-                                                            // onChange={this.handleChange}
+                                                            onChange={this.handleChange}
+                                                            disabled={true}
                                                             checked={!!this.state.project_activities}
                                                             className="react-switch popup-addons--switch"
                                                             id="normal-switch"
@@ -709,7 +717,7 @@ export default class ProjectOverview extends Component {
                                                      </div>
                                                 </div>
                                                 <div className="three columns">
-                                                    <h5><i className="fab fa-centercode"> </i> Crisis center</h5>
+                                                    <h5><i className="fab fa-centercode"></i>{strings.getString("Crisis Center")}</h5>
                                                      <div>
                                                         <Switch
                                                             // onChange={this.handleChange}
@@ -737,16 +745,16 @@ export default class ProjectOverview extends Component {
                                         <div className="clear"></div>
                                     </TabPanel>
                                     <TabPanel tabId="five">
-                                        <h5>Other settings</h5>
+                                        <h5>{strings.getString("Other settings")}</h5>
                                         <div>
                                             <input type="checkbox" id="scales" name="feature" value="scales" onChange={e => this.setState({ project_private: !this.state.project_private})} checked={this.state.project_private} />
                                             Make this project public: this means that everyone can see the forum, tasks and so on
                                             </div>
-                                        <h5>Actions</h5>
-                                        <button className="no-button button button-red close" onClick={this.close}>Close project</button>
+                                        <h5>{strings.getString("Actions")}</h5>
+                                        <button className="no-button button button-red close" onClick={this.close}>{strings.getString("Close project")}</button>
                                         <div className="popup-tags">
                                             <h5>Tags</h5>
-                                            {this.state.project_tags.length <= 0 ? <div id="red">No tags selected</div> :
+                                            {this.state.project_tags.length <= 0 ? <div id="red">{strings.getString("No tags selected")}</div> :
                                                 <div>
                                                     {this.state.project_tags.map((tag, i) => (
                                                         <span key={i} className="tag tag-second">{tag} <i onClick={e =>this.removeTag({tag})} className="fas fa-minus-circle"> </i></span>
@@ -755,13 +763,14 @@ export default class ProjectOverview extends Component {
                                             }
                                             <form>
                                                 <input type="text" value={this.state.current_tag} className="float-left" onChange={e => this.setState({ current_tag: e.target.value})} placeholder="Party, 2019, ..." required={true}/>
-                                                <input type="submit" onClick={this.addTag} className="float-right" value="Add new tag" />
+                                                <input type="submit" onClick={this.addTag} className="float-right" value={strings.getString("Add new tag")} />
                                             </form>
                                         </div>
                                     </TabPanel>
                                 </div>
                             </Tabs>
-                            <button className="button-primary button no-button" onClick={this.editProject}>Edit project</button>
+                            <button className="button-primary button no-button" onClick={this.editProject}>
+                                <i className="fas fa-save"> </i> {strings.getString('Save changes')}</button>
                         </div>
                     </div>
                 </PopPop>
@@ -773,7 +782,7 @@ export default class ProjectOverview extends Component {
                     closeOnOverlay={true}>
                     <div className="popup">
                         <div className="popup-titleBar">
-                            Change {this.state.user_name}
+                            {strings.getString("Change")} {this.state.user_name}
                             <button className="popup-btn--close"  onClick={() => this.toggleShowUser(false)}>✕</button>
                         </div>
                         <div className="popup-content">
@@ -782,17 +791,17 @@ export default class ProjectOverview extends Component {
                                     <img src={this.state.user_avatar} />
                                 </div>
                                  <div className="six columns">
-                                    <h5>Current role</h5>
+                                    <h5>{strings.getString("Current role")}</h5>
                                      <span className="tag tag-primary">{roles[this.state.user_role].value}</span>
-                                     <h5>Change members role</h5>
+                                     <h5>{strings.getString("New members role")}</h5>
                                       <select onChange={(event) => this.setState({user_role: event.target.value})}>
-                                          <option value="0">Watcher</option>
-                                          <option value="1">Member</option>
-                                          <option value="2">Responsable</option>
-                                          <option value="3">Leader</option>
+                                          <option value="0">Guest</option>
+                                          <option value="1">{strings.getString("Member")}</option>
+                                          <option value="2">{strings.getString("Responsable")}</option>
+                                          <option value="3">{strings.getString("Leader")}</option>
                                       </select>
                                 </div>
-                                <button className="button-primary button no-button float-right" onClick={this.editUser}>Change role</button>
+                                <button className="button-primary button no-button float-right" onClick={this.editUser}><i className="fas fa-save"> </i> {strings.getString("Change role")}</button>
                             </div>
                         </div>
                     </div>
@@ -805,7 +814,7 @@ export default class ProjectOverview extends Component {
                      closeOnOverlay={true}>
                     <div className="popup">
                         <div className="popup-titleBar">
-                            New member
+                           {strings.getString("New member")}
                             <button className="popup-btn--close"  onClick={() => this.toggleShow(false)}>✕</button>
                         </div>
                         <div className="popup-content">
@@ -814,7 +823,7 @@ export default class ProjectOverview extends Component {
                                     <img src={this.state.add_avatar} />
                                 </div>
                                  <div className="six columns">
-                                     <h5>Company member</h5>
+                                     <h5>{strings.getString("Company member")}</h5>
                                      <div id="red">{this.state.error_new} </div>
                                      <select onChange={(event) => this.setState({add_userId: event.target.value})}>
                                          <option> </option>
@@ -823,15 +832,15 @@ export default class ProjectOverview extends Component {
                                             <option value={user.id} key={i}>{user.name} {user.lastname}</option>
                                         ))}
                                       </select>
-                                     <h5>Member role</h5>
+                                     <h5>{strings.getString("Members role")}</h5>
                                       <select onChange={(event) => this.setState({add_roleId: event.target.value})}>
-                                          <option value="0">Watcher</option>
-                                          <option value="1">Member</option>
-                                          <option value="2">Responsable</option>
-                                          <option value="3">Leader</option>
+                                           <option value="0">Guest</option>
+                                          <option value="1">{strings.getString("Member")}</option>
+                                          <option value="2">{strings.getString("Responsable")}</option>
+                                          <option value="3">{strings.getString("Leader")}</option>
                                       </select>
                                 </div>
-                                <button className="button-primary button no-button float-right" onClick={this.addUser}>Add member</button>
+                                <button className="button-primary button no-button float-right" onClick={this.addUser}><i className="fas fa-plus"> </i> {strings.getString("Add member")}</button>
                             </div>
                         </div>
                     </div>

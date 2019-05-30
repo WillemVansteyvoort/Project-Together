@@ -6,6 +6,11 @@ const Timestamp = require('react-timestamp');
 import {ProgressBar} from "reprogressbars";
 import PulseLoader from "./company/company";
 import {Accordion, AccordionItem, AccordionItemTitle, AccordionItemBody,} from 'react-accessible-accordion';
+import LocalizedStrings from 'localized-strings';
+import en from './lang/en.json';
+import nl from './lang/nl.json';
+
+let strings = new LocalizedStrings({en,nl});
 export default class Profile extends Component {
 
     constructor(props) {
@@ -29,6 +34,11 @@ export default class Profile extends Component {
         this.setState({
             currentPage: Number(event.target.id)
         });
+    }
+
+    componentWillMount() {
+        strings.setLanguage(window.Laravel.lang);
+
     }
 
     render() {
@@ -104,9 +114,9 @@ export default class Profile extends Component {
                     <div className="four columns">
                         <div className="user-profile-left">
                             <img src={this.state.avatar} />
-                            <h5>Last seen</h5>
+                            <h5>{strings.getString("Last seen")}</h5>
                             <span className="tag tag-primary"> <Timestamp className="seen" time={new Date(window.Profile.user[0].last_activity)} precision={3} utc={true} autoUpdate={60}  /></span>
-                            <h5>In company since</h5>
+                            <h5>{strings.getString("In company since")}</h5>
                             <span className="tag tag-primary"> <Timestamp className="seen" time={new Date(window.Profile.user[0].created_at)} precision={1} utc={true} autoUpdate={60}  /></span>
 
                             <div className="user-profile-socialmedia">
@@ -119,7 +129,7 @@ export default class Profile extends Component {
                     <div className="eight columns">
                         <div className="user-profile-info">
                             <h4><i className="fas fa-circle online"> </i>{this.state.name}</h4>
-                            <blockquote><p>{window.Profile.user[0].biografy ? window.Profile.user[0].biografy : "This user don't have a description of his own"}</p></blockquote>
+                            <blockquote><p>{window.Profile.user[0].biografy ? window.Profile.user[0].biografy : strings.getString("This user don't have a description of his own")}</p></blockquote>
                             <div className="user-profile-groups">
                                 {this.state.groups.map((group, i)=> (
                                     <span className="tag tag-second" key={i}>{group.name}</span>
@@ -130,8 +140,8 @@ export default class Profile extends Component {
                                 defaultTab="two"
                             >
                                 <TabList>
-                                    <Tab tabFor="one" className="projects-tab"><i className="fas fa-eye"> </i> Last Activities </Tab>
-                                    <Tab tabFor="two" className="projects-tab"><i className="fas fa-user"></i> About</Tab>
+                                    <Tab tabFor="one" className="projects-tab"><i className="fas fa-eye"> </i> {strings.getString("Last activities")} </Tab>
+                                    <Tab tabFor="two" className="projects-tab"><i className="fas fa-user"></i> {strings.getString("About")}</Tab>
                                 </TabList>
                                 <TabPanel tabId="one">
                                     {renderActivities}
@@ -139,21 +149,21 @@ export default class Profile extends Component {
                                     {this.state.activities.length === 0 ? "No activities no show" : ""}
                                 </TabPanel>
                                 <TabPanel tabId="two">
-                                    <h5>Contact information</h5>
+                                    <h5>{strings.getString("Contact information")}</h5>
                                     <table>
                                         <tbody>
                                         <tr>
-                                            <th>Phone:</th>
+                                            <th>{strings.getString("Phone")}:</th>
                                             <td></td>
                                             <td>{window.Profile.user[0].phone ? window.Profile.user[0].phone : <i>No number</i>}</td>
                                         </tr>
                                         <tr>
-                                            <th>Email:</th>
+                                            <th>Email</th>
                                             <td></td>
                                             <td>{window.Profile.user[0].email ? <a href={"mailto:" + window.Profile.user[0].email}>{window.Profile.user[0].email}</a> : <i>No email</i>}</td>
                                         </tr>
                                         <tr>
-                                            <th>Address:</th>
+                                            <th>{strings.getString("Address")}:</th>
                                             <td></td>
                                             <td>{window.Profile.user[0].street ?  window.Profile.user[0].street + ", " + window.Profile.user[0].city.zipcode + " " + window.Profile.user[0].city.name + " " + window.Profile.user[0].city.country.name : <i>No address</i>}</td>
                                         </tr>
@@ -164,16 +174,16 @@ export default class Profile extends Component {
                                         </tr>
                                         </tbody>
                                     </table>
-                                    <h5>Basic information</h5>
+                                    <h5>{strings.getString("Basic information")}</h5>
                                     <table>
                                         <tbody>
                                         <tr>
-                                            <th>Birthdate:</th>
+                                            <th>{strings.getString("Birthdate")}:</th>
                                             <td></td>
                                             <td>{window.Profile.user[0].birthdate ? window.Profile.user[0].birthdate : <i>No birthdate</i>}</td>
                                         </tr>
                                         <tr>
-                                            <th>Username:</th>
+                                            <th>{strings.getString("Username")}:</th>
                                             <td></td>
                                             <td>{window.Profile.user[0].username ?window.Profile.user[0].username.toLowerCase() : <i>No username</i>}</td>
                                         </tr>

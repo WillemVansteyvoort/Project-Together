@@ -34,7 +34,8 @@
         <script>
         window.Laravel = <?php echo json_encode([
             'csrfToken' => csrf_token(),
-            'user' => [
+                'lang' => App::getLocale(),
+                'user' => [
                 'id' => Auth::user()->id,
                 'name' => Auth::user()->name,
                 'lastname' => Auth::user()->lastname,

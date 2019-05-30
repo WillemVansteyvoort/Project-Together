@@ -257,7 +257,7 @@ export default class TabsDashboard extends Component {
                                 <div className="six columns">
                                     <div className="dashboard-tasks">
                                         <h5>{strings.getString("Your tasks")}</h5>
-                                        {this.state.tasks.length === 0 ? <div className="alert alert-blue center-text">You have no tasks for the moment</div> : ""}
+                                        {this.state.tasks.length === 0 ? <div className="alert alert-blue center-text">{strings.getString("You have no tasks for the moment")}</div> : ""}
                                         <table className="u-full-width">
                                             <tbody>
                                             {this.state.tasks.map((task, i) => (

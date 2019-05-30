@@ -11,7 +11,11 @@ import PopPop from 'react-poppop';
 import Switch from "react-switch";
 import Notification from "../notification";
 import Popup from 'reactjs-popup'
+import LocalizedStrings from 'localized-strings';
+import en from '../lang/en.json';
+import nl from '../lang/nl.json';
 
+let strings = new LocalizedStrings({en,nl})
 var months = new Array(11);
 months[0] = "JAN";
 months[1] = "FEB";
@@ -74,6 +78,7 @@ export default class ProjectNotes extends Component {
     }
 
     componentWillMount() {
+        strings.setLanguage(window.Laravel.lang);
         this.getNotes();
     }
 
@@ -209,7 +214,7 @@ export default class ProjectNotes extends Component {
                     {(this.state.notes.length === 0 && !this.state.loading)  ?
                         <div className="project-loading">
                             <i className="fas fa-sticky-note"> </i>
-                            <h4>Nothing to find</h4>
+                            <h4>{strings.getString("Nothing to find")}</h4>
                         </div>
                         : ""}
                 {this.state.loading ?
@@ -225,18 +230,18 @@ export default class ProjectNotes extends Component {
                      closeOnOverlay={true}>
                     <div className="popup">
                         <div className="popup-titleBar">
-                            Make a new note
+                            {strings.getString("Make a new note")}
                             <button className="popup-btn--close"  onClick={() => this.toggleShow(false)}>✕</button>
                         </div>
                         <div className="popup-content">
                             <div className="row">
                                 <div className="twelve columns">
-                                    <label>Title</label>
+                                    <label>{strings.getString("Title")}</label>
                                     <div id="red">{this.state.error_title}</div>
                                     <input type="text" className={this.state.error_title.length > 0 ? "border-red" : ""} onChange={e => this.setState({ note_title: e.target.value })} value={this.state.note_title} />
                                 </div>
                             </div>
-                            <label>Description</label>
+                            <label>{strings.getString("Description")}</label>
                             <div id="red">{this.state.error_text}</div>
                             <textarea value={this.state.note_text} className={this.state.error_text.length > 0 ? "border-red" : ""} onChange={e => this.setState({ note_text: e.target.value })}> </textarea>
                             <div>
@@ -245,9 +250,9 @@ export default class ProjectNotes extends Component {
                                     onChange={e => this.setState({ note_private: !this.state.note_private})}
                                     className="react-switch popup-rights--switch"
                                     id="normal-switch"
-                                 /><b>Make this note private </b>
+                                 /><b>{strings.getString("Make this note private")}</b>
                             </div>
-                            <button className="button-primary button no-button" onClick={this.createNote} >Make note</button>
+                            <button className="button-primary button no-button" onClick={this.createNote} ><i className="fas fa-plus"> </i> {strings.getString("Make note")}</button>
                         </div>
                     </div>
                 </PopPop>

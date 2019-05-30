@@ -8,6 +8,11 @@ import "react-sweet-progress/lib/style.css";
 import PopPop from 'react-poppop';
 import Popup from 'reactjs-popup'
 import SimpleMDEReact from "react-simplemde-editor";
+import LocalizedStrings from 'localized-strings';
+import en from '../lang/en.json';
+import nl from '../lang/nl.json';
+
+let strings = new LocalizedStrings({en,nl})
 const ReactMarkdown = require('react-markdown');
 import Notification from "../notification";
 let params = new URLSearchParams(location.search);
@@ -117,6 +122,7 @@ export default class ProjectForum extends Component {
 
 
     componentWillMount() {
+        strings.setLanguage(window.Laravel.lang);
         this.init();
         this.getReplies();
     }
@@ -369,29 +375,29 @@ export default class ProjectForum extends Component {
                             {this.state.post_open ?
                                 <div>
                                     {!window.Laravel.data.ended &&  window.Laravel.data.role !== 0  ?
-                                        <button className="button button-primary no-button" href="#reply"><i className="fas fa-reply"> </i>Reply to this post</button>
+                                        <button className="button button-primary no-button" href="#reply"><i className="fas fa-comment-dots"></i> {strings.getString("Reply to this thread")}</button>
                                         : ""}
-                                    <button className="button button-grey no-button" href="#reply" onClick={() => this.setState({post_open: false})}><i className="fas fa-chevron-left"></i>Go back</button>
+                                    <button className="button button-grey no-button" href="#reply" onClick={() => this.setState({post_open: false})}><i className="fas fa-chevron-left"></i>{strings.getString("Go back")}</button>
 
                                 </div>
                                 :
                                 <span>
                                      {!window.Laravel.data.ended &&  window.Laravel.data.role !== 0  ?
-                                        <button className="button button-primary no-button" onClick={() => this.setState({show: true})}><i className="fas fa-plus"></i> Create thread</button>
+                                        <button className="button button-primary no-button" onClick={() => this.setState({show: true})}><i className="fas fa-plus"></i> {strings.getString("Create thread")}</button>
                                         : ""}
                                 </span>
                             }
                         </div>
                         <h5>Tags</h5>
                         <ul className="dashboard-forum-tags">
-                            <li  onClick={event => this.repliesbyTag("All")}>All</li>
+                            <li  onClick={event => this.repliesbyTag("All")}>{strings.getString("All")}</li>
                             {this.state.tags.map((tag, i) => (
                                 <li key={i} onClick={event => this.repliesbyTag(tag.name)}>{tag.name}</li>
                             ))}
                         </ul>
                     </div>
                     <div className="nine columns">
-                        {this.state.replies.length === 0 ? <div className="dashboard-forum-empty"> <i className="fas fa-comments"></i><h4>Nothing to find </h4></div> : ""}
+                        {this.state.replies.length === 0 ? <div className="dashboard-forum-empty"> <i className="fas fa-comments"></i><h4>{strings.getString("Nothing to find")} </h4></div> : ""}
                         <span>
                                     {this.state.post_open ?
                                         <div className="row dashboard-forum-title">
@@ -450,11 +456,12 @@ export default class ProjectForum extends Component {
                                                     <div id="red">{this.state.error_newContent}</div>
                                                     <SimpleMDEReact
                                                         className={""}
-                                                        label="Reply to this post"
+                                                        label={strings.getString("Reply to this thread")}
                                                         value={this.state.reply_message}
                                                         onChange={this.handleChange2}
                                                     />
-                                                    <button className="button button-primary no-button"onClick={() => this.createReply()}>Reply</button>
+                                                    <button className="button button-primary no-button" onClick={() => this.createReply()}>
+                                                        <i className="fas fa-comment-dots"></i> {strings.getString('Reply')}</button>
                                                 </div>
                                         : ""}
                                             </span>
@@ -466,7 +473,7 @@ export default class ProjectForum extends Component {
                                                 <article key={i}>
                                                     <div className="item-head">
                                                         <img src={reply.user.avatar} className="float-left"/> <span><a href='#'>{reply.user.name} {reply.user.lastname}</a>
-                                                        {reply.created ? " created " : " replied "} <Timestamp className="time" time={reply.created_at} precision={1} utc={false} autoUpdate={60}/></span>
+                                                        {reply.created ? strings.getString('created') : strings.getString("replied")} <Timestamp className="time" time={reply.created_at} precision={1} utc={false} autoUpdate={60}/></span>
                                                         <div className="clear"></div>
                                                     </div>
                                                     <div className="item-body">
@@ -532,7 +539,7 @@ export default class ProjectForum extends Component {
                         closeOnOverlay={true}>
                         <div className="popup">
                             <div className="popup-titleBar">
-                                Make a new thread
+                                {strings.getString('Make a new thread')}
                                 <button className="popup-btn--close"  onClick={() => this.toggleShow(false)}>✕</button>
                             </div>
                             <div className="popup-content">
@@ -541,13 +548,13 @@ export default class ProjectForum extends Component {
                                         onChange={(tabId) => { tabId}}
                                     >
                                         <TabList>
-                                            <Tab tabFor="one" className="popup-tab">General</Tab>
-                                            <Tab tabFor="two" className="popup-tab">Tags</Tab>
+                                            <Tab tabFor="one" className="popup-tab">{strings.getString('General')}</Tab>
+                                            <Tab tabFor="two" className="popup-tab">{strings.getString('Tags')}</Tab>
                                         </TabList>
                                         <TabPanel tabId="one">
                                             <div className="row">
                                                 <div className="twelve columns">
-                                                    <label>Subject</label>
+                                                    <label>{strings.getString('Subject')}</label>
                                                     <div id="red">{this.state.error_title}</div>
                                                     <input type="text" value={this.state.post_title} onChange={e => this.setState({ post_title: e.target.value  })} />
                                                 </div>
@@ -557,7 +564,7 @@ export default class ProjectForum extends Component {
                                                     <div id="red">{this.state.error_content}</div>
                                                     <SimpleMDEReact
                                                         className={""}
-                                                        label="Message"
+                                                        label={strings.getString('Message')}
                                                         value={this.state.message}
                                                         onChange={this.handleChange1}
                                                     />
@@ -567,7 +574,7 @@ export default class ProjectForum extends Component {
                                         <TabPanel tabId="two">
                                             <div className="popup-tags">
                                                 <h5>Tags</h5>
-                                                {this.state.post_tags.length <= 0 ? <div id="red">No tags selected</div> :
+                                                {this.state.post_tags.length <= 0 ? <div id="red">{strings.getString('No tags selected')}</div> :
                                                     <div>
                                                         {this.state.post_tags.map((tag, i) => (
                                                             <span className="tag tag-second" key={i}>{tag} <i onClick={e =>this.removeTag({tag})} className="fas fa-minus-circle"> </i></span>
@@ -576,12 +583,13 @@ export default class ProjectForum extends Component {
                                                 }
                                                 <form>
                                                     <input type="text" value={this.state.current_tag} className="float-left" onChange={e => this.setState({ current_tag: e.target.value.toLowerCase()})} placeholder="Party, 2019, ..." required={true}/>
-                                                    <input type="submit" onClick={this.addTag} className="float-right" value="Add new tag" />
+                                                    <input type="submit" onClick={this.addTag} className="float-right" value={strings.getString('Add new tag')} />
                                                 </form>
                                             </div>
                                         </TabPanel>
                                     </Tabs>
-                                    <button className="button-primary button no-button" onClick={this.makePost}>Make thread</button>
+                                    <button className="button-primary button no-button" onClick={this.makePost}><i
+                                        className="fas fa-plus"> </i> {strings.getString('Make thread')}</button>
                             </div>
                         </div>
                     </PopPop>
@@ -592,7 +600,7 @@ export default class ProjectForum extends Component {
                         closeOnOverlay={true}>
                         <div className="popup">
                             <div className="popup-titleBar">
-                                Edit your reply
+                                {strings.getString('Edit your reply')}
                                 <button className="popup-btn--close"  onClick={() => this.toggleShow2(false)}>✕</button>
                             </div>
                             <div className="popup-content">
@@ -601,13 +609,14 @@ export default class ProjectForum extends Component {
                                         <div id="red">{this.state.error_replyContent}</div>
                                         <SimpleMDEReact
                                             className={""}
-                                            label="Message"
+                                            label={strings.getString('Message')}
                                             value={this.state.reply.content}
                                             onChange={this.handleChange3}
                                         />
                                     </div>
                                 </div>
-                                <button className="button-primary button no-button" onClick={this.editReply}>Change reply</button>
+                                <button className="button-primary button no-button" onClick={this.editReply}><i
+                                    className="fas fa-edit"></i> {strings.getString('Change reply')}</button>
                             </div>
                         </div>
                     </PopPop>
@@ -618,11 +627,11 @@ export default class ProjectForum extends Component {
                         closeOnOverlay={true}>
                         <div className="popup">
                             <div className="popup-titleBar">
-                                Edit your Thread
+                                {strings.getString('Edit your Thread')}
                                 <button className="popup-btn--close"  onClick={() => this.toggleShow3(false)}>✕</button>
                             </div>
                             <div className="popup-content">
-                                <label>Title</label>
+                                <label>{strings.getString('Subject')}</label>
                                 <div id="red">{this.state.error_firstTitle}</div>
                                 <input type="text" value={this.state.first_title}  onChange={event => this.setState({first_title: event.target.value})}/>
                                 <div className="row">
@@ -630,13 +639,14 @@ export default class ProjectForum extends Component {
                                         <div id="red">{this.state.error_firstContent}</div>
                                         <SimpleMDEReact
                                             className={""}
-                                            label="Message"
+                                            label={strings.getString('Message')}
                                             value={this.state.first_content}
                                             onChange={this.handleChange4}
                                         />
                                     </div>
                                 </div>
-                                <button className="button-primary button no-button" onClick={this.editFirst}>Change post</button>
+                                <button className="button-primary button no-button" onClick={this.editFirst}><i
+                                    className="fas fa-edit"></i> {strings.getString('Change thread')}</button>
                             </div>
                         </div>
                     </PopPop>

@@ -30,9 +30,17 @@ class AccountController extends Controller
     public function checkEmail(Request $request) {
 
         $exists = "no";
-        if (User::where([['email', '=', $request->user_email], ['company_id', '=', Auth::user()->company_id]])->count() > 0 && (Auth::user()->email != $request->user_email)) {
-            $exists = "yes";
+
+        if(Auth::user()->owner) {
+            if (User::where([['email', '=', $request->user_email], ['owner', '=', 1]])->count() > 0 && (Auth::user()->email != $request->user_email)) {
+                $exists = "yes";
+            }
+        } else {
+            if (User::where([['email', '=', $request->user_email], ['company_id', '=', Auth::user()->company_id]])->count() > 0 && (Auth::user()->email != $request->user_email)) {
+                $exists = "yes";
+            }
         }
+
 
         return $exists;
     }

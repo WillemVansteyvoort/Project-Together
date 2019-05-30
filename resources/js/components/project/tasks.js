@@ -20,6 +20,11 @@ import Switch from "react-switch";
 import Notification from "../notification";
 import Board from 'react-trello-for-timeline'
 import {Accordion, AccordionItem, AccordionItemBody, AccordionItemTitle} from "react-accessible-accordion";
+import LocalizedStrings from 'localized-strings';
+import en from '../lang/en.json';
+import nl from '../lang/nl.json';
+
+let strings = new LocalizedStrings({en,nl});
 export default class ProjectTasks extends Component {
 
     constructor(props) {
@@ -290,6 +295,7 @@ export default class ProjectTasks extends Component {
     }
 
     componentWillMount() {
+        strings.setLanguage(window.Laravel.lang);
         this.getLists();
         this.getUsers();
     }
@@ -320,7 +326,7 @@ export default class ProjectTasks extends Component {
             <div className="project-tasks">
                 <div className="row">
                     <div className="twelve columns">
-                        {this.state.tasks.length > 0 ? <h5>Shortly tasks</h5> : ""}
+                        {this.state.tasks.length > 0 ? <h5>{strings.getString("Shortly tasks")}</h5> : ""}
                         {this.state.lists.map((list, i)=> (
                             <span key={i}>
                                         {list.tasks.map((task, j)=> (
@@ -329,7 +335,7 @@ export default class ProjectTasks extends Component {
                                                     <article className="project-tasks-item" key={j}>
                                                         <span onClick={e => this.asDone(task.id, i, j, task.user_id)}><Checkbox shape="round" color="success"  svg={check} checked={task.status}  className="checkbox" style="width: 40px; height: 40px"></Checkbox></span>
                                                         <span  className="title">{task.title}</span>
-                                                        <span className="tag tag-second">{task.user_id !== 0 ? task.user.name : "Anyone"}</span>
+                                                        <span className="tag tag-second">{task.user_id !== 0 ? task.user.name : strings.getString("Anyone")}</span>
                                                         <div className="float-right actions">
                                                             {task.end_date !== null ? <span className="end"><Timestamp time={task.end_date} precision={2} utc={false} autoUpdate={60}   /></span> : ""}
                                                             <span className="time">{task.timer}"</span>
@@ -342,7 +348,7 @@ export default class ProjectTasks extends Component {
                                         ))}
                                     </span>
                         ))}
-                        <h5>All Lists</h5>
+                        <h5>{strings.getString("All lists")}</h5>
                         <Accordion>
                             {this.state.lists.map((list, i)=> (
                                 <AccordionItem key={i}>
@@ -355,7 +361,7 @@ export default class ProjectTasks extends Component {
                                             <article className="project-tasks-item" key={j}>
                                                 <span onClick={e => this.asDone(task.id, i, j, task.user_id)}><Checkbox shape="round" color="success"  svg={check} checked={task.status}  className="checkbox" style="width: 40px; height: 40px"></Checkbox></span>
                                                 <span  className="title">{task.title}</span>
-                                                <span className="tag tag-second">{task.user_id !== 0 ? task.user.name : "Anyone"}</span>
+                                                <span className="tag tag-second">{task.user_id !== 0 ? task.user.name : strings.getString("Anyone")}</span>
                                                 <div className="float-left">
                                                 </div>
                                                 <div className="float-right actions">
@@ -372,7 +378,7 @@ export default class ProjectTasks extends Component {
                                                 <div className="clear"> </div>
                                             </article>
                                         ))}
-                                        {list.tasks.length > 0 ? "" : <div className="alert alert-red center-text">There are no tasks found, please create one.</div>}
+                                        {list.tasks.length > 0 ? "" : <div className="alert alert-red center-text">{strings.getString("no tasks found")}</div>}
                                         <button className="no-button button button-primary" onClick={event => this.setState({showTask: true, task_list: list.id})}><i className="fas fa-plus"> </i> Add task</button>
                                     </AccordionItemBody>
                                 </AccordionItem>
@@ -435,7 +441,7 @@ export default class ProjectTasks extends Component {
                     {((this.state.lists.length === 0) && !this.state.loading)  ?
                         <div className="project-loading">
                             <i className="fas fa-tasks"> </i>
-                            <h4>Nothing to worry!</h4>
+                            <h4>{strings.getString("Nothing to worry!")}</h4>
                         </div>
                         : this.tasks()}
                 </main>
@@ -447,17 +453,17 @@ export default class ProjectTasks extends Component {
                     closeOnOverlay={true}>
                     <div className="popup">
                         <div className="popup-titleBar">
-                            Make a new list
+                            {strings.getString("Make a new list")}
                             <button className="popup-btn--close"  onClick={() => this.toggleShow(false)}>✕</button>
                         </div>
                         <div className="popup-content">
                             <form onSubmit={event => this.makeList(event)}>
                                 <div className="twelve columns">
-                                <label>Name</label>
+                                <label>{strings.getString("Name")}</label>
                                 <input value={this.state.list_name} onChange={event => this.setState({list_name: event.target.value})} type="text" required={true} />
 
                             </div>
-                            <button className="button-primary button no-button float-right">Make list</button>
+                            <button className="button-primary button no-button float-right"><i className="fas fa-plus"> </i> {strings.getString("Make list")}</button>
                             </form>
                             </div>
                     </div>
@@ -470,34 +476,34 @@ export default class ProjectTasks extends Component {
                      closeOnOverlay={true}>
                     <div className="popup">
                         <div className="popup-titleBar">
-                            Make a new task
+                            {strings.getString("Make a new task")}
                             <button className="popup-btn--close"  onClick={() => this.toggleShowTask(false)}>✕</button>
                         </div>
                         <div className="popup-content">
                             <form onSubmit={event => this.makeTask(event)}>
                                 <div className="twelve columns">
-                                <label>Name</label>
+                                <label>{strings.getString("Name")}</label>
                                 <input value={this.state.task_title} onChange={event => this.setState({task_title: event.target.value})} type="text" required={true} />
-                                <label>Description</label>
+                                <label>{strings.getString("Description")}</label>
                                 <textarea value={this.state.task_desc} onChange={event => this.setState({task_desc: event.target.value})}> </textarea>
                                 <div className="row">
                                     <div className="six columns">
-                                        <label>Task for</label>
+                                        <label>{strings.getString("Task for")}</label>
                                         <select onChange={event => this.setState({task_user: event.target.value})}>
-                                            <option value="0">Anyone</option>
+                                            <option value="0">{strings.getString("Anyone")}</option>
                                             {this.state.users.map((user, j)=> (
                                                 <option key={user.id} value={user.id}>{user.name} {user.lastname}</option>
                                             ))}
                                         </select>
                                     </div>
                                     <div className="six columns">
-                                        <label>End date</label>
+                                        <label>{strings.getString("End date")}</label>
                                         <div id="red">{this.state.error_date}</div>
-                                        <input type="datetime-local" value={this.state.task_end} onChange={event => this.setState({task_end: event.target.value})} />
+                                        <input type="datetime-local"  className="u-full-width" value={this.state.task_end} onChange={event => this.setState({task_end: event.target.value})} />
                                     </div>
                                 </div>
                             </div>
-                            <button className="button-primary button no-button float-right">Make task</button>
+                            <button className="button-primary button no-button float-right"><i className="fas fa-plus"> </i> {strings.getString("Make task")}</button>
                             </form>
                             </div>
                     </div>
@@ -510,33 +516,33 @@ export default class ProjectTasks extends Component {
                     closeOnOverlay={true}>
                     <div className="popup">
                         <div className="popup-titleBar">
-                            Edit a new task
+                            {strings.getString("Edit a new task")}
                             <button className="popup-btn--close"  onClick={() => this.toggleShowEdit(false)}>✕</button>
                         </div>
                         <div className="popup-content">
                             <form onSubmit={event => this.editTask(event)}>
                                   <div className="twelve columns">
-                                <label>Name</label>
+                                <label>{strings.getString("Name")}</label>
                                 <input value={this.state.edit_title} onChange={event => this.setState({edit_title: event.target.value})} type="text" required={true} />
-                                <label>Description</label>
+                                <label>{strings.getString("Description")}</label>
                                 <textarea value={this.state.edit_desc} onChange={event => this.setState({edit_desc: event.target.value})}> </textarea>
                                 <div className="row">
                                     <div className="six columns">
-                                        <label>Task for</label>
+                                        <label>{strings.getString("Task for")}</label>
                                         <select onChange={event => this.setState({edit_user: event.target.value})}>
-                                            <option value="0" onChange={event => this.setState({edit_user: 0})}>Anyone</option>
+                                            <option value="0" onChange={event => this.setState({edit_user: 0})}>{strings.getString("Anyone")}</option>
                                             {this.state.users.map((user, j)=> (
                                                 <option key={user.id} value={user.id}>{user.name} {user.lastname}</option>
                                             ))}
                                         </select>
                                     </div>
                                     <div className="six columns">
-                                        <label>End date</label>
-                                        <input type="datetime-local" value={this.state.edit_end} onChange={event => this.setState({edit_end: event.target.value})} />
+                                        <label>{strings.getString("End date")}</label>
+                                        <input type="datetime-local" className="u-full-width" value={this.state.edit_end} onChange={event => this.setState({edit_end: event.target.value})} />
                                     </div>
                                 </div>
                             </div>
-                            <button className="button-primary button no-button float-right">Edit task</button>
+                            <button className="button-primary button no-button float-right"><i className="fas fa-edit"></i> {strings.getString("Edit task")}</button>
                             </form>
                             </div>
                     </div>
@@ -549,18 +555,18 @@ export default class ProjectTasks extends Component {
                     closeOnOverlay={true}>
                    <div className="popup">
                         <div className="popup-titleBar">
-                            Edit a list
+                           {strings.getString("Edit a list")}
                             <button className="popup-btn--close"  onClick={() => this.toggleShowEditList(false)}>✕</button>
                         </div>
                         <div className="popup-content">
                             <form onSubmit={event => this.editList(event)}>
                                 <div className="twelve columns">
-                                <label>Name</label>
+                                <label>{strings.getString("Name")}</label>
                                 <input value={this.state.editList_name} onChange={event => this.setState({editList_name: event.target.value})} type="text" required={true} />
 
                             </div>
-                            <button className="button-primary button no-button float-left" type="submit">Edit list</button>
-                                <button className="button-red button no-button float-right" onClick={event => this.deleteList(event)}>Delete list</button>
+                            <button className="button-primary button no-button float-left" type="submit"><i className="fas fa-edit"></i> {strings.getString("Edit list")}</button>
+                                <button className="button-red button no-button float-right" onClick={event => this.deleteList(event)}><i className="fas fa-trash-alt"></i> {strings.getString("Delete list")}</button>
 
                             </form>
                             </div>

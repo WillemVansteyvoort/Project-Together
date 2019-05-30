@@ -48,6 +48,11 @@ months[9] = "Oct";
 months[10] = "Nov";
 months[11] = "Dec";
 months[12] = "Jan";
+import LocalizedStrings from 'localized-strings';
+import en from './lang/en.json';
+import nl from './lang/nl.json';
+
+let strings = new LocalizedStrings({en,nl});
 export default class Calendar extends Component {
     constructor(props) {
         super(props)
@@ -80,6 +85,10 @@ export default class Calendar extends Component {
             untilDate: '',
             untilTime: '',
             private: false,
+
+            //errors
+            error_start: '',
+            error_end: '',
         };
         //bind
         this.init = this.init.bind(this);
@@ -137,26 +146,51 @@ export default class Calendar extends Component {
 
     makeEvent(e) {
         e.preventDefault();
-        axios.post('/api/calendar/new', {
-            title: this.state.title,
-            description: this.state.description,
-            color: this.state.color,
-            fromDate: this.state.fromDate,
-            fromTime: this.state.fromTime,
-            untilDate: this.state.untilDate,
-            untilTime: this.state.untilTime,
-            private: this.state.private,
-        }).then(response => {
-            this.setState({
-                showNew: false,
-                allEvents: response.data.all,
-                selected_event: response.data.all[0]
+        let errorStart = false;
+        if(new Date(this.state.fromDate) < new Date()) {
+            errorStart = true;
+            this.setState({error_start: 'Date must be greater than yesterday'})
+        } else {
+            errorStart = false;
+            this.setState({error_start: ''})
+        }
+
+        let errorEnd = false;
+        if(this.state.untilDate !== null && new Date(this.state.untilDate) < new Date()) {
+            this.setState({error_end: 'Date must be greater than yesterday'})
+            errorEnd = true;
+        } else if(this.state.untilDate !== null && new Date(this.state.untilDate) === new Date(this.state.fromDate)) {
+            this.setState({error_end: "Date can't be the same as the start date"})
+            errorEnd = true;
+        } else {
+            errorEnd = false;
+            this.setState({error_end: ""})
+        }
+
+        if(!errorStart && !errorEnd) {
+            axios.post('/api/calendar/new', {
+                title: this.state.title,
+                description: this.state.description,
+                color: this.state.color,
+                fromDate: this.state.fromDate,
+                fromTime: this.state.fromTime,
+                untilDate: this.state.untilDate,
+                untilTime: this.state.untilTime,
+                private: this.state.private,
+            }).then(response => {
+                this.setState({
+                    showNew: false,
+                    allEvents: response.data.all,
+                    selected_event: response.data.all[0]
+                });
+                this.init();
             });
-            this.init();
-        });
+        }
+
     }
 
     componentWillMount() {
+        strings.setLanguage(window.Laravel.lang);
         this.getAll();
         this.getToday();
         this.getTomorrow();
@@ -254,7 +288,7 @@ export default class Calendar extends Component {
             month = 0;
         } else {
             this.setState({currentMonth: this.state.currentMonth-1});
-            month = this.state.currentMonth;
+            month = this.state.currentMonth-1;
         }
 
 
@@ -273,7 +307,7 @@ export default class Calendar extends Component {
             dagen[x] = day2;
         }
         //alle dagen
-        var length=  new Date(year, (month), 0).getDate();
+        var length=  new Date(year, (month+1), 0).getDate();
         for (var i = 0; i < length; i++) {
             var date = new Date(year, month, i+1);
             var events = [];
@@ -441,25 +475,28 @@ export default class Calendar extends Component {
                                             <div key={i}  onClick={e => this.getDay(event.from)}>
                                                 {/*{console.log(new Date(new Date().getFullYear(),new Date().getMonth() , new Date().getDate()))}*/}
                                                 {/*{console.log(new Date(new Date(event.from).getFullYear(), new Date(event.from).getMonth(), new Date(event.from).getDate()))}*/}
-                                                {(event.from === dag.year + "-" + (dag.month) + "-" + dag.id && event.color === "green")  ?
+                                                {((event.from === dag.year + "-" + (dag.month) + "-" + dag.id) || (event.until !== null && event.until === dag.year + "-" + (dag.month) + "-" + dag.id ))&& event.color === "green"  ?
                                                     <div  className="calendar-event calendar-event-green">
-                                                        {event.title}
+                                                        {event.until !== null && (event.from === dag.year + "-" + (dag.month) + "-" + dag.id) ? <span><b>Start</b> -  {event.title}</span> : ""}
+                                                        {event.until !== null && (event.until === dag.year + "-" + (dag.month) + "-" + dag.id) ? <span><b>{strings.getString("End")}</b> -  {event.title}</span> : ""}
+                                                        {event.until === null  ?  event.title : ""}
                                                     </div>
                                                     : ""}
-                                                {(event.from === dag.year + "-" + (dag.month) + "-" + dag.id && event.color === "red")?
+                                                {((event.from === dag.year + "-" + (dag.month) + "-" + dag.id) || (event.until !== null && event.until === dag.year + "-" + (dag.month) + "-" + dag.id ))&& event.color === "red"?
                                                     <div  className="calendar-event calendar-event-red">
-                                                        {event.title}
+                                                        {event.until !== null && (event.from === dag.year + "-" + (dag.month) + "-" + dag.id) ? <span><b>Start</b> -  {event.title}</span> : ""}
+                                                        {event.until !== null && (event.until === dag.year + "-" + (dag.month) + "-" + dag.id) ? <span><b>{strings.getString("End")}</b>  -  {event.title}</span>  : ""}
+                                                        {event.until === null  ?  event.title : ""}
                                                     </div>
                                                     : ""}
                                                 {((event.from === dag.year + "-" + (dag.month) + "-" + dag.id) || (event.until !== null && event.until === dag.year + "-" + (dag.month) + "-" + dag.id ))&& event.color === "blue" ?
                                                     <div  className="calendar-event calendar-event-blue">
                                                         {event.until !== null && (event.from === dag.year + "-" + (dag.month) + "-" + dag.id) ? <span><b>Start</b> -  {event.title}</span> : ""}
-                                                        {event.until !== null && (event.until === dag.year + "-" + (dag.month) + "-" + dag.id) ? <span><b>Einde</b> -  {event.title}</span> : ""}
+                                                        {event.until !== null && (event.until === dag.year + "-" + (dag.month) + "-" + dag.id) ? <span><b>{strings.getString("End")}</b>  -  {event.title}</span>  : ""}
                                                         {event.until === null  ?  event.title : ""}
 
                                                     </div>
                                                     : ""}
-                                                {(event.from === dag.year + "-" + (dag.month) + "-" + dag.id) && i === 3 ? "..." : ""}
                                             </div>
 
                                         ))}
@@ -472,9 +509,9 @@ export default class Calendar extends Component {
                 </div>
                 <div className="two columns no-margin">
                     <div className="calendar-sidebar">
-                        <button onClick={() => this.toggleShowNew(true)} className="button-primary button no-button"><i className="fas fa-plus"> </i> New event</button>
+                        <button onClick={() => this.toggleShowNew(true)} className="button-primary button no-button"><i className="fas fa-plus"> </i> {strings.getString('Add event')}</button>
                         <article className="calendar-overview">
-                            <h5 className="calendar-overview--title">Today</h5>
+                            <h5 className="calendar-overview--title">{strings.getString('Today')}</h5>
                             {this.state.todayAll.map((event, i) => (
                                 <div key={i} className="calendar-overview--item">
                                     <p><span id="bold">{event.from_hour}- {event.until_hour}: </span> {event.title}</p>
@@ -482,7 +519,7 @@ export default class Calendar extends Component {
                             ))}
                         </article>
                         <article className="calendar-overview">
-                            <h5 className="calendar-overview--title">Tomorrow</h5>
+                            <h5 className="calendar-overview--title">{strings.getString('Tommorrow')}</h5>
                             {this.state.tomorrowAll.map((te, i) => (
                                 <div key={i} className="calendar-overview--item">
                                     <p><span id="bold">{te.from_hour}- {event.until_hour}: </span> {te.title}</p>
@@ -508,7 +545,7 @@ export default class Calendar extends Component {
                                         <div className="popup-events-date">
                                            <h4 className="day"> {new Date(event.from).getDate()} </h4>
                                             <h5 className="month">{months[new Date(event.from).getMonth()]}</h5>
-                                            <b>Ends </b>
+                                            <b>{strings.getString('Ends')} </b>
                                             {event.until != null ? <Timestamp time={new Date(event.until)} precision={2} utc={false} autoUpdate={60}   /> : " Today"}
                                         </div>
                                     </div>
@@ -530,28 +567,30 @@ export default class Calendar extends Component {
                     closeOnOverlay={true}>
                     <div className="popup">
                         <div className="popup-titleBar">
-                            Make a new event
+                            {strings.getString('Make a new event')}
                             <button className="popup-btn--close"  onClick={() => this.toggleShowNew(false)}>✕</button>
                         </div>
                         <div className="popup-content">
                             <form onSubmit={event => this.makeEvent(event)}>
                                 <div className="row">
                                     <div className="twelve columns">
-                                        <label>Title</label>
+                                        <label>{strings.getString('Title')}</label>
                                         <input type="text" value={this.state.title}  required="true" onChange={e => this.setState({ title: e.target.value })}  />
                                     </div>
                                 </div>
-                                <label>Event description</label>
+                                <label>{strings.getString('Description')}</label>
                                 <textarea  onChange={e => this.setState({ description: e.target.value })}  required="true">{this.state.description}</textarea>
                                 <div className="popup-event">
                                     <div className="row">
                                         <div className="six columns">
-                                            <label>From</label>
+                                            <label>{strings.getString('From')}</label>
+                                            <div id="red">{this.state.error_start}</div>
                                             <input onChange={e => this.setState({ fromDate: e.target.value })} type="date"  required="true" />
                                             <input onChange={e => this.setState({ fromTime: e.target.value })} type="time" />
                                         </div>
                                         <div className="six columns">
-                                            <label>Until</label>
+                                            <label>{strings.getString('Until')}</label>
+                                            <div id="red">{this.state.error_end}</div>
                                             <input onChange={e => this.setState({ untilDate: e.target.value })} type="date" className="u-full-half" />
                                             <input onChange={e => this.setState({ untilTime: e.target.value })} type="time" className="u-full-half" />
                                         </div>
@@ -568,9 +607,10 @@ export default class Calendar extends Component {
                                         onChange={e => this.setState({ private: !this.state.private})}
                                         className="react-switch popup-rights--switch"
                                         id="normal-switch"
-                                    /><b>Make this event private </b>
+                                    /><b>{strings.getString('Make this event private')} </b>
                                 </div>
-                                <input className="button-primary button no-button" type="submit" value="Add event"/>
+                                <button className="button-primary button no-button" type="submit"><i
+                                    className="fas fa-plus"></i> {strings.getString('Add event')}</button>
                             </form>
                         </div>
                     </div>

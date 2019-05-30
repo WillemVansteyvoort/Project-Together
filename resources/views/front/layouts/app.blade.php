@@ -66,7 +66,7 @@
                         <li><a href="{{route('front_about')}}">@lang("About us")</a></li>
                         <li><a href="{{route('front_about')}}">@lang("Our team")</a></li>
                         <li><a href="documents/privacy-policy.pdf">Privacy Policy</a></li>
-                        <li><a href="">Terms of service</a></li>
+                        <li><a href="#">Terms of service</a></li>
                     </ul>
                 </div>
 
@@ -90,8 +90,8 @@
                 <h5>Community</h5>
                 <ul>
                     <li><a href="{{route('front_blog')}}">Blog</a></li>
-                    <li><a href="">Twitter</a></li>
-                    <li><a href="">Facebook</a></li>
+                    <li><a href="#">Twitter</a></li>
+                    <li><a href="#">Facebook</a></li>
                 </ul>
             </div>
         </div>

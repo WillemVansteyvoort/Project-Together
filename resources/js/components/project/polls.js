@@ -11,7 +11,11 @@ import PopPop from 'react-poppop';
 import Switch from "react-switch";
 import Notification from "../notification";
 const ReactMarkdown = require('react-markdown');
-var test = "test";
+import LocalizedStrings from 'localized-strings';
+import en from '../lang/en.json';
+import nl from '../lang/nl.json';
+
+let strings = new LocalizedStrings({en,nl})
 export default class ProjectPolls extends Component {
 
     constructor(props) {
@@ -116,7 +120,7 @@ export default class ProjectPolls extends Component {
             newOptions.push(option.content);
         });
 
-        this.setState({show_edit: true, edit_title: poll.title, edit_content: poll.content, edit_multiple: poll.multiple, edit_change: poll.change, options: newOptions, edit_id: poll.id})
+        this.setState({show_edit: true, edit_title: poll.title, edit_content: poll.content, edit_multiple: poll.multiple, edit_end_date: poll.end_date, edit_change: poll.change, options: newOptions, edit_id: poll.id})
     }
 
     editPoll() {
@@ -287,6 +291,7 @@ export default class ProjectPolls extends Component {
     }
 
     componentWillMount() {
+        strings.setLanguage(window.Laravel.lang);
         this.getPolls();
     }
 
@@ -315,7 +320,7 @@ export default class ProjectPolls extends Component {
                         <article className="project-polls-item" key={i}>
                             <div className="project-polls-head">
                                 {poll.title}
-                                <span className="votes">Total votes: {this.state.polls[i].votes.length}</span>
+                                <span className="votes">{strings.getString("Total votes")}: {this.state.polls[i].votes.length}</span>
                             </div>
                             <div className="project-polls-body">
                                 <p>{poll.content}</p>
@@ -356,11 +361,11 @@ export default class ProjectPolls extends Component {
                                 {poll.change && !poll.ended && !window.Laravel.data.ended && window.Laravel.data.role !== 0 ?
                                     <button className="button no-button button-primary"
                                             onClick={event => this.deleteVote(poll.id)}><i
-                                        className="fas fa-edit"> </i> Change vote</button>
+                                        className="fas fa-edit"> </i> {strings.getString("Change vote")}</button>
                                     :
                                     ""
                                 }
-                                <span className="date">End date: <Timestamp time={poll.end_date} precision={1} utc={false}/></span>
+                                <span className="date">{strings.getString("End date")}: <Timestamp time={poll.end_date} precision={1} utc={false}/></span>
                                 <div className="clear"> </div>
                                 <a><i className="fas fa-edit" onClick={event => this.initEdit(poll, i)}> </i></a>
                             </div>
@@ -406,37 +411,37 @@ export default class ProjectPolls extends Component {
                 closeOnOverlay={true}>
                     <div className="popup">
                         <div className="popup-titleBar">
-                            Make a new poll
+                            {strings.getString("Make a new poll")}
                             <button className="popup-btn--close"  onClick={() => this.toggleShow(false)}>✕</button>
                         </div>
                         <div className="popup-content">
                             <div className="row">
                                 <div className="twelve columns">
-                                    <label>Title</label>
+                                    <label>{strings.getString("Title")}</label>
                                     <div id="red">{this.state.error_title}</div>
                                     <input type="text" onChange={e => this.setState({ title: e.target.value })} value={this.state.title} />
                                 </div>
                             </div>
                             <div className="row">
                                 <div className="twelve columns">
-                                    <label>Description of poll</label>
+                                    <label>{strings.getString("Description of poll")}</label>
                                     <textarea onChange={event => this.setState({content: event.target.value})} value={this.state.content}> </textarea>
                                 </div>
                             </div>
-                            <label>Options</label>
+                            <label>{strings.getString("Options")}</label>
                             <div id="red">{this.state.error_options}</div>
                             <div className="popup-groups popup-poll">
-                                {this.state.options.length <= 0 ? <div className="alert alert-red">They are still no options</div> : ""}
+                                {this.state.options.length <= 0 ? <div className="alert alert-red">{strings.getString("They are still no options")}</div> : ""}
                                 {this.state.options.map((option, g) => (
                                     <li className="groups-dark" key={g}>{option} <i onClick={e => this.removeOption(option)} className="fas fa-minus-circle float-right"> </i></li>
                                 ))}
                             </div>
                             <form onSubmit={this.addOption}>
-                                <input type="text" value={this.state.currentOption} className="float-left" onChange={e => this.setState({ currentOption: e.target.value})} required={true}/>
+                                <input type="text" placeholder="Project-Together" value={this.state.currentOption} className="float-left" onChange={e => this.setState({ currentOption: e.target.value})} required={true}/>
                                 </form>
                             <div className="row">
                                 <div className="twelve columns">
-                                    <label>End date</label>
+                                    <label>{strings.getString("End date")}</label>
                                     <div id="red">{this.state.error_end_date}</div>
                                     <input type="datetime-local" className="u-full-width" onChange={e => this.setState({end_date: e.target.value})} />
                                 </div>
@@ -448,7 +453,7 @@ export default class ProjectPolls extends Component {
                                          onChange={e => this.setState({ multiple: !this.state.multiple})}
                                          className="react-switch popup-rights--switch"
                                          id="normal-switch"
-                                     /><b>Multiple voting</b>
+                                     /><b>{strings.getString("Multiple voting")}</b>
                                 </div>
                                 <div className="six columns">
                                      <Switch
@@ -456,10 +461,11 @@ export default class ProjectPolls extends Component {
                                          onChange={e => this.setState({ change: !this.state.change})}
                                          className="react-switch popup-rights--switch"
                                          id="normal-switch"
-                                     /><b>Change vote(s)</b>
+                                     /><b>{strings.getString("Change vote(s)")}</b>
                                 </div>
                             </div>
-                            <button className="button-primary button no-button" onClick={this.createPoll}>Make poll</button>
+                            <button className="button-primary button no-button" onClick={this.createPoll}><i
+                                className="fas fa-plus"> </i> {strings.getString("Make poll")}</button>
                         </div>
                     </div>
                 </PopPop>
@@ -471,27 +477,27 @@ export default class ProjectPolls extends Component {
                       closeOnOverlay={true}>
                     <div className="popup">
                         <div className="popup-titleBar">
-                            Edit a poll
+                            {strings.getString("Edit a poll")}
                             <button className="popup-btn--close"  onClick={() => this.setState({show_edit: false, options: []})}>✕</button>
                         </div>
                         <div className="popup-content">
                             <div className="row">
                                 <div className="twelve columns">
-                                    <label>Title</label>
+                                    <label>{strings.getString("Title")}</label>
                                     <div id="red">{this.state.error_title}</div>
                                     <input type="text" onChange={e => this.setState({ edit_title: e.target.value })} value={this.state.edit_title} />
                                 </div>
                             </div>
                             <div className="row">
                                 <div className="twelve columns">
-                                    <label>Description of poll</label>
+                                    <label>{strings.getString("Description of poll")}</label>
                                     <textarea onChange={event => this.setState({edit_content: event.target.value})} value={this.state.edit_content}> </textarea>
                                 </div>
                             </div>
-                            <label>Options</label>
+                            <label>{strings.getString("Options")}</label>
                             <div id="red">{this.state.error_options}</div>
                             <div className="popup-groups popup-poll">
-                                {this.state.options.length <= 0 ? <div className="alert alert-red">They are still no options</div> : ""}
+                                {this.state.options.length <= 0 ? <div className="alert alert-red">{strings.getString("They are still no options")}</div> : ""}
                                 {this.state.options.map((option, g) => (
                                     <li className="groups-dark" key={g}>{option} <i onClick={e => this.removeOption(option)} className="fas fa-minus-circle float-right"> </i></li>
                                 ))}
@@ -499,10 +505,10 @@ export default class ProjectPolls extends Component {
                             <form onSubmit={this.addOption}>
                                 <input type="text" value={this.state.currentOption} className="float-left" onChange={e => this.setState({ currentOption: e.target.value})} required={true}/>
                                 </form>
-                            <i>* When changing an option, all votes will be deleted</i>
+                            <i>* {strings.getString("alertOption")}</i>
                             <div className="row">
                                 <div className="twelve columns">
-                                    <label>End date</label>
+                                    <label>{strings.getString("End date")}</label>
                                     <div id="red">{this.state.error_end_date}</div>
                                     <input type="datetime-local" className="u-full-width" value={this.state.edit_end_date} onChange={e => this.setState({edit_end_date: e.target.value})} />
                                 </div>
@@ -514,7 +520,7 @@ export default class ProjectPolls extends Component {
                                          onChange={e => this.setState({ edit_multiple: !this.state.edit_multiple})}
                                          className="react-switch popup-rights--switch"
                                          id="normal-switch"
-                                     /><b>Multiple voting</b>
+                                     /><b>{strings.getString("Multiple voting")}</b>
                                 </div>
                                 <div className="six columns">
                                      <Switch
@@ -522,11 +528,13 @@ export default class ProjectPolls extends Component {
                                          onChange={e => this.setState({ edit_change: !this.state.edit_change})}
                                          className="react-switch popup-rights--switch"
                                          id="normal-switch"
-                                     /><b>Change vote(s)</b>
+                                     /><b>{strings.getString("Change vote(s)")}</b>
                                 </div>
                             </div>
-                            <button className="button-primary button no-button" onClick={this.editPoll}>Edit poll</button>
-                            <button className="button-red button no-button" onClick={this.deletePoll}>Delete poll</button>
+                            <button className="button-primary button no-button" onClick={this.editPoll}><i
+                                className="fas fa-edit"></i> {strings.getString("Edit poll")}</button>
+                            <button className="button-red button no-button" onClick={this.deletePoll}><i
+                                className="fas fa-trash-alt"> </i> {strings.getString("Delete poll")}</button>
 
                         </div>
                     </div>

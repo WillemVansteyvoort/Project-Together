@@ -147,9 +147,9 @@ export default class CompanyStats extends Component {
                 {window.Laravel.user.admin ?                 <button className="button button-primary company-sidebar-settings" onClick={event => this.setState({show: true})}><i className="fas fa-cog"></i>{strings.getString("Company settings")}</button>
 
                     : ""}
-                    <div>
-                        {this.state.logo.length > 0 ? <img src={"/logos/" + this.state.logo} width="100%" /> : ""}
-                    </div>
+                    {/*<div>*/}
+                        {/*{this.state.logo.length > 0 ? <img src={"/logos/" + this.state.logo} width="100%" /> : ""}*/}
+                    {/*</div>*/}
                 <PopPop
                     open={show}
                     closeOnEsc={true}
