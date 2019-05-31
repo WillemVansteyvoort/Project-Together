@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Company;
 use Illuminate\Support\Facades\Hash;
-use Laravel\Socialite\Facades\Socialite;
+use Socialite;
 use Illuminate\Support\Facades\Auth;
 use Nexmo\Laravel\Facade\Nexmo;
 use Illuminate\Support\Facades\Mail;
@@ -75,27 +75,9 @@ class LoginController extends Controller
 
     public function handleProviderCallback($provider)
     {
+        echo "jo";
         $user = Socialite::driver($provider)->user();
-
-        if($provider === "facebook") {
-            list($name) = explode(' ', $user->name);
-            $lastname = strstr($user->name, ' ');
-            $email = $user->email;
-            $avatar = $user->avatar;
-            $provider_id = $user->id;
-            return view('front.facebook', compact('name', 'lastname', 'email', 'avatar', 'provider_id', 'provider'));
-        } else if($provider === "twitter") {
-           dd($user);
-        } else if($provider === "google") {
-            $name = $user->gender;
-            $lastname = "";
-            $email = $user->email;
-            $avatar = $user->avatar;
-            return view('front.google', compact('name', 'lastname', 'email', 'avatar'));
-        }
-       // $authUser = $this->findOrCreateUser($user, $provider);
-        //Auth::login($authUser, true);
-        //return redirect($this->redirectTo);
+        echo $user->email;
     }
 
     public function facebook($user, $provider) {
