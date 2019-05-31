@@ -34,19 +34,19 @@
                 @endif
                 {!! Form::open(['action' => 'Auth\CompanyLoginController@store', 'class' => '']) !!}
                 <div id="red" class="center-text">{{session('fault')}}</div>
-                {!! Form::label('email', 'E-Mail Address'); !!}
+                {!! Form::label('email', __('E-Mail Address')); !!}
                 {!! Form::email('email', null,['placeholder' => 'example@Project-Together.com', 'required' => 'required']); !!}
-                {!! Form::label('password', 'Password'); !!}
+                {!! Form::label('password',  __('Password')); !!}
                 {!! Form::password('password', ['placeholder' => '***********', 'required' => 'required']); !!}
-                <label class="float-left">{!!Form::checkbox('remember', '1'); !!} Remember me</label>
-                <p class="float-right"><a href="{{ route('front_reset', $companyUrl) }}">Forgot your password?</a></p>
+                <label class="float-left">{!!Form::checkbox('remember', '1'); !!} @lang('Remember me')</label>
+                <p class="float-right"><a href="{{ route('front_reset', $companyUrl) }}">@lang('Forgot your password?')</a></p>
                 {!! Form::text('id', $companyId,['hidden' => 'hidden']); !!}
                 {!! Form::text('url', $companyUrl,['hidden' => 'hidden']); !!}
                     <div class="clear"></div>
-                {!!  Form::submit('Login', ['class' => '']); !!}
+                {!!  Form::submit(__('Login'), ['class' => '']); !!}
                     <div class="clear"></div>
                     {!! Form::close() !!}
-                <p class="login-company-content--copyright">© 2018 <a href="">WorkTogether</a>, all rights reserved.</p>
+                <p class="login-company-content--copyright">© 2019 <a href="{{route('front_home')}}">Project-Together</a>, all rights reserved.</p>
             </section>
         </div>
     </div>

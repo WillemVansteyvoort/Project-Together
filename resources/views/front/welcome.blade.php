@@ -6,40 +6,41 @@
         <div class="header-menu">
             <ul class="header-menu-left">
                 <li><a class="header-name" href="{{route('front_home')}}">{{ config('app.name') }}</a></li>
-                <li><a href="{{route('front_company')}}">Your company</a></li>
-                <li><a href="{{route('front_settings')}}">Settings</a></li>
+                <li><a href="{{route('front_company')}}">@lang('Your company')</a></li>
+                <li><a href="{{route('front_settings')}}">@lang('Settings')</a></li>
                 <li><a href="{{route('app_account', Auth::user()->company->url)}}">Account</a></li>
-                <li><a href="{{route('app_logout')}}">Logout</a></li>
+                <li><a href="{{route('app_logout')}}">@lang('Logout')</a></li>
             </ul>
             <ul class="header-menu-right hidden-mobile">
-                <li class="button button-small button-second uppercase"><a  href="/{{{Auth::user()->company->url}}}/dashboard">Go to {{{Auth::user()->company->name}}}</a></li>
+                <li class="button button-small button-second uppercase"><a  href="/{{{Auth::user()->company->url}}}/dashboard">@lang('Go to') {{{Auth::user()->company->name}}}</a></li>
             </ul>
         </div>
     </section>
     <section class="dark about">
         @if(!Auth::user()->verified && !session('verify_overdate'))
-            <div class="alert alert-red">This account has not been verified. You only have 2 days access to your company. <a class="float-right">Send a new verification e-mail</a></div>
+            <div class="alert alert-red">@lang('This account has not been verified. You only have 2 days access to your company.') <a class="float-right"  href="{{route('app_verify')}}">@lang("Send a new verification e-mail")</a>                <div class="clear"></div>
+            </div>
         @endif
         <div class="welcome">
             <div class="row">
                 <div class="twelve columns">
-                    <h2>Welcome to Project-Together</h2>
+                    <h2>@lang('Welcome to Project-Together')</h2>
                     <p>
-                        Hi, <b>{{{ Auth::user()->name  }}} {{Auth::user()->lastname}}</b> <br />We are very happen that your company   has chosen for us. Because you are the owner of <b>{{{ Auth::user()->company->name  }}}</b>, you have to know some things so that you can help your members and yourself.
+                      @lang('welcome1', ["company" => Auth::user()->company->name, "firstname" => Auth()->user()->name, "surname" => Auth()->user()->lastname])
                     </p>
-                    <h4>Your company link</h4>
-                    <p>You and your members can access the company by the follow url:</p>
+                    <h4>@lang('Your company link')</h4>
+                    <p>@lang('Your members and you can access the company by the follow url:')</p>
                     <span class="tag tag-primary">https://</span>
                     <input type="text" value="project-together.com/{{{ Auth::user()->company->url  }}}/login">
-                    <h4>Invite others</h4>
+                    <h4>@lang('Invite others')</h4>
                     <p>
-                        You can easily invite your colleagues to the company by sending them an email. You can do that <a href="{{route('app_company', Auth::user()->company->url)}}">here</a>.
+                        @lang('You can easily invite your colleagues to the company by sending them an email.')
                     </p>
-                    <h4>Change company settings</h4>
+                    <h4>@lang('Change company settings')</h4>
                     <p>
-                       If you want to change the company plan, name industry or even the company url, ou can go to <a href="{{route('front_settings')}}">this page</a>.
+                       @lang('If you want to change the company plan, name industry or even the company url, you can go to') <a href="{{route('front_settings')}}">@lang('this page')</a>.
                     </p>
-                    <button class="button button-small button-second uppercase no-button"><a href="/chirokalfort/dashboard">Go to Chiro Kalfort</a></button>
+                    <button class="button button-small button-second uppercase no-button"><a href="{{route('app_dashboard', Auth::user()->company->url)}}"><i class="fas fa-arrow-right"> </i> @lang('Go to') {{ Auth::user()->company->name}}</a></button>
                 </div>
             </div>
         </div>

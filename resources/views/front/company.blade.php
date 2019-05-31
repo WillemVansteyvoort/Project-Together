@@ -21,15 +21,15 @@
         </div>
 
         @if(session('verify_overdate'))
-            <div class="alert alert-red">This verification url has been expired. <a class="float-right">Send a new verification e-mail</a></div>
+            <div class="alert alert-red">@lang('This verification url has been expired.') <a class="float-right" href="{{route('app_verify')}}">Send a new verification e-mail</a></div>
         @endif
 
         @if(session('verify_success'))
-                <div class="alert alert-green">Your account has succesfully verified.</div>
+                <div class="alert alert-green">@lang('Your account has succesfully verified.')</div>
             @endif
 
             @if(!Auth::user()->verified && !session('verify_overdate'))
-                <div class="alert alert-red">This account has not been verified. You only have 2 days access to your company. <a class="float-right"  href="{{route('app_verify')}}">Send a new verification e-mail</a>                <div class="clear"></div>
+                <div class="alert alert-red">@lang('This account has not been verified. You only have 2 days access to your company.') <a class="float-right"  href="{{route('app_verify')}}">@lang("Send a new verification e-mail")</a>                <div class="clear"></div>
                 </div>
             @endif
         <div class="row">

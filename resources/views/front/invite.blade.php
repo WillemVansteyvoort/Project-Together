@@ -47,7 +47,7 @@
                     @else
                         <div id="invite-form"></div>
                     @endif
-                <p class="new-invite-content--copyright">© 2018 <a href="">WorkTogether</a>, all rights reserved.</p>
+                    <p class="login-company-content--copyright">© 2019 <a href="{{route('front_home')}}">Project-Together</a>, all rights reserved.</p>
             </section>
         </div>
     </div>

@@ -104,5 +104,19 @@
   "Password" : "Wachtwoord",
   "Login" : "Aanmelden",
   "Remember me" : "Onthoud mij",
-  "Already have an account?" : "Heeft u al een account?"
+  "Already have an account?" : "Heeft u al een account?",
+  "This verification url has been expired." : "Deze verificatie url is vervallen. Vraag nu een nieuwe aan.",
+  "Your account has succesfully verified." : "Uw account is succesvol geverifieerd.",
+  "Send a new verification e-mail" : "Verstuur een nieuwe verificatie e-mail",
+  "welcome1" : " Hallo, <b>:firstname :surname</b> <br />We zijn erg blij dat u heeft gekozen voor Project-Together. Omdat u de eigenaar bent van <b>:company</b> zijn er een paar zaken dat u moet weten zodat u uw medewerkers en uw eigen kan helpen.",
+  "Your company link" : "De link van uw bedrijf",
+  "Your members and you can access the company by the follow url:": "Uw medewerkers en u kunnen het bedrijf benaderen via de volgende persoonlijke url:",
+  "You can easily invite your colleagues to the company by sending them an email." : "U kan gemakkelijk uw medewerkers uitnodigen door hen een persoonlijke e-mail te sturen. U kan dat doen op de bedrijfspagina.",
+  "Invite others" : "Nodig uw medewerkers uit",
+ "Change company settings" : "Wijzig bedrijfsinstellingen",
+  "If you want to change the company plan, name industry or even the company url, you can go to" : "Als uw bedrijfsplan, bedrijfsnaam, industrie of de url van uw bedrijf wilt wijzigen, ga dan naar ",
+  "this page" : "deze pagina.",
+  "GO TO" : "GA NAAR",
+  "Forgot your password?": "Wachtwoord vergeten?",
+  "Reset password" : "E-mail versturen"
 }

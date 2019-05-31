@@ -32,16 +32,16 @@
                     <a href="{{route('front_loginCompany', $companyUrl)}}" class="login-company--back"><i class="fas fa-long-arrow-alt-left"></i></a>
                     <div class="clear"></div>
                 @else
-                    {!! Form::label('email', 'E-Mail Address'); !!}
+                    {!! Form::label('email', __('E-Mail Address')); !!}
                     {!! Form::email('email', null,['placeholder' => 'example@Project-Together.com', 'required' => 'required']); !!}
                     {!! Form::text('id', $companyId,['hidden' => 'hidden']); !!}
                     {!! Form::text('url', $companyUrl,['hidden' => 'hidden']); !!}
                 <a href="{{route('front_loginCompany', $companyUrl)}}" class="login-company--back"><i class="fas fa-long-arrow-alt-left"></i></a>
-                    {!!  Form::submit('Reset password', ['class' => 'float-right']); !!}
+                    {!!  Form::submit(__('Reset password'), ['class' => 'float-right']); !!}
                     <div class="clear"></div>
                 @endif
                 {!! Form::close() !!}
-                <p class="login-company-content--copyright">© 2018 <a href="">WorkTogether</a>, all rights reserved.</p>
+                <p class="login-company-content--copyright">© 2019 <a href="{{route('front_home')}}">Project-Together</a>, all rights reserved.</p>
             </section>
         </div>
     </div>

@@ -26,7 +26,7 @@
                     <li class="button button-small button-second uppercase"><a href="{{route('front_company')}}">@lang('Manage', ["company" => Auth::user()->company->name]) </a></li>
                     <li class="button button-small button-primary"><a href="{{route('app_logout')}}">@lang('Logout')</a></li>
                 @elseif(Auth::check())
-                    <li class="button button-small button-second uppercase"><a href="{{route('app_dashboard', Auth::user()->company->url)}}">GO TO {{{Auth::user()->company->name}}}</a></li>
+                    <li class="button button-small button-second uppercase"><a href="{{route('app_dashboard', Auth::user()->company->url)}}">@lang('GO TO') {{{Auth::user()->company->name}}}</a></li>
                     <li class="button button-small button-primary"><a href="{{route('app_logout')}}">Logout</a></li>
                 @else
                     <li class="button button-small button-second"><a href="{{route('front_login')}}">@lang("Login")</a></li>
