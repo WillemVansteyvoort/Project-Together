@@ -159,7 +159,7 @@ class TaskController extends Controller
     }
 
     public function widget() {
-        $tasks = Task::where([['user_id', Auth::user()->id], ['status', false], ['company_id', Auth::user()->company_id]])->orWhere([['user_id', 0], ['status', false]])->with('project')->get();
+        $tasks = Task::where([['user_id', Auth::user()->id], ['status', false], ['company_id', Auth::user()->company_id]])->orWhere([['user_id', 0], ['status', false],  ['company_id', Auth::user()->company_id]])->with('project')->get();
         return $tasks;
     }
 }
