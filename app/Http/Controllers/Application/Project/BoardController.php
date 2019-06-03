@@ -7,8 +7,11 @@ use App\Http\Controllers\Controller;
 use App\BoardItem;
 use App\Project;
 use App\Activity;
+use App\User;
 use Illuminate\Support\Facades\Auth;
 use App\Column;
+use App\Events\Notifications;
+use App\Notification;
 class BoardController extends Controller
 {
     public function getItems(Request $request) {
@@ -53,6 +56,17 @@ class BoardController extends Controller
             'type' => 16,
             'content' => 0,
         ]);
+
+        if($request->card_user != 0) {
+            $notification = Notification::create([
+                'user_id' =>$request->card_user,
+                'title' => 'New assigned card',
+                'type' => 'far fa-id-card',
+                'content' => 'you have a new assigned card in the project ' . $project->name . '.',
+            ]);
+            $user = User::findOrFail($request->card_user);
+            broadcast(new Notifications($notification,$user))->toOthers();
+        }
         
         $created = true;
         if($created) {

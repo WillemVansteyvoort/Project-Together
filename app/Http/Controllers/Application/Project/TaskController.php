@@ -7,9 +7,12 @@ use App\Http\Controllers\Controller;
 use App\Project;
 use App\Tlist;
 use App\Task;
+use App\User;
 use Illuminate\Support\Facades\Auth;
 use PhpParser\Node\Expr\List_;
 use Carbon\Carbon;
+use App\Events\Notifications;
+use App\Notification;
 use App\Activity;
 class TaskController extends Controller
 {
@@ -81,6 +84,17 @@ class TaskController extends Controller
             'content' => 0,
         ]);
 
+        if($request->task_user != 0) {
+            $notification = Notification::create([
+                'user_id' =>$request->task_user,
+                'title' => 'New assigned task',
+                'type' => 'fas fa-thumbtack',
+                'content' => 'you have a new assigned task in the project ' . $project->name . '.',
+            ]);
+            $user = User::findOrFail($request->task_user);
+            broadcast(new Notifications($notification,$user))->toOthers();
+        }
+
          return $project->taskLists;
     }
 
@@ -151,6 +165,18 @@ class TaskController extends Controller
         ]);
 
         $project = Project::where('id', '=', $task->project_id)->first();
+
+        if($request->edit_user != 0) {
+            $notification = Notification::create([
+                'user_id' =>$request->edit_user,
+                'title' => 'New assigned task',
+                'type' => 'fas fa-thumbtack',
+                'content' => 'you have a new assigned task in the project ' . $project->name . '.',
+            ]);
+            $user = User::findOrFail($request->edit_user);
+            broadcast(new Notifications($notification,$user))->toOthers();
+        }
+
         $tasks = Task::where([['project_id', $project->id], ['end_date', '>', Carbon::today()]])->get();
         return response()->json([
             'lists' => $project->taskLists,

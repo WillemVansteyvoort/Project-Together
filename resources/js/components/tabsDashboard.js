@@ -349,53 +349,159 @@ export default class TabsDashboard extends Component {
                     closeOnOverlay={true}>
                     <div className="popup">
                         <div className="popup-titleBar">
-                             Welcome
+                            {strings.getString("Welcome to Project-Together")}
                         </div>
                         <div className="popup-content popup-welcome">
                             {this.state.welcome1 ?
                                 <div>
-                                    <h2 className="center-text">Welcome <b>{window.Laravel.user.name}!</b></h2>
-                                    <p>First, we want to thank you for choosing Project-Together. We will do everything to keep you satisfied. But before you can start, we will first go over a few things so that everything is clear to you.</p>
-                                    <button className="button button-primary no-button float-right center" onClick={event => this.setState({welcome2: true, welcome1: false})}>Get started</button>
+                                    {window.Laravel.lang === "en" ?
+                                        <div>
+                                            <h2 className="center-text">Welcome <b>{window.Laravel.user.name}!</b></h2>
+                                            <p>First, we want to thank you for choosing Project-Together. We will do everything to keep you satisfied. But before you can start, we will first go over a few things so that everything is clear to you.</p>
+                                            <button className="button button-primary no-button float-right center" onClick={event => this.setState({welcome2: true, welcome1: false})}>Get started</button>
+                                        </div>
+                                        :
+                                        <div>
+                                            <h2 className="center-text">Welkom <b>{window.Laravel.user.name}!</b></h2>
+                                            <p>We willen u van harte welkom heten op Project-Together en dat u voor ons heeft gekozen. We zullen ons best doen om u tevreden te houden. Voor dat u kan beginnen, zijn er enkele zaken dat u moet te weten.</p>
+                                            <button className="button button-primary no-button float-right center" onClick={event => this.setState({welcome2: true, welcome1: false})}>Beginnen</button>
+                                        </div>
+                                    }
                                 </div>
                                 : ""}
                             {this.state.welcome2 ?
                                 <div>
-                                    <h2 className="center-text">Company login</h2>
-                                    <img src="../images/welcome1.jpg" className="img1" />
-                                    <p>Every company has a personal area where all his members can login. This means that you can't login at the homepage of Project-Together. You can <a href="login">login here.</a> We send you also an email where you can find the specific address to login.</p>
-                                    <button className="button button-primary no-button float-left center" onClick={event => this.setState({welcome2: false, welcome1: true})}>Back</button>
-                                    <button className="button button-primary no-button float-right center" onClick={event => this.setState({welcome2: false, welcome3: true})}>Next</button>
+                                    {window.Laravel.lang === "en" ?
+                                        <div>
+                                            <h2 className="center-text">Company login</h2>
+                                            <img src="../images/welcome1.jpg" className="img1"/>
+                                            <p>Every company has a personal area where all his members can login. This
+                                                means that you can't login at the homepage of Project-Together. You
+                                                can <a href="login">login here.</a> We send you also an email where you
+                                                can find the specific address to login.</p>
+                                            <button className="button button-primary no-button float-left center"
+                                                    onClick={event => this.setState({
+                                                        welcome2: false,
+                                                        welcome1: true
+                                                    })}>Back
+                                            </button>
+                                            <button className="button button-primary no-button float-right center"
+                                                    onClick={event => this.setState({
+                                                        welcome2: false,
+                                                        welcome3: true
+                                                    })}>Next
+                                            </button>
+                                        </div>
+                                        :
+                                        <div>
+                                            <h2 className="center-text">Bedrijflogin</h2>
+                                            <img src="../images/welcome1.jpg" className="img1"/>
+                                            <p>Elk bedrijf heeft een eigen persoonlijke inlogpagina waar alle gebruikers kunnen inloggen. Dit betekent dat u niet kan inloggen via de homepagina van Project-Together (Behalve eigenaars). U kan altijd <a>hier</a> inloggen.</p>
+                                            <button className="button button-primary no-button float-left center"
+                                                    onClick={event => this.setState({
+                                                        welcome2: false,
+                                                        welcome1: true
+                                                    })}>Vorige
+                                            </button>
+                                            <button className="button button-primary no-button float-right center"
+                                                    onClick={event => this.setState({
+                                                        welcome2: false,
+                                                        welcome3: true
+                                                    })}>Volgende
+                                            </button>
+                                        </div>
+                                    }
                                 </div>
                                 : ""}
                             {this.state.welcome3 ?
                                 <div>
-                                    <h2 className="center-text">Dashboard</h2>
-                                    <div className="center-text">
-                                        <i className="fas fa-tachometer-alt"> </i>
-                                    </div>
-                                    <p>You are currently on your dashboard. This is the central location of your account. Here you can quickly see which tasks you have to do, upcoming events, message from the company, your notifications and activities.</p>
-                                    <button className="button button-primary no-button float-left center" onClick={event => this.setState({welcome3: false, welcome2: true})}>Back</button>
-                                    <button className="button button-primary no-button float-right center" onClick={event => this.setState({welcome3: false, welcome4: true})}>Next</button>
+                                    {window.Laravel.lang === "en" ?
+                                        <div>
+                                            <h2 className="center-text">Dashboard</h2>
+                                            <div className="center-text">
+                                                <i className="fas fa-tachometer-alt"> </i>
+                                            </div>
+                                            <p>You are currently on your dashboard. This is the central location of your
+                                                account. Here you can quickly see which tasks you have to do, upcoming
+                                                events, message from the company, your notifications and activities.</p>
+                                            <button className="button button-primary no-button float-left center"
+                                                    onClick={event => this.setState({
+                                                        welcome3: false,
+                                                        welcome2: true
+                                                    })}>Back
+                                            </button>
+                                            <button className="button button-primary no-button float-right center"
+                                                    onClick={event => this.setState({
+                                                        welcome3: false,
+                                                        welcome4: true
+                                                    })}>Next
+                                            </button>
+                                        </div>
+                                        :
+                                        <div>
+                                            <h2 className="center-text">Dashboard</h2>
+                                            <div className="center-text">
+                                                <i className="fas fa-tachometer-alt"> </i>
+                                            </div>
+                                            <p>U bevindt zich momenteel op uw dashboard. Dit is de centrale plaats van uw account. Hier kan u snel zien welke taken u te doen heeft, uw opkomende evenmenten en uw notificaties en activiteiten.</p>
+                                            <button className="button button-primary no-button float-left center"
+                                                    onClick={event => this.setState({
+                                                        welcome3: false,
+                                                        welcome2: true
+                                                    })}>Vorige
+                                            </button>
+                                            <button className="button button-primary no-button float-right center"
+                                                    onClick={event => this.setState({
+                                                        welcome3: false,
+                                                        welcome4: true
+                                                    })}>Volgende
+                                            </button>
+                                        </div>
+                                    }
                                 </div>
                                 : ""}
                             {this.state.welcome4 ?
                                 <div>
-                                    <h2 className="center-text">Account</h2>
-                                    <p>If you want change some information or complete your profile, click on your name on the right above the page.</p>
-                                    <p className="center-text"><img src="../images/account.gif"  /></p>
-                                    <button className="button button-primary no-button float-left center" onClick={event => this.setState({welcome4: false, welcome3: true})}>Back</button>
-                                    {(window.Laravel.user.admin || window.Laravel.rights.create_projects) ? <button className="button button-primary no-button float-right center" onClick={event => this.setState({welcome4: false, welcome5: true})}>Next</button>
-                                        : <button className="button button-primary no-button float-right center" onClick={event => this.welcomeIsDone()}>Done</button>}
+                                    {window.Laravel.lang === "en" ?
+                                        <div>
+                                            <h2 className="center-text">Account</h2>
+                                            <p>If you want change some information or complete your profile, click on your name on the right above the page.</p>
+                                            <p className="center-text"><img src="../images/account.gif"  /></p>
+                                            <button className="button button-primary no-button float-left center" onClick={event => this.setState({welcome4: false, welcome3: true})}>Back</button>
+                                            {(window.Laravel.user.admin || window.Laravel.rights.create_projects) ? <button className="button button-primary no-button float-right center" onClick={event => this.setState({welcome4: false, welcome5: true})}>Next</button>
+                                                : <button className="button button-primary no-button float-right center" onClick={event => this.welcomeIsDone()}>Done</button>}
+                                        </div>
+                                        :
+                                        <div>
+                                            <h2 className="center-text">Account</h2>
+                                            <p>Als u uw account wil wijzigen of vervolledigen, dan kan u naar uw accountinstellingen gaan door op uw naam te klikken rechtsboven.</p>
+                                            <p className="center-text"><img src="../images/account.gif"  /></p>
+                                            <button className="button button-primary no-button float-left center" onClick={event => this.setState({welcome4: false, welcome3: true})}>Vorige</button>
+                                            {(window.Laravel.user.admin || window.Laravel.rights.create_projects) ? <button className="button button-primary no-button float-right center" onClick={event => this.setState({welcome4: false, welcome5: true})}>Volgende</button>
+                                                : <button className="button button-primary no-button float-right center" onClick={event => this.welcomeIsDone()}>Afronden</button>}
+                                        </div>
+                                        }
                                 </div>
                                 : ""}
                             {this.state.welcome5 && (window.Laravel.user.admin || window.Laravel.rights.create_projects) ?
                                 <div>
-                                    <h2 className="center-text">New project</h2>
-                                    <p>You have permissions to create new projects. You can do that by clicking on the "new project" button wich is located on the navigation.</p>
-                                    <p className="center-text"><img src="../images/project.gif" className="img6" /></p>
-                                    <button className="button button-primary no-button float-left center" onClick={event => this.setState({welcome5: false, welcome4: true})}>Back</button>
-                                    <button className="button button-primary no-button float-right center" onClick={event => this.welcomeIsDone()}>Done</button>
+                                    {window.Laravel.lang === "en" ?
+                                        <div>
+                                            <h2 className="center-text">New project</h2>
+                                            <p>You have permissions to create new projects. You can do that by clicking on the "new project" button wich is located on the navigation.</p>
+                                            <p className="center-text"><img src="../images/project.gif" className="img6" /></p>
+                                            <button className="button button-primary no-button float-left center" onClick={event => this.setState({welcome5: false, welcome4: true})}>Back</button>
+                                            <button className="button button-primary no-button float-right center" onClick={event => this.welcomeIsDone()}>Done</button>
+                                            </div>
+                                        :
+                                        <div>
+                                            <h2 className="center-text">Nieuw project</h2>
+                                            <p>U hebt permissies om projecten aan te maken. Klik op de  knop "nieuw project" in de navigatie bovenaan om een nieuwe aan te maken.</p>
+                                            <p className="center-text"><img src="../images/project.gif" className="img6" /></p>
+                                            <button className="button button-primary no-button float-left center" onClick={event => this.setState({welcome5: false, welcome4: true})}>Vorige</button>
+                                            <button className="button button-primary no-button float-right center" onClick={event => this.welcomeIsDone()}>Afronden</button>
+                                        </div>
+                                    }
                                 </div>
                                 : ""}
                         </div>
