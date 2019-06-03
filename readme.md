@@ -4,6 +4,21 @@ Project-Together is designed to help companies and groups organize their project
 
 The development of Project-Together was started in 2018. The first version was published in the summer of 2019. Originally, Project-Together was a final task for an IT course in the secondary school called Busleyden Atheneum Campus Zandpoort that's located in Malines, Belgium.
 
+## Used libaries
+https://github.com/toomuchdesign/react-minimal-pie-chart
+https://www.npmjs.com/package/react-sweet-progress
+https://www.npmjs.com/package/react-timestamp
+https://rexxars.github.io/react-markdown/
+https://simplemde.com/
+https://www.npmjs.com/package/react-switch
+https://reacttraining.com/react-router/web/example/basic
+https://carbon.nesbot.com/docs/
+https://github.com/tlaverdure/laravel-echo-server
+https://socket.io/
+https://github.com/laravel/socialite 
+http://image.intervention.io/
+https://react-select.com/home
+
 ## Types of activities
 
 ### Tasks
