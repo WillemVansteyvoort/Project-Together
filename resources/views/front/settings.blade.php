@@ -11,7 +11,7 @@
                 <li><a href="{{route('app_logout')}}">@lang('Logout')</a></li>
             </ul>
             <ul class="header-menu-right hidden-mobile">
-                <li class="button button-small button-second uppercase"><a  href=" {{{Auth::user()->company->url}}}/dashboard">@lang('Go to') {{{Auth::user()->company->name}}}</a></li>
+                <li class="button button-small button-second uppercase"><a  href="/{{{Auth::user()->company->url}}}/dashboard">@lang('Go to') {{{Auth::user()->company->name}}}</a></li>
             </ul>
         </div>
     </section>
