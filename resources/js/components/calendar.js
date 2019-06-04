@@ -181,7 +181,15 @@ export default class Calendar extends Component {
                 this.setState({
                     showNew: false,
                     allEvents: response.data.all,
-                    selected_event: response.data.all[0]
+                    selected_event: response.data.all[0],
+                    title: '',
+                    description: '',
+                    color: '',
+                    fromDate: '',
+                    fromTime: '',
+                    untilDate: '',
+                    untilTime: '',
+                    private: false,
                 });
                 this.init();
             });
@@ -478,7 +486,7 @@ export default class Calendar extends Component {
                                                 {((event.from === dag.year + "-" + (dag.month) + "-" + dag.id) || (event.until !== null && event.until === dag.year + "-" + (dag.month) + "-" + dag.id ))&& event.color === "green"  ?
                                                     <div  className="calendar-event calendar-event-green">
                                                         {event.until !== null && (event.from === dag.year + "-" + (dag.month) + "-" + dag.id) ? <span><b>Start</b> -  {event.title}</span> : ""}
-                                                        {event.until !== null && (event.until === dag.year + "-" + (dag.month) + "-" + dag.id) ? <span><b>{strings.getString("End")}</b> -  {event.title}</span> : ""}
+                                                        {event.until !== null && (event.until === dag.year + "-" + (dag.month) + "-" + dag.id) ? <span><b>{strings.getString("End")}</b>  -  {event.title}</span>  : ""}
                                                         {event.until === null  ?  event.title : ""}
                                                     </div>
                                                     : ""}
