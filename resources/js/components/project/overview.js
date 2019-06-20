@@ -33,8 +33,8 @@ import nl from '../lang/nl.json';
 let strings = new LocalizedStrings({en,nl});
 var roles  = [
     {
-        value: "guest",
-        label: "Guest"
+        value: strings.getString("Guest"),
+        label: strings.getString("Guest")
     },
     {
         value: strings.getString("Member"),

@@ -17,20 +17,21 @@ let strings = new LocalizedStrings({en,nl});
 import Notification from '../notification';
 var roles  = [
     {
-        value: "member",
-        label: "member"
+
+        value: strings.getString("Guest"),
+        label: strings.getString("Guest")
     },
     {
-        value: "watcher",
-        label: "watcher"
+        value: strings.getString("Member"),
+        label: strings.getString("Member")
     },
     {
-        value: "responsable",
-        label: "responsable"
+        value: strings.getString("Responsable"),
+        label: strings.getString("Responsable")
     },
     {
-        value: "leader",
-        label: "leader"
+        value: strings.getString("Leader"),
+        label: strings.getString("Leader")
     },
 
 ]
@@ -345,7 +346,7 @@ export default class PopupNewProject extends Component {
 
 
                 var array = [...this.state.memberOptions];
-            var index = this.state.memberOptions.map(function(e) { return e.label; }).indexOf(window.Laravel.user.name + " " + window.Laravel.user.lastname);
+            var index = this.state.memberOptions.map(function(e) { return e.unique; }).indexOf(window.Laravel.user.id);
             array.splice(index, 1);
             this.setState({memberOptions: array});
             var item = {

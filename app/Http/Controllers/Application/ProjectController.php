@@ -273,7 +273,7 @@ class ProjectController extends SlugifyController
         $end_date = $project_all->end_date;
         $members = $project_all->users;
         $desc = $project_all->description;
-        $ended = 0;
+        $ended = false;
         if($end_date <= Carbon::now() && $end_date != null || $project_all->status === 2) {
             $ended = true;
         }
