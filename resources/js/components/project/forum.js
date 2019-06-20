@@ -549,7 +549,7 @@ export default class ProjectForum extends Component {
                                     >
                                         <TabList>
                                             <Tab tabFor="one" className="popup-tab">{strings.getString('General')}</Tab>
-                                            <Tab tabFor="two" className="popup-tab">{strings.getString('Tags')}</Tab>
+                                            <Tab tabFor="two" className="popup-tab">Tags</Tab>
                                         </TabList>
                                         <TabPanel tabId="one">
                                             <div className="row">
