@@ -380,9 +380,9 @@ export default class PopupNewUser extends Component {
                                 <TabList>
                                     <Tab tabFor="one" className="popup-tab">{strings.getString("General")}</Tab>
                                     <Tab tabFor="two" className="popup-tab">{strings.getString("Advanced")}</Tab>
-                                    <Tab tabFor="five" className="popup-tab">{strings.getString("Groups")}</Tab>
-                                    <Tab tabFor="three" className="popup-tab">{strings.getString("Settings")}</Tab>
-                                    <Tab tabFor="four" className="popup-tab popup-tab--rights">{strings.getString("Rights")}</Tab>
+                                    <Tab tabFor="three" className="popup-tab">{strings.getString("Groups")}</Tab>
+                                    <Tab tabFor="four" className="popup-tab popup-tab--rights">{strings.getString("Settings")} </Tab>
+                                    <Tab tabFor="five" className="popup-tab">{strings.getString("Rights")}</Tab>
 
                                 </TabList>
                                 {this.state.updated ?  <div className="alert alert-green center-text">{this.state.updated_message}
